@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "buildCommand": null,
+  "outputDirectory": "SRC",
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+
