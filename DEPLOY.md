@@ -63,3 +63,4 @@ Die Website wird automatisch deployed und ist unter einer `.vercel.app` Domain e
 - `sitemap.xml` - SEO Sitemap
 - `.gitignore` - Git Ignore Regeln
 
+
