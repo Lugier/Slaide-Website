@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Slaide Landing Page - Zero-Defect Reporting",
   "scripts": {
-    "build": "node \"node_modules\\tailwindcss\\lib\\cli.js\" -i SRC/input.css -o SRC/styles.css --minify",
-    "build:css": "node \"node_modules\\tailwindcss\\lib\\cli.js\" -i SRC/input.css -o SRC/styles.css --minify"
+    "build": "npx tailwindcss -i SRC/input.css -o SRC/styles.css --minify",
+    "build:css": "npx tailwindcss -i SRC/input.css -o SRC/styles.css --minify"
   },
   "private": true,
   "main": "index.js",
