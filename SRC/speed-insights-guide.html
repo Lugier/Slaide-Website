@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Getting started with Vercel Speed Insights - A comprehensive guide to enable performance monitoring for your projects.">
+    <meta name="keywords" content="Vercel, Speed Insights, Performance, Monitoring, Guide">
+    <meta name="author" content="Vercel">
+    <title>Getting Started with Speed Insights | Vercel</title>
+    
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+    
+    <link rel="canonical" href="https://www.slaide.de/speed-insights-guide.html">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #2563eb;
+            --bg-light: #ffffff;
+            --bg-off: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #1e293b;
+            background-color: var(--bg-light);
+            scroll-behavior: smooth;
+        }
+        
+        body { opacity: 0; transition: opacity 0.3s ease-in; }
+        body.loaded { opacity: 1; }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .code-block {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        
+        .code-block code {
+            color: #e2e8f0;
+        }
+        
+        .tab-button {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .tab-button.active {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .note-box {
+            background-color: #eff6ff;
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            border-radius: 0.25rem;
+            margin: 1rem 0;
+        }
+        
+        .note-box.warning {
+            background-color: #fef3c7;
+            border-left-color: #f59e0b;
+        }
+        
+        h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem 0;
+            color: var(--primary);
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem 0;
+            color: var(--primary);
+        }
+        
+        p {
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+        
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+            line-height: 1.8;
+        }
+        
+        li {
+            margin: 0.5rem 0;
+        }
+        
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .framework-specific {
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            background-color: var(--bg-off);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--accent);
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+        
+        @media (max-width: 640px) {
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.body.classList.add('loaded');
+            }, 50);
+        });
+    </script>
+    
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white border-b border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="index.html" class="text-2xl font-bold text-blue-600">Slaide</a>
+            <div class="flex gap-4">
+                <a href="index.html" class="text-gray-600 hover:text-gray-900">Home</a>
+                <a href="#" class="text-blue-600 font-semibold">Docs</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-12 reveal">
+        <!-- Header -->
+        <div class="mb-12">
+            <h1 class="text-4xl font-bold text-slate-900 mb-4">Getting Started with Speed Insights</h1>
+            <p class="text-xl text-gray-600">This guide will help you get started with using Vercel Speed Insights on your project, showing you how to enable it, add the package to your project, deploy your app to Vercel, and view your data in the dashboard.</p>
+            <p class="text-gray-600 mt-4">To view instructions on using the Vercel Speed Insights in your project for your framework, use the <strong>Choose a framework</strong> dropdown on the right (at the bottom in mobile view).</p>
+        </div>
+        
+        <!-- Table of Contents -->
+        <div class="bg-slate-50 p-6 rounded-lg mb-12">
+            <h2 class="text-lg font-semibold mb-4">Table of Contents</h2>
+            <ul class="space-y-2">
+                <li><a href="#prerequisites" class="hover:underline">Prerequisites</a></li>
+                <li><a href="#enable-speed-insights" class="hover:underline">Enable Speed Insights in Vercel</a></li>
+                <li><a href="#add-package" class="hover:underline">Add @vercel/speed-insights to your project</a></li>
+                <li><a href="#add-component" class="hover:underline">Add the SpeedInsights component to your app</a></li>
+                <li><a href="#deploy" class="hover:underline">Deploy your app to Vercel</a></li>
+                <li><a href="#view-data" class="hover:underline">View your data in the dashboard</a></li>
+                <li><a href="#next-steps" class="hover:underline">Next Steps</a></li>
+            </ul>
+        </div>
+        
+        <!-- Prerequisites -->
+        <section id="prerequisites">
+            <h2>Prerequisites</h2>
+            <ul>
+                <li>A Vercel account. If you don't have one, you can <a href="https://vercel.com/signup" target="_blank">sign up for free</a>.</li>
+                <li>A Vercel project. If you don't have one, you can <a href="https://vercel.com/new" target="_blank">create a new project</a>.</li>
+                <li>The Vercel CLI installed. If you don't have it, you can install it using the following command:
+                    <div class="mt-4 space-y-2">
+                        <div class="tab-selector flex gap-2 mb-2">
+                            <button class="tab-button active px-4 py-2 bg-gray-200 rounded" onclick="switchTab(this, 'cli-pnpm')">pnpm</button>
+                            <button class="tab-button px-4 py-2 bg-gray-200 rounded" onclick="switchTab(this, 'cli-yarn')">yarn</button>
+                            <button class="tab-button px-4 py-2 bg-gray-200 rounded" onclick="switchTab(this, 'cli-npm')">npm</button>
+                            <button class="tab-button px-4 py-2 bg-gray-200 rounded" onclick="switchTab(this, 'cli-bun')">bun</button>
+                        </div>
+                        <div id="cli-pnpm" class="tab-content active code-block"><code>pnpm i vercel</code></div>
+                        <div id="cli-yarn" class="tab-content code-block"><code>yarn i vercel</code></div>
+                        <div id="cli-npm" class="tab-content code-block"><code>npm i vercel</code></div>
+                        <div id="cli-bun" class="tab-content code-block"><code>bun i vercel</code></div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        
+        <!-- Enable Speed Insights -->
+        <section id="enable-speed-insights" class="mt-12">
+            <h2>Enable Speed Insights in Vercel</h2>
+            <p>On the <a href="/dashboard" target="_blank">Vercel dashboard</a>, select your Project followed by the <strong>Speed Insights</strong> tab. You can also select the button below to be taken there. Then, select <strong>Enable</strong> from the dialog.</p>
+            <div class="note-box">
+                <strong>💡 Note:</strong> Enabling Speed Insights will add new routes (scoped at <code>/_vercel/speed-insights/*</code>) after your next deployment.
+            </div>
+        </section>
+        
+        <!-- Add Package -->
+        <section id="add-package" class="mt-12">
+            <h2>Add @vercel/speed-insights to your project</h2>
+            <p>Using the package manager of your choice, add the <code>@vercel/speed-insights</code> package to your project:</p>
+            <div class="mt-4 space-y-2">
+                <div class="tab-selector flex gap-2 mb-2 flex-wrap">
+                    <button class="tab-button active px-4 py-2 bg-gray-200 rounded text-sm" onclick="switchTab(this, 'pkg-pnpm')">pnpm</button>
+                    <button class="tab-button px-4 py-2 bg-gray-200 rounded text-sm" onclick="switchTab(this, 'pkg-yarn')">yarn</button>
+                    <button class="tab-button px-4 py-2 bg-gray-200 rounded text-sm" onclick="switchTab(this, 'pkg-npm')">npm</button>
+                    <button class="tab-button px-4 py-2 bg-gray-200 rounded text-sm" onclick="switchTab(this, 'pkg-bun')">bun</button>
+                </div>
+                <div id="pkg-pnpm" class="tab-content active code-block"><code>pnpm i @vercel/speed-insights</code></div>
+                <div id="pkg-yarn" class="tab-content code-block"><code>yarn i @vercel/speed-insights</code></div>
+                <div id="pkg-npm" class="tab-content code-block"><code>npm i @vercel/speed-insights</code></div>
+                <div id="pkg-bun" class="tab-content code-block"><code>bun i @vercel/speed-insights</code></div>
+            </div>
+        </section>
+        
+        <!-- Add Component -->
+        <section id="add-component" class="mt-12">
+            <h2>Add the SpeedInsights Component to your app</h2>
+            
+            <h3>For Next.js (Pages Router)</h3>
+            <p>The <code>SpeedInsights</code> component is a wrapper around the tracking script, offering more seamless integration with Next.js.</p>
+            <p>Add the following component to your main app file:</p>
+            <div class="mt-4 space-y-2">
+                <div class="tab-selector flex gap-2 mb-2">
+                    <button class="tab-button active px-4 py-2 bg-gray-200 rounded text-sm" onclick="switchTab(this, 'nextjs-tsx')">TypeScript</button>
+                    <button class="tab-button px-4 py-2 bg-gray-200 rounded text-sm" onclick="switchTab(this, 'nextjs-jsx')">JavaScript</button>
+                </div>
+                <div id="nextjs-tsx" class="tab-content active code-block"><code>
+import type { AppProps } from 'next/app';<br>
+import { SpeedInsights } from '@vercel/speed-insights/next';<br>
+<br>
+function MyApp({ Component, pageProps }: AppProps) {<br>
+&nbsp;&nbsp;return (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Component {...pageProps} /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;SpeedInsights /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/&gt;<br>
+&nbsp;&nbsp;);<br>
+}<br>
+<br>
+export default MyApp;
+                </code></div>
+                <div id="nextjs-jsx" class="tab-content code-block"><code>
+import { SpeedInsights } from "@vercel/speed-insights/next";<br>
+<br>
+function MyApp({ Component, pageProps }) {<br>
+&nbsp;&nbsp;return (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Component {...pageProps} /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;SpeedInsights /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/&gt;<br>
+&nbsp;&nbsp;);<br>
+}<br>
+<br>
+export default MyApp;
+                </code></div>
+            </div>
+            
+            <h3 class="mt-8">For Next.js (App Router)</h3>
+            <p>Add the following component to the root layout:</p>
+            <div class="mt-4 space-y-2">
+                <div class="tab-selector flex gap-2 mb-2">
+                    <button class="tab-button active px-4 py-2 bg-gray-200 rounded text-sm" onclick="switchTab(this, 'nextjs-app-tsx')">TypeScript</button>
+                    <button class="tab-button px-4 py-2 bg-gray-200 rounded text-sm" onclick="switchTab(this, 'nextjs-app-jsx')">JavaScript</button>
+                </div>
+                <div id="nextjs-app-tsx" class="tab-content active code-block"><code>
+import { SpeedInsights } from "@vercel/speed-insights/next";<br>
+<br>
+export default function RootLayout({<br>
+&nbsp;&nbsp;children,<br>
+}: {<br>
+&nbsp;&nbsp;children: React.ReactNode;<br>
+}) {<br>
+&nbsp;&nbsp;return (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;html lang="en"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;head&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Next.js&lt;/title&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/head&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;body&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{children}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;SpeedInsights /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/body&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/html&gt;<br>
+&nbsp;&nbsp;);<br>
+}
+                </code></div>
+                <div id="nextjs-app-jsx" class="tab-content code-block"><code>
+import { SpeedInsights } from "@vercel/speed-insights/next";<br>
+<br>
+export default function RootLayout({ children }) {<br>
+&nbsp;&nbsp;return (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;html lang="en"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;head&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Next.js&lt;/title&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/head&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;body&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{children}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;SpeedInsights /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/body&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/html&gt;<br>
+&nbsp;&nbsp;);<br>
+}
+                </code></div>
+            </div>
+            
+            <h3 class="mt-8">For React (Create React App)</h3>
+            <div class="mt-4 space-y-2">
+                <div class="tab-selector flex gap-2 mb-2">
+                    <button class="tab-button active px-4 py-2 bg-gray-200 rounded text-sm" onclick="switchTab(this, 'react-tsx')">TypeScript</button>
+                    <button class="tab-button px-4 py-2 bg-gray-200 rounded text-sm" onclick="switchTab(this, 'react-jsx')">JavaScript</button>
+                </div>
+                <div id="react-tsx" class="tab-content active code-block"><code>
+import { SpeedInsights } from '@vercel/speed-insights/react';<br>
+<br>
+export default function App() {<br>
+&nbsp;&nbsp;return (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/* ... */}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;SpeedInsights /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;);<br>
+}
+                </code></div>
+                <div id="react-jsx" class="tab-content code-block"><code>
+import { SpeedInsights } from "@vercel/speed-insights/react";<br>
+<br>
+export default function App() {<br>
+&nbsp;&nbsp;return (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/* ... */}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;SpeedInsights /&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;);<br>
+}
+                </code></div>
+            </div>
+            
+            <h3 class="mt-8">For Vue</h3>
+            <div class="mt-4 space-y-2">
+                <div class="tab-selector flex gap-2 mb-2">
+                    <button class="tab-button active px-4 py-2 bg-gray-200 rounded text-sm" onclick="switchTab(this, 'vue-ts')">TypeScript</button>
+                    <button class="tab-button px-4 py-2 bg-gray-200 rounded text-sm" onclick="switchTab(this, 'vue-js')">JavaScript</button>
+                </div>
+                <div id="vue-ts" class="tab-content active code-block"><code>
+&lt;script setup lang="ts"&gt;<br>
+import { SpeedInsights } from '@vercel/speed-insights/vue';<br>
+&lt;/script&gt;<br>
+<br>
+&lt;template&gt;<br>
+&nbsp;&nbsp;&lt;SpeedInsights /&gt;<br>
+&lt;/template&gt;
+                </code></div>
+                <div id="vue-js" class="tab-content code-block"><code>
+&lt;script setup&gt;<br>
+import { SpeedInsights } from '@vercel/speed-insights/vue';<br>
+&lt;/script&gt;<br>
+<br>
+&lt;template&gt;<br>
+&nbsp;&nbsp;&lt;SpeedInsights /&gt;<br>
+&lt;/template&gt;
+                </code></div>
+            </div>
+            
+            <h3 class="mt-8">For HTML</h3>
+            <p>Add the following scripts before the closing tag of the <code>&lt;body&gt;</code>:</p>
+            <div class="mt-4 code-block"><code>
+&lt;script&gt;<br>
+&nbsp;&nbsp;window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };<br>
+&lt;/script&gt;<br>
+&lt;script defer src="/_vercel/speed-insights/script.js"&gt;&lt;/script&gt;
+            </code></div>
+        </section>
+        
+        <!-- Deploy -->
+        <section id="deploy" class="mt-12">
+            <h2>Deploy your app to Vercel</h2>
+            <p>You can deploy your app to Vercel's global <a href="/docs/cdn">CDN</a> by running the following command from your terminal:</p>
+            <div class="mt-4 code-block"><code>vercel deploy</code></div>
+            <p class="mt-4">Alternatively, you can <a href="/docs/git#deploying-a-git-repository">connect your project's git repository</a>, which will enable Vercel to deploy your latest pushes and merges to main.</p>
+            <p>Once your app is deployed, it's ready to begin tracking performance metrics.</p>
+            <div class="note-box">
+                <strong>💡 Note:</strong> If everything is set up correctly, you should be able to find the <code>/_vercel/speed-insights/script.js</code> script inside the body tag of your page.
+            </div>
+        </section>
+        
+        <!-- View Data -->
+        <section id="view-data" class="mt-12">
+            <h2>View your data in the dashboard</h2>
+            <p>Once your app is deployed, and users have visited your site, you can view the data in the dashboard.</p>
+            <p>To do so, go to your <a href="/dashboard">dashboard</a>, select your project, and click the <strong>Speed Insights</strong> tab.</p>
+            <p>After a few days of visitors, you'll be able to start exploring your metrics. For more information on how to use Speed Insights, see <a href="/docs/speed-insights/using-speed-insights">Using Speed Insights</a>.</p>
+            <p class="mt-4">Learn more about how Vercel supports <a href="/docs/speed-insights/privacy-policy">privacy and data compliance standards</a> with Vercel Speed Insights.</p>
+        </section>
+        
+        <!-- Next Steps -->
+        <section id="next-steps" class="mt-12 mb-12">
+            <h2>Next Steps</h2>
+            <p>Now that you have Vercel Speed Insights set up, you can explore the following topics to learn more:</p>
+            <ul>
+                <li><a href="/docs/speed-insights/package">Learn how to use the @vercel/speed-insights package</a></li>
+                <li><a href="/docs/speed-insights/metrics">Learn about metrics</a></li>
+                <li><a href="/docs/speed-insights/privacy-policy">Read about privacy and compliance</a></li>
+                <li><a href="/docs/speed-insights/limits-and-pricing">Explore pricing</a></li>
+                <li><a href="/docs/speed-insights/troubleshooting">Troubleshooting</a></li>
+            </ul>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12 mt-20">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h4 class="font-bold mb-4">Product</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Features</a></li>
+                        <li><a href="#" class="hover:text-white">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white">Documentation</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Blog</a></li>
+                        <li><a href="#" class="hover:text-white">Community</a></li>
+                        <li><a href="#" class="hover:text-white">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Privacy</a></li>
+                        <li><a href="#" class="hover:text-white">Terms</a></li>
+                        <li><a href="#" class="hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Slaide. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <div class="back-to-top" onclick="scrollToTop()">
+        <i data-lucide="arrow-up"></i>
+    </div>
+    
+    <script>
+        // Tab switching functionality
+        function switchTab(button, tabId) {
+            // Remove active class from all buttons in the same group
+            const allButtons = button.parentElement.querySelectorAll('.tab-button');
+            allButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Hide all tab contents in the same group
+            const tabGroup = button.parentElement.nextElementSibling;
+            let sibling = tabGroup;
+            while (sibling && sibling.classList.contains('tab-content')) {
+                sibling.classList.remove('active');
+                sibling = sibling.nextElementSibling;
+            }
+            
+            // Show the selected tab
+            document.getElementById(tabId).classList.add('active');
+        }
+        
+        // Back to top functionality
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
