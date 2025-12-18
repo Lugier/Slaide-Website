@@ -5,11 +5,19 @@
       "destination": "/SRC/index.html"
     },
     {
+      "source": "/index.html",
+      "destination": "/SRC/index.html"
+    },
+    {
       "source": "/creator",
       "destination": "/SRC/Creator.html"
     },
     {
       "source": "/Creator",
+      "destination": "/SRC/Creator.html"
+    },
+    {
+      "source": "/Creator.html",
       "destination": "/SRC/Creator.html"
     },
     {
@@ -25,20 +33,20 @@
       "destination": "/SRC/agb.html"
     },
     {
-      "source": "/robots.txt",
-      "destination": "/SRC/robots.txt"
-    },
-    {
-      "source": "/sitemap.xml",
-      "destination": "/SRC/sitemap.xml"
+      "source": "/favicon.ico",
+      "destination": "/SRC/favicon.ico"
     },
     {
       "source": "/favicon.png",
       "destination": "/SRC/favicon.png"
     },
     {
-      "source": "/favicon.ico",
-      "destination": "/SRC/favicon.ico"
+      "source": "/robots.txt",
+      "destination": "/SRC/robots.txt"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/SRC/sitemap.xml"
     },
     {
       "source": "/(.*)",
