@@ -1,3 +1,0 @@
-# This file ensures the public directory is tracked by git
-# Vercel requires a public directory, but we use Rewrites to /SRC/ instead
-

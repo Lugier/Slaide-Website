@@ -1,60 +1,57 @@
 {
+  "outputDirectory": "SRC",
   "rewrites": [
     {
       "source": "/",
-      "destination": "/SRC/index.html"
+      "destination": "/index.html"
     },
     {
       "source": "/index.html",
-      "destination": "/SRC/index.html"
+      "destination": "/index.html"
     },
     {
       "source": "/creator",
-      "destination": "/SRC/Creator.html"
+      "destination": "/Creator.html"
     },
     {
       "source": "/Creator",
-      "destination": "/SRC/Creator.html"
+      "destination": "/Creator.html"
     },
     {
       "source": "/Creator.html",
-      "destination": "/SRC/Creator.html"
+      "destination": "/Creator.html"
     },
     {
       "source": "/impressum",
-      "destination": "/SRC/impressum.html"
+      "destination": "/impressum.html"
     },
     {
       "source": "/datenschutz",
-      "destination": "/SRC/datenschutz.html"
+      "destination": "/datenschutz.html"
     },
     {
       "source": "/agb",
-      "destination": "/SRC/agb.html"
+      "destination": "/agb.html"
     },
     {
       "source": "/favicon.ico",
-      "destination": "/SRC/favicon.ico"
+      "destination": "/favicon.ico"
     },
     {
       "source": "/favicon.png",
-      "destination": "/SRC/favicon.png"
+      "destination": "/favicon.png"
     },
     {
       "source": "/robots.txt",
-      "destination": "/SRC/robots.txt"
+      "destination": "/robots.txt"
     },
     {
       "source": "/sitemap.xml",
-      "destination": "/SRC/sitemap.xml"
+      "destination": "/sitemap.xml"
     },
     {
       "source": "/styles.css",
-      "destination": "/SRC/styles.css"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/SRC/$1"
+      "destination": "/styles.css"
     }
   ],
   "headers": [
