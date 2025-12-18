@@ -1,24 +1,26 @@
 {
+  "buildCommand": null,
+  "outputDirectory": "SRC",
   "rewrites": [
     {
       "source": "/",
-      "destination": "/SRC/index.html"
+      "destination": "/index.html"
     },
     {
       "source": "/creator",
-      "destination": "/SRC/Creator.html"
+      "destination": "/Creator.html"
     },
     {
       "source": "/impressum",
-      "destination": "/SRC/impressum.html"
+      "destination": "/impressum.html"
     },
     {
       "source": "/datenschutz",
-      "destination": "/SRC/datenschutz.html"
+      "destination": "/datenschutz.html"
     },
     {
       "source": "/agb",
-      "destination": "/SRC/agb.html"
+      "destination": "/agb.html"
     }
   ],
   "headers": [
