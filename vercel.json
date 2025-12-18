@@ -1,30 +1,40 @@
 {
-  "buildCommand": null,
-  "outputDirectory": "public",
   "rewrites": [
     {
       "source": "/",
-      "destination": "/index.html"
+      "destination": "/SRC/index.html"
     },
     {
       "source": "/creator",
-      "destination": "/Creator.html"
+      "destination": "/SRC/Creator.html"
     },
     {
-      "source": "/Creator.html",
-      "destination": "/Creator.html"
+      "source": "/Creator",
+      "destination": "/SRC/Creator.html"
     },
     {
       "source": "/impressum",
-      "destination": "/impressum.html"
+      "destination": "/SRC/impressum.html"
     },
     {
       "source": "/datenschutz",
-      "destination": "/datenschutz.html"
+      "destination": "/SRC/datenschutz.html"
     },
     {
       "source": "/agb",
-      "destination": "/agb.html"
+      "destination": "/SRC/agb.html"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/SRC/robots.txt"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/SRC/sitemap.xml"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/SRC/$1"
     }
   ],
   "headers": [
@@ -83,6 +93,3 @@
   "cleanUrls": true,
   "trailingSlash": false
 }
-
-
-
