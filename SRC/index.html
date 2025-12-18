@@ -87,28 +87,8 @@
     }
     </script>
     
-    <!-- Critical: Prevent FOUC - Hide body until Tailwind loads -->
-    <style>
-        body { opacity: 0; transition: opacity 0.3s ease-in; }
-        body.loaded { opacity: 1; }
-    </style>
-    <!-- Critical: Tailwind CSS - Load synchronously to prevent FOUC -->
+    <!-- Critical: Tailwind CSS - Load synchronously -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        // Mark body as loaded once Tailwind is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            // Small delay to ensure Tailwind has processed
-            setTimeout(function() {
-                document.body.classList.add('loaded');
-            }, 50);
-        });
-        // Fallback if DOMContentLoaded already fired
-        if (document.readyState === 'complete' || document.readyState === 'interactive') {
-            setTimeout(function() {
-                document.body.classList.add('loaded');
-            }, 50);
-        }
-    </script>
     
     <!-- Non-critical: Lucide Icons - Load after page is interactive -->
     <script src="https://unpkg.com/lucide@latest" defer></script>
@@ -127,18 +107,7 @@
         }
         
         /* Loading state - hide content until ready */
-        body.loading {
-            overflow: hidden;
-        }
-        
-        body.loading .main-content {
-            opacity: 0;
-            transition: opacity 0.3s ease-in;
-        }
-        
-        body.loaded .main-content {
-            opacity: 1;
-        }
+        /* Removed loading state - not needed with optimized CSS */
         /* Scroll-triggered reveal (user induced) */
         .reveal {
             opacity: 0;
@@ -1485,11 +1454,7 @@
                 setTimeout(() => clearInterval(lucideCheck), 3000);
             }
             
-            // Remove loading state
-            requestAnimationFrame(() => {
-                document.body.classList.remove('loading');
-                document.body.classList.add('loaded');
-            });
+            // Page initialized
         }
         
         if (document.readyState === 'loading') {
@@ -1498,11 +1463,7 @@
             initializePage();
         }
         
-        // Fallback: ensure page is marked as loaded even if scripts fail
-        window.addEventListener('load', () => {
-            document.body.classList.remove('loading');
-            document.body.classList.add('loaded');
-        });
+        // Page loaded
 
         // ========== SCROLL-BASED ANIMATIONS ==========
         
