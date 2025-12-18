@@ -33,6 +33,14 @@
       "destination": "/SRC/sitemap.xml"
     },
     {
+      "source": "/favicon.png",
+      "destination": "/SRC/favicon.png"
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/SRC/favicon.ico"
+    },
+    {
       "source": "/(.*)",
       "destination": "/SRC/$1"
     }
