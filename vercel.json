@@ -49,6 +49,10 @@
       "destination": "/SRC/sitemap.xml"
     },
     {
+      "source": "/styles.css",
+      "destination": "/SRC/styles.css"
+    },
+    {
       "source": "/(.*)",
       "destination": "/SRC/$1"
     }
@@ -106,7 +110,7 @@
       ]
     },
     {
-      "source": "/(.*\\.(png|ico|jpg|jpeg|svg|woff2|woff|ttf|eot))",
+      "source": "/(.*)\\.(png|ico|jpg|jpeg|svg|woff2|woff|ttf|eot)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -115,7 +119,7 @@
       ]
     },
     {
-      "source": "/(.*\\.css)",
+      "source": "/(.*)\\.css",
       "headers": [
         {
           "key": "Cache-Control",
