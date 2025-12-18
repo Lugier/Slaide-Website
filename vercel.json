@@ -1,6 +1,6 @@
 {
   "buildCommand": null,
-  "outputDirectory": "SRC",
+  "outputDirectory": "public",
   "rewrites": [
     {
       "source": "/",
@@ -8,6 +8,10 @@
     },
     {
       "source": "/creator",
+      "destination": "/Creator.html"
+    },
+    {
+      "source": "/Creator.html",
       "destination": "/Creator.html"
     },
     {
