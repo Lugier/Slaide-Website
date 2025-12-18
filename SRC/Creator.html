@@ -32,7 +32,6 @@
     <!-- Performance: DNS Prefetch for external resources -->
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
     <link rel="dns-prefetch" href="https://unpkg.com">
     
     <!-- Performance: Preconnect for critical resources -->
@@ -186,7 +185,7 @@
         body.loaded { opacity: 1; }
     </style>
     <!-- Critical: Tailwind CSS - Load synchronously to prevent FOUC -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/styles.css">
     <script>
         // Mark body as loaded once Tailwind is ready
         document.addEventListener('DOMContentLoaded', function() {

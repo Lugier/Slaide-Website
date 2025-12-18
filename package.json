@@ -3,8 +3,24 @@
   "version": "1.0.0",
   "description": "Slaide Landing Page - Zero-Defect Reporting",
   "scripts": {
-    "build": "echo 'No build step needed - static HTML files'"
+    "build": "node \"node_modules\\tailwindcss\\lib\\cli.js\" -i SRC/input.css -o SRC/styles.css --minify",
+    "build:css": "node \"node_modules\\tailwindcss\\lib\\cli.js\" -i SRC/input.css -o SRC/styles.css --minify"
   },
-  "private": true
+  "private": true,
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lugier/Slaide-Website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Lugier/Slaide-Website/issues"
+  },
+  "homepage": "https://github.com/Lugier/Slaide-Website#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  }
 }
-
