@@ -1843,44 +1843,6 @@
 
         // ========== MOUSE MOVEMENT ANIMATIONS ==========
         
-        // Custom cursor - replaces default cursor with circle
-        const cursor = document.createElement('div');
-        cursor.className = 'cursor-follow';
-        document.body.appendChild(cursor);
-        
-        let mouseX = 0, mouseY = 0;
-        let cursorX = 0, cursorY = 0;
-        
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-        
-        // Smooth cursor follow animation - optimized for responsiveness
-        function animateCursor() {
-            // Faster interpolation for normal cursor
-            const speed = cursor.classList.contains('hover') ? 0.25 : 0.35;
-            cursorX += (mouseX - cursorX) * speed;
-            cursorY += (mouseY - cursorY) * speed;
-            cursor.style.left = cursorX + 'px';
-            cursor.style.top = cursorY + 'px';
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-        
-        // Cursor hover effect on interactive elements
-        document.querySelectorAll('a, button, .hover-glow, .hover-scale, .hover-lift, input, textarea, [data-cursor-element-id]').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-        });
-        
-        // Hide cursor when mouse leaves window
-        document.addEventListener('mouseleave', () => {
-            cursor.style.opacity = '0';
-        });
-        document.addEventListener('mouseenter', () => {
-            cursor.style.opacity = '1';
-        });
 
         // Parallax and Tilt effects removed - cards no longer follow mouse movement
 
