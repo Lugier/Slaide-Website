@@ -42,6 +42,10 @@
       "destination": "/favicon.png"
     },
     {
+      "source": "/favicon.svg",
+      "destination": "/favicon.svg"
+    },
+    {
       "source": "/robots.txt",
       "destination": "/robots.txt"
     },
