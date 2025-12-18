@@ -1,40 +1,65 @@
-# GitHub Deployment Anleitung
+# Deployment Anleitung
 
-## Schritt 1: GitHub Repository erstellen
+## Git Setup & Push zu GitHub
 
-1. Gehe zu [github.com](https://github.com) und melde dich an
-2. Klicke auf "New" oder "New repository"
-3. Repository-Name: z.B. `slaide-landing` oder `slaide-website`
-4. **WICHTIG:** Lass es **LEER** (keine README, keine .gitignore, keine License)
-5. Klicke auf "Create repository"
-
-## Schritt 2: Repository zu GitHub pushen
-
-Führe diese Befehle im Terminal aus (im Projektordner):
+Falls das Repository noch nicht initialisiert ist:
 
 ```bash
-# Ersetze USERNAME und REPO-NAME mit deinen Werten
-git remote add origin https://github.com/USERNAME/REPO-NAME.git
+# Git initialisieren (falls noch nicht geschehen)
+git init
+
+# Remote Repository hinzufügen
+git remote add origin https://github.com/Lugier/Slaide-Website.git
+
+# Alle Dateien hinzufügen
+git add .
+
+# Commit erstellen
+git commit -m "Initial commit: Slaide Landing Page optimiert für Vercel"
+
+# Push zu GitHub (main branch)
 git branch -M main
 git push -u origin main
 ```
 
-**Beispiel:**
+Falls das Repository bereits existiert:
+
 ```bash
-git remote add origin https://github.com/logiermann/slaide-landing.git
-git branch -M main
-git push -u origin main
+# Status prüfen
+git status
+
+# Alle Änderungen hinzufügen
+git add .
+
+# Commit erstellen
+git commit -m "Optimierung für Vercel Deployment"
+
+# Push zu GitHub
+git push
 ```
 
-## Schritt 3: Vercel mit GitHub verbinden
+## Vercel Deployment
 
-1. Gehe zu [vercel.com](https://vercel.com)
+1. Gehe zu [vercel.com](https://vercel.com) und melde dich an
 2. Klicke auf "Add New Project"
-3. Wähle dein GitHub-Repository aus
-4. Vercel erkennt automatisch die `vercel.json` Konfiguration
-5. Klicke auf "Deploy"
+3. Wähle "Import Git Repository"
+4. Wähle das Repository: `Lugier/Slaide-Website`
+5. Vercel erkennt automatisch die `vercel.json` Konfiguration
+6. Klicke auf "Deploy"
 
-**Fertig!** 🎉 
+Die Website wird automatisch deployed und ist unter einer `.vercel.app` Domain erreichbar.
 
-Die Seite wird automatisch bei jedem Push zu GitHub neu deployed.
+## Custom Domain (Optional)
+
+1. Gehe zu Project Settings → Domains
+2. Füge deine Domain hinzu (z.B. `slaide.de`)
+3. Folge den DNS-Anweisungen von Vercel
+
+## Wichtige Dateien
+
+- `vercel.json` - Vercel Konfiguration (Rewrites, Headers, Caching)
+- `SRC/` - Alle HTML-Dateien
+- `robots.txt` - SEO Robots
+- `sitemap.xml` - SEO Sitemap
+- `.gitignore` - Git Ignore Regeln
 

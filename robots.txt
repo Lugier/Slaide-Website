@@ -1,0 +1,51 @@
+# robots.txt for Slaide Website
+# Optimized for AI Bot Crawling (ChatGPT, Gemini, Perplexity, etc.)
+
+# Allow all standard search engines
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /private
+
+# OpenAI - ChatGPT Search (CRITICAL for GEO)
+User-agent: OAI-SearchBot
+Allow: /
+
+# OpenAI - GPTBot (Training - optional, but recommended for brand awareness)
+User-agent: GPTBot
+Allow: /
+
+# OpenAI - ChatGPT User Agent
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic - Claude
+User-agent: ClaudeBot
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Google - AI Overviews (uses Googlebot, not Google-Extended)
+User-agent: Googlebot
+Allow: /
+
+# Google - Extended (only for training, not search)
+User-agent: Google-Extended
+Allow: /
+
+# Microsoft - Bing AI
+User-agent: Bingbot
+Allow: /
+
+# Common Crawl (used by many AI models)
+User-agent: CCBot
+Allow: /
+
+# Crawl delay for all bots
+Crawl-delay: 1
+
+# XML Sitemap
+Sitemap: https://www.slaide.de/sitemap.xml
+

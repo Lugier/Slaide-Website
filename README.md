@@ -1,21 +1,27 @@
 # Slaide Landing Page
 
-Statische Landing Page für Slaide - Universal Advisory Intelligence.
+Statische Landing Page für Slaide - Zero-Defect Reporting für High-Stakes Consulting.
 
 ## 🚀 Tech Stack
 
-- **HTML5** - Semantisches Markup
-- **CSS3** - Custom Styles + Tailwind CSS (via CDN)
-- **JavaScript** - Vanilla JS für Interaktivität
-- **Lucide Icons** - Beautiful Icons (via CDN)
+* **HTML5** - Semantisches Markup
+* **CSS3** - Custom Styles + Tailwind CSS (via CDN)
+* **JavaScript** - Vanilla JS für Interaktivität
+* **Lucide Icons** - Beautiful Icons (via CDN)
 
 ## 📁 Projektstruktur
 
 ```
 .
 ├── SRC/
-│   └── index.html       # Haupt-HTML-Datei (alles in einer Datei)
+│   ├── index.html       # Haupt-Landing-Page
+│   ├── Creator.html     # Creator Beta Seite
+│   ├── agb.html         # AGB
+│   ├── datenschutz.html # Datenschutz
+│   └── impressum.html   # Impressum
 ├── vercel.json          # Vercel Deployment Config
+├── robots.txt           # SEO Robots
+├── sitemap.xml          # SEO Sitemap
 └── README.md            # Diese Datei
 ```
 
@@ -58,17 +64,19 @@ vercel --prod
 
 ## ✨ Features
 
-- ✅ **Zero Build** - Keine Build-Zeit, direktes Deployment
-- ✅ **CDN-basiert** - Tailwind CSS & Lucide Icons via CDN
-- ✅ **Optimiert für Vercel** - Statisches Hosting, instant deployment
-- ✅ **Responsive** - Mobile-first Design
-- ✅ **Modern** - Dark Mode, Spotlight Effects, Smooth Animations
+* ✅ **Zero Build** - Keine Build-Zeit, direktes Deployment
+* ✅ **CDN-basiert** - Tailwind CSS & Lucide Icons via CDN
+* ✅ **Optimiert für Vercel** - Statisches Hosting, instant deployment
+* ✅ **Responsive** - Mobile-first Design
+* ✅ **Modern** - Smooth Animations, Custom Cursor, Scroll Effects
+* ✅ **SEO-optimiert** - Meta Tags, Structured Data, Sitemap
 
 ## 📝 Lokale Entwicklung
 
 Öffne einfach `SRC/index.html` in deinem Browser. Keine Installation nötig!
 
 Oder nutze einen lokalen Server:
+
 ```bash
 # Python
 python -m http.server 8000
@@ -79,13 +87,20 @@ npx serve SRC
 
 ## 🎨 Anpassungen
 
-Alle Styles und Inhalte sind in `SRC/index.html`:
-- **Tailwind Config**: Zeilen 12-56
-- **Custom CSS**: Zeilen 58-113
-- **JavaScript**: Zeilen 606-621
+Alle Styles und Inhalte sind in den HTML-Dateien im `SRC/` Ordner:
+
+* **Tailwind CSS**: Via CDN (Zeile 77 in index.html)
+* **Custom CSS**: Im `<style>` Tag
+* **JavaScript**: Im `<script>` Tag am Ende
 
 ## 📄 Hinweise
 
-- Die Seite nutzt CDN-Links für Tailwind CSS und Lucide Icons
-- Keine Dependencies, kein Build-Prozess
-- Perfekt für schnelles, einfaches Deployment
+* Die Seite nutzt CDN-Links für Tailwind CSS und Lucide Icons
+* Keine Dependencies, kein Build-Prozess
+* Perfekt für schnelles, einfaches Deployment auf Vercel
+
+## 🔗 Links
+
+* Website: [slaide.de](https://slaide.de)
+* Repository: [GitHub](https://github.com/Lugier/Slaide-Website)
+

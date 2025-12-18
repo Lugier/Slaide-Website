@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#2563eb">
+    <title>AGB | Slaide</title>
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.slaide.de/agb">
+    
+    <!-- Meta Description -->
+    <meta name="description" content="Allgemeine Geschäftsbedingungen (AGB) der Slaide. Rechtliche Bedingungen für die Nutzung unserer Services.">
+    
+    <!-- Performance: DNS Prefetch for external resources -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    
+    <!-- Performance: Preconnect for critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Critical: Prevent FOUC - Hide body until Tailwind loads -->
+    <style>
+        body { opacity: 0; transition: opacity 0.3s ease-in; }
+        body.loaded { opacity: 1; }
+    </style>
+    <!-- Critical: Tailwind CSS - Load synchronously to prevent FOUC -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Mark body as loaded once Tailwind is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.body.classList.add('loaded');
+            }, 50);
+        });
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            setTimeout(function() {
+                document.body.classList.add('loaded');
+            }, 50);
+        }
+    </script>
+    
+    <!-- Performance: Font loading with swap for better FCP -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Performance: Preload critical resources -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap">
+    
+    <!-- Non-critical: Lucide Icons - Load after page is interactive -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #2563eb;
+            --bg-light: #ffffff;
+            --bg-off: #f8fafc;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #1e293b;
+            background-color: var(--bg-light);
+            scroll-behavior: smooth;
+        }
+        .mobile-menu {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 2rem;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 40;
+        }
+        .mobile-menu.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+        @media (min-width: 768px) {
+            .mobile-menu {
+                display: none;
+            }
+        }
+        .hover-lift:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Better selection - Light Slaide blue */
+        ::selection {
+            background: rgba(59, 130, 246, 0.2);
+            color: #1e293b;
+        }
+        ::-moz-selection {
+            background: rgba(59, 130, 246, 0.2);
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body class="antialiased bg-white">
+
+    <!-- Header / Navigation -->
+    <header>
+    <nav class="fixed w-full z-50 top-0 border-b border-slate-200 bg-white/90 backdrop-blur-md safe-area-top" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
+                <div class="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg hover:shadow-blue-500/50 transition-shadow">S</div>
+                <span class="text-xl font-bold tracking-tight text-slate-900">Slaide</span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-10 text-sm font-bold text-slate-600 uppercase tracking-wide">
+                <a href="index.html#benefits" class="hover:text-blue-600 transition-colors">Warum Slaide?</a>
+                <a href="index.html#pricing" class="hover:text-blue-600 transition-colors">ROI</a>
+                <a href="index.html#technology" class="hover:text-blue-600 transition-colors">Technologie</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="Creator.html" class="hidden md:block text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-blue-600 transition-colors">
+                    Creator Beta
+                </a>
+                <a href="index.html" class="bg-slate-900 hover:bg-blue-600 text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all shadow-md hover-lift">
+                    Zur Startseite
+                </a>
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center text-slate-600 hover:text-slate-900 transition-colors" aria-label="Menü öffnen">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu">
+            <nav class="flex flex-col gap-6">
+                <a href="index.html#benefits" class="text-slate-700 hover:text-blue-600 transition-colors font-bold uppercase tracking-wide py-2">Warum Slaide?</a>
+                <a href="index.html#pricing" class="text-slate-700 hover:text-blue-600 transition-colors font-bold uppercase tracking-wide py-2">ROI</a>
+                <a href="index.html#technology" class="text-slate-700 hover:text-blue-600 transition-colors font-bold uppercase tracking-wide py-2">Technologie</a>
+                <a href="Creator.html" class="text-slate-700 hover:text-blue-600 transition-colors font-bold uppercase tracking-wide py-2">Creator Beta</a>
+            </nav>
+        </div>
+    </nav>
+    </header>
+
+    <!-- AGB Content -->
+    <section class="pt-32 pb-24 bg-slate-50">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="bg-white rounded-2xl p-10 shadow-sm border border-slate-200">
+                <h2 class="text-3xl font-black text-slate-900 mb-8 tracking-tight">Allgemeine Geschäftsbedingungen (AGB)</h2>
+                
+                <div class="space-y-6 text-sm text-slate-700 leading-relaxed">
+                    <div>
+                        <p class="text-xs text-slate-500 italic mb-4">
+                            Stand: Januar 2025<br>
+                            Gültig für: Slaide (in Gründung)
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-slate-900 mb-2">§ 1 Geltungsbereich, Vertragspartner</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (1) Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Leistungen der Slaide (in Gründung), Frankfurt am Main (nachfolgend "Slaide" oder "wir" genannt), insbesondere für die Bereitstellung von Software-as-a-Service (SaaS) Lösungen zur Qualitätssicherung von Präsentationsdokumenten.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (2) Vertragspartner ist die Slaide (in Gründung). Die vollständigen Angaben finden Sie in unserem <a href="impressum.html" class="text-blue-600 hover:text-blue-700 underline">Impressum</a>.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (3) Abweichende, entgegenstehende oder ergänzende AGB des Kunden werden nicht Vertragsbestandteil, es sei denn, ihrer Geltung wird ausdrücklich schriftlich zugestimmt.
+                        </p>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-200">
+                        <h3 class="font-bold text-slate-900 mb-2">§ 2 Leistungsgegenstand</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (1) Slaide bietet eine cloudbasierte Softwarelösung zur automatisierten Qualitätsprüfung von Präsentationsdokumenten (nachfolgend "Service" genannt). Der Service umfasst insbesondere:
+                        </p>
+                        <ul class="text-xs text-slate-600 leading-relaxed mb-4 list-disc list-inside space-y-1 ml-4">
+                            <li>Logische Konsistenzprüfung von Dokumenten</li>
+                            <li>Numerische Validierung und Fehlererkennung</li>
+                            <li>Linguistische Präzisionsprüfung</li>
+                            <li>Deck-übergreifende Referenzprüfung</li>
+                        </ul>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (2) Der Service wird als Software-as-a-Service (SaaS) über eine webbasierte Plattform bereitgestellt. Der Kunde erhält keinen Anspruch auf Übertragung der Software oder deren Quellcode.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (3) Slaide behält sich vor, den Service weiterzuentwickeln und zu verbessern. Funktionen können geändert, erweitert oder eingeschränkt werden, soweit dies für den Kunden zumutbar ist.
+                        </p>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-200">
+                        <h3 class="font-bold text-slate-900 mb-2">§ 3 Vertragsschluss</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (1) Die Darstellung der Leistungen auf der Website stellt kein rechtlich bindendes Angebot dar, sondern eine unverbindliche Aufforderung zur Abgabe eines Angebots.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (2) Durch Registrierung oder Bestellung gibt der Kunde ein verbindliches Angebot auf Abschluss eines Vertrages ab. Slaide ist berechtigt, dieses Angebot innerhalb von 14 Tagen anzunehmen.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (3) Die Annahme erfolgt durch ausdrückliche Bestätigung oder durch Bereitstellung des Services.
+                        </p>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-200">
+                        <h3 class="font-bold text-slate-900 mb-2">§ 4 Preise und Zahlungsbedingungen</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (1) Alle Preise verstehen sich in Euro zzgl. der gesetzlichen Mehrwertsteuer.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (2) Die Preise für den Service richten sich nach der jeweils gültigen Preisliste. Slaide behält sich vor, die Preise mit einer Frist von 4 Wochen zum Ende einer Abrechnungsperiode zu ändern.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (3) Rechnungen sind innerhalb von 14 Tagen nach Rechnungsdatum ohne Abzug zur Zahlung fällig. Bei Zahlungsverzug werden Verzugszinsen in Höhe von 9 Prozentpunkten über dem Basiszinssatz berechnet.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (4) Der Kunde ist nur zur Aufrechnung berechtigt, soweit seine Gegenansprüche rechtskräftig festgestellt oder unbestritten sind.
+                        </p>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-200">
+                        <h3 class="font-bold text-slate-900 mb-2">§ 5 Nutzungsrechte</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (1) Slaide räumt dem Kunden für die Dauer des Vertrages ein einfaches, nicht übertragbares, nicht ausschließliches Recht zur Nutzung des Services ein.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (2) Der Kunde ist nicht berechtigt, den Service zu vervielfältigen, zu verändern, zu dekompilieren oder zu verleihen. Eine Weitergabe an Dritte ist nicht gestattet.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (3) Alle Rechte an der Software und dem Service verbleiben bei Slaide.
+                        </p>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-200">
+                        <h3 class="font-bold text-slate-900 mb-2">§ 6 Pflichten des Kunden</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (1) Der Kunde verpflichtet sich, die Zugangsdaten geheim zu halten und Dritten keinen Zugang zu gewähren.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (2) Der Kunde ist verpflichtet, den Service nur im Rahmen der geltenden Gesetze zu nutzen. Insbesondere ist es untersagt, rechtswidrige Inhalte hochzuladen oder den Service für rechtswidrige Zwecke zu nutzen.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (3) Der Kunde ist verpflichtet, Slaide unverzüglich über Sicherheitslücken oder unberechtigte Nutzung zu informieren.
+                        </p>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-200">
+                        <h3 class="font-bold text-slate-900 mb-2">§ 7 Verfügbarkeit, Wartung</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (1) Slaide bemüht sich um eine hohe Verfügbarkeit des Services. Eine Verfügbarkeit von 99% wird angestrebt, jedoch nicht garantiert.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (2) Slaide ist berechtigt, den Service für Wartungsarbeiten vorübergehend zu unterbrechen. Wartungsarbeiten werden nach Möglichkeit außerhalb der Geschäftszeiten durchgeführt.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (3) Slaide haftet nicht für Ausfälle, die auf höhere Gewalt, Störungen der Telekommunikationsnetze oder auf Fehler des Kunden zurückzuführen sind.
+                        </p>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-200">
+                        <h3 class="font-bold text-slate-900 mb-2">§ 8 Datenschutz</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (1) Slaide verarbeitet personenbezogene Daten des Kunden im Rahmen der gesetzlichen Bestimmungen, insbesondere der DSGVO.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (2) Nähere Informationen zur Datenverarbeitung finden Sie in unserer <a href="datenschutz.html" class="text-blue-600 hover:text-blue-700 underline">Datenschutzerklärung</a>.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (3) Der Kunde gewährleistet, dass er zur Übermittlung der hochgeladenen Daten berechtigt ist und keine Rechte Dritter verletzt.
+                        </p>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-200">
+                        <h3 class="font-bold text-slate-900 mb-2">§ 9 Haftung</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (1) Slaide haftet unbeschränkt für Vorsatz und grobe Fahrlässigkeit sowie nach Maßgabe des Produkthaftungsgesetzes.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (2) Bei leichter Fahrlässigkeit haftet Slaide nur bei Verletzung einer wesentlichen Vertragspflicht, deren Erfüllung die ordnungsgemäße Durchführung des Vertrages überhaupt erst ermöglicht und auf deren Einhaltung der Kunde regelmäßig vertrauen darf (Kardinalpflicht). In diesem Fall ist die Haftung auf den vorhersehbaren, typischerweise eintretenden Schaden begrenzt.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (3) Slaide haftet nicht für Schäden, die durch Fehler in den vom Kunden hochgeladenen Daten entstehen.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (4) Die Haftung für Datenverlust ist auf den typischerweise bei ordnungsgemäßer Datensicherung entstehenden Wiederherstellungsaufwand begrenzt.
+                        </p>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-200">
+                        <h3 class="font-bold text-slate-900 mb-2">§ 10 Kündigung</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (1) Beide Parteien können den Vertrag mit einer Frist von einem Monat zum Monatsende kündigen, sofern keine abweichende Vereinbarung getroffen wurde.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (2) Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt unberührt.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (3) Kündigungen müssen schriftlich erfolgen.
+                        </p>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-200">
+                        <h3 class="font-bold text-slate-900 mb-2">§ 11 Schlussbestimmungen</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (1) Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (2) Erfüllungsort und Gerichtsstand für alle Streitigkeiten aus diesem Vertrag ist, soweit der Kunde Kaufmann, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen ist, der Sitz von Slaide.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (3) Sollten einzelne Bestimmungen dieser AGB unwirksam sein oder werden, so bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.
+                        </p>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                            (4) Änderungen und Ergänzungen dieser AGB müssen schriftlich vereinbart werden.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-10 pt-6 border-t border-slate-200">
+                    <a href="index.html" class="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center gap-2">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                        Zurück zur Startseite
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 border-t border-slate-200 safe-area-bottom">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                <div class="w-6 h-6 bg-blue-600 rounded flex items-center justify-center text-white font-bold text-xs">S</div>
+                <span class="font-bold text-slate-900 text-sm">Slaide</span>
+            </a>
+            <div class="text-xs text-slate-500 flex gap-8 font-medium">
+                <a href="datenschutz.html" class="hover:text-blue-600 transition-colors">Datenschutz</a>
+                <a href="impressum.html" class="hover:text-blue-600 transition-colors">Impressum</a>
+                <a href="agb.html" class="hover:text-blue-600 transition-colors">AGB</a>
+            </div>
+            <div class="text-xs text-slate-400">
+                Frankfurt am Main
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        // Navbar scroll effect
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            if (scrolled > 20) {
+                nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('open');
+                const icon = mobileMenuBtn.querySelector('[data-lucide]');
+                if (mobileMenu.classList.contains('open')) {
+                    if (icon) icon.setAttribute('data-lucide', 'x');
+                } else {
+                    if (icon) icon.setAttribute('data-lucide', 'menu');
+                }
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            });
+            
+            // Close menu when clicking on a link
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                    const icon = mobileMenuBtn.querySelector('[data-lucide]');
+                    if (icon) {
+                        icon.setAttribute('data-lucide', 'menu');
+                        if (typeof lucide !== 'undefined') lucide.createIcons();
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
+
+
