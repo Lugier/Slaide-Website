@@ -451,33 +451,6 @@
             color: #e2e8f0;
         }
         
-        /* Hide default cursor */
-        * {
-            cursor: none !important;
-        }
-        
-        /* Custom cursor - filled circle */
-        .cursor-follow {
-            position: fixed;
-            width: 12px;
-            height: 12px;
-            background: rgba(59, 130, 246, 0.8);
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: width 0.1s ease-out, height 0.1s ease-out, background 0.1s ease-out;
-            z-index: 9999;
-            opacity: 1;
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
-        }
-        
-        .cursor-follow.hover {
-            width: 32px;
-            height: 32px;
-            background: rgba(59, 130, 246, 0.4);
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
-            transition: width 0.08s ease-out, height 0.08s ease-out, background 0.08s ease-out;
-        }
         
         /* Card tilt on mouse move */
         .tilt-card {
