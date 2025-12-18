@@ -1,0 +1,10 @@
+{
+  "name": "slaide-website",
+  "version": "1.0.0",
+  "description": "Slaide Landing Page - Zero-Defect Reporting",
+  "scripts": {
+    "build": "echo 'No build step needed - static HTML files'"
+  },
+  "private": true
+}
+

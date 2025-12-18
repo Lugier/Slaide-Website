@@ -25,3 +25,7 @@ Thumbs.db
 .env.local
 .env.*.local
 
+# Node modules (if Tailwind optimization is added later)
+node_modules/
+package-lock.json
+
