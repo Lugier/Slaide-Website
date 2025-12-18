@@ -29,3 +29,7 @@ Thumbs.db
 node_modules/
 package-lock.json
 
+# Keep public directory but ignore contents (we use SRC/ via Rewrites)
+public/*
+!public/.gitkeep
+
