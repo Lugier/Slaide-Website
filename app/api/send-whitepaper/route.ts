@@ -4,7 +4,12 @@ import { readFile, appendFile, mkdir } from 'fs/promises'
 import { join } from 'path'
 import { existsSync } from 'fs'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Resend wird zur Laufzeit initialisiert, nicht beim Build
+const getResend = (): Resend | null => {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) return null
+  return new Resend(apiKey)
+}
 
 interface WhitepaperRequest {
   name: string
@@ -91,8 +96,9 @@ export async function POST(request: Request) {
       }
     }
 
-    // Prüfe Resend API Key
-    if (!process.env.RESEND_API_KEY) {
+    // Prüfe Resend API Key und initialisiere Resend
+    const resend = getResend()
+    if (!resend) {
       console.error('RESEND_API_KEY fehlt in Umgebungsvariablen')
       return NextResponse.json(
         { error: 'E-Mail-Service nicht konfiguriert. Bitte kontaktieren Sie den Support.' },

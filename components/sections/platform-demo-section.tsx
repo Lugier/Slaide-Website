@@ -109,6 +109,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
     const startScores: Record<MockupType, number> = {
       slide: 79, // Präsentation
       report: 63, // Report
+      contract: 79, // Vertrag
     }
     
     // Weighted points: critical = 3, medium = 2, low = 1
