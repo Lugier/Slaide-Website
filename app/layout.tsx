@@ -1,6 +1,29 @@
 import type { Metadata, Viewport } from 'next'
+import { Inter, JetBrains_Mono } from 'next/font/google'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/react'
+import { WebVitalsInit } from '@/components/web-vitals-init'
 import './globals.css'
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+  preload: true,
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+  adjustFontFallback: true,
+  weight: ['300', '400', '500', '600'], // Only load needed weights
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-mono',
+  preload: false, // Only load when needed (below-the-fold)
+  fallback: ['Courier New', 'monospace'],
+  adjustFontFallback: true,
+  weight: ['400', '500', '600'], // Only load needed weights
+})
 
 export const metadata: Metadata = {
   title: 'Slaide | Audit-Grade Deck Integrity für Dokumente',
@@ -12,7 +35,13 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.slaide.de'),
   alternates: {
     canonical: '/',
+    languages: {
+      'de-DE': 'https://www.slaide.de',
+      'de-AT': 'https://www.slaide.de',
+      'de-CH': 'https://www.slaide.de',
+    },
   },
+  category: 'Business Software',
   openGraph: {
     type: 'website',
     title: 'Slaide | Audit-Grade Deck Integrity für Dokumente',
@@ -34,6 +63,8 @@ export const metadata: Metadata = {
     title: 'Slaide | Audit-Grade Deck Integrity für Dokumente',
     description: 'Slaide prüft Decks auf Logik, Konsistenz, Sprache und Zahlenfehler – inkl. Cross-Slide-Verifikation. In Minuten statt Tagen.',
     images: ['/favicon.png'],
+    site: '@slaide',
+    creator: '@slaide',
   },
   robots: {
     index: true,
@@ -63,13 +94,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="de">
+    <html lang="de" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://www.slaide.de" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" as="style" />
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" as="style" />
+        <link rel="dns-prefetch" href="https://cal.com" />
+        {/* Prefetch critical sections */}
+        <link rel="prefetch" href="/#how-it-works" as="document" />
+        <link rel="prefetch" href="/#security" as="document" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="icon" type="image/png" href="/favicon.png" />
@@ -110,12 +144,27 @@ export default function RootLayout({
                 name: 'Slaide',
                 url: 'https://www.slaide.de',
               },
-              areaServed: {
+              areaServed: [
+                {
                 '@type': 'Country',
                 name: 'Deutschland',
               },
+                {
+                  '@type': 'Country',
+                  name: 'Österreich',
+                },
+                {
+                  '@type': 'Country',
+                  name: 'Schweiz',
+                },
+                {
+                  '@type': 'Place',
+                  name: 'European Union',
+                },
+              ],
               description: 'Automatisierte KI-Validierung für kritische Dokumente. Findet logische Brüche und Zahlenfehler in Präsentationen, Berichten und Unterlagen.',
-              offers: {
+              offers: [
+                {
                 '@type': 'Offer',
                 priceCurrency: 'EUR',
                 price: '1.90',
@@ -125,6 +174,43 @@ export default function RootLayout({
                   priceCurrency: 'EUR',
                   unitText: 'pro Slide',
                 },
+                  name: 'Lite Audit',
+                },
+                {
+                  '@type': 'Offer',
+                  priceCurrency: 'EUR',
+                  price: '2.99',
+                  priceSpecification: {
+                    '@type': 'UnitPriceSpecification',
+                    price: '2.99',
+                    priceCurrency: 'EUR',
+                    unitText: 'pro Slide',
+                  },
+                  name: 'Pro Verification',
+                },
+              ],
+              priceRange: '€€',
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Product',
+              name: 'Slaide Review',
+              description: 'Audit-Grade Deck Integrity für Dokumente. Automatisierte KI-Validierung findet logische Brüche und Zahlenfehler.',
+              brand: {
+                '@type': 'Brand',
+                name: 'Slaide',
+              },
+              offers: {
+                '@type': 'AggregateOffer',
+                priceCurrency: 'EUR',
+                lowPrice: '0.90',
+                highPrice: '2.99',
+                offerCount: '3',
               },
             }),
           }}
@@ -149,7 +235,7 @@ export default function RootLayout({
                   name: 'Wie funktioniert die Fehlerprüfung?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'Unser System stützt sich auf eine Kombination aus feinjustierten generativen AI-Modellen und einer mehrstufigen, regelbasierten Konsistenz-Architektur. Wir nutzen multimodales Parsing auf jeder Seite und Folie, um Text, Tabellen und visuelle Elemente in semantisch normalisierte Entitäten zu überführen. Anschließend errichten wir einen Constraint-Graph, der als wissensbasierter Konsistenz-Graph fungiert. Dieser Graph integriert Constraint-Propagation und Logical Inference Engines, die inkonsistente Zustände deckübergreifend über die gesamte Unterlage hinweg auflösen.',
+                    text: 'Unser System stützt sich auf eine Kombination aus feinjustierten generativen KI-Modellen und einer mehrstufigen, regelbasierten Konsistenz-Architektur. Wir nutzen multimodales Parsing auf jeder Seite und Folie, um Text, Tabellen und visuelle Elemente in semantisch normalisierte Entitäten zu überführen. Anschließend errichten wir einen Constraint-Graph, der als wissensbasierter Konsistenz-Graph fungiert. Dieser Graph integriert Constraint-Propagation und Logical Inference Engines, die inkonsistente Zustände deckübergreifend über die gesamte Unterlage hinweg auflösen.',
                   },
                 },
                 {
@@ -348,7 +434,13 @@ export default function RootLayout({
       </head>
       <body className="antialiased bg-white">
         {children}
+        <WebVitalsInit />
+        {process.env.NODE_ENV === 'production' && (
+          <>
         <SpeedInsights />
+            <Analytics />
+          </>
+        )}
       </body>
     </html>
   )

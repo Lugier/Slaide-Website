@@ -1,40 +1,122 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo, useCallback, memo } from 'react'
 import { Calculator, FileText, Presentation, TrendingUp, Clock, DollarSign, Info } from 'lucide-react'
 
 type DocumentType = 'presentation' | 'document'
 
-export function ROISection(): JSX.Element {
+// Konstante Werte
+const HOURLY_RATE = 98 // EUR pro Stunde (Blended Rate)
+const STANDARD_PRICE = 2.99 // EUR pro Seite
+const LITE_PRICE = 2.19 // EUR pro Seite
+const MANUAL_REVIEW_ERROR_RATE = 8 // Prozent der Fehler, die beim manuellen Review übersehen werden
+const BATCH_SIZE = 10 // Seiten pro Batch
+const BATCH_PROCESSING_TIME = 65 // Sekunden pro Batch
+
+// Zeit pro Seite basierend auf Dokumententyp
+const MINUTES_PER_PAGE: Record<DocumentType, number> = {
+  presentation: 7, // Minuten pro Slide bei Präsentationen
+  document: 12 // Minuten pro Seite bei Dokumenten (Median)
+}
+
+function ROISectionComponent(): JSX.Element {
   const [documentType, setDocumentType] = useState<DocumentType>('presentation')
   const [pages, setPages] = useState<number>(100)
+  const [pagesInput, setPagesInput] = useState<string>('100') // Separate state für Input-String
   const [pricingTier, setPricingTier] = useState<'standard' | 'lite'>('standard')
   
-  // Konstante Werte
-  const hourlyRate = 80 // EUR pro Stunde
-  const standardPrice = 2.99 // EUR pro Seite
-  const litePrice = 2.19 // EUR pro Seite
+  // Memoized Berechnungen
+  const calculations = useMemo(() => {
+    const minutesPerPageValue = MINUTES_PER_PAGE[documentType]
+    const hoursPerPage = minutesPerPageValue / 60
+    const pricePerPage = pricingTier === 'standard' ? STANDARD_PRICE : LITE_PRICE
+    
+    // Batch-Verarbeitung: Pro 10 Seiten = 65 Sekunden
+    const numberOfBatches = pages > 0 ? Math.ceil(pages / BATCH_SIZE) : 0
+    const totalProcessingTimeSeconds = numberOfBatches * BATCH_PROCESSING_TIME
+    const totalProcessingTimeMinutes = Math.floor(totalProcessingTimeSeconds / 60)
+    const totalProcessingTimeSecondsRemainder = totalProcessingTimeSeconds % 60
+    const averageProcessingTimePerPage = pages > 0 ? totalProcessingTimeSeconds / pages : 0
+    
+    // Pro Review Cycle
+    const manualReviewCost = pages * hoursPerPage * HOURLY_RATE
+    const reviewCost = pages * pricePerPage
+    const savingsPerCycle = manualReviewCost - reviewCost
+    const roiPercentage = ((savingsPerCycle / reviewCost) * 100).toFixed(1)
+    
+    // Zeitersparnis berechnen
+    const manualReviewTimeSeconds = pages * minutesPerPageValue * 60 // Manuelle Zeit in Sekunden
+    const timeSavedSeconds = manualReviewTimeSeconds - totalProcessingTimeSeconds
+    const timeSavedHours = Math.floor(timeSavedSeconds / 3600)
+    const timeSavedMinutes = Math.floor((timeSavedSeconds % 3600) / 60)
+    
+    return {
+      minutesPerPageValue,
+      hoursPerPage,
+      pricePerPage,
+      numberOfBatches,
+      totalProcessingTimeSeconds,
+      totalProcessingTimeMinutes,
+      totalProcessingTimeSecondsRemainder,
+      averageProcessingTimePerPage,
+      manualReviewCost,
+      reviewCost,
+      savingsPerCycle,
+      roiPercentage,
+      timeSavedHours,
+      timeSavedMinutes,
+    }
+  }, [documentType, pages, pricingTier])
   
-  // Zeit pro Seite basierend auf Dokumententyp
-  const minutesPerPage: Record<DocumentType, number> = {
-    presentation: 7, // Minuten pro Slide bei Präsentationen
-    document: 12 // Minuten pro Seite bei Dokumenten (Median)
-  }
+  // Event Handlers mit useCallback
+  const handleDocumentTypeChange = useCallback((type: DocumentType) => {
+    setDocumentType(type)
+  }, [])
   
-  // Berechnungen
-  const minutesPerPageValue = minutesPerPage[documentType]
-  const hoursPerPage = minutesPerPageValue / 60
-  const pricePerPage = pricingTier === 'standard' ? standardPrice : litePrice
+  const handlePagesChange = useCallback((value: number) => {
+    setPages(value)
+    setPagesInput(value.toString())
+  }, [])
   
-  // Pro Review Cycle
-  const manualReviewCost = pages * hoursPerPage * hourlyRate
-  const slaideCost = pages * pricePerPage
-  const savingsPerCycle = manualReviewCost - slaideCost
-  const roiPercentage = ((savingsPerCycle / slaideCost) * 100).toFixed(1)
+  const handlePagesInputChange = useCallback((inputValue: string) => {
+    // Erlaube leeres Feld während der Eingabe
+    setPagesInput(inputValue)
+    
+    // Wenn ein gültiger Wert eingegeben wird, aktualisiere auch pages
+    if (inputValue === '') {
+      return // Feld kann leer sein
+    }
+    
+    const numValue = parseInt(inputValue, 10)
+    if (!isNaN(numValue) && numValue >= 0 && numValue <= 100000) {
+      setPages(numValue)
+    }
+  }, [])
   
-  // Über mehrere Cycles (inkl. Partner und Manager)
-  const cycles = [1, 3, 6, 12]
-  const reviewCyclesPerYear = 12 // Annahme: monatliche Reviews
+  const handlePagesInputBlur = useCallback(() => {
+    // Beim Verlassen des Feldes: Wenn leer oder ungültig, setze auf 0
+    if (pagesInput === '' || isNaN(parseInt(pagesInput, 10))) {
+      setPagesInput('0')
+      setPages(0)
+    } else {
+      const numValue = parseInt(pagesInput, 10)
+      if (numValue < 0) {
+        setPagesInput('0')
+        setPages(0)
+      } else if (numValue > 100000) {
+        setPagesInput('100000')
+        setPages(100000)
+      } else {
+        // Stelle sicher, dass pagesInput und pages synchron sind
+        setPagesInput(numValue.toString())
+        setPages(numValue)
+      }
+    }
+  }, [pagesInput])
+  
+  const handlePricingTierChange = useCallback((tier: 'standard' | 'lite') => {
+    setPricingTier(tier)
+  }, [])
   
   return (
     <section id="roi" className="pt-12 pb-24 md:pt-16 md:pb-32 px-6 bg-white border-t border-gray-100">
@@ -47,7 +129,7 @@ export function ROISection(): JSX.Element {
             ROI-Rechner
           </h2>
           <p className="text-grey-dark max-w-2xl mx-auto">
-            Berechnen Sie Ihre Einsparungen über alle Review Cycles hinweg. Inklusive Partner- und Manager-Review.
+            Berechnen Sie Ihre Einsparungen über alle Review Cycles hinweg.
           </p>
         </div>
 
@@ -64,12 +146,14 @@ export function ROISection(): JSX.Element {
               </label>
               <div className="grid grid-cols-2 gap-3">
                 <button
-                  onClick={() => setDocumentType('presentation')}
+                  onClick={() => handleDocumentTypeChange('presentation')}
                   className={`p-4 rounded-lg border-2 transition-all relative group/doc ${
                     documentType === 'presentation'
                       ? 'border-black bg-black text-white'
                       : 'border-gray-200 bg-white hover:border-gray-300'
                   }`}
+                  type="button"
+                  aria-label="Präsentation auswählen"
                 >
                   <Presentation className={`w-5 h-5 mx-auto mb-2 ${documentType === 'presentation' ? 'text-white' : 'text-gray-400'}`} aria-hidden="true" />
                   <div className="text-sm font-medium">Präsentation</div>
@@ -78,12 +162,14 @@ export function ROISection(): JSX.Element {
                   </div>
                 </button>
                 <button
-                  onClick={() => setDocumentType('document')}
+                  onClick={() => handleDocumentTypeChange('document')}
                   className={`p-4 rounded-lg border-2 transition-all ${
                     documentType === 'document'
                       ? 'border-black bg-black text-white'
                       : 'border-gray-200 bg-white hover:border-gray-300'
                   }`}
+                  type="button"
+                  aria-label="Dokument auswählen"
                 >
                   <FileText className={`w-5 h-5 mx-auto mb-2 ${documentType === 'document' ? 'text-white' : 'text-gray-400'}`} aria-hidden="true" />
                   <div className="text-sm font-medium">Dokument</div>
@@ -96,16 +182,38 @@ export function ROISection(): JSX.Element {
 
             {/* Anzahl Seiten */}
             <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-3">
+              <label htmlFor="pages-input" className="block text-sm font-medium text-gray-700 mb-3">
                 Anzahl Seiten
               </label>
               <input
-                type="number"
-                min="1"
-                value={pages}
-                onChange={(e) => setPages(Math.max(1, parseInt(e.target.value) || 1))}
+                id="pages-input"
+                type="text"
+                value={pagesInput}
+                onChange={(e) => {
+                  const inputValue = e.target.value
+                  // Erlaube leeres Feld und alle Ziffern
+                  if (inputValue === '' || /^\d*$/.test(inputValue)) {
+                    handlePagesInputChange(inputValue)
+                  }
+                }}
+                onBlur={handlePagesInputBlur}
+                onKeyDown={(e) => {
+                  // Erlaube Backspace, Delete, Tab, Escape, Enter und Pfeiltasten
+                  if (['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+                    return
+                  }
+                  // Erlaube nur Ziffern
+                  if (!/^\d$/.test(e.key)) {
+                    e.preventDefault()
+                  }
+                }}
                 className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-black focus:outline-none text-lg font-semibold"
+                aria-label="Anzahl Seiten"
+                aria-describedby="pages-description"
+                inputMode="numeric"
+                pattern="[0-9]*"
               />
+              <p id="pages-description" className="sr-only">Geben Sie die Anzahl der Seiten oder Slides ein</p>
             </div>
 
             {/* Pricing Tier */}
@@ -115,26 +223,32 @@ export function ROISection(): JSX.Element {
               </label>
               <div className="grid grid-cols-2 gap-3">
                 <button
-                  onClick={() => setPricingTier('standard')}
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    pricingTier === 'standard'
-                      ? 'border-black bg-black text-white'
-                      : 'border-gray-200 bg-white hover:border-gray-300'
-                  }`}
-                >
-                  <div className="text-sm font-medium">Standard</div>
-                  <div className="text-xs mt-1 opacity-75">2,99€/Seite</div>
-                </button>
-                <button
-                  onClick={() => setPricingTier('lite')}
+                  onClick={() => handlePricingTierChange('lite')}
                   className={`p-4 rounded-lg border-2 transition-all ${
                     pricingTier === 'lite'
                       ? 'border-black bg-black text-white'
                       : 'border-gray-200 bg-white hover:border-gray-300'
                   }`}
+                  type="button"
+                  aria-label="Lite Pricing Tier auswählen"
                 >
                   <div className="text-sm font-medium">Lite</div>
                   <div className="text-xs mt-1 opacity-75">2,19€/Seite</div>
+                  <div className="text-xs mt-0.5 opacity-60">65s/Batch (10 Seiten)</div>
+                </button>
+                <button
+                  onClick={() => handlePricingTierChange('standard')}
+                  className={`p-4 rounded-lg border-2 transition-all ${
+                    pricingTier === 'standard'
+                      ? 'border-black bg-black text-white'
+                      : 'border-gray-200 bg-white hover:border-gray-300'
+                  }`}
+                  type="button"
+                  aria-label="Standard Pricing Tier auswählen"
+                >
+                  <div className="text-sm font-medium">Standard</div>
+                  <div className="text-xs mt-1 opacity-75">2,99€/Seite</div>
+                  <div className="text-xs mt-0.5 opacity-60">65s/Batch (10 Seiten)</div>
                 </button>
               </div>
             </div>
@@ -150,14 +264,14 @@ export function ROISection(): JSX.Element {
                   <Clock className="w-4 h-4 text-gray-500" aria-hidden="true" />
                   <span className="text-sm text-gray-700">Manuelle Prüfung</span>
                 </div>
-                <div className="text-2xl font-bold text-gray-900">{manualReviewCost.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })}</div>
+                <div className="text-2xl font-bold text-gray-900">{calculations.manualReviewCost.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })}</div>
                 <div className="flex items-center gap-1.5 text-xs text-gray-600 mt-1 group/calc relative">
-                  <span>{(pages * hoursPerPage).toFixed(1)} Stunden × {hourlyRate.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/h</span>
+                  <span>{(pages * calculations.hoursPerPage).toFixed(1)} Stunden × {HOURLY_RATE.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/h</span>
                   <div className="relative">
                     <Info className="w-3 h-3 text-gray-500 opacity-40 hover:opacity-70 cursor-help transition-opacity" aria-hidden="true" />
                     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-xl opacity-0 invisible group-hover/calc:opacity-100 group-hover/calc:visible transition-all duration-200 z-10 border border-gray-700">
                       <p className="leading-relaxed">
-                        Basierend auf Median-Werten aus Banking & Consulting. Der Stundensatz von {hourlyRate.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/h berücksichtigt die Beteiligung von Managern und Partnern im Review-Prozess.
+                        Basierend auf Median-Werten aus Banking & Consulting. Der Stundensatz von {HOURLY_RATE.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/h basiert auf durchschnittlichen Review-Zeiten und berücksichtigt die Beteiligung von Managern und Partnern im Review-Prozess.
                       </p>
                       <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
                     </div>
@@ -167,67 +281,57 @@ export function ROISection(): JSX.Element {
               
               <div className="pb-4 border-b border-gray-200">
                 <div className="flex items-center gap-2 mb-2">
-                  <DollarSign className="w-4 h-4 text-gray-500" aria-hidden="true" />
-                  <span className="text-sm text-gray-700">Slaide Kosten</span>
+                  <span className="text-sm font-medium text-gray-500">€</span>
+                  <span className="text-sm text-gray-700">Review Kosten</span>
                 </div>
-                <div className="text-2xl font-bold text-gray-900">{slaideCost.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 })}</div>
+                <div className="text-2xl font-bold text-gray-900">{calculations.reviewCost.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 })}</div>
                 <div className="text-xs text-gray-600 mt-1">
-                  {pages} Seiten × {pricePerPage.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/Seite
+                  {pages} Seiten × {calculations.pricePerPage.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/Seite
+                </div>
+                <div className="text-xs text-gray-500 mt-1">
+                  Verarbeitungszeit: {calculations.totalProcessingTimeMinutes > 0 ? `${calculations.totalProcessingTimeMinutes} Min ` : ''}{calculations.totalProcessingTimeSecondsRemainder > 0 ? `${calculations.totalProcessingTimeSecondsRemainder}s` : ''}
                 </div>
               </div>
               
               <div className="pt-4">
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-2 mb-5">
                   <TrendingUp className="w-4 h-4 text-green-600" aria-hidden="true" />
                   <span className="text-sm font-semibold text-green-700">Ihre Einsparung</span>
                 </div>
-                <div className="text-3xl font-bold text-green-600">
-                  {savingsPerCycle.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })}
+                <div className="flex items-start gap-6 mb-5">
+                  <div className="flex-1">
+                    <div className="text-4xl font-bold text-green-600 leading-tight">
+                      {calculations.savingsPerCycle.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })}
+                    </div>
+                    <div className="text-xs text-green-700 font-medium mt-1.5">Kosteneinsparung</div>
+                  </div>
+                  {calculations.timeSavedHours > 0 || calculations.timeSavedMinutes > 0 ? (
+                    <>
+                      <div className="h-16 w-px bg-gradient-to-b from-green-200 via-green-300 to-green-200"></div>
+                      <div className="flex-1">
+                        <div className="text-4xl font-bold text-green-600 leading-tight">
+                          {calculations.timeSavedHours > 0 && `${calculations.timeSavedHours}${calculations.timeSavedHours === 1 ? 'h' : 'h'}`}
+                          {calculations.timeSavedHours > 0 && calculations.timeSavedMinutes > 0 && ' '}
+                          {calculations.timeSavedMinutes > 0 && `${calculations.timeSavedMinutes}${calculations.timeSavedMinutes === 1 ? 'min' : 'min'}`}
+                        </div>
+                        <div className="text-xs text-green-700 font-medium mt-1.5">Zeitersparnis</div>
+                      </div>
+                    </>
+                  ) : null}
                 </div>
-                <div className="text-sm text-green-700 mt-2 font-medium">
-                  {roiPercentage}% ROI pro Cycle
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 rounded-lg border border-green-100">
+                  <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                  <span className="text-sm text-green-700 font-semibold">
+                    {calculations.roiPercentage}% ROI pro Cycle
+                  </span>
+                </div>
+                <div className="mt-4 pt-4 border-t border-gray-200">
+                  <div className="text-xs text-gray-600">
+                    <span className="font-medium">Manuelles Review:</span> ~{MANUAL_REVIEW_ERROR_RATE}% Fehler werden übersehen
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* ROI über mehrere Cycles */}
-        <div className="p-10 rounded-2xl bg-white border border-gray-200 reveal delay-200">
-          <div className="grid md:grid-cols-4 gap-6">
-            {cycles.map((months) => {
-              const cyclesCount = months
-              const totalManualCost = manualReviewCost * cyclesCount
-              const totalSlaideCost = slaideCost * cyclesCount
-              const totalSavings = totalManualCost - totalSlaideCost
-              const netROI = ((totalSavings / totalSlaideCost) * 100).toFixed(0)
-              
-              return (
-                <div key={months} className="p-6 rounded-xl bg-gray-50 border border-gray-200">
-                  <div className="text-center mb-4">
-                    <div className="text-3xl font-bold mb-1 text-gray-900">{cyclesCount}</div>
-                    <div className="text-xs text-gray-600 uppercase tracking-wider">Review Cycle{cyclesCount > 1 ? 's' : ''}</div>
-                  </div>
-                  <div className="space-y-3 text-sm">
-                    <div className="pb-3 border-b border-gray-200">
-                      <div className="text-gray-600 mb-1 text-xs">Kosten</div>
-                      <div className="text-lg font-semibold text-gray-900">{totalSlaideCost.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })}</div>
-                    </div>
-                    <div className="pb-3 border-b border-gray-200">
-                      <div className="text-gray-600 mb-1 text-xs">Manuell</div>
-                      <div className="text-lg font-semibold text-red-600">{totalManualCost.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })}</div>
-                    </div>
-                    <div>
-                      <div className="text-gray-600 mb-1 text-xs">Einsparung</div>
-                      <div className="text-xl font-bold text-green-600">
-                        {totalSavings.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })}
-                      </div>
-                      <div className="text-xs text-gray-500 mt-1">{netROI}% ROI</div>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
           </div>
         </div>
       </div>
@@ -235,3 +339,4 @@ export function ROISection(): JSX.Element {
   )
 }
 
+export const ROISection = memo(ROISectionComponent)

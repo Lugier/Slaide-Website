@@ -1,13 +1,16 @@
 'use client'
 
+import { memo, useCallback, useState } from 'react'
 import { Lock, Server, ShieldCheck, CheckCircle, ArrowRight } from 'lucide-react'
-import { openCalComOverlay } from '@/lib/utils/cal-com'
+import { WhitepaperModal } from '@/components/whitepaper-modal'
 
-export function SecuritySection(): JSX.Element {
-  const handleWhitepaperClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
+function SecuritySectionComponent(): JSX.Element {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleWhitepaperClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault()
-    openCalComOverlay()
-  }
+    setIsModalOpen(true)
+  }, [])
 
   return (
     <section id="security" className="py-24 bg-[#050505] text-white">
@@ -32,7 +35,7 @@ export function SecuritySection(): JSX.Element {
                   <Lock className="w-6 h-6 text-white" aria-hidden="true" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-lg">Standard-Retention</h4>
+                  <h3 className="font-bold text-lg">Standard-Retention</h3>
                   <p className="text-sm text-gray-200 mt-1 leading-relaxed">
                     Dokumente werden temporär verarbeitet und nach spätestens 30 Tagen automatisch gelöscht. Sofortige Löschung jederzeit auf Anfrage möglich.
                   </p>
@@ -43,9 +46,9 @@ export function SecuritySection(): JSX.Element {
                   <Server className="w-6 h-6 text-white" aria-hidden="true" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-lg">EU-Hosting & Verschlüsselung</h4>
+                  <h3 className="font-bold text-lg">EU-Hosting & Verschlüsselung</h3>
                   <p className="text-sm text-gray-200 mt-1 leading-relaxed">
-                    Ihre Dokumente werden ausschließlich für Ihre Analyse verwendet. Keine Nutzung für Training, Fine-Tuning oder Forschung.
+                    Hosting in Frankfurt in ISO-zertifizierten Rechenzentren. AES-256 Verschlüsselung bei Übertragung, Verarbeitung und beim Ablegen – Ihre Daten sind immer geschützt.
                   </p>
                 </div>
               </div>
@@ -54,7 +57,7 @@ export function SecuritySection(): JSX.Element {
                   <ShieldCheck className="w-6 h-6 text-white" aria-hidden="true" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-lg">Kein Training</h4>
+                  <h3 className="font-bold text-lg">Kein Training</h3>
                   <p className="text-sm text-gray-200 mt-1 leading-relaxed">
                     Ihre Dokumente werden ausschließlich für Ihre Analyse verwendet. Keine Nutzung für Training, Fine-Tuning oder Forschung.
                   </p>
@@ -65,8 +68,8 @@ export function SecuritySection(): JSX.Element {
             <a
               href="#"
               onClick={handleWhitepaperClick}
-              className="inline-flex items-center gap-2 mt-8 text-sm font-medium text-white border-b border-white pb-1 hover:text-gray-300 hover:border-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black"
-              aria-label="Security Whitepaper anfordern"
+                aria-label="Security Whitepaper anfordern"
+              className="inline-flex items-center gap-2 mt-8 text-sm font-medium text-white border-b border-white pb-1 hover:text-gray-300 hover:border-gray-300 transition-colors focus:outline-none"
             >
               Security Whitepaper anfordern{' '}
               <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -98,6 +101,10 @@ export function SecuritySection(): JSX.Element {
           </div>
         </div>
       </div>
+
+      <WhitepaperModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   )
 }
+
+export const SecuritySection = memo(SecuritySectionComponent)

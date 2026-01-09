@@ -43,7 +43,7 @@ export function Navigation(): JSX.Element {
         {/* Logo */}
         <Link
           href="/"
-          className="text-lg font-semibold tracking-tight flex items-center gap-2.5 hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg"
+          className="text-lg font-semibold tracking-tight flex items-center gap-2.5 hover:opacity-80 transition-opacity focus:outline-none rounded-lg"
           aria-label="Slaide Startseite"
         >
           <div className="w-6 h-6 bg-black rounded flex items-center justify-center">
@@ -56,31 +56,31 @@ export function Navigation(): JSX.Element {
         <div className="hidden md:flex items-center gap-10 text-sm font-medium text-grey-medium">
           <a
             href="#platform"
-            className="hover:text-black transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1"
+            className="hover:text-black transition-colors focus:outline-none rounded px-2 py-1"
           >
             Plattform
           </a>
           <a
             href="#how"
-            className="hover:text-black transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1"
+            className="hover:text-black transition-colors focus:outline-none rounded px-2 py-1"
           >
             Technologie
           </a>
           <a
             href="#use-cases"
-            className="hover:text-black transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1"
+            className="hover:text-black transition-colors focus:outline-none rounded px-2 py-1"
           >
             Use Cases
           </a>
           <a
             href="#security"
-            className="hover:text-black transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1"
+            className="hover:text-black transition-colors focus:outline-none rounded px-2 py-1"
           >
             Security
           </a>
           <a
-            href="#pricing"
-            className="hover:text-black transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1"
+            href="#pricing-tiers"
+            className="hover:text-black transition-colors focus:outline-none rounded px-2 py-1"
           >
             Pricing
           </a>
@@ -91,7 +91,7 @@ export function Navigation(): JSX.Element {
           <a
             href="#"
             onClick={handleDemoClick}
-            className={`text-sm font-medium px-5 py-2.5 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 min-h-[44px] flex items-center shadow-sm ${
+            className={`text-sm font-medium px-5 py-2.5 rounded-lg transition-all focus:outline-none min-h-[44px] flex items-center shadow-sm ${
               isScrolled
                 ? 'bg-black text-white hover:bg-gray-800'
                 : 'border border-gray-200 hover:border-gray-900 hover:bg-gray-50'
@@ -102,7 +102,7 @@ export function Navigation(): JSX.Element {
           </a>
           <Link
             href="https://app.slaide.de"
-            className="text-sm font-medium bg-black text-white px-5 py-2.5 rounded-lg hover:bg-gray-800 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 min-h-[44px] flex items-center"
+            className="text-sm font-medium bg-black text-white px-5 py-2.5 rounded-lg hover:bg-gray-800 transition-all shadow-sm focus:outline-none min-h-[44px] flex items-center"
             aria-label="Login"
           >
             Login
@@ -112,7 +112,7 @@ export function Navigation(): JSX.Element {
         {/* Mobile Menu Button */}
         <button
           onClick={handleMobileMenuToggle}
-          className="md:hidden p-2 w-11 h-11 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 min-h-[44px] min-w-[44px]"
+          className="md:hidden p-2 w-11 h-11 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors focus:outline-none min-h-[44px] min-w-[44px]"
           aria-label={isMobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
           aria-expanded={isMobileMenuOpen}
         >
@@ -135,35 +135,35 @@ export function Navigation(): JSX.Element {
         <nav className="max-w-[1400px] mx-auto px-6 py-6 flex flex-col gap-4">
           <a
             href="#platform"
-            className="text-grey-medium hover:text-black transition-colors font-medium py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 min-h-[44px] flex items-center"
+            className="text-grey-medium hover:text-black transition-colors font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center"
             onClick={handleMobileLinkClick}
           >
             Plattform
           </a>
           <a
             href="#how"
-            className="text-grey-medium hover:text-black transition-colors font-medium py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 min-h-[44px] flex items-center"
+            className="text-grey-medium hover:text-black transition-colors font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center"
             onClick={handleMobileLinkClick}
           >
             Technologie
           </a>
           <a
             href="#use-cases"
-            className="text-grey-medium hover:text-black transition-colors font-medium py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 min-h-[44px] flex items-center"
+            className="text-grey-medium hover:text-black transition-colors font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center"
             onClick={handleMobileLinkClick}
           >
             Use Cases
           </a>
           <a
             href="#security"
-            className="text-grey-medium hover:text-black transition-colors font-medium py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 min-h-[44px] flex items-center"
+            className="text-grey-medium hover:text-black transition-colors font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center"
             onClick={handleMobileLinkClick}
           >
             Security
           </a>
           <a
-            href="#pricing"
-            className="text-grey-medium hover:text-black transition-colors font-medium py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 min-h-[44px] flex items-center"
+            href="#pricing-tiers"
+            className="text-grey-medium hover:text-black transition-colors font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center"
             onClick={handleMobileLinkClick}
           >
             Pricing
@@ -171,7 +171,7 @@ export function Navigation(): JSX.Element {
           <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
             <Link
               href="https://app.slaide.de"
-              className="text-sm font-medium bg-black text-white px-5 py-2.5 rounded-lg hover:bg-gray-800 transition-all shadow-sm text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 min-h-[44px] flex items-center justify-center"
+              className="text-sm font-medium bg-black text-white px-5 py-2.5 rounded-lg hover:bg-gray-800 transition-all shadow-sm text-center focus:outline-none min-h-[44px] flex items-center justify-center"
               onClick={handleMobileLinkClick}
               aria-label="Login"
             >
@@ -187,7 +187,7 @@ export function Navigation(): JSX.Element {
           <a
             href="#"
             onClick={handleDemoClick}
-            className="w-full text-sm font-medium bg-black text-white px-5 py-3.5 rounded-lg hover:bg-gray-800 transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 min-h-[52px] flex items-center justify-center"
+            className="w-full text-sm font-medium bg-black text-white px-5 py-3.5 rounded-lg hover:bg-gray-800 transition-all shadow-sm focus:outline-none min-h-[52px] flex items-center justify-center"
             aria-label="Demo anfragen"
           >
             Demo anfragen

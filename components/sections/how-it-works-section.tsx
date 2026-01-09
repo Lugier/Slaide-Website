@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, memo, useCallback } from 'react'
 import { Layers, Cpu, FileCheck, ArrowRight, Calendar } from 'lucide-react'
 import { openCalComOverlay } from '@/lib/utils/cal-com'
 
@@ -15,11 +15,19 @@ interface Stage {
   isHighlighted?: boolean
 }
 
-export function HowItWorksSection(): JSX.Element {
+function HowItWorksSectionComponent(): JSX.Element {
   const [activeStage, setActiveStage] = useState<number | null>(null)
   const [isVisible, setIsVisible] = useState<boolean>(false)
   const sectionRef = useRef<HTMLElement>(null)
   const depthWordRef = useRef<HTMLSpanElement>(null)
+
+  const handleMouseEnter = useCallback((index: number) => {
+    setActiveStage(index)
+  }, [])
+
+  const handleMouseLeave = useCallback(() => {
+    setActiveStage(null)
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -34,13 +42,14 @@ export function HowItWorksSection(): JSX.Element {
       { threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
     )
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
+    const currentSection = sectionRef.current
+    if (currentSection) {
+      observer.observe(currentSection)
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
+      if (currentSection) {
+        observer.unobserve(currentSection)
       }
     }
   }, [])
@@ -97,7 +106,7 @@ export function HowItWorksSection(): JSX.Element {
       number: '01',
       title: 'Multimodale Erfassung',
       description:
-        'Das System zerlegt PDFs in Text-, Vektor- und Bild-Layer. Ein vorgeschalteter AI-Screener filtert irrelevante Seiten (Agenda, Trenner) sofort heraus, um Ressourcen zu schonen.',
+        'Das System zerlegt PDFs in Text-, Vektor- und Bild-Layer. Ein vorgeschalteter KI-Screener filtert irrelevante Seiten (Deckblatt, Inhaltsverzeichnis, Abschnitt) sofort heraus, um kosteneffizient zu arbeiten.',
       icon: Layers,
       badge: 'STAGE 01 • INGEST & SCREEN',
       badgeColor: 'text-gray-400',
@@ -106,8 +115,14 @@ export function HowItWorksSection(): JSX.Element {
       number: '02',
       title: 'Semantische Verifikation',
       description:
-        'Hier passiert die Magie. Eine hybride Architektur aus generativer KI und Deep-Learning-Modellen analysiert:',
-      features: ['Querverweis-Analyse', 'Mathematische Neuberechnung', 'Entitätsauflösung'],
+        'Kern der Analyse. Eine hybride Architektur aus generativer KI und Deep-Learning-Modellen analysiert:',
+      features: [
+        'Rechtsschreibung, Grammatik & Syntax',
+        'Mathematische Neuberechnung',
+        'Argumentationslogik',
+        'Querverweise',
+        'Plausibilität',
+      ],
       icon: Cpu,
       badge: 'STAGE 02 • NEURAL CORE',
       badgeColor: 'text-white',
@@ -117,7 +132,7 @@ export function HowItWorksSection(): JSX.Element {
       number: '03',
       title: 'Strukturierter Report',
       description:
-        'Ergebnisse werden nicht als loser Text, sondern als strukturierte Issue-Liste ausgegeben. Priorisiert nach Schweregrad von Kritisch bis Niedrig, bereit für den direkten Fix im Originaldokument.',
+        'Ergebnisse werden nicht als loser Text, sondern als strukturierte Issue-Liste ausgegeben. Priorisiert nach Schweregrad von Kritisch bis Niedrig, bereit für den direkten Fix im Originaldokument. Mit direktem PDF-Export der Ergebnisse.',
       icon: FileCheck,
       badge: 'STAGE 03 • SYNTHESIS',
       badgeColor: 'text-gray-400',
@@ -171,11 +186,11 @@ export function HowItWorksSection(): JSX.Element {
                 <span className="relative z-10">Tiefe</span>
                 <span className="absolute bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-white/20 via-white/10 to-white/20 blur-xl -z-0"></span>
               </span>
-              , die Menschen übersehen.
+              <span className="inline-block">&nbsp;</span>, die selbst Experten entgeht.
             </h2>
             <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-xl">
               Kein einfacher Spellchecker. Review nutzt eine mehrstufige neuronale Architektur, um
-              den Inhalt Ihrer Dokumente semantisch zu durchdringen.
+              den Inhalt Ihrer Dokumente semantisch tiefgründig zu durchdringen.
             </p>
           </div>
         </div>
@@ -204,33 +219,33 @@ export function HowItWorksSection(): JSX.Element {
 
           {/* Stage Cards Grid */}
           <div className="grid lg:grid-cols-3 gap-6 lg:gap-8 relative z-10">
-            {stages.map((stage, index) => {
-              const Icon = stage.icon
+          {stages.map((stage, index) => {
+            const Icon = stage.icon
               const isActive = activeStage === index
               const delay = index * 200
 
-              return (
-                <div
-                  key={index}
+            return (
+              <div
+                key={index}
                   className={`group relative transition-all duration-1000 ${
                     isVisible
                       ? 'opacity-100 translate-y-0'
                       : 'opacity-0 translate-y-12'
                   }`}
                   style={{ transitionDelay: `${delay}ms` }}
-                  onMouseEnter={() => setActiveStage(index)}
-                  onMouseLeave={() => setActiveStage(null)}
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onMouseLeave={handleMouseLeave}
                 >
                   {/* Card Container */}
                   <div
                     className={`relative h-full bg-gradient-to-br from-[#0a0a0a] to-[#050505] border rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-10 transition-all duration-500 ${
                       stage.isHighlighted
-                        ? 'border-white/20 shadow-[0_0_60px_rgba(255,255,255,0.08)]'
+                        ? 'border-white/20'
                         : 'border-gray-800/50 hover:border-gray-700/50'
                     } ${
                       isActive
-                        ? 'transform scale-[1.02] shadow-2xl'
-                        : 'hover:scale-[1.01] hover:shadow-xl'
+                        ? 'transform scale-[1.02]'
+                        : 'hover:scale-[1.01]'
                     }`}
                   >
                     {/* Subtle Background Overlay */}
@@ -240,9 +255,9 @@ export function HowItWorksSection(): JSX.Element {
                       }`}
                     ></div>
 
-                    {/* Glow Effect for Highlighted Card */}
+                    {/* Glow Effect for Highlighted Card - auf dem Rahmen */}
                     {stage.isHighlighted && (
-                      <div className="absolute -inset-1 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl bg-white/10"></div>
+                      <div className="absolute inset-0 rounded-2xl md:rounded-3xl border-2 border-white/30 shadow-[0_0_30px_rgba(255,255,255,0.15)] pointer-events-none animate-pulse"></div>
                     )}
 
                     {/* Content */}
@@ -260,8 +275,8 @@ export function HowItWorksSection(): JSX.Element {
                             stage.isHighlighted
                               ? 'bg-white text-black shadow-lg shadow-white/20'
                               : 'bg-gradient-to-br from-gray-800 to-gray-900 text-gray-400 group-hover:text-white group-hover:from-gray-700 group-hover:to-gray-800'
-                          }`}
-                        >
+                    }`}
+                  >
                           <Icon className="w-7 h-7 md:w-8 md:h-8" aria-hidden="true" />
                         </div>
 
@@ -269,7 +284,7 @@ export function HowItWorksSection(): JSX.Element {
                         {stage.isHighlighted && (
                           <div className="absolute inset-0 rounded-2xl bg-white/20 blur-xl -z-10 animate-pulse"></div>
                         )}
-                      </div>
+                  </div>
 
                       {/* Badge */}
                       <div
@@ -285,9 +300,9 @@ export function HowItWorksSection(): JSX.Element {
                         <span
                           className={`text-xs font-mono font-medium uppercase tracking-wider ${stage.badgeColor}`}
                         >
-                          {stage.badge}
+                    {stage.badge}
                         </span>
-                      </div>
+                  </div>
 
                       {/* Title */}
                       <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-3 md:mb-4 leading-tight">
@@ -295,23 +310,23 @@ export function HowItWorksSection(): JSX.Element {
                       </h3>
 
                       {/* Description */}
-                      <p
+                  <p
                         className={`text-base md:text-lg leading-relaxed mb-6 transition-colors duration-300 ${
                           stage.isHighlighted ? 'text-gray-200' : 'text-gray-400 group-hover:text-gray-300'
-                        }`}
-                      >
-                        {stage.description}
-                      </p>
+                    }`}
+                  >
+                    {stage.description}
+                  </p>
 
                       {/* Features List */}
-                      {stage.features && (
+                  {stage.features && (
                         <ul className="space-y-3">
-                          {stage.features.map((feature, featureIndex) => (
+                      {stage.features.map((feature, featureIndex) => (
                             <li
                               key={featureIndex}
-                              className="flex items-start gap-3 text-sm md:text-base text-gray-300"
+                              className="flex items-center gap-3 text-sm md:text-base text-gray-300"
                             >
-                              <div className="flex-shrink-0 mt-1.5">
+                              <div className="flex-shrink-0">
                                 <div
                                   className={`w-1.5 h-1.5 rounded-full ${
                                     stage.isHighlighted ? 'bg-white' : 'bg-gray-500'
@@ -319,10 +334,10 @@ export function HowItWorksSection(): JSX.Element {
                                 ></div>
                               </div>
                               <span>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
 
                       {/* CTA Button (only visible on hover) */}
                       <button
@@ -333,29 +348,24 @@ export function HowItWorksSection(): JSX.Element {
                             : 'opacity-0 -translate-x-2 pointer-events-none'
                         }`}
                         type="button"
+                        aria-label="Kostenlose Demo buchen"
                       >
                         <span>Kostenlose Demo</span>
-                        <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/button:translate-x-1" />
+                        <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/button:translate-x-1" aria-hidden="true" />
                       </button>
                     </div>
 
-                    {/* Decorative Corner Accent */}
-                    <div
-                      className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/5 to-transparent rounded-bl-[3rem] rounded-tr-3xl pointer-events-none transition-opacity duration-500 ${
-                        isActive ? 'opacity-100' : 'opacity-0'
-                      }`}
-                    ></div>
                   </div>
 
                   {/* Connection Arrow (Mobile) */}
                   {index < stages.length - 1 && (
                     <div className="lg:hidden flex justify-center my-6">
                       <div className="w-0.5 h-12 bg-gradient-to-b from-gray-700 to-transparent"></div>
-                    </div>
-                  )}
                 </div>
-              )
-            })}
+                  )}
+              </div>
+            )
+          })}
           </div>
         </div>
 
@@ -372,13 +382,16 @@ export function HowItWorksSection(): JSX.Element {
             onClick={openCalComOverlay}
             className="group inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-white text-black font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-white/20 active:scale-95"
             type="button"
+            aria-label="Kostenlose Demo buchen"
           >
             <Calendar className="w-5 h-5" aria-hidden="true" />
             <span>Kostenlose Demo buchen</span>
-            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
           </button>
         </div>
       </div>
     </section>
   )
 }
+
+export const HowItWorksSection = memo(HowItWorksSectionComponent)

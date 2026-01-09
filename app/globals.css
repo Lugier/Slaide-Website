@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Inter Font - Primary Sans */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
-
-/* JetBrains Mono Font - Monospace for Badges */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
-
 :root {
   --primary: #050505;
   --accent: #2563eb;
@@ -20,7 +14,7 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: #050505;
   background-color: #ffffff;
   scroll-behavior: smooth;
@@ -144,6 +138,21 @@ input:focus-visible {
   -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
 }
 
+/* Gradient Animation for Hero Title */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
 /* Glass Panel - Backdrop Blur Effect */
 .glass-panel {
   background: rgba(255, 255, 255, 0.7);
@@ -162,7 +171,7 @@ input:focus-visible {
 
 /* Unix Badge - Monospace Styling */
 .unix-badge {
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-family: var(--font-mono), 'Courier New', monospace;
   font-size: 0.70rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -249,7 +258,7 @@ input:focus-visible {
   left: 0;
   width: 0%;
   height: 2px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  background: #000000;
   z-index: 9999;
   transition: width 0.1s ease-out;
 }
@@ -779,6 +788,20 @@ input:focus-visible {
   100% {
     transform: translateX(calc(100vw - 10%));
     opacity: 0;
+  }
+}
+
+@keyframes scale-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 

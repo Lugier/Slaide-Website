@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, memo } from 'react'
 import { FileText, Search, Settings, Lock } from 'lucide-react'
 
 type FindingStatus = 'active' | 'ignored' | 'accepted'
@@ -9,7 +9,7 @@ interface FindingState {
   [key: string]: FindingStatus
 }
 
-export function LegalDemoSection(): JSX.Element {
+function LegalDemoSectionComponent(): JSX.Element {
   const [isVisible, setIsVisible] = useState(false)
   const [findingStates, setFindingStates] = useState<FindingState>({})
   const [hoveredFinding, setHoveredFinding] = useState<string | null>(null)
@@ -44,6 +44,61 @@ export function LegalDemoSection(): JSX.Element {
 
   const getFindingStatus = (index: number): FindingStatus => {
     return findingStates[`contract-${index}`] || 'active'
+  }
+
+  // Get severity level for each finding
+  const getFindingSeverity = (index: number): 'critical' | 'medium' | 'low' => {
+    // legal-demo: 0=critical, 1=critical, 2=medium, 3=medium
+    if (index === 0 || index === 1) return 'critical'
+    return 'medium'
+  }
+
+  const calculateQualityScore = (): number => {
+    const totalFindings = 4
+    const startScore = 79 // Vertrag startet bei 79%
+    
+    // Weighted points: critical = 3, medium = 2, low = 1
+    const weights = { critical: 3, medium: 2, low: 1 }
+    
+    let totalWeight = 0
+    let processedWeight = 0
+    
+    // Calculate total weight and processed weight
+    for (let i = 0; i < totalFindings; i++) {
+      const severity = getFindingSeverity(i)
+      const weight = weights[severity]
+      const status = getFindingStatus(i)
+      
+      totalWeight += weight
+      
+      if (status === 'accepted' || status === 'ignored') {
+        processedWeight += weight
+      }
+    }
+    
+    if (totalWeight === 0) return 100
+    
+    // If all findings are processed, return 100%
+    if (processedWeight >= totalWeight) {
+      return 100
+    }
+    
+    // Calculate score: starts at startScore, increases to 100% as findings are processed
+    // Formula: startScore + (100 - startScore) * (processedWeight / totalWeight)
+    const progressRatio = processedWeight / totalWeight
+    return Math.round(startScore + (100 - startScore) * progressRatio)
+  }
+
+  const getActiveFindingsCount = (): number => {
+    const totalFindings = 4
+    let activeCount = 0
+    for (let i = 0; i < totalFindings; i++) {
+      const status = getFindingStatus(i)
+      if (status === 'active') {
+        activeCount++
+      }
+    }
+    return activeCount
   }
 
   return (
@@ -101,8 +156,22 @@ export function LegalDemoSection(): JSX.Element {
                 <div className="h-12 border-b border-gray-200 flex items-center justify-between px-4 shrink-0">
                   <div className="flex items-center gap-1.5">
                     <span className="text-sm font-bold text-black">FINDINGS</span>
-                    <span className="text-xs text-gray-500">(4)</span>
-                    <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                    <span className="text-xs text-gray-500">({getActiveFindingsCount()})</span>
+                    <div className={`w-2 h-2 rounded-full transition-colors ${getActiveFindingsCount() > 0 ? 'bg-red-500' : 'bg-green-500'}`}></div>
+                  </div>
+                </div>
+                
+                {/* Quality Score */}
+                <div className="px-4 py-3 border-b border-gray-200 bg-gradient-to-br from-gray-50 to-white">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-medium text-gray-600">Qualitätsscore</span>
+                    <span className="text-2xl font-bold text-black">{calculateQualityScore()}%</span>
+                  </div>
+                  <div className="mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-500 ease-out"
+                      style={{ width: `${calculateQualityScore()}%` }}
+                    ></div>
                   </div>
                 </div>
 
@@ -116,7 +185,7 @@ export function LegalDemoSection(): JSX.Element {
                     const isHovered = hoveredFinding === findingKey
                     return (
                       <div 
-                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-red-500'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-red-50/30'} relative shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-red-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer`}
+                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-red-500'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-red-50/30'} relative shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-red-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer ${isIgnored || isAccepted ? 'order-last' : 'order-first'}`}
                         onMouseEnter={() => setHoveredFinding(findingKey)}
                         onMouseLeave={() => setHoveredFinding(null)}
                       >
@@ -143,6 +212,8 @@ export function LegalDemoSection(): JSX.Element {
                               </button>
                               <button 
                                 onClick={() => handleIgnore(0)}
+                                aria-label="Fehler ignorieren"
+                                type="button"
                                 className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
                               >
                                 Ignorieren
@@ -163,7 +234,7 @@ export function LegalDemoSection(): JSX.Element {
                     const isHovered = hoveredFinding === findingKey
                     return (
                       <div 
-                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-red-500'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-red-50/30'} relative shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-red-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer`}
+                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-red-500'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-red-50/30'} relative shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-red-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer ${isIgnored || isAccepted ? 'order-last' : 'order-first'}`}
                         onMouseEnter={() => setHoveredFinding(findingKey)}
                         onMouseLeave={() => setHoveredFinding(null)}
                       >
@@ -184,12 +255,16 @@ export function LegalDemoSection(): JSX.Element {
                             <div className="flex gap-1.5 mt-2">
                               <button 
                                 onClick={() => handleAccept(1)}
+                                aria-label="Fehler akzeptieren"
+                                type="button"
                                 className="flex-1 bg-gray-800 text-white text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-900 transition-colors"
                               >
                                 Akzeptieren
                               </button>
                               <button 
                                 onClick={() => handleIgnore(1)}
+                                aria-label="Fehler ignorieren"
+                                type="button"
                                 className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
                               >
                                 Ignorieren
@@ -210,7 +285,7 @@ export function LegalDemoSection(): JSX.Element {
                     const isHovered = hoveredFinding === findingKey
                     return (
                       <div 
-                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-yellow-400'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-yellow-50/30'} shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-yellow-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer`}
+                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-yellow-400'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-yellow-50/30'} shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-yellow-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer ${isIgnored || isAccepted ? 'order-last' : 'order-first'}`}
                         onMouseEnter={() => setHoveredFinding(findingKey)}
                         onMouseLeave={() => setHoveredFinding(null)}
                       >
@@ -237,6 +312,8 @@ export function LegalDemoSection(): JSX.Element {
                               </button>
                               <button 
                                 onClick={() => handleIgnore(2)}
+                                aria-label="Fehler ignorieren"
+                                type="button"
                                 className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
                               >
                                 Ignorieren
@@ -257,7 +334,7 @@ export function LegalDemoSection(): JSX.Element {
                     const isHovered = hoveredFinding === findingKey
                     return (
                       <div 
-                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-yellow-400'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-yellow-50/30'} shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-yellow-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer`}
+                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-yellow-400'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-yellow-50/30'} shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-yellow-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer ${isIgnored || isAccepted ? 'order-last' : 'order-first'}`}
                         onMouseEnter={() => setHoveredFinding(findingKey)}
                         onMouseLeave={() => setHoveredFinding(null)}
                       >
@@ -278,12 +355,16 @@ export function LegalDemoSection(): JSX.Element {
                             <div className="flex gap-1.5 mt-2">
                               <button 
                                 onClick={() => handleAccept(3)}
+                                aria-label="Fehler akzeptieren"
+                                type="button"
                                 className="flex-1 bg-gray-800 text-white text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-900 transition-colors"
                               >
                                 Akzeptieren
                               </button>
                               <button 
                                 onClick={() => handleIgnore(3)}
+                                aria-label="Fehler ignorieren"
+                                type="button"
                                 className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
                               >
                                 Ignorieren
@@ -303,6 +384,8 @@ export function LegalDemoSection(): JSX.Element {
     </section>
   )
 }
+
+export const LegalDemoSection = memo(LegalDemoSectionComponent)
 
 // Contract Mockup Component
 interface ContractMockupProps {

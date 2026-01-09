@@ -1,18 +1,46 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, Suspense } from 'react'
+import dynamic from 'next/dynamic'
 import { Navigation } from '@/components/layout/navigation'
 import { Footer } from '@/components/layout/footer'
 import { HeroSection } from '@/components/sections/hero-section'
-import { HowItWorksSection } from '@/components/sections/how-it-works-section'
-import { PlatformDemoSection } from '@/components/sections/platform-demo-section'
-import { UseCasesSection } from '@/components/sections/use-cases-section'
-import { SecuritySection } from '@/components/sections/security-section'
-import { PricingSection } from '@/components/sections/pricing-section'
-import { ROISection } from '@/components/sections/roi-section'
+
+// Dynamic imports for below-the-fold sections with optimized loading
+const HowItWorksSection = dynamic(() => import('@/components/sections/how-it-works-section').then((mod) => ({ default: mod.HowItWorksSection })), {
+  ssr: false, // Defer to client-side for better initial load
+  loading: () => <div className="h-96 w-full" aria-label="Loading section" />, // Prevent layout shift
+})
+
+const PlatformDemoSection = dynamic(() => import('@/components/sections/platform-demo-section').then((mod) => ({ default: mod.PlatformDemoSection })), {
+  ssr: false,
+  loading: () => <div className="h-96 w-full" aria-label="Loading section" />,
+})
+
+const UseCasesSection = dynamic(() => import('@/components/sections/use-cases-section').then((mod) => ({ default: mod.UseCasesSection })), {
+  ssr: false,
+  loading: () => <div className="h-96 w-full" aria-label="Loading section" />,
+})
+
+const SecuritySection = dynamic(() => import('@/components/sections/security-section').then((mod) => ({ default: mod.SecuritySection })), {
+  ssr: false,
+  loading: () => <div className="h-96 w-full" aria-label="Loading section" />,
+})
+
+const PricingSection = dynamic(() => import('@/components/sections/pricing-section').then((mod) => ({ default: mod.PricingSection })), {
+  ssr: false,
+  loading: () => <div className="h-96 w-full" aria-label="Loading section" />,
+})
+
+const ROISection = dynamic(() => import('@/components/sections/roi-section').then((mod) => ({ default: mod.ROISection })), {
+  ssr: false,
+  loading: () => <div className="h-96 w-full" aria-label="Loading section" />,
+})
 
 export default function Home(): JSX.Element {
   useEffect(() => {
+    // Defer non-critical DOM manipulation
+    const initNonCritical = (): (() => void) => {
     // Scroll progress bar
     const progressBar = document.createElement('div')
     progressBar.className = 'scroll-progress'
@@ -49,9 +77,25 @@ export default function Home(): JSX.Element {
       })
     }, observerOptions)
 
-    const revealElements = document.querySelectorAll('.reveal')
+      // Function to observe reveal elements
+      const observeRevealElements = (): void => {
+        const revealElements = document.querySelectorAll('.reveal:not(.visible):not(.active)')
     revealElements.forEach((el) => {
       revealObserver.observe(el)
+        })
+      }
+      
+      // Initial observation
+      observeRevealElements()
+      
+      // Re-observe after dynamic components load (MutationObserver)
+      const mutationObserver = new MutationObserver(() => {
+        observeRevealElements()
+      })
+      
+      mutationObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
     })
 
     // Scroll reveal for cards
@@ -71,8 +115,10 @@ export default function Home(): JSX.Element {
 
     // Smooth scroll for anchor links
     const anchors = document.querySelectorAll('a[href^="#"]')
+      const anchorHandlers: Array<{ element: Element; handler: (e: Event) => void }> = []
+      
     anchors.forEach((anchor) => {
-      anchor.addEventListener('click', function (this: HTMLAnchorElement, e) {
+        const handler = function (this: HTMLAnchorElement, e: Event): void {
         const href = this.getAttribute('href')
         if (href && href !== '#') {
           e.preventDefault()
@@ -86,7 +132,9 @@ export default function Home(): JSX.Element {
             })
           }
         }
-      })
+        }
+        anchor.addEventListener('click', handler)
+        anchorHandlers.push({ element: anchor, handler })
     })
 
     // Back to top button
@@ -110,7 +158,7 @@ export default function Home(): JSX.Element {
     document.body.appendChild(backToTopBtn)
 
     const handleBackToTopScroll = (): void => {
-      if (window.pageYOffset > 400) {
+        if (window.scrollY > 400) {
         backToTopBtn.classList.add('visible')
       } else {
         backToTopBtn.classList.remove('visible')
@@ -119,21 +167,55 @@ export default function Home(): JSX.Element {
 
     window.addEventListener('scroll', handleBackToTopScroll, { passive: true })
 
-    backToTopBtn.addEventListener('click', () => {
+      const handleBackToTopClick = (): void => {
       window.scrollTo({
         top: 0,
         behavior: 'smooth',
       })
-    })
+      }
+      backToTopBtn.addEventListener('click', handleBackToTopClick)
 
+      // Return cleanup function for initNonCritical
     return () => {
       window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('scroll', handleBackToTopScroll)
+        
+        // Remove anchor listeners
+        anchorHandlers.forEach(({ element, handler }) => {
+          element.removeEventListener('click', handler)
+        })
+        
+        // Disconnect observers
+        revealObserver.disconnect()
+        cardObserver.disconnect()
+        mutationObserver.disconnect()
+        
+        // Remove DOM elements
       if (progressBar.parentNode) {
         progressBar.parentNode.removeChild(progressBar)
       }
       if (backToTopBtn.parentNode) {
+          backToTopBtn.removeEventListener('click', handleBackToTopClick)
         backToTopBtn.parentNode.removeChild(backToTopBtn)
+        }
+        
+        // Cleanup animation frame
+        if (scrollTimeout !== null) {
+          cancelAnimationFrame(scrollTimeout)
+        }
+      }
+    }
+
+    // Defer initialization until after initial render
+    let cleanup: (() => void) | undefined
+    const timeoutId = setTimeout(() => {
+      cleanup = initNonCritical()
+    }, 100)
+    
+    return () => {
+      clearTimeout(timeoutId)
+      if (cleanup) {
+        cleanup()
       }
     }
   }, [])
@@ -143,12 +225,24 @@ export default function Home(): JSX.Element {
       <Navigation />
       <main id="main-content">
         <HeroSection />
+        <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
         <HowItWorksSection />
+        </Suspense>
+        <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
         <PlatformDemoSection />
+        </Suspense>
+        <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
         <UseCasesSection />
+        </Suspense>
+        <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
         <SecuritySection />
+        </Suspense>
+        <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
         <PricingSection />
+        </Suspense>
+        <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
         <ROISection />
+        </Suspense>
         <Footer />
       </main>
     </>

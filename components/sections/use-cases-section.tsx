@@ -1,5 +1,6 @@
 'use client'
 
+import { memo } from 'react'
 import {
   Briefcase,
   Leaf,
@@ -10,7 +11,7 @@ import {
   Check,
 } from 'lucide-react'
 
-export function UseCasesSection(): JSX.Element {
+function UseCasesSectionComponent(): JSX.Element {
   const useCases = [
     {
       icon: Briefcase,
@@ -20,17 +21,10 @@ export function UseCasesSection(): JSX.Element {
       features: ['Cross-Slide Consistency', 'Action-Title Logik'],
     },
     {
-      icon: Leaf,
-      title: 'ESG / Sustainability',
-      description:
-        'Validierung von hunderten Kennzahlen, Definitionen und CO2-Aussagen über viele Seiten.',
-      features: ['Einheiten-Prüfung', 'Daten-Lineage Tracking'],
-    },
-    {
       icon: Scale,
-      title: 'Legal / Due Diligence',
+      title: 'Legal',
       description:
-        'Prüfung von Schriftsätzen und Reports auf formale Korrektheit, Referenzen und Logikbrüche.',
+        'Prüfung von Schriftsätzen und Gutachten auf formale Korrektheit, Referenzen und Logikbrüche.',
       features: ['Referenz-Checks', 'Definitions-Konsistenz'],
     },
     {
@@ -42,14 +36,21 @@ export function UseCasesSection(): JSX.Element {
     },
     {
       icon: TrendingUp,
-      title: 'Corporate Finance',
+      title: 'Banking',
       description:
-        'Automatische Prüfung von Finanzkennzahlen, Tabellen-Summen und Wachstumsraten in Investor Decks und Finanzreports.',
+        'Prüfung von Finanzkennzahlen, Tabellen-Summen und Wachstumsraten.',
       features: ['Tabellen-Footing', 'CAGR-Validierung'],
     },
     {
+      icon: Leaf,
+      title: 'ESG',
+      description:
+        'Validierung von hunderten Kennzahlen, Definitionen und CO2-Aussagen über alle Seiten.',
+      features: ['Einheiten-Prüfung', 'Daten-Lineage Tracking'],
+    },
+    {
       icon: Cpu,
-      title: 'Tech / Architektur',
+      title: 'Technologie',
       description:
         'KPI-Reports und Architektur-Diagramme auf logische Brüche zwischen Text und Bild prüfen.',
       features: ['Text-Bild-Abgleich', 'Versions-Konsistenz'],
@@ -61,11 +62,10 @@ export function UseCasesSection(): JSX.Element {
       <div className="max-w-7xl mx-auto">
         <div className="mb-16 text-center reveal">
           <h2 className="text-3xl font-semibold tracking-tight mb-4">
-            Für Teams, die keine Fehler leisten können.
+            Für Teams, die sich keine Fehler leisten können.
           </h2>
           <p className="text-grey-dark max-w-2xl mx-auto">
-            Review passt sich dynamisch an Ihren Dokumententyp an – egal ob Folien, Verträge
-            oder Studien. Schützen Sie Ihre Reputation, bevor Fehler an Kunden oder Investoren gehen.
+            Review passt sich dynamisch an Ihren Dokumententyp an – egal ob Präsentationen, Reports oder Verträge. Schützen Sie Ihre Reputation, bevor Fehler nach außen gelangen.
           </p>
         </div>
 
@@ -106,3 +106,5 @@ export function UseCasesSection(): JSX.Element {
     </section>
   )
 }
+
+export const UseCasesSection = memo(UseCasesSectionComponent)

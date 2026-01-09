@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, memo } from 'react'
 import { FileText, Search, Settings, Lock, BarChart3, FileCode } from 'lucide-react'
 
 type MockupType = 'slide' | 'report' | 'contract'
@@ -11,7 +11,7 @@ interface FindingState {
   [key: string]: FindingStatus
 }
 
-export function PlatformDemoSection(): JSX.Element {
+function PlatformDemoSectionComponent(): JSX.Element {
   const [viewType, setViewType] = useState<ViewType>('presentation')
   const [activeMockup, setActiveMockup] = useState<MockupType>('slide')
   const [isVisible, setIsVisible] = useState(false)
@@ -67,6 +67,97 @@ export function PlatformDemoSection(): JSX.Element {
     return findingStates[key] || 'active'
   }
 
+  // Calculate quality score and get sorted findings
+  const getFindingsForMockup = (mockup: MockupType): Array<{ index: number; status: FindingStatus }> => {
+    const totalFindings = mockup === 'report' ? 5 : 4
+    const findings = []
+    for (let i = 0; i < totalFindings; i++) {
+      findings.push({ index: i, status: getFindingStatus(mockup, i) })
+    }
+    // Sort: active first, then ignored/accepted
+    return findings.sort((a, b) => {
+      if (a.status === 'active' && b.status !== 'active') return -1
+      if (a.status !== 'active' && b.status === 'active') return 1
+      return 0
+    })
+  }
+
+  // Get severity level for each finding
+  const getFindingSeverity = (mockup: MockupType, index: number): 'critical' | 'medium' | 'low' => {
+    if (mockup === 'slide') {
+      // slide: 0=critical, 1=medium, 2=medium, 3=low
+      if (index === 0) return 'critical'
+      if (index === 1 || index === 2) return 'medium'
+      return 'low'
+    } else if (mockup === 'report') {
+      // report: 0=critical, 1=medium, 2=medium, 3=low, 4=critical
+      if (index === 0 || index === 4) return 'critical'
+      if (index === 1 || index === 2) return 'medium'
+      return 'low'
+    } else {
+      // contract: 0=critical, 1=medium, 2=medium, 3=low
+      if (index === 0) return 'critical'
+      if (index === 1 || index === 2) return 'medium'
+      return 'low'
+    }
+  }
+
+  const calculateQualityScore = (mockup: MockupType): number => {
+    const totalFindings = mockup === 'report' ? 5 : 4
+    
+    // Start scores for each mockup type
+    const startScores: Record<MockupType, number> = {
+      slide: 79, // Präsentation
+      report: 63, // Report
+    }
+    
+    // Weighted points: critical = 3, medium = 2, low = 1
+    const weights = { critical: 3, medium: 2, low: 1 }
+    
+    let totalWeight = 0
+    let processedWeight = 0
+    
+    // Calculate total weight and processed weight
+    for (let i = 0; i < totalFindings; i++) {
+      const severity = getFindingSeverity(mockup, i)
+      const weight = weights[severity]
+      const status = getFindingStatus(mockup, i)
+      
+      totalWeight += weight
+      
+      if (status === 'accepted' || status === 'ignored') {
+        processedWeight += weight
+      }
+    }
+    
+    if (totalWeight === 0) return 100
+    
+    // Start score for this mockup type
+    const startScore = startScores[mockup] || 79
+    
+    // If all findings are processed, return 100%
+    if (processedWeight >= totalWeight) {
+      return 100
+    }
+    
+    // Calculate score: starts at startScore, increases to 100% as findings are processed
+    // Formula: startScore + (100 - startScore) * (processedWeight / totalWeight)
+    const progressRatio = processedWeight / totalWeight
+    return Math.round(startScore + (100 - startScore) * progressRatio)
+  }
+
+  const getActiveFindingsCount = (mockup: MockupType): number => {
+    const totalFindings = mockup === 'report' ? 5 : 4
+    let activeCount = 0
+    for (let i = 0; i < totalFindings; i++) {
+      const status = getFindingStatus(mockup, i)
+      if (status === 'active') {
+        activeCount++
+      }
+    }
+    return activeCount
+  }
+
   const mockups = [
     {
       id: 'slide' as MockupType,
@@ -95,6 +186,7 @@ export function PlatformDemoSection(): JSX.Element {
           <div className="flex items-center justify-center gap-2 mb-6">
             <button
               onClick={() => setViewType('presentation')}
+              aria-label="Präsentationsansicht auswählen"
               className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
                 viewType === 'presentation'
                   ? 'bg-black text-white shadow-sm'
@@ -105,6 +197,8 @@ export function PlatformDemoSection(): JSX.Element {
             </button>
             <button
               onClick={() => setViewType('report')}
+              aria-label="Berichtsansicht auswählen"
+              type="button"
               className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
                 viewType === 'report'
                   ? 'bg-black text-white shadow-sm'
@@ -115,6 +209,8 @@ export function PlatformDemoSection(): JSX.Element {
             </button>
             <button
               onClick={() => setViewType('contract')}
+              aria-label="Vertragsansicht auswählen"
+              type="button"
               className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
                 viewType === 'contract'
                   ? 'bg-black text-white shadow-sm'
@@ -145,7 +241,7 @@ export function PlatformDemoSection(): JSX.Element {
             </div>
 
             {/* App Content - Three Column Layout */}
-            <div className="flex h-[520px] xl:h-[600px]">
+            <div className="flex h-[580px] xl:h-[660px]">
               {/* Left Sidebar */}
               <div className="w-16 bg-gray-50 border-r border-gray-200 flex flex-col items-center py-4 gap-4 shrink-0">
                 <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center shadow-md">
@@ -172,9 +268,23 @@ export function PlatformDemoSection(): JSX.Element {
                   <div className="flex items-center gap-1.5">
                     <span className="text-sm font-bold text-black">FINDINGS</span>
                     <span className="text-xs text-gray-500">
-                      ({viewType === 'presentation' ? '4' : viewType === 'report' ? '5' : '4'})
+                      ({getActiveFindingsCount(activeMockup)})
                     </span>
-                    <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                    <div className={`w-2 h-2 rounded-full transition-colors ${getActiveFindingsCount(activeMockup) > 0 ? 'bg-red-500' : 'bg-green-500'}`}></div>
+                  </div>
+                </div>
+                
+                {/* Quality Score */}
+                <div className="px-4 py-3 border-b border-gray-200 bg-gradient-to-br from-gray-50 to-white">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-medium text-gray-600">Qualitätsscore</span>
+                    <span className="text-2xl font-bold text-black">{calculateQualityScore(activeMockup)}%</span>
+                  </div>
+                  <div className="mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-500 ease-out"
+                      style={{ width: `${calculateQualityScore(activeMockup)}%` }}
+                    ></div>
                   </div>
                 </div>
 
@@ -188,7 +298,7 @@ export function PlatformDemoSection(): JSX.Element {
                     const isHovered = hoveredFinding === findingKey
                     return (
                       <div 
-                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-red-500'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-red-50/30'} relative shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-red-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer`}
+                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-red-500'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-red-50/30'} relative shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-red-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer ${isIgnored || isAccepted ? 'order-last' : 'order-first'}`}
                         onMouseEnter={() => setHoveredFinding(findingKey)}
                         onMouseLeave={() => setHoveredFinding(null)}
                       >
@@ -219,6 +329,7 @@ export function PlatformDemoSection(): JSX.Element {
                               </button>
                               <button 
                                 onClick={() => handleIgnore(activeMockup, 0)}
+                                aria-label="Fehler ignorieren"
                                 className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
                               >
                                 Ignorieren
@@ -239,7 +350,7 @@ export function PlatformDemoSection(): JSX.Element {
                     const isHovered = hoveredFinding === findingKey
                     return (
                       <div 
-                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-red-500'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-red-50/30'} relative shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-red-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer`}
+                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-red-500'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-red-50/30'} relative shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-red-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer ${isIgnored || isAccepted ? 'order-last' : 'order-first'}`}
                         onMouseEnter={() => setHoveredFinding(findingKey)}
                         onMouseLeave={() => setHoveredFinding(null)}
                       >
@@ -260,12 +371,16 @@ export function PlatformDemoSection(): JSX.Element {
                               <button 
                                 onClick={() => handleAccept(activeMockup, 4)}
                                 className="flex-1 bg-gray-800 text-white text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-900 transition-colors"
+                                aria-label="Fehler akzeptieren"
+                                type="button"
                               >
                                 Akzeptieren
                               </button>
                               <button 
                                 onClick={() => handleIgnore(activeMockup, 4)}
                                 className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
+                                aria-label="Fehler ignorieren"
+                                type="button"
                               >
                                 Ignorieren
                               </button>
@@ -285,7 +400,7 @@ export function PlatformDemoSection(): JSX.Element {
                     const isHovered = hoveredFinding === findingKey
                     return (
                       <div 
-                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-yellow-400'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-yellow-50/30'} shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-yellow-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer`}
+                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-yellow-400'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-yellow-50/30'} shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-yellow-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer ${isIgnored || isAccepted ? 'order-last' : 'order-first'}`}
                         onMouseEnter={() => setHoveredFinding(findingKey)}
                         onMouseLeave={() => setHoveredFinding(null)}
                       >
@@ -334,7 +449,7 @@ export function PlatformDemoSection(): JSX.Element {
                     const isHovered = hoveredFinding === findingKey
                     return (
                       <div 
-                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-yellow-400'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-yellow-50/30'} shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-yellow-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer`}
+                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-yellow-400'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-yellow-50/30'} shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-yellow-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer ${isIgnored || isAccepted ? 'order-last' : 'order-first'}`}
                         onMouseEnter={() => setHoveredFinding(findingKey)}
                         onMouseLeave={() => setHoveredFinding(null)}
                       >
@@ -383,7 +498,7 @@ export function PlatformDemoSection(): JSX.Element {
                     const isHovered = hoveredFinding === findingKey
                     return (
                       <div 
-                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-blue-400'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-blue-50/30'} shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-blue-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer`}
+                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-blue-400'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-blue-50/30'} shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-blue-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer ${isIgnored || isAccepted ? 'order-last' : 'order-first'}`}
                         onMouseEnter={() => setHoveredFinding(findingKey)}
                         onMouseLeave={() => setHoveredFinding(null)}
                       >
@@ -427,7 +542,7 @@ export function PlatformDemoSection(): JSX.Element {
                     const isHovered = hoveredFinding === findingKey
                     return (
                       <div 
-                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-blue-400'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-blue-50/30'} shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-blue-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer`}
+                        className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-blue-400'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-blue-50/30'} shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-blue-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer ${isIgnored || isAccepted ? 'order-last' : 'order-first'}`}
                         onMouseEnter={() => setHoveredFinding(findingKey)}
                         onMouseLeave={() => setHoveredFinding(null)}
                       >
@@ -475,6 +590,8 @@ export function PlatformDemoSection(): JSX.Element {
   )
 }
 
+export const PlatformDemoSection = memo(PlatformDemoSectionComponent)
+
 // Slide Mockup Component - Präsentation mit Charts (16:9)
 interface MockupProps {
   hoveredFinding: string | null
@@ -491,10 +608,10 @@ function SlideMockup({ hoveredFinding }: MockupProps): JSX.Element {
       {/* Slide Header */}
       <div className="mb-3 pb-2 border-b-2 border-gray-300 shrink-0">
         <div className="flex justify-between items-start">
-          <h2 className="text-base font-bold text-black">Jahresabschluss 2024</h2>
+          <h2 className="text-base font-bold text-black">Finanzübersicht 2024</h2>
           <div className="text-[9px] text-gray-500 font-mono">Folie 3 / 12</div>
         </div>
-        <div className="text-[9px] text-gray-500 mt-0.5">Vertraulich • Q3 Finanzübersicht</div>
+        <div className="text-[9px] text-gray-500 mt-0.5">Vertraulich</div>
       </div>
 
       {/* Slide Content - Two Column Layout */}
@@ -594,7 +711,7 @@ function SlideMockup({ hoveredFinding }: MockupProps): JSX.Element {
             <div className="p-1.5 border-b border-gray-100 text-gray-800">Umsatzerlöse</div>
             <div className="p-1.5 border-b border-gray-100 text-gray-900 text-center">120,5</div>
             <div className={`p-1.5 border-b border-gray-100 text-gray-900 text-center ${finding2Hovered ? 'bg-yellow-200 ring-2 ring-yellow-500' : ''} transition-all`}>114,8</div>
-            <div className="p-1.5 border-b border-gray-100 text-gray-900 text-center">118,2</div>
+            <div className="p-1.5 border-b border-gray-100 text-gray-900 text-center">115,0</div>
             <div className="p-1.5 border-b border-gray-100 text-gray-900 text-center">125,8</div>
 
             <div className="p-1.5 border-b border-gray-100 text-gray-800">EBIT</div>
@@ -607,10 +724,13 @@ function SlideMockup({ hoveredFinding }: MockupProps): JSX.Element {
             <div className={`p-1.5 ${finding0Hovered ? 'bg-red-200' : ''} text-gray-900 font-semibold transition-all`}>EBIT-Marge</div>
             <div className={`p-1.5 ${finding0Hovered ? 'bg-red-200' : ''} text-gray-900 text-center transition-all`}>13,1%</div>
             <div className={`p-1.5 ${finding0Hovered ? 'bg-red-200' : ''} text-gray-900 text-center transition-all`}>13,8%</div>
-            <div className={`p-1.5 ${finding0Hovered ? 'bg-red-200 ring-2 ring-red-500 text-red-600' : 'text-gray-900'} text-center transition-all`}>
-              13,8%
+            <div className={`p-1.5 border-b border-gray-100 text-center relative ${finding0Hovered ? 'bg-red-200 text-red-600' : 'text-gray-900'} transition-all`}>
+              <span className="relative z-10">14,2%</span>
+              {finding0Hovered && (
+                <div className="absolute inset-0 border-2 border-red-500 rounded-sm pointer-events-none z-0"></div>
+              )}
             </div>
-            <div className={`p-1.5 ${finding0Hovered ? 'bg-red-200' : ''} text-gray-900 text-center transition-all`}>13,0%</div>
+            <div className={`p-1.5 border-b border-gray-100 ${finding0Hovered ? 'bg-red-200' : ''} text-gray-900 text-center transition-all`}>13,0%</div>
           </div>
           {/* Red Glow Effect - Only on hover */}
           {finding0Hovered && (
@@ -755,7 +875,7 @@ function ReportMockup({ hoveredFinding }: MockupProps): JSX.Element {
 
           {/* Footer */}
           <div className="mt-auto pt-1 border-t border-gray-200 flex justify-between text-[6px] text-gray-400 font-mono shrink-0">
-            <span>© Siemens Energy 2024 | Vertraulich</span>
+            <span>© TechFlow Industries 2024 | Vertraulich</span>
             <span>Seite 132</span>
           </div>
 
@@ -808,9 +928,7 @@ function ContractMockup({ hoveredFinding }: MockupProps): JSX.Element {
                   <span className="font-semibold">Nordstern Industrie GmbH</span><br />
                   Friedrichstraße 187<br />
                   10117 Berlin<br />
-                  Geschäftsführer: Dr. Thomas Weber<br />
-                  Handelsregister: HRB 184732 B, Amtsgericht Berlin-Charlottenburg<br />
-                  USt-IdNr.: DE812345678
+                  Geschäftsführer: Dr. Thomas Weber
                 </p>
               </div>
               <div className="flex-1">
@@ -820,9 +938,7 @@ function ContractMockup({ hoveredFinding }: MockupProps): JSX.Element {
                     Maximillanstraße 28
                   </span><br />
                   80539 München<br />
-                  Vorstand: Sabine Hoffmann<br />
-                  Handelsregister: HRB 245891, Amtsgericht München<br />
-                  USt-IdNr.: DE987654321
+                  Vorstand: Sabine Hoffmann
                 </p>
               </div>
             </div>
