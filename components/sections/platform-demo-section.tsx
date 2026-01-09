@@ -314,7 +314,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
                           </h4>
                           <p className={`text-[10px] leading-relaxed ${isIgnored || isAccepted ? 'text-gray-400' : 'text-gray-600'}`}>
                             {activeMockup === 'slide' 
-                              ? 'Text nennt 14,2%, Tabelle zeigt 13,8% (errechnet aus 16,3/115,0).'
+                              ? 'Text nennt 14,2%, Tabelle zeigt 13,8% für Q2 (errechnet aus 15,9/114,8).'
                               : activeMockup === 'report'
                               ? 'Text behauptet "konstant unterhalb des Alarmgrenzwertes von 2,5 mm/s", aber Abb. 14 zeigt bei 100% Last einen Wert von 3,2 mm/s (28% über Grenzwert).'
                               : '§ 1.2 definiert Vertragslaufzeit von 36 Monaten, während § 2.2 eine Laufzeit von 24 Monaten angibt. Kritischer Widerspruch bei zentraler Vertragsbedingung.'
@@ -639,7 +639,7 @@ function SlideMockup({ hoveredFinding }: MockupProps): JSX.Element {
           <div className="mt-1 shrink-0">
             <h4 className={`text-[11px] font-semibold text-black mb-0.5 transition-all ${finding3Hovered ? 'ring-2 ring-blue-400 bg-blue-50/30 rounded px-1 py-0.5' : ''}`}>Key Highlights</h4>
             <p className="text-[9px] text-gray-700 leading-tight">
-              Trotz volatilen Marktumfelds konnten wir durch Kosteneinsparungen die EBIT-Marge auf{' '}
+              Trotz volatilen Marktumfelds konnten wir durch Kosteneinsparungen die EBIT-Marge von Q2 auf{' '}
               <span 
                 className={`px-0.5 rounded transition-all ${finding0Hovered ? 'bg-red-200 text-red-800 font-bold ring-2 ring-red-500' : ''}`}
               >
@@ -724,13 +724,13 @@ function SlideMockup({ hoveredFinding }: MockupProps): JSX.Element {
             {/* Error Row - Critical */}
             <div className={`p-1.5 ${finding0Hovered ? 'bg-red-200' : ''} text-gray-900 font-semibold transition-all`}>EBIT-Marge</div>
             <div className={`p-1.5 ${finding0Hovered ? 'bg-red-200' : ''} text-gray-900 text-center transition-all`}>13,1%</div>
-            <div className={`p-1.5 ${finding0Hovered ? 'bg-red-200' : ''} text-gray-900 text-center transition-all`}>13,8%</div>
             <div className={`p-1.5 border-b border-gray-100 text-center relative ${finding0Hovered ? 'bg-red-200 text-red-600' : 'text-gray-900'} transition-all`}>
-              <span className="relative z-10">14,2%</span>
+              <span className="relative z-10">13,8%</span>
               {finding0Hovered && (
                 <div className="absolute inset-0 border-2 border-red-500 rounded-sm pointer-events-none z-0"></div>
               )}
             </div>
+            <div className={`p-1.5 ${finding0Hovered ? 'bg-red-200' : ''} text-gray-900 text-center transition-all`}>14,2%</div>
             <div className={`p-1.5 border-b border-gray-100 ${finding0Hovered ? 'bg-red-200' : ''} text-gray-900 text-center transition-all`}>13,0%</div>
           </div>
           {/* Red Glow Effect - Only on hover */}
