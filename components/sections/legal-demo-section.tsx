@@ -131,7 +131,7 @@ export function LegalDemoSection(): JSX.Element {
                             Widersprüchliche Fristen
                           </h4>
                           <p className={`text-[10px] leading-relaxed ${isIgnored || isAccepted ? 'text-gray-400' : 'text-gray-600'}`}>
-                            § 3.2 definiert Kündigungsfrist als "30 Tage", während § 7.1 "20 Werktage" angibt. Inkonsistente Fristendefinition.
+                            § 3.2 definiert Kündigungsfrist als &quot;30 Tage&quot;, während § 7.1 &quot;20 Werktage&quot; angibt. Inkonsistente Fristendefinition.
                           </p>
                           {status === 'active' && (
                             <div className="flex gap-1.5 mt-2">
@@ -178,7 +178,7 @@ export function LegalDemoSection(): JSX.Element {
                             Inkonsistente Definition
                           </h4>
                           <p className={`text-[10px] leading-relaxed ${isIgnored || isAccepted ? 'text-gray-400' : 'text-gray-600'}`}>
-                            "Vertragsgegenstand" wird in § 1.3 als "Software-Lizenz" definiert, aber § 4.1 verwendet "SaaS-Dienstleistung" - unterschiedliche Definitionen.
+                            &quot;Vertragsgegenstand&quot; wird in § 1.3 als &quot;Software-Lizenz&quot; definiert, aber § 4.1 verwendet &quot;SaaS-Dienstleistung&quot; - unterschiedliche Definitionen.
                           </p>
                           {status === 'active' && (
                             <div className="flex gap-1.5 mt-2">
@@ -225,7 +225,7 @@ export function LegalDemoSection(): JSX.Element {
                             Fehlende Referenz
                           </h4>
                           <p className={`text-[10px] leading-relaxed ${isIgnored || isAccepted ? 'text-gray-400' : 'text-gray-600'}`}>
-                            § 5.4 verweist auf "Anlage B (Preismodell)", aber Anlage B existiert nicht im Dokument. Fehlende Anlage.
+                            § 5.4 verweist auf &quot;Anlage B (Preismodell)&quot;, aber Anlage B existiert nicht im Dokument. Fehlende Anlage.
                           </p>
                           {status === 'active' && (
                             <div className="flex gap-1.5 mt-2">
