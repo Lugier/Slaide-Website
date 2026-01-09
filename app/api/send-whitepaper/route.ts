@@ -1,14 +1,27 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { readFile, appendFile, mkdir } from 'fs/promises'
-import { join } from 'path'
-import { existsSync } from 'fs'
+import { readFile, stat } from 'fs/promises'
+import { join, resolve, normalize } from 'path'
+import { Ratelimit } from '@upstash/ratelimit'
+import { Redis } from '@upstash/redis'
 
 // Resend wird zur Laufzeit initialisiert, nicht beim Build
 const getResend = (): Resend | null => {
   const apiKey = process.env.RESEND_API_KEY
   if (!apiKey) return null
   return new Resend(apiKey)
+}
+
+// Rate Limiter für API-Route (striktes Limit für Whitepaper-Anfragen)
+const getRateLimiter = (): Ratelimit | null => {
+  if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
+    return new Ratelimit({
+      redis: Redis.fromEnv(),
+      limiter: Ratelimit.slidingWindow(3, '1 h'), // 3 Anfragen pro Stunde pro IP
+      analytics: true,
+    })
+  }
+  return null
 }
 
 interface WhitepaperRequest {
@@ -19,57 +32,196 @@ interface WhitepaperRequest {
   datenschutzAccepted: boolean
 }
 
-// Escape CSV values to prevent CSV injection attacks
-function escapeCsvValue(value: string | boolean | number): string {
-  const str = String(value)
-  // Escape quotes and wrap in quotes if contains comma, newline, or quote
-  if (str.includes(',') || str.includes('\n') || str.includes('"')) {
-    return `"${str.replace(/"/g, '""')}"`
-  }
-  // Prevent CSV injection by escaping dangerous characters at start
-  if (/^[=+\-@]/.test(str)) {
-    return `"${str}"`
-  }
-  return str
+// Security-Konstanten
+const MAX_NAME_LENGTH = 100
+const MAX_COMPANY_LENGTH = 200
+const MAX_EMAIL_LENGTH = 254 // RFC 5321
+const MAX_PDF_SIZE_MB = 10
+const MAX_PDF_SIZE_BYTES = MAX_PDF_SIZE_MB * 1024 * 1024
+
+// HTML-Escape für sichere Ausgabe
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
 }
 
-async function saveLead(data: WhitepaperRequest): Promise<void> {
+// RFC 5322-konforme E-Mail-Validierung (vereinfacht, aber sicher)
+function isValidEmail(email: string): boolean {
+  if (!email || email.length > MAX_EMAIL_LENGTH) return false
+  
+  // Basis-Validierung: mindestens local@domain Format
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+  
+  if (!emailRegex.test(email)) return false
+  
+  // Zusätzliche Sicherheitsprüfungen
+  // Verhindere E-Mail-Injection (CRLF, etc.)
+  if (/[\r\n]/.test(email)) return false
+  if (email.includes('..')) return false // Keine doppelten Punkte
+  if (email.startsWith('.') || email.endsWith('.')) return false
+  
+  return true
+}
+
+// Sanitize Input: Entferne gefährliche Zeichen und trimme
+function sanitizeInput(input: string, maxLength: number): string {
+  if (!input || typeof input !== 'string') return ''
+  
+  // Trim und entferne Steuerzeichen
+  let sanitized = input.trim().replace(/[\x00-\x1F\x7F]/g, '')
+  
+  // Begrenze Länge
+  if (sanitized.length > maxLength) {
+    sanitized = sanitized.substring(0, maxLength)
+  }
+  
+  return sanitized
+}
+
+// Validiere PDF-Pfad gegen Path Traversal
+function validatePdfPath(filePath: string): boolean {
   try {
-    // Erstelle data Ordner falls nicht vorhanden
-    const dataDir = join(process.cwd(), 'data')
-    if (!existsSync(dataDir)) {
-      await mkdir(dataDir, { recursive: true })
-    }
+    const resolved = resolve(process.cwd(), 'public', 'Whitepaper.pdf')
+    const normalized = normalize(filePath)
+    
+    // Prüfe, ob der normalisierte Pfad innerhalb des public-Ordners liegt
+    const publicDir = resolve(process.cwd(), 'public')
+    return normalized.startsWith(publicDir) && normalized === resolved
+  } catch {
+    return false
+  }
+}
 
-    // Speichere in CSV-Format für einfache Weiterverarbeitung
-    // Escape alle Werte um CSV Injection zu verhindern
-    const csvLine = [
-      new Date().toISOString(),
-      escapeCsvValue(data.name),
-      escapeCsvValue(data.company),
-      escapeCsvValue(data.email),
-      escapeCsvValue(data.agbAccepted),
-      escapeCsvValue(data.datenschutzAccepted),
-    ].join(',') + '\n'
-    const csvPath = join(dataDir, 'whitepaper-leads.csv')
+// Sende Lead-Benachrichtigung an interne E-Mail-Adresse
+async function sendLeadNotification(
+  resend: Resend,
+  leadData: WhitepaperRequest
+): Promise<void> {
+  const notificationEmail = process.env.RESEND_LEAD_NOTIFICATION_EMAIL
 
-    // Füge Header hinzu, falls Datei neu ist
-    if (!existsSync(csvPath)) {
-      await appendFile(csvPath, 'Datum,Name,Firma,Email,AGB akzeptiert,Datenschutz akzeptiert\n')
-    }
+  // Wenn keine Notification-E-Mail konfiguriert ist, überspringen
+  if (!notificationEmail) {
+    console.log('⚠️ RESEND_LEAD_NOTIFICATION_EMAIL nicht konfiguriert - Lead-Benachrichtigung wird übersprungen')
+    return
+  }
 
-    await appendFile(csvPath, csvLine)
+  try {
+    await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL || 'Slaide <onboarding@resend.dev>',
+      to: notificationEmail,
+      subject: `🎯 Neuer Whitepaper-Lead: ${escapeHtml(leadData.name)} von ${escapeHtml(leadData.company)}`,
+      html: `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          </head>
+          <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <div style="background: #050505; color: white; padding: 30px; border-radius: 8px 8px 0 0; text-align: center;">
+              <h1 style="margin: 0; font-size: 24px;">Neuer Whitepaper-Lead</h1>
+            </div>
+            <div style="background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px;">
+              <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                <tr>
+                  <td style="padding: 12px; background: #fff; border-bottom: 1px solid #e5e7eb; font-weight: 600; width: 40%;">Datum:</td>
+                  <td style="padding: 12px; background: #fff; border-bottom: 1px solid #e5e7eb;">${new Date().toLocaleString('de-DE', { dateStyle: 'long', timeStyle: 'short' })}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; background: #fff; border-bottom: 1px solid #e5e7eb; font-weight: 600;">Name:</td>
+                  <td style="padding: 12px; background: #fff; border-bottom: 1px solid #e5e7eb;">${escapeHtml(leadData.name)}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; background: #fff; border-bottom: 1px solid #e5e7eb; font-weight: 600;">Firma:</td>
+                  <td style="padding: 12px; background: #fff; border-bottom: 1px solid #e5e7eb;">${escapeHtml(leadData.company)}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; background: #fff; border-bottom: 1px solid #e5e7eb; font-weight: 600;">E-Mail:</td>
+                  <td style="padding: 12px; background: #fff; border-bottom: 1px solid #e5e7eb;">
+                    <a href="mailto:${escapeHtml(leadData.email)}" style="color: #050505; text-decoration: none;">${escapeHtml(leadData.email)}</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; background: #fff; border-bottom: 1px solid #e5e7eb; font-weight: 600;">AGB akzeptiert:</td>
+                  <td style="padding: 12px; background: #fff; border-bottom: 1px solid #e5e7eb;">
+                    <span style="color: ${leadData.agbAccepted ? '#10b981' : '#ef4444'}; font-weight: 600;">
+                      ${leadData.agbAccepted ? '✓ Ja' : '✗ Nein'}
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; background: #fff; border-bottom: 1px solid #e5e7eb; font-weight: 600;">Datenschutz akzeptiert:</td>
+                  <td style="padding: 12px; background: #fff; border-bottom: 1px solid #e5e7eb;">
+                    <span style="color: ${leadData.datenschutzAccepted ? '#10b981' : '#ef4444'}; font-weight: 600;">
+                      ${leadData.datenschutzAccepted ? '✓ Ja' : '✗ Nein'}
+                    </span>
+                  </td>
+                </tr>
+              </table>
+              <div style="margin-top: 20px; padding: 15px; background: #eff6ff; border-left: 4px solid #3b82f6; border-radius: 4px;">
+                <p style="margin: 0; font-size: 14px; color: #1e40af;">
+                  <strong>Hinweis:</strong> Dies ist eine automatische Benachrichtigung über einen neuen Whitepaper-Lead.
+                </p>
+              </div>
+            </div>
+          </body>
+        </html>
+      `,
+    })
   } catch (error) {
-    console.error('Fehler beim Speichern des Leads:', error)
-    // Nicht kritisch - E-Mail wird trotzdem versendet
+    console.error('Fehler beim Senden der Lead-Benachrichtigung:', error)
+    // Nicht kritisch - Haupt-E-Mail wird trotzdem versendet
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: Request): Promise<NextResponse> {
   try {
+    // Rate Limiting (Security First)
+    const rateLimiter = getRateLimiter()
+    if (rateLimiter) {
+      const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
+                 request.headers.get('x-real-ip') || 
+                 'unknown'
+      
+      const { success, limit, remaining, reset } = await rateLimiter.limit(`whitepaper:${ip}`)
+      
+      if (!success) {
+        return NextResponse.json(
+          { 
+            error: 'Zu viele Anfragen. Bitte versuchen Sie es später erneut.',
+            retryAfter: Math.ceil((reset - Date.now()) / 1000)
+          },
+          { 
+            status: 429,
+            headers: {
+              'X-RateLimit-Limit': limit.toString(),
+              'X-RateLimit-Remaining': remaining.toString(),
+              'X-RateLimit-Reset': reset.toString(),
+              'Retry-After': Math.ceil((reset - Date.now()) / 1000).toString(),
+            }
+          }
+        )
+      }
+    }
+
+    // Parse Request Body mit Größenlimit
     let body: WhitepaperRequest
     try {
-      body = await request.json()
+      const text = await request.text()
+      
+      // Begrenze Request-Body-Größe (max 10KB)
+      if (text.length > 10240) {
+        return NextResponse.json(
+          { error: 'Anfrage zu groß' },
+          { status: 413 }
+        )
+      }
+      
+      body = JSON.parse(text) as WhitepaperRequest
     } catch (parseError) {
       return NextResponse.json(
         { error: 'Ungültige Anfrage. Bitte versuchen Sie es erneut.' },
@@ -77,36 +229,77 @@ export async function POST(request: Request) {
       )
     }
 
-    const { name, company, email, agbAccepted, datenschutzAccepted } = body
+    // Input-Sanitization und Validierung (Security First)
+    const sanitizedName = sanitizeInput(body.name, MAX_NAME_LENGTH)
+    const sanitizedCompany = sanitizeInput(body.company, MAX_COMPANY_LENGTH)
+    const sanitizedEmail = sanitizeInput(body.email, MAX_EMAIL_LENGTH).toLowerCase()
 
-    // Validierung
-    if (!name || !name.trim()) {
-      return NextResponse.json({ error: 'Bitte geben Sie Ihren Namen ein' }, { status: 400 })
+    // Strikte Validierung
+    if (!sanitizedName || sanitizedName.length < 2) {
+      return NextResponse.json({ error: 'Bitte geben Sie einen gültigen Namen ein (mindestens 2 Zeichen)' }, { status: 400 })
     }
 
-    if (!company || !company.trim()) {
-      return NextResponse.json({ error: 'Bitte geben Sie Ihre Firma ein' }, { status: 400 })
+    if (!sanitizedCompany || sanitizedCompany.length < 2) {
+      return NextResponse.json({ error: 'Bitte geben Sie einen gültigen Firmennamen ein (mindestens 2 Zeichen)' }, { status: 400 })
     }
 
-    if (!email || !email.includes('@')) {
+    if (!isValidEmail(sanitizedEmail)) {
       return NextResponse.json({ error: 'Ungültige E-Mail-Adresse' }, { status: 400 })
     }
+
+    // Type-Check für Booleans (verhindere Type Confusion)
+    const agbAccepted = body.agbAccepted === true
+    const datenschutzAccepted = body.datenschutzAccepted === true
 
     if (!agbAccepted || !datenschutzAccepted) {
       return NextResponse.json({ error: 'Bitte akzeptieren Sie die AGB und Datenschutzerklärung' }, { status: 400 })
     }
 
-    // Speichere Lead (asynchron, blockiert nicht)
-    saveLead({ name, company, email, agbAccepted, datenschutzAccepted }).catch(console.error)
+    const leadData: WhitepaperRequest = { 
+      name: sanitizedName, 
+      company: sanitizedCompany, 
+      email: sanitizedEmail, 
+      agbAccepted, 
+      datenschutzAccepted 
+    }
 
-    // PDF-Datei lesen (muss im public Ordner liegen)
-    const pdfPath = join(process.cwd(), 'public', 'security-whitepaper.pdf')
+    // PDF-Datei lesen mit Security-Validierung
+    const pdfPath = resolve(process.cwd(), 'public', 'Whitepaper.pdf')
+    
+    // Path Traversal-Schutz: Validiere, dass der Pfad sicher ist
+    if (!validatePdfPath(pdfPath)) {
+      console.error('⚠️ Unsicherer PDF-Pfad erkannt:', pdfPath)
+      return NextResponse.json(
+        { error: 'Sicherheitsfehler beim Zugriff auf die Datei' },
+        { status: 500 }
+      )
+    }
+
     let pdfBuffer: Buffer | null = null
 
     try {
+      // Prüfe Dateigröße VOR dem Lesen
+      const fileStats = await stat(pdfPath)
+      if (fileStats.size > MAX_PDF_SIZE_BYTES) {
+        console.error(`⚠️ PDF zu groß: ${fileStats.size} bytes (max: ${MAX_PDF_SIZE_BYTES})`)
+        return NextResponse.json(
+          { error: 'Whitepaper-Datei ist zu groß' },
+          { status: 500 }
+        )
+      }
+
       pdfBuffer = await readFile(pdfPath)
+      
+      // Zusätzliche Validierung: Prüfe PDF-Magic Bytes (PDF-Header)
+      if (pdfBuffer.length < 4 || pdfBuffer.toString('ascii', 0, 4) !== '%PDF') {
+        console.error('⚠️ Datei ist kein gültiges PDF')
+        return NextResponse.json(
+          { error: 'Ungültiges PDF-Format' },
+          { status: 500 }
+        )
+      }
     } catch (error) {
-      console.error('PDF-Datei nicht gefunden:', pdfPath)
+      console.error('PDF-Datei nicht gefunden:', pdfPath, error)
       // In Development: Erlaube ohne PDF (nur für Tests)
       if (process.env.NODE_ENV === 'development') {
         console.warn('⚠️ Development-Modus: Whitepaper wird ohne PDF-Anhang versendet')
@@ -128,6 +321,9 @@ export async function POST(request: Request) {
       )
     }
 
+    // Sende Lead-Benachrichtigung an interne E-Mail (asynchron, blockiert nicht)
+    sendLeadNotification(resend, leadData).catch(console.error)
+
     // E-Mail mit Resend versenden
     const emailData: {
       from: string
@@ -137,7 +333,7 @@ export async function POST(request: Request) {
       attachments?: Array<{ filename: string; content: Buffer }>
     } = {
       from: process.env.RESEND_FROM_EMAIL || 'Slaide <onboarding@resend.dev>',
-      to: email,
+      to: sanitizedEmail,
       subject: 'Ihr Security Whitepaper von Slaide',
       html: `
         <!DOCTYPE html>
@@ -152,7 +348,7 @@ export async function POST(request: Request) {
             </div>
             <div style="background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px;">
               <p style="font-size: 16px; margin-bottom: 20px;">
-                Hallo ${name.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;')},
+                Hallo ${escapeHtml(sanitizedName)},
               </p>
               <p style="font-size: 16px; margin-bottom: 20px;">
                 Vielen Dank für Ihr Interesse an unserem Security Whitepaper!
@@ -177,7 +373,7 @@ export async function POST(request: Request) {
     if (pdfBuffer) {
       emailData.attachments = [
         {
-          filename: 'Slaide-Security-Whitepaper.pdf',
+          filename: 'Whitepaper.pdf',
           content: pdfBuffer,
         },
       ]
