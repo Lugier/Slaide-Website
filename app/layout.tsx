@@ -104,10 +104,10 @@ export default function RootLayout({
         {/* Prefetch critical sections */}
         <link rel="prefetch" href="/#how-it-works" as="document" />
         <link rel="prefetch" href="/#security" as="document" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="icon" type="image/png" href="/favicon.png" />
-        <link rel="apple-touch-icon" href="/favicon.png" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
+        <link rel="shortcut icon" href="/favicon.ico?v=3" type="image/x-icon" />
+        <link rel="icon" type="image/png" href="/favicon.png?v=3" />
+        <link rel="apple-touch-icon" href="/favicon.png?v=3" />
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
         <script
           type="application/ld+json"
@@ -172,7 +172,7 @@ export default function RootLayout({
                   '@type': 'UnitPriceSpecification',
                   price: '1.90',
                   priceCurrency: 'EUR',
-                  unitText: 'pro Slide',
+                  unitText: 'pro Seite',
                 },
                   name: 'Lite Audit',
                 },
@@ -184,7 +184,7 @@ export default function RootLayout({
                     '@type': 'UnitPriceSpecification',
                     price: '2.99',
                     priceCurrency: 'EUR',
-                    unitText: 'pro Slide',
+                    unitText: 'pro Seite',
                   },
                   name: 'Pro Verification',
                 },
@@ -259,7 +259,7 @@ export default function RootLayout({
                   name: 'Was kostet Slaide?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'Die Preise variieren je nach Volumen: Lite Audit (ab 0,90 € pro Slide), Pro Verification (ab 1,30 € pro Slide), Enterprise (individuelle Volumenverträge ab 10.000 Slides). Kontaktieren Sie uns für ein maßgeschneidertes Angebot.',
+                    text: 'Die Preise variieren je nach Volumen: Lite Audit (ab 0,90 € pro Seite), Pro Verification (ab 1,30 € pro Seite), Enterprise (individuelle Volumenverträge ab 10.000 Seiten). Kontaktieren Sie uns für ein maßgeschneidertes Angebot.',
                   },
                 },
                 {
@@ -354,7 +354,7 @@ export default function RootLayout({
                   '@type': 'UnitPriceSpecification',
                   price: '0.90',
                   priceCurrency: 'EUR',
-                  unitText: 'pro Slide',
+                  unitText: 'pro Seite',
                 },
               },
               featureList: [

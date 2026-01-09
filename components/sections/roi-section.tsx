@@ -15,7 +15,7 @@ const BATCH_PROCESSING_TIME = 65 // Sekunden pro Batch
 
 // Zeit pro Seite basierend auf Dokumententyp
 const MINUTES_PER_PAGE: Record<DocumentType, number> = {
-  presentation: 7, // Minuten pro Slide bei Präsentationen
+  presentation: 7, // Minuten pro Seite bei Präsentationen
   document: 12 // Minuten pro Seite bei Dokumenten (Median)
 }
 
@@ -158,7 +158,7 @@ function ROISectionComponent(): JSX.Element {
                   <Presentation className={`w-5 h-5 mx-auto mb-2 ${documentType === 'presentation' ? 'text-white' : 'text-gray-400'}`} aria-hidden="true" />
                   <div className="text-sm font-medium">Präsentation</div>
                   <div className="text-xs mt-1 opacity-75">
-                    7 Min/Slide
+                    7 Min/Seite
                   </div>
                 </button>
                 <button
@@ -213,7 +213,7 @@ function ROISectionComponent(): JSX.Element {
                 inputMode="numeric"
                 pattern="[0-9]*"
               />
-              <p id="pages-description" className="sr-only">Geben Sie die Anzahl der Seiten oder Slides ein</p>
+              <p id="pages-description" className="sr-only">Geben Sie die Anzahl der Seiten oder Dokumente ein</p>
             </div>
 
             {/* Pricing Tier */}

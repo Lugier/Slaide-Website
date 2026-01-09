@@ -169,8 +169,8 @@ function LegalDemoSectionComponent(): JSX.Element {
                   </div>
                   <div className="mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div 
-                      className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-500 ease-out"
-                      style={{ width: `${calculateQualityScore()}%` }}
+                      className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-500 ease-out quality-score-bar"
+                      style={{ '--quality-score-width': `${calculateQualityScore()}%` } as React.CSSProperties}
                     ></div>
                   </div>
                 </div>
@@ -404,13 +404,7 @@ function ContractMockup({ hoveredFinding }: ContractMockupProps): JSX.Element {
       <div className="flex-1 overflow-hidden p-3 flex justify-center items-center">
         {/* Contract Document */}
         <div 
-          className="bg-white text-black shadow-lg border border-gray-300 relative p-6 flex flex-col"
-          style={{ 
-            width: '100%',
-            maxWidth: '600px',
-            height: '100%',
-            maxHeight: 'calc(100% - 24px)'
-          }}
+          className="bg-white text-black shadow-lg border border-gray-300 relative p-6 flex flex-col w-full max-w-[600px] h-full max-h-[calc(100%-24px)]"
         >
           
           {/* Contract Header */}

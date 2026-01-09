@@ -55,49 +55,81 @@ function HowItWorksSectionComponent(): JSX.Element {
   }, [])
 
   useEffect(() => {
-    const handleScroll = (): void => {
-      if (!sectionRef.current || !depthWordRef.current) return
+    if (!sectionRef.current || !depthWordRef.current) return
 
-      const rect = sectionRef.current.getBoundingClientRect()
-      const windowHeight = window.innerHeight
-      const sectionTop = rect.top
-      const sectionHeight = rect.height
+    let rafId: number | null = null
+    let lastProgress = -1
+    const THRESHOLD = 0.01 // Only update if progress changes by more than 1%
 
-      // Calculate scroll progress within section (0 to 1)
-      // When section enters viewport, progress goes from 0 to 1
-      const progress = Math.max(
-        0,
-        Math.min(1, 1 - (sectionTop / (windowHeight + sectionHeight)))
-      )
+    const updateTransform = (progress: number): void => {
+      if (!depthWordRef.current) return
 
       // Parallax effect: "Tiefe" moves deeper into the screen
       const depthOffset = progress * 80 // Move up to 80px deeper
       const scale = 1 + progress * 0.2 // Scale up to 1.2x
       const opacity = Math.min(1, 0.5 + progress * 0.5) // Fade in as we scroll
 
-      if (depthWordRef.current) {
-        depthWordRef.current.style.transform = `translateZ(${depthOffset}px) scale(${scale})`
-        depthWordRef.current.style.opacity = String(opacity)
-      }
+      // Use CSS variables to avoid forced reflows
+      depthWordRef.current.style.setProperty('--depth-offset', `${depthOffset}px`)
+      depthWordRef.current.style.setProperty('--depth-scale', String(scale))
+      depthWordRef.current.style.setProperty('--depth-opacity', String(opacity))
     }
 
-    // Throttle scroll events for performance
-    let ticking = false
-    const throttledScroll = (): void => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          handleScroll()
-          ticking = false
+    const handleScroll = (): void => {
+      if (!sectionRef.current || !depthWordRef.current) return
+
+      // Batch all DOM reads first (no forced reflow)
+      const rect = sectionRef.current.getBoundingClientRect()
+      const windowHeight = window.innerHeight
+      const sectionTop = rect.top
+      const sectionHeight = rect.height
+
+      // Calculate scroll progress within section (0 to 1)
+      const progress = Math.max(
+        0,
+        Math.min(1, 1 - (sectionTop / (windowHeight + sectionHeight)))
+      )
+
+      // Only update if progress changed significantly (reduce unnecessary updates)
+      if (Math.abs(progress - lastProgress) < THRESHOLD) return
+      lastProgress = progress
+
+      // Schedule DOM writes in next frame (after all reads are done)
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId)
+      }
+
+      rafId = requestAnimationFrame(() => {
+        updateTransform(progress)
+        rafId = null
+      })
+    }
+
+    // Use IntersectionObserver to only run when section is visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            window.addEventListener('scroll', handleScroll, { passive: true })
+            handleScroll() // Initial call
+          } else {
+            window.removeEventListener('scroll', handleScroll)
+          }
         })
-        ticking = true
-      }
-    }
+      },
+      { threshold: 0, rootMargin: '50px' }
+    )
 
-    window.addEventListener('scroll', throttledScroll, { passive: true })
-    handleScroll() // Initial call
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
 
     return () => {
-      window.removeEventListener('scroll', throttledScroll)
+      observer.disconnect()
+      window.removeEventListener('scroll', handleScroll)
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId)
+      }
     }
   }, [])
 
@@ -143,18 +175,13 @@ function HowItWorksSectionComponent(): JSX.Element {
     <section
       ref={sectionRef}
       id="how"
-      className="relative py-32 md:py-40 px-6 bg-gradient-to-b from-[#050505] via-[#0a0a0a] to-[#050505] text-white overflow-hidden"
-      style={{ perspective: '1000px' }}
+      className="relative py-32 md:py-40 px-6 bg-gradient-to-b from-[#050505] via-[#0a0a0a] to-[#050505] text-white overflow-hidden perspective-1000"
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Subtle Grid Pattern Overlay */}
         <div
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-          }}
+          className="absolute inset-0 opacity-[0.02] bg-radial-dots"
         ></div>
       </div>
 
@@ -173,20 +200,15 @@ function HowItWorksSectionComponent(): JSX.Element {
               </span>
             </div>
             <h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.1]">
-              Analyse-{' '}
+              Analyse-
               <span
                 ref={depthWordRef}
-                className="relative inline-block"
-                style={{
-                  transformStyle: 'preserve-3d',
-                  willChange: 'transform, opacity',
-                  transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
-                }}
+                className="relative inline preserve-3d"
               >
-                <span className="relative z-10">Tiefe</span>
+                <span className="relative z-10">Tiefe,</span>
                 <span className="absolute bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-white/20 via-white/10 to-white/20 blur-xl -z-0"></span>
               </span>
-              <span className="inline-block">&nbsp;</span>, die selbst Experten entgeht.
+              {' '}die selbst Experten entgeht.
             </h2>
             <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-xl">
               Kein einfacher Spellchecker. Review nutzt eine mehrstufige neuronale Architektur, um
@@ -201,10 +223,9 @@ function HowItWorksSectionComponent(): JSX.Element {
           <div className="hidden lg:block absolute top-24 left-0 right-0 h-0.5 z-0">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-800 to-transparent"></div>
             <div
-              className={`absolute inset-0 bg-gradient-to-r from-transparent via-gray-600 to-transparent transition-all duration-2000 ${
+              className={`absolute inset-0 bg-gradient-to-r from-transparent via-gray-600 to-transparent transition-all duration-2000 transform-origin-left ${
                 isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
               }`}
-              style={{ transformOrigin: 'left' }}
             ></div>
 
             {/* Animated Flow Indicator */}
@@ -227,12 +248,17 @@ function HowItWorksSectionComponent(): JSX.Element {
             return (
               <div
                 key={index}
-                  className={`group relative transition-all duration-1000 ${
+                  className={`group relative transition-all duration-1000 dynamic-transition-delay ${
                     isVisible
                       ? 'opacity-100 translate-y-0'
                       : 'opacity-0 translate-y-12'
                   }`}
-                  style={{ transitionDelay: `${delay}ms` }}
+                  data-transition-delay={delay}
+                  ref={(el) => {
+                    if (el) {
+                      el.style.setProperty('--transition-delay', `${delay}ms`)
+                    }
+                  }}
                   onMouseEnter={() => handleMouseEnter(index)}
                   onMouseLeave={handleMouseLeave}
                 >

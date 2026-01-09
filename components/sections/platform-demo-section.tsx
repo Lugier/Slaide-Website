@@ -164,7 +164,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
       id: 'slide' as MockupType,
       label: 'Präsentation',
       icon: FileText,
-      description: 'Slide-basierte Dokumente',
+      description: 'Seiten-basierte Dokumente',
     },
   ]
 
@@ -283,8 +283,8 @@ function PlatformDemoSectionComponent(): JSX.Element {
                   </div>
                   <div className="mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div 
-                      className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-500 ease-out"
-                      style={{ width: `${calculateQualityScore(activeMockup)}%` }}
+                      className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-500 ease-out quality-score-bar"
+                      style={{ '--quality-score-width': `${calculateQualityScore(activeMockup)}%` } as React.CSSProperties}
                     ></div>
                   </div>
                 </div>
@@ -605,7 +605,7 @@ function SlideMockup({ hoveredFinding }: MockupProps): JSX.Element {
   const finding3Hovered = hoveredFinding === 'slide-3'
   
   return (
-    <div className="bg-white rounded-lg shadow-md border border-gray-200 p-5 relative flex flex-col w-full" style={{ aspectRatio: '16/9', maxWidth: '700px' }}>
+    <div className="bg-white rounded-lg shadow-md border border-gray-200 p-5 relative flex flex-col w-full aspect-16-9 max-w-[700px]">
       {/* Slide Header */}
       <div className="mb-3 pb-2 border-b-2 border-gray-300 shrink-0">
         <div className="flex justify-between items-start">
@@ -657,22 +657,22 @@ function SlideMockup({ hoveredFinding }: MockupProps): JSX.Element {
           {/* Bar Chart */}
           <div className="bg-gray-50 p-2.5 rounded border border-gray-200 flex-1 flex items-end justify-between gap-1.5 min-h-0">
             <div className="flex flex-col items-center flex-1 h-full justify-end">
-              <div className="w-full rounded-t mb-1 bg-blue-500" style={{ height: '60%', minHeight: '40px' }}></div>
+              <div className="w-full rounded-t mb-1 bg-blue-500 bar-height-60"></div>
               <div className="text-[8px] text-gray-600">Q1</div>
               <div className="text-[7px] text-gray-500">120,5</div>
             </div>
             <div className="flex flex-col items-center flex-1 h-full justify-end">
-              <div className={`w-full rounded-t mb-1 ${finding2Hovered ? 'bg-yellow-400 ring-2 ring-yellow-500' : 'bg-blue-600'}`} style={{ height: '55%', minHeight: '35px' }}></div>
+              <div className={`w-full rounded-t mb-1 bar-height-55 ${finding2Hovered ? 'bg-yellow-400 ring-2 ring-yellow-500' : 'bg-blue-600'}`}></div>
               <div className="text-[8px] text-gray-600">Q2</div>
               <div className={`text-[7px] ${finding2Hovered ? 'text-yellow-700 font-bold' : 'text-gray-500'} transition-all`}>115,0</div>
             </div>
             <div className="flex flex-col items-center flex-1 h-full justify-end">
-              <div className="w-full rounded-t mb-1 bg-blue-500" style={{ height: '58%', minHeight: '38px' }}></div>
+              <div className="w-full rounded-t mb-1 bg-blue-500 bar-height-58"></div>
               <div className="text-[8px] text-gray-600">Q3</div>
               <div className="text-[7px] text-gray-500">118,2</div>
             </div>
             <div className="flex flex-col items-center flex-1 h-full justify-end">
-              <div className="w-full rounded-t mb-1 bg-blue-600" style={{ height: '65%', minHeight: '45px' }}></div>
+              <div className="w-full rounded-t mb-1 bg-blue-600 bar-height-65"></div>
               <div className="text-[8px] text-gray-600">Q4</div>
               <div className="text-[7px] text-gray-500">125,8</div>
             </div>
@@ -757,14 +757,7 @@ function ReportMockup({ hoveredFinding }: MockupProps): JSX.Element {
       <div className="flex-1 overflow-hidden p-3 flex justify-center items-center">
         {/* DINA4 Page - Portrait Orientation (210mm x 297mm) - Höher als breit */}
         <div 
-          className="bg-white text-black shadow-lg border border-gray-300 relative p-4 flex flex-col"
-          style={{ 
-            aspectRatio: '210/297',
-            height: '100%',
-            maxHeight: 'calc(100% - 24px)',
-            width: 'auto',
-            maxWidth: 'calc((100% - 24px) * 0.707)'
-          }}
+          className="bg-white text-black shadow-lg border border-gray-300 relative p-4 flex flex-col aspect-a4-portrait h-full max-h-[calc(100%-24px)] w-auto max-w-[calc((100%-24px)*0.707)]"
         >
           
           {/* Report Header */}
@@ -841,7 +834,7 @@ function ReportMockup({ hoveredFinding }: MockupProps): JSX.Element {
                 
                 {/* Error Bar (High Value) - 3.2 mm/s = 80% of 4.0 */}
                 <div className="relative h-full flex flex-col justify-end group w-full">
-                  <div className={`bg-gray-300 w-full relative transition-all group-hover:bg-gray-400 rounded-t ${finding0Hovered ? 'ring-2 ring-red-500 bg-red-200' : finding2Hovered ? 'ring-2 ring-yellow-500 bg-yellow-200' : ''}`} style={{ height: '80%' }}>
+                  <div className={`bg-gray-300 w-full relative transition-all group-hover:bg-gray-400 rounded-t bar-height-80 ${finding0Hovered ? 'ring-2 ring-red-500 bg-red-200' : finding2Hovered ? 'ring-2 ring-yellow-500 bg-yellow-200' : ''}`}>
                     <span className={`absolute -top-3 left-1/2 -translate-x-1/2 text-[8px] font-bold ${finding0Hovered ? 'text-red-700' : finding2Hovered ? 'text-yellow-700' : 'text-gray-500 opacity-0 group-hover:opacity-100'}`}>3.2</span>
                   </div>
                   <span className={`text-[7px] text-center mt-1 pt-0.5 border-t border-gray-300 font-medium ${finding0Hovered ? 'text-red-700' : finding2Hovered ? 'text-yellow-700' : 'text-gray-600'}`}>100%</span>
@@ -849,7 +842,7 @@ function ReportMockup({ hoveredFinding }: MockupProps): JSX.Element {
 
                 {/* 110% Bar - Highlighted for Finding 2 */}
                 <div className={`relative h-full flex flex-col justify-end group w-full ${finding2Hovered ? 'ring-2 ring-yellow-500 rounded-t' : ''}`}>
-                  <div className={`bg-gray-300 w-full relative transition-all group-hover:bg-gray-400 rounded-t ${finding2Hovered ? 'bg-yellow-200 ring-2 ring-yellow-500' : ''}`} style={{ height: '55%' }}>
+                  <div className={`bg-gray-300 w-full relative transition-all group-hover:bg-gray-400 rounded-t bar-height-55 ${finding2Hovered ? 'bg-yellow-200 ring-2 ring-yellow-500' : ''}`}>
                     <span className={`absolute -top-3 left-1/2 -translate-x-1/2 text-[7px] ${finding2Hovered ? 'text-yellow-700 font-bold' : 'text-gray-500 opacity-0 group-hover:opacity-100'}`}>2.2</span>
                   </div>
                   <span className={`text-[7px] text-center mt-1 pt-0.5 border-t border-gray-300 font-medium ${finding2Hovered ? 'text-yellow-700' : 'text-gray-600'}`}>110%</span>
@@ -890,7 +883,15 @@ function ReportMockup({ hoveredFinding }: MockupProps): JSX.Element {
 function ReportBar({ height, label, value }: { height: string, label: string, value: string }): JSX.Element {
   return (
     <div className="relative h-full flex flex-col justify-end group w-full">
-      <div className="bg-gray-300 w-full relative transition-all group-hover:bg-gray-400 rounded-t" style={{ height }}>
+      <div 
+        className="bg-gray-300 w-full relative transition-all group-hover:bg-gray-400 rounded-t"
+        data-height={height}
+        ref={(el) => {
+          if (el) {
+            el.style.setProperty('height', height)
+          }
+        }}
+      >
         <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[7px] text-gray-500 opacity-0 group-hover:opacity-100">{value}</span>
       </div>
       <span className="text-[7px] text-gray-600 text-center mt-1 pt-0.5 border-t border-gray-300 font-medium">{label}</span>
@@ -911,14 +912,7 @@ function ContractMockup({ hoveredFinding }: MockupProps): JSX.Element {
       <div className="flex-1 overflow-hidden p-3 flex justify-center items-center">
         {/* DINA4 Page - Portrait Orientation (210mm x 297mm) */}
         <div 
-          className="bg-white text-black shadow-lg border border-gray-300 relative p-4 flex flex-col"
-          style={{ 
-            aspectRatio: '210/297',
-            height: '100%',
-            maxHeight: 'calc(100% - 24px)',
-            width: 'auto',
-            maxWidth: 'calc((100% - 24px) * 0.707)'
-          }}
+          className="bg-white text-black shadow-lg border border-gray-300 relative p-4 flex flex-col aspect-a4-portrait h-full max-h-[calc(100%-24px)] w-auto max-w-[calc((100%-24px)*0.707)]"
         >
           
           {/* Contract Header - Classic Legal Format */}

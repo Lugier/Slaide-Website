@@ -1,26 +1,12 @@
 'use client'
 
-import { useEffect, useState, memo, useCallback } from 'react'
+import { memo, useCallback } from 'react'
 import { ArrowRight, FileText, Shield, ChevronDown, CheckCircle2, TrendingUp } from 'lucide-react'
 import { openCalComOverlay } from '@/lib/utils/cal-com'
 
 function HeroSectionComponent(): JSX.Element {
-  const [isVisible, setIsVisible] = useState<boolean>(false)
-  const [visibleWords, setVisibleWords] = useState<number>(0)
-
-  useEffect(() => {
-    setIsVisible(true)
-    
-    // Staggered Animation: Wörter erscheinen nacheinander
-    const words = ['Sehen', 'Sie,', 'was', 'Menschen', 'übersehen.']
-    
-    // Zeige Wörter nacheinander mit 150ms Verzögerung
-    words.forEach((_, index) => {
-      setTimeout(() => {
-        setVisibleWords(index + 1)
-      }, index * 150)
-    })
-  }, [])
+  // Removed state-based visibility to avoid LCP delay
+  // Animation is now handled purely by CSS
 
   const handleDemoClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault()
@@ -59,24 +45,16 @@ function HeroSectionComponent(): JSX.Element {
             {/* Headline mit verbesserter Darstellung */}
             <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold tracking-tight leading-[1.05] mb-6 hero-headline">
               <span className="inline-block hero-line-1">
-                {['Sehen', 'Sie,', 'was', 'Menschen', 'übersehen.'].map((word, index) => {
-                  const isVisible = visibleWords > index
-                  
-                  return (
-                    <span
-                      key={index}
-                      className={`inline-block transition-all duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] text-black font-semibold ${
-                        isVisible
-                          ? 'opacity-100 translate-y-0'
-                          : 'opacity-0 translate-y-8'
-                      }`}
-                      style={{ transitionDelay: `${index * 100}ms` }}
-                    >
-                      {word}
-                      {index < 4 && <span className="inline-block w-2 md:w-3"></span>}
-                    </span>
-                  )
-                })}
+                {['Review', 'sieht,', 'was', 'Menschen', 'übersehen.'].map((word, index) => (
+                  <span
+                    key={index}
+                    className={`inline-block text-black font-semibold hero-word-reveal hero-word-visible hero-word-index-${index}`}
+                    data-word-index={index}
+                  >
+                    {word}
+                    {index < 4 && <span className="inline-block w-2 md:w-3"></span>}
+                  </span>
+                ))}
               </span>
             </h1>
 

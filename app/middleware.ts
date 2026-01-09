@@ -39,11 +39,13 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
   const requestHeaders = new Headers(request.headers)
   requestHeaders.set('x-nonce', nonce)
   
-  // Build CSP header without unsafe-inline for styles
+  // Build CSP header with improved security
+  // Note: 'unsafe-inline' removed from script-src for better security
+  // Inline scripts must use nonces (Next.js handles this automatically)
   const cspHeader = [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://cal.com https://*.cal.com",
-    `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com`,
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://va.vercel-scripts.com https://cal.com https://*.cal.com`,
+    `style-src 'self' 'nonce-${nonce}' 'unsafe-inline' https://fonts.googleapis.com`,
     "font-src 'self' https://fonts.gstatic.com https://r2cdn.perplexity.ai data:",
     "img-src 'self' data: https: blob:",
     "connect-src 'self' https://va.vercel-scripts.com https://cal.com https://*.cal.com",
@@ -53,6 +55,8 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     "form-action 'self'",
     "object-src 'none'",
     "upgrade-insecure-requests",
+    "require-trusted-types-for 'script'",
+    "trusted-types default",
     "report-uri /api/csp-report",
     "report-to csp-endpoint",
   ].join('; ')
