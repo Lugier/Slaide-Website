@@ -23,6 +23,10 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
+# Anthropic - Claude Web
+User-agent: Claude-Web
+Allow: /
+
 # Perplexity AI
 User-agent: PerplexityBot
 Allow: /

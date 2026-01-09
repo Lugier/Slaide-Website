@@ -1,0 +1,103 @@
+'use client'
+
+import { Lock, Server, ShieldCheck, CheckCircle, ArrowRight } from 'lucide-react'
+import { openCalComOverlay } from '@/lib/utils/cal-com'
+
+export function SecuritySection(): JSX.Element {
+  const handleWhitepaperClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
+    e.preventDefault()
+    openCalComOverlay()
+  }
+
+  return (
+    <section id="security" className="py-24 bg-[#050505] text-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="reveal">
+            <div className="unix-badge text-green-500 mb-4 border border-green-900 bg-green-900/20 px-3 py-1 rounded w-fit">
+              ENTERPRISE GRADE
+            </div>
+            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-6">
+              Ihre Daten gehören Ihnen.
+              <br />
+              Punkt.
+            </h2>
+            <p className="text-gray-200 text-lg mb-8 leading-relaxed font-normal">
+              Review wurde für Organisationen entwickelt, bei denen Vertraulichkeit nicht verhandelbar ist.
+            </p>
+
+            <div className="space-y-6">
+              <div className="flex gap-4">
+                <div className="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10">
+                  <Lock className="w-6 h-6 text-white" aria-hidden="true" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-lg">Standard-Retention</h4>
+                  <p className="text-sm text-gray-200 mt-1 leading-relaxed">
+                    Dokumente werden temporär verarbeitet und nach spätestens 30 Tagen automatisch gelöscht. Sofortige Löschung jederzeit auf Anfrage möglich.
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10">
+                  <Server className="w-6 h-6 text-white" aria-hidden="true" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-lg">EU-Hosting & Verschlüsselung</h4>
+                  <p className="text-sm text-gray-200 mt-1 leading-relaxed">
+                    Ihre Dokumente werden ausschließlich für Ihre Analyse verwendet. Keine Nutzung für Training, Fine-Tuning oder Forschung.
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10">
+                  <ShieldCheck className="w-6 h-6 text-white" aria-hidden="true" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-lg">Kein Training</h4>
+                  <p className="text-sm text-gray-200 mt-1 leading-relaxed">
+                    Ihre Dokumente werden ausschließlich für Ihre Analyse verwendet. Keine Nutzung für Training, Fine-Tuning oder Forschung.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="#"
+              onClick={handleWhitepaperClick}
+              className="inline-flex items-center gap-2 mt-8 text-sm font-medium text-white border-b border-white pb-1 hover:text-gray-300 hover:border-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black"
+              aria-label="Security Whitepaper anfordern"
+            >
+              Security Whitepaper anfordern{' '}
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
+            </a>
+          </div>
+
+          <div className="bg-[#0A0A0A] border border-gray-800 p-8 rounded-2xl reveal delay-200">
+            <h4 className="text-sm font-mono text-gray-300 mb-6 uppercase tracking-wider">
+              Compliance Framework
+            </h4>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-4 bg-white/5 rounded border border-white/10 flex items-center gap-3">
+                <CheckCircle className="w-5 h-5 text-green-500" aria-hidden="true" />
+                <span className="font-medium">DSGVO / GDPR</span>
+              </div>
+              <div className="p-4 bg-white/5 rounded border border-white/10 flex items-center gap-3">
+                <CheckCircle className="w-5 h-5 text-green-500" aria-hidden="true" />
+                <span className="font-medium">AVV verfügbar</span>
+              </div>
+              <div className="p-4 bg-white/5 rounded border border-white/10 flex items-center gap-3">
+                <CheckCircle className="w-5 h-5 text-green-500" aria-hidden="true" />
+                <span className="font-medium">Security-first</span>
+              </div>
+              <div className="p-4 bg-white/5 rounded border border-white/10 flex items-center gap-3">
+                <CheckCircle className="w-5 h-5 text-green-500" aria-hidden="true" />
+                <span className="font-medium">Customer Data Isolation</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
