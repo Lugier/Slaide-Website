@@ -121,7 +121,9 @@ export default function RootLayout({
               description: 'Slaide bietet Zero-Defect Reporting für High-Stakes Dokumente. Automatisierte KI-Validierung findet Fehler, die selbst den besten Experten entgehen.',
               address: {
                 '@type': 'PostalAddress',
-                addressLocality: 'Frankfurt am Main',
+                streetAddress: 'Neckarstraße 12',
+                addressLocality: 'Untereisesheim',
+                postalCode: '74257',
                 addressCountry: 'DE',
               },
               contactPoint: {
@@ -167,10 +169,10 @@ export default function RootLayout({
                 {
                 '@type': 'Offer',
                 priceCurrency: 'EUR',
-                price: '1.90',
+                price: '2.19',
                 priceSpecification: {
                   '@type': 'UnitPriceSpecification',
-                  price: '1.90',
+                  price: '2.19',
                   priceCurrency: 'EUR',
                   unitText: 'pro Seite',
                 },

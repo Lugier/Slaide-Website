@@ -19,6 +19,20 @@ interface WhitepaperRequest {
   datenschutzAccepted: boolean
 }
 
+// Escape CSV values to prevent CSV injection attacks
+function escapeCsvValue(value: string | boolean | number): string {
+  const str = String(value)
+  // Escape quotes and wrap in quotes if contains comma, newline, or quote
+  if (str.includes(',') || str.includes('\n') || str.includes('"')) {
+    return `"${str.replace(/"/g, '""')}"`
+  }
+  // Prevent CSV injection by escaping dangerous characters at start
+  if (/^[=+\-@]/.test(str)) {
+    return `"${str}"`
+  }
+  return str
+}
+
 async function saveLead(data: WhitepaperRequest): Promise<void> {
   try {
     // Erstelle data Ordner falls nicht vorhanden
@@ -28,7 +42,15 @@ async function saveLead(data: WhitepaperRequest): Promise<void> {
     }
 
     // Speichere in CSV-Format für einfache Weiterverarbeitung
-    const csvLine = `${new Date().toISOString()},${data.name},${data.company},${data.email},${data.agbAccepted},${data.datenschutzAccepted}\n`
+    // Escape alle Werte um CSV Injection zu verhindern
+    const csvLine = [
+      new Date().toISOString(),
+      escapeCsvValue(data.name),
+      escapeCsvValue(data.company),
+      escapeCsvValue(data.email),
+      escapeCsvValue(data.agbAccepted),
+      escapeCsvValue(data.datenschutzAccepted),
+    ].join(',') + '\n'
     const csvPath = join(dataDir, 'whitepaper-leads.csv')
 
     // Füge Header hinzu, falls Datei neu ist
@@ -130,7 +152,7 @@ export async function POST(request: Request) {
             </div>
             <div style="background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px;">
               <p style="font-size: 16px; margin-bottom: 20px;">
-                Hallo ${name},
+                Hallo ${name.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;')},
               </p>
               <p style="font-size: 16px; margin-bottom: 20px;">
                 Vielen Dank für Ihr Interesse an unserem Security Whitepaper!
