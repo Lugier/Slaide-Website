@@ -272,7 +272,7 @@ export function LegalDemoSection(): JSX.Element {
                             Widersprüchliche Zahlungsbedingungen
                           </h4>
                           <p className={`text-[10px] leading-relaxed ${isIgnored || isAccepted ? 'text-gray-400' : 'text-gray-600'}`}>
-                            § 6.2 nennt Zahlungsziel "14 Tage nach Rechnungsstellung", § 8.1 erwähnt "netto 30 Tage". Inkonsistente Zahlungsbedingungen.
+                            § 6.2 nennt Zahlungsziel &quot;14 Tage nach Rechnungsstellung&quot;, § 8.1 erwähnt &quot;netto 30 Tage&quot;. Inkonsistente Zahlungsbedingungen.
                           </p>
                           {status === 'active' && (
                             <div className="flex gap-1.5 mt-2">
@@ -359,7 +359,7 @@ function ContractMockup({ hoveredFinding }: ContractMockupProps): JSX.Element {
                 </span>
                 {' '}wird als{' '}
                 <span className={`font-semibold ${finding1Hovered ? 'text-red-700 bg-red-100' : ''}`}>
-                  "Software-Lizenz"
+                  &quot;Software-Lizenz&quot;
                 </span>
                 {' '}definiert und umfasst die Nutzungsrechte gemäß den Bestimmungen dieses Vertrags.
               </p>

@@ -396,7 +396,7 @@ export function PlatformDemoSection(): JSX.Element {
                           Rechtschreibfehler: Straßenname
                         </h4>
                         <p className={`text-[10px] leading-relaxed ${isIgnored || isAccepted ? 'text-gray-400' : 'text-gray-600'}`}>
-                          Im Vertrag wird "Maximillanstraße" verwendet, korrekt wäre "Maximilianstraße". Buchstabenfehler: doppeltes "l" statt "i" in "Maximilian".
+                          Im Vertrag wird &quot;Maximillanstraße&quot; verwendet, korrekt wäre &quot;Maximilianstraße&quot;. Buchstabenfehler: doppeltes &quot;l&quot; statt &quot;i&quot; in &quot;Maximilian&quot;.
                         </p>
                         {status === 'active' && (
                           <div className="flex gap-1.5 mt-2">
@@ -689,11 +689,11 @@ function ReportMockup({ hoveredFinding }: MockupProps): JSX.Element {
               {/* The Contradiction Text */}
               <div className={`p-1 border-l-2 pl-1.5 my-1 ${finding0Hovered ? 'border-red-500 bg-red-50/50' : 'border-gray-300'}`}>
                 <p>
-                  "Zusammenfassend ist festzustellen, dass die gemessenen Schwinggeschwindigkeiten (v_rms) über das gesamte Lastband{' '}
+                  &quot;Zusammenfassend ist festzustellen, dass die gemessenen Schwinggeschwindigkeiten (v_rms) über das gesamte Lastband{' '}
                   <span className={`font-semibold ${finding0Hovered ? 'text-red-700 decoration-red-300 underline decoration-wavy' : ''}`}>
                     konstant unterhalb des zulässigen Alarmgrenzwertes von 2,5 mm/s
                   </span> 
-                  {' '}verblieben sind. Ein dauerhafter Betrieb ist uneingeschränkt zulässig."
+                  {' '}verblieben sind. Ein dauerhafter Betrieb ist uneingeschränkt zulässig.&quot;
                 </p>
               </div>
             </div>
@@ -828,7 +828,7 @@ function ContractMockup({ hoveredFinding }: MockupProps): JSX.Element {
             </div>
             <div className="mb-1">
               <p className="text-[7.5px] text-black leading-tight">
-                Zwischen der <span className="font-semibold">Nordstern Industrie GmbH</span>, Friedrichstraße 187, 10117 Berlin, nachfolgend „Auftraggeber" genannt, und der <span className="font-semibold">CloudSolutions AG</span>, Maximilianstraße 28, 80539 München, nachfolgend „Dienstleister" genannt, wird nachstehender Vertrag geschlossen.
+                Zwischen der <span className="font-semibold">Nordstern Industrie GmbH</span>, Friedrichstraße 187, 10117 Berlin, nachfolgend &quot;Auftraggeber&quot; genannt, und der <span className="font-semibold">CloudSolutions AG</span>, Maximilianstraße 28, 80539 München, nachfolgend &quot;Dienstleister&quot; genannt, wird nachstehender Vertrag geschlossen.
               </p>
             </div>
             <div className="text-[7px] text-gray-500 italic">
@@ -859,7 +859,7 @@ function ContractMockup({ hoveredFinding }: MockupProps): JSX.Element {
                 </span>
                 {' '}wird als{' '}
                 <span className={finding1Hovered ? 'text-red-700 bg-red-100' : ''}>
-                  "Software-Lizenz"
+                  &quot;Software-Lizenz&quot;
                 </span>
                 {' '}definiert und umfasst die Nutzungsrechte gemäß den Bestimmungen in Anlage C.
               </p>
