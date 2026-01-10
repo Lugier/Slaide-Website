@@ -8,6 +8,12 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  // Target modern browsers (ES2022+) to avoid unnecessary polyfills
+  // This reduces bundle size by not transpiling modern JavaScript features
+  experimental: {
+    // Next.js 14+ uses SWC which respects browserslist by default
+    // But we can explicitly set the target
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -22,11 +28,18 @@ const nextConfig = {
   // },
   // Note: Critical CSS Inlining will be available via experimental.optimizeCss in Next.js 15+
   // For now, Tailwind CSS is optimized via PurgeCSS and critical styles are minimal
-  output: 'standalone',
+  // Only use standalone output in production (for Docker deployments)
+  // In development, this breaks chunk loading
   // Compress output
   compress: true,
   // Optimize production builds
   productionBrowserSourceMaps: false,
+}
+
+// Only use standalone output in production (for Docker deployments)
+// In development, this breaks chunk loading for main-app.js and app-pages-internals.js
+if (process.env.NODE_ENV === 'production') {
+  nextConfig.output = 'standalone'
 }
 
 const withBundleAnalyzerConfig = bundleAnalyzer({

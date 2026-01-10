@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export function Footer(): JSX.Element {
   return (
@@ -8,9 +9,14 @@ export function Footer(): JSX.Element {
     >
       <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-            <div className="w-4 h-4 bg-white rounded-md"></div>
-          </div>
+          <Image
+            src="/favicon.png"
+            alt="Slaide Logo"
+            width={32}
+            height={32}
+            className="w-8 h-8"
+            priority
+          />
           <span className="text-base font-semibold text-black">Slaide</span>
         </div>
         <div className="flex gap-8 text-sm text-grey-dark">

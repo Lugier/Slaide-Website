@@ -22,7 +22,7 @@ export default function ImpressumPage(): JSX.Element {
               <p className="text-grey-dark leading-relaxed">
                 <strong>Slaide UG (in Gründung)</strong>
                 <br />
-                <strong>Neckarstraße 12</strong>
+                <strong>Neckarstraße 10</strong>
                 <br />
                 <strong>74257 Untereisesheim</strong>
                 <br />
@@ -78,7 +78,7 @@ export default function ImpressumPage(): JSX.Element {
                 <br />
                 <strong>Slaide UG (in Gründung)</strong>
                 <br />
-                <strong>Neckarstraße 12</strong>
+                <strong>Neckarstraße 10</strong>
                 <br />
                 <strong>74257 Untereisesheim</strong>
                 <br />

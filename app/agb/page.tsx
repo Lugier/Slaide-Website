@@ -49,7 +49,7 @@ export default function AGBPage(): JSX.Element {
               <p className="text-grey-dark leading-relaxed mb-4 ml-4">
                 <strong>Slaide UG (in Gründung)</strong>
                 <br />
-                <strong>Neckarstraße 12</strong>
+                <strong>Neckarstraße 10</strong>
                 <br />
                 <strong>74257 Untereisesheim</strong>
                 <br />
@@ -345,7 +345,7 @@ export default function AGBPage(): JSX.Element {
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
                 Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (Slaide UG (in
-                Gründung), Neckarstraße 12, 74257 Untereisesheim, Deutschland, E-Mail:
+                Gründung), Neckarstraße 10, 74257 Untereisesheim, Deutschland, E-Mail:
                 kontakt@slaide.de) mittels einer eindeutigen Erklärung (z.B. ein
                 mit der Post versandter Brief, Telefax oder E-Mail) über Ihren
                 Entschluss, diesen Vertrag zu widerrufen, informieren. Sie

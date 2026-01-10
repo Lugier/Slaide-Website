@@ -121,7 +121,7 @@ export default function RootLayout({
               description: 'Slaide bietet Zero-Defect Reporting für High-Stakes Dokumente. Automatisierte KI-Validierung findet Fehler, die selbst den besten Experten entgehen.',
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'Neckarstraße 12',
+                streetAddress: 'Neckarstraße 10',
                 addressLocality: 'Untereisesheim',
                 postalCode: '74257',
                 addressCountry: 'DE',

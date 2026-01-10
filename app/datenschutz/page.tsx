@@ -50,7 +50,7 @@ export default function DatenschutzPage(): JSX.Element {
                 <br />
                 <strong>Slaide UG (in Gründung)</strong>
                 <br />
-                <strong>Neckarstraße 12</strong>
+                <strong>Neckarstraße 10</strong>
                 <br />
                 <strong>74257 Untereisesheim</strong>
                 <br />

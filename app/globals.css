@@ -524,6 +524,33 @@ input:focus-visible {
   transition: transform 0.1s ease-out;
 }
 
+/* Navigation Scroll Spy Animations */
+.nav-link-active {
+  font-weight: 700;
+  transition: font-weight 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link-inactive {
+  font-weight: 500;
+  transition: font-weight 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth underline animation for desktop nav */
+.nav-underline {
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth side indicator for mobile nav */
+.nav-side-indicator {
+  transform-origin: top;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Mobile optimizations */
 @media (max-width: 768px) {
   button,
