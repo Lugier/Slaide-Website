@@ -315,6 +315,19 @@ export async function POST(request: Request): Promise<NextResponse> {
     const resend = getResend()
     if (!resend) {
       console.error('RESEND_API_KEY fehlt in Umgebungsvariablen')
+
+      // In Development: Erlaube lokalen Test ohne tatsächlichen Mailversand
+      if (process.env.NODE_ENV === 'development') {
+        console.warn(
+          'Development-Modus: RESEND_API_KEY ist nicht gesetzt. Whitepaper-E-Mail wird nicht versendet, Request gilt aber als erfolgreich.'
+        )
+
+        return NextResponse.json({
+          success: true,
+          message: 'Development-Modus: E-Mail wurde nicht wirklich versendet (RESEND_API_KEY fehlt).',
+        })
+      }
+
       return NextResponse.json(
         { error: 'E-Mail-Service nicht konfiguriert. Bitte kontaktieren Sie den Support.' },
         { status: 500 }
