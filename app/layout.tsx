@@ -39,6 +39,7 @@ export const metadata: Metadata = {
       'de-DE': 'https://www.slaide.de',
       'de-AT': 'https://www.slaide.de',
       'de-CH': 'https://www.slaide.de',
+      'x-default': 'https://www.slaide.de',
     },
   },
   category: 'Business Software',
@@ -117,6 +118,10 @@ export default function RootLayout({
               '@type': 'Organization',
               name: 'Slaide',
               url: 'https://www.slaide.de',
+              sameAs: [
+                'https://slaide.eu',
+                'https://slaide.online'
+              ],
               logo: 'https://www.slaide.de/favicon.svg',
               description: 'Slaide bietet Zero-Defect Reporting für High-Stakes Dokumente. Automatisierte KI-Validierung findet Fehler, die selbst den besten Experten entgehen.',
               address: {

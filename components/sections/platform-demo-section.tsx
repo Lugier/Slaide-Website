@@ -172,59 +172,85 @@ function PlatformDemoSectionComponent(): JSX.Element {
     <section
       ref={sectionRef}
       id="platform"
-      className="hidden md:block py-12 lg:py-20 px-6 bg-white overflow-visible relative"
+      className="py-16 md:py-20 px-6 bg-white overflow-visible relative"
     >
       <div className="max-w-[1400px] mx-auto">
-        <div className="mb-6 md:mb-8 text-center reveal">
-          <h2 className="hidden lg:block text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-black mb-3">
+        {/* Mobile Intro (vereinfachte Darstellung) */}
+        <div className="md:hidden mb-10 text-center reveal">
+          <h2 className="text-2xl font-semibold tracking-tight text-black mb-3">
             Ein Cockpit für Qualität.
           </h2>
-          <p className="text-base md:text-lg text-grey-dark max-w-2xl mx-auto mb-6">
-            Die Findings werden direkt im Kontext angezeigt. Kein Suchen, sofortiges Verstehen.
+          <p className="text-sm text-grey-dark max-w-md mx-auto mb-4">
+            Review zeigt Findings direkt im Kontext Ihres Dokuments – inklusive Qualitätsscore und Priorisierung.
           </p>
-          
-          {/* View Type Tabs - Above Mockup */}
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <button
-              onClick={() => setViewType('presentation')}
-              aria-label="Präsentationsansicht auswählen"
-              className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                viewType === 'presentation'
-                  ? 'bg-black text-white shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 bg-white border border-gray-200'
-              }`}
-            >
-              Präsentation
-            </button>
-            <button
-              onClick={() => setViewType('report')}
-              aria-label="Berichtsansicht auswählen"
-              type="button"
-              className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                viewType === 'report'
-                  ? 'bg-black text-white shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 bg-white border border-gray-200'
-              }`}
-            >
-              Report
-            </button>
-            <button
-              onClick={() => setViewType('contract')}
-              aria-label="Vertragsansicht auswählen"
-              type="button"
-              className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                viewType === 'contract'
-                  ? 'bg-black text-white shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 bg-white border border-gray-200'
-              }`}
-            >
-              Vertrag
-            </button>
+          <div className="grid grid-cols-2 gap-3 text-left text-xs">
+            <div className="p-4 rounded-xl border border-gray-200 bg-gray-50">
+              <p className="font-semibold text-gray-900 mb-1">Kontextbezogene Findings</p>
+              <p className="text-gray-600">
+                Kritische, mittlere und niedrige Findings direkt an der betroffenen Stelle im Dokument.
+              </p>
+            </div>
+            <div className="p-4 rounded-xl border border-gray-200 bg-gray-50">
+              <p className="font-semibold text-gray-900 mb-1">Qualitätsscore</p>
+              <p className="text-gray-600">
+                Ein Score pro Dokument, der jede Entscheidung im Review transparent macht.
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Mockup Container */}
-        <div className="relative reveal delay-200">
+        {/* Desktop Cockpit */}
+        <div className="hidden md:block">
+          <div className="mb-6 md:mb-8 text-center reveal">
+            <h2 className="hidden lg:block text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-black mb-3">
+              Ein Cockpit für Qualität.
+            </h2>
+            <p className="text-base md:text-lg text-grey-dark max-w-2xl mx-auto mb-6">
+              Die Findings werden direkt im Kontext angezeigt. Kein Suchen, sofortiges Verstehen.
+            </p>
+            
+            {/* View Type Tabs - Above Mockup */}
+            <div className="flex items-center justify-center gap-2 mb-6">
+              <button
+                onClick={() => setViewType('presentation')}
+                aria-label="Präsentationsansicht auswählen"
+                className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                  viewType === 'presentation'
+                    ? 'bg-black text-white shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 bg-white border border-gray-200'
+                }`}
+              >
+                Präsentation
+              </button>
+              <button
+                onClick={() => setViewType('report')}
+                aria-label="Berichtsansicht auswählen"
+                type="button"
+                className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                  viewType === 'report'
+                    ? 'bg-black text-white shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 bg-white border border-gray-200'
+                }`}
+              >
+                Report
+              </button>
+              <button
+                onClick={() => setViewType('contract')}
+                aria-label="Vertragsansicht auswählen"
+                type="button"
+                className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                  viewType === 'contract'
+                    ? 'bg-black text-white shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 bg-white border border-gray-200'
+                }`}
+              >
+                Vertrag
+              </button>
+            </div>
+          </div>
+
+          {/* Mockup Container */}
+          <div className="relative reveal delay-200">
           <div className="bg-white rounded-2xl shadow-[0_30px_100px_-20px_rgba(0,0,0,0.25)] border border-gray-200/60 overflow-hidden relative w-full transform transition-all duration-500">
             {/* Browser Top Bar */}
             <div className="h-10 bg-gray-100 border-b border-gray-200 flex items-center gap-1.5 px-4 shrink-0">
@@ -274,7 +300,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
                     <div className={`w-2 h-2 rounded-full transition-colors ${getActiveFindingsCount(activeMockup) > 0 ? 'bg-red-500' : 'bg-green-500'}`}></div>
                   </div>
                 </div>
-                
+
                 {/* Quality Score */}
                 <div className="px-4 py-3 border-b border-gray-200 bg-gradient-to-br from-gray-50 to-white">
                   <div className="flex items-center justify-between">

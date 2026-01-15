@@ -32,6 +32,26 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     }
   }
 
+  // Handle domain redirects
+  const host = request.headers.get('host')
+  const url = request.nextUrl.clone()
+
+  // Primary domain: www.slaide.de
+  // Redirect all others to primary for SEO consistency
+  const primaryDomain = 'www.slaide.de'
+  const secondaryDomains = [
+    'slaide.de',
+    'slaide.eu',
+    'www.slaide.eu',
+    'slaide.online',
+    'www.slaide.online'
+  ]
+
+  if (host && secondaryDomains.includes(host)) {
+    url.hostname = primaryDomain
+    return NextResponse.redirect(url, 301)
+  }
+
   // Generate nonce for this request
   const nonce = Buffer.from(randomBytes(16)).toString('base64')
   
@@ -44,8 +64,8 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
   // Inline scripts must use nonces (Next.js handles this automatically)
   const cspHeader = [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://va.vercel-scripts.com https://cal.com https://*.cal.com`,
-    `style-src 'self' 'nonce-${nonce}' 'unsafe-inline' https://fonts.googleapis.com`,
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-eval' https://va.vercel-scripts.com https://cal.com https://*.cal.com`,
+    `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`,
     "font-src 'self' https://fonts.gstatic.com https://r2cdn.perplexity.ai data:",
     "img-src 'self' data: https: blob:",
     "connect-src 'self' https://va.vercel-scripts.com https://cal.com https://*.cal.com",

@@ -43,8 +43,8 @@ function HeroSectionComponent(): JSX.Element {
             </div>
 
             {/* Headline mit verbesserter Darstellung */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold tracking-tight leading-[1.05] mb-6 hero-headline">
-              <span className="block hero-line-1 whitespace-nowrap">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold tracking-tight leading-[1.1] md:leading-[1.05] mb-6 hero-headline">
+              <span className="block hero-line-1 whitespace-normal md:whitespace-nowrap">
                 {['Review', 'sieht,', 'was'].map((word, index) => (
                   <span
                     key={index}
@@ -56,7 +56,7 @@ function HeroSectionComponent(): JSX.Element {
                   </span>
                 ))}
               </span>
-              <span className="block hero-line-2 whitespace-nowrap">
+              <span className="block hero-line-2 whitespace-normal md:whitespace-nowrap">
                 {['Menschen', 'übersehen.'].map((word, index) => (
                   <span
                     key={index + 3}
