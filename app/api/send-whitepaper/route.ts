@@ -337,33 +337,142 @@ export async function POST(request: Request): Promise<NextResponse> {
       subject: 'Ihr Security Whitepaper von Slaide',
       html: `
         <!DOCTYPE html>
-        <html>
+        <html lang="de">
           <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
           </head>
-          <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-            <div style="background: #050505; color: white; padding: 30px; border-radius: 8px 8px 0 0; text-align: center;">
-              <h1 style="margin: 0; font-size: 24px;">Slaide Security Whitepaper</h1>
-            </div>
-            <div style="background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px;">
-              <p style="font-size: 16px; margin-bottom: 20px;">
-                Hallo ${escapeHtml(sanitizedName)},
-              </p>
-              <p style="font-size: 16px; margin-bottom: 20px;">
-                Vielen Dank für Ihr Interesse an unserem Security Whitepaper!
-              </p>
-              <p style="font-size: 16px; margin-bottom: 20px;">
-                ${pdfBuffer ? 'Im Anhang finden Sie das vollständige Security Whitepaper als PDF-Datei.' : 'Das Security Whitepaper wird Ihnen in Kürze zugesendet.'}
-              </p>
-              <p style="font-size: 16px; margin-bottom: 20px;">
-                Bei Fragen stehen wir Ihnen gerne zur Verfügung.
-              </p>
-              <p style="font-size: 14px; color: #666; margin-top: 30px;">
-                Mit freundlichen Grüßen,<br>
-                Das Slaide Team
-              </p>
-            </div>
+          <body style="margin:0; padding:0; background-color:#f5f5f5;">
+            <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color:#f5f5f5; padding:32px 12px;">
+              <tr>
+                <td align="center">
+                  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:640px; background-color:#ffffff; border-radius:24px; overflow:hidden; box-shadow:0 18px 45px rgba(15,23,42,0.14);">
+                    <tr>
+                      <td style="padding:24px 28px 12px 28px;">
+                        <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                          <tr>
+                            <td style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; color:#6b7280; text-align:left;">
+                              <span style="display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border-radius:999px; border:1px solid #e5e7eb; background-color:#f9fafb; text-transform:uppercase; letter-spacing:0.08em; font-size:11px; font-weight:600;">
+                                <span style="display:inline-block; width:8px; height:8px; border-radius:999px; background-color:#22c55e;"></span>
+                                Review by Slaide
+                              </span>
+                            </td>
+                            <td style="text-align:right; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; color:#111827;">
+                              <span style="font-weight:600;">Slaide</span>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:8px 28px 4px 28px;">
+                        <h1 style="margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:30px; line-height:1.1; letter-spacing:-0.04em; color:#050505;">
+                          Review sieht, was Menschen übersehen.
+                        </h1>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:8px 28px 4px 28px;">
+                        <p style="margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:15px; line-height:1.6; color:#4b5563;">
+                          Hallo ${escapeHtml(sanitizedName)},
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:8px 28px 4px 28px;">
+                        <p style="margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:15px; line-height:1.6; color:#4b5563;">
+                          vielen Dank für Ihr Interesse an unserem Security Whitepaper. Damit Sie fundierte Entscheidungen zu Sicherheit, Hosting und Datenschutz treffen können, haben wir die wichtigsten technischen und organisatorischen Maßnahmen von Slaide für Sie zusammengefasst.
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:8px 28px 4px 28px;">
+                        <p style="margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:15px; line-height:1.6; color:#4b5563;">
+                          ${pdfBuffer ? 'Im Anhang finden Sie das vollständige Security Whitepaper als PDF-Datei.' : 'Das Security Whitepaper wird Ihnen in Kürze zugesendet.'}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:8px 28px 4px 28px;">
+                        <p style="margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.6; color:#6b7280;">
+                          Sie erhalten darin unter anderem einen Überblick über unsere Architektur, Datenflüsse sowie die konkreten organisatorischen und technischen Maßnahmen, mit denen wir Vertraulichkeit, Integrität und Verfügbarkeit Ihrer Dokumente sicherstellen.
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:20px 28px 4px 28px;">
+                        <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+                          <tr>
+                            <td style="padding-bottom:16px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:#6b7280;">
+                              Für Teams, die sich keine Fehler leisten können.
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:separate; border-spacing:0 10px;">
+                                <tr>
+                                  <td style="width:50%; padding:12px 14px; border-radius:16px; border:1px solid #e5e7eb; background-color:#f9fafb; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:13px; color:#111827;">
+                                    <div style="font-weight:600; margin-bottom:4px;">DSGVO-konform</div>
+                                    <div style="color:#6b7280; font-size:12px;">EU-Hosting &amp; Verschlüsselung in ISO-zertifizierten Rechenzentren.</div>
+                                  </td>
+                                  <td style="width:50%; padding:12px 14px; border-radius:16px; border:1px solid #e5e7eb; background-color:#f9fafb; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:13px; color:#111827;">
+                                    <div style="font-weight:600; margin-bottom:4px;">Security-first</div>
+                                    <div style="color:#6b7280; font-size:12px;">Keine Nutzung Ihrer Dokumente für Training oder Fine-Tuning.</div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td style="width:50%; padding:12px 14px; border-radius:16px; border:1px solid #e5e7eb; background-color:#f9fafb; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:13px; color:#111827;">
+                                    <div style="font-weight:600; margin-bottom:4px;">Customer Data Isolation</div>
+                                    <div style="color:#6b7280; font-size:12px;">Strikte Trennung von Kundendaten &amp; Zugriffspfaden.</div>
+                                  </td>
+                                  <td style="width:50%; padding:12px 14px; border-radius:16px; border:1px solid #e5e7eb; background-color:#f9fafb; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:13px; color:#111827;">
+                                    <div style="font-weight:600; margin-bottom:4px;">Standard-Retention</div>
+                                    <div style="color:#6b7280; font-size:12px;">Dokumente werden temporär verarbeitet und automatisch gelöscht.</div>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:20px 28px 28px 28px;" align="left">
+                        <table role="presentation" cellpadding="0" cellspacing="0">
+                          <tr>
+                            <td>
+                              <a href="https://cal.com/slaide/45min?utm_source=whitepaper-mail&utm_medium=email&utm_campaign=whitepaper_lead" style="display:inline-block; padding:12px 22px; border-radius:999px; background-color:#050505; color:#ffffff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; font-weight:600; text-decoration:none;">
+                                45‑Minuten Strategie-Call buchen
+                              </a>
+                            </td>
+                            <td style="width:12px;"></td>
+                            <td>
+                              <a href="https://www.slaide.de#security" style="display:inline-block; padding:12px 22px; border-radius:999px; border:1px solid #d1d5db; background-color:#ffffff; color:#111827; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; font-weight:500; text-decoration:none;">
+                                Mehr zu Security auf slaide.de
+                              </a>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:0 28px 24px 28px; border-top:1px solid #e5e7eb;">
+                        <p style="margin:16px 0 4px 0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:13px; line-height:1.6; color:#6b7280;">
+                          Wenn Sie auf Basis des Whitepapers prüfen möchten, wie Review konkret in Ihrem Team eingesetzt werden kann, buchen Sie gerne direkt einen kurzen Strategie-Call mit uns.
+                        </p>
+                        <p style="margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:13px; line-height:1.6; color:#6b7280;">
+                          Mit freundlichen Grüßen,<br>
+                          <span style="color:#111827; font-weight:500;">Ihr Slaide Team</span>
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                  <p style="margin:16px 0 0 0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:11px; color:#9ca3af; text-align:center;">
+                    © ${new Date().getFullYear()} Slaide. Alle Rechte vorbehalten.
+                  </p>
+                </td>
+              </tr>
+            </table>
           </body>
         </html>
       `,
