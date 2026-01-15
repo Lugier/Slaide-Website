@@ -17,9 +17,6 @@ function SecuritySectionComponent(): JSX.Element {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="reveal">
-            <div className="unix-badge text-green-500 mb-4 border border-green-900 bg-green-900/20 px-3 py-1 rounded w-fit">
-              SECURITY BY DESIGN
-            </div>
             <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-6">
               Ihre Daten gehören Ihnen.
               <br />
