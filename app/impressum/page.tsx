@@ -35,10 +35,10 @@ export default function ImpressumPage(): JSX.Element {
               <p className="text-grey-dark leading-relaxed">
                 <strong>E-Mail:</strong>{" "}
                 <a
-                  href="mailto:kontakt@slaide.de"
+                  href="mailto:info@slaide.de"
                   className="text-black hover:underline"
                 >
-                  kontakt@slaide.de
+                  info@slaide.de
                 </a>
               </p>
             </section>

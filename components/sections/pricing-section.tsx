@@ -114,14 +114,6 @@ function PricingSectionComponent(): JSX.Element {
             </div>
               <ul className="space-y-4 text-sm text-grey-dark mb-8 flex-grow text-left">
                 <li className="flex items-center gap-2">
-                  <X className="w-4 h-4 text-gray-400 flex-shrink-0" aria-hidden="true" />
-                  <span className="text-gray-400">Mathematische Neuberechnung</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <X className="w-4 h-4 text-gray-400 flex-shrink-0" aria-hidden="true" />
-                  <span className="text-gray-400">Argumentations-Logik</span>
-                </li>
-                <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-black flex-shrink-0" aria-hidden="true" />
                   <span>Rechtschreibung & Grammatik</span>
                 </li>
@@ -136,6 +128,14 @@ function PricingSectionComponent(): JSX.Element {
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-black flex-shrink-0" aria-hidden="true" />
                   <span>Cross-Document Consistency</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <X className="w-4 h-4 text-gray-400 flex-shrink-0" aria-hidden="true" />
+                  <span className="text-gray-400">Mathematische Neuberechnung</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <X className="w-4 h-4 text-gray-400 flex-shrink-0" aria-hidden="true" />
+                  <span className="text-gray-400">Argumentations-Logik</span>
               </li>
             </ul>
             <a
@@ -170,28 +170,28 @@ function PricingSectionComponent(): JSX.Element {
               <ul className="space-y-4 text-sm text-gray-300 mb-8 flex-grow text-left">
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-white flex-shrink-0" aria-hidden="true" />
-                  <span>Mathematische Neuberechnung</span>
-              </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-white flex-shrink-0" aria-hidden="true" />
-                  <span>Argumentations-Logik</span>
-              </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-white flex-shrink-0" aria-hidden="true" />
                   <span><span className="font-semibold">Verbesserte</span> Rechtschreibung & Grammatik</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-white flex-shrink-0" aria-hidden="true" />
-                  <span><span className="font-semibold">Erweiterter</span> Formatierungs-Check</span>
+                  <span><span className="font-semibold">Verbesserter</span> Formatierungs-Check</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-white flex-shrink-0" aria-hidden="true" />
-                  <span><span className="font-semibold">Tiefgreifende</span> Plausibilität</span>
-              </li>
+                  <span><span className="font-semibold">Verbesserte</span> Plausibilität</span>
+                </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-white flex-shrink-0" aria-hidden="true" />
-                  <span><span className="font-semibold">Erweiterte</span> Cross-Document Consistency</span>
-              </li>
+                  <span><span className="font-semibold">Verbesserte</span> Cross-Document Consistency</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-white flex-shrink-0" aria-hidden="true" />
+                  <span>Mathematische Neuberechnung</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-white flex-shrink-0" aria-hidden="true" />
+                  <span>Argumentations-Logik</span>
+                </li>
             </ul>
             <a
               href="#"

@@ -59,10 +59,10 @@ export default function DatenschutzPage(): JSX.Element {
                 <br />
                 <strong>E-Mail:</strong>{" "}
                 <a
-                  href="mailto:datenschutz@slaide.de"
+                  href="mailto:info@slaide.de"
                   className="text-black hover:underline"
                 >
-                  datenschutz@slaide.de
+                  info@slaide.de
                 </a>
               </p>
             </section>

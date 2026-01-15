@@ -211,8 +211,8 @@ function HowItWorksSectionComponent(): JSX.Element {
               {' '}die selbst Experten entgeht.
             </h2>
             <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-xl">
-              Kein einfacher Spellchecker. Review nutzt eine mehrstufige neuronale Architektur, um
-              den Inhalt Ihrer Dokumente semantisch tiefgründig zu durchdringen.
+              Review nutzt eine mehrstufige neuronale Architektur, um den Inhalt Ihrer Dokumente
+              semantisch tiefgründig zu durchdringen.
             </p>
           </div>
         </div>

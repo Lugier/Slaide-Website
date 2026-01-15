@@ -36,10 +36,10 @@ function HeroSectionComponent(): JSX.Element {
         {/* Hero Content */}
         <div className="space-y-8">
           <div>
-            {/* Enhanced Status Badge */}
+            {/* Status Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-50 border border-gray-200 mb-8 hero-status-badge">
               <span className="w-1.5 h-1.5 rounded-full bg-green-500 status-dot-pulse"></span>
-              <span className="unix-badge text-grey-dark">SYSTEM STATUS: ONLINE</span>
+              <span className="unix-badge text-grey-dark">REVIEW BY SLAIDE</span>
             </div>
 
             {/* Headline mit verbesserter Darstellung */}

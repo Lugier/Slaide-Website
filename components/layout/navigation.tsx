@@ -178,7 +178,7 @@ export function Navigation(): JSX.Element {
           aria-label="Slaide Startseite"
         >
           <Image
-            src="/favicon.png"
+            src="/favicon.svg"
             alt="Slaide Logo"
             width={24}
             height={24}
