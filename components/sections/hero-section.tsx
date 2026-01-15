@@ -60,7 +60,7 @@ function HeroSectionComponent(): JSX.Element {
 
             {/* Description with fade-in */}
             <p className="text-lg md:text-xl lg:text-2xl text-grey-medium leading-relaxed max-w-2xl mx-auto font-light mb-10 hero-description">
-              Multimodale Analyse deckt Inkonsistenzen über hunderte Seiten auf. Von der falschen Summe im Anhang bis zum Widerspruch in zentralen Aussagen. Verhindern Sie Reputationsschäden, bevor sie entstehen.
+              Review identifiziert Fehler in Ihren Unterlagen, bevor sie bei Kunden, Partnern oder Gremien Vertrauen kosten. Wir sichern die Integrität Ihrer Unterlagen auf jeder Ebene ab – von der formalen Korrektheit über valide Daten bis hin zur Stimmigkeit jeder einzelnen Aussage. Verhindern Sie Reputationsschäden, bevor sie entstehen.
             </p>
           </div>
 
