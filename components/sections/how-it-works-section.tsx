@@ -138,7 +138,7 @@ function HowItWorksSectionComponent(): JSX.Element {
       number: '01',
       title: 'Multimodale Erfassung',
       description:
-        'Das System zerlegt PDFs in Text-, Vektor- und Bild-Layer. Ein vorgeschalteter KI-Screener filtert irrelevante Seiten (Deckblatt, Inhaltsverzeichnis, Abschnitt) sofort heraus, um kosteneffizient zu arbeiten.',
+        'Das System zerlegt PDFs in Text-, Vektor- und Bild-Layer. Ein vorgeschalteter KI-Screener filtert irrelevante Seiten (Deckblatt, Inhaltsverzeichnis, Abschnitt) sofort heraus, um effizient zu arbeiten.',
       icon: Layers,
       badge: 'STAGE 01 • INGEST & SCREEN',
       badgeColor: 'text-gray-400',
