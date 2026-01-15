@@ -10,7 +10,7 @@ export function Footer(): JSX.Element {
       <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="flex items-center gap-3">
           <Image
-            src="/favicon.svg"
+            src="/logo-slaide.svg"
             alt="Slaide Logo"
             width={32}
             height={32}
