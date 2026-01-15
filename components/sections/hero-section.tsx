@@ -44,7 +44,7 @@ function HeroSectionComponent(): JSX.Element {
 
             {/* Headline mit verbesserter Darstellung */}
             <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold tracking-tight leading-[1.05] mb-6 hero-headline">
-              <span className="inline-block hero-line-1">
+              <span className="block hero-line-1">
                 {['Review', 'sieht,', 'was'].map((word, index) => (
                   <span
                     key={index}
@@ -56,8 +56,7 @@ function HeroSectionComponent(): JSX.Element {
                   </span>
                 ))}
               </span>
-              <br />
-              <span className="inline-block hero-line-2">
+              <span className="block hero-line-2">
                 {['Menschen', 'übersehen.'].map((word, index) => (
                   <span
                     key={index + 3}
@@ -72,9 +71,8 @@ function HeroSectionComponent(): JSX.Element {
             </h1>
 
             {/* Description with fade-in */}
-            <p className="text-lg md:text-xl lg:text-2xl text-grey-medium leading-relaxed max-w-2xl mx-auto font-light mb-10 hero-description">
-              Review identifiziert Fehler, bevor sie Vertrauen kosten. Wir sichern Form, Daten und Inhalt lückenlos ab, damit jede Aussage in Ihren Unterlagen perfekt sitzt.
-              <span className="block mt-4 font-medium text-black">Verhindern Sie Reputationsschäden, bevor sie entstehen.</span>
+            <p className="text-lg md:text-xl lg:text-2xl text-grey-medium leading-relaxed max-w-3xl mx-auto font-light mb-10 hero-description">
+              Review identifiziert Fehler, bevor sie Vertrauen kosten. Wir sichern Form, Daten und Inhalt lückenlos ab, damit jede Aussage in Ihren Unterlagen perfekt sitzt. Verhindern Sie Reputationsschäden, bevor sie entstehen.
             </p>
           </div>
 
