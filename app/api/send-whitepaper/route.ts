@@ -460,8 +460,8 @@ export async function POST(request: Request): Promise<NextResponse> {
                             </td>
                             <td style="width:12px;"></td>
                             <td>
-                              <a href="https://www.slaide.de#security" style="display:inline-block; padding:12px 22px; border-radius:999px; border:1px solid #d1d5db; background-color:#ffffff; color:#111827; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; font-weight:500; text-decoration:none;">
-                                Mehr zu Security auf slaide.de
+                              <a href="https://www.slaide.de/Whitepaper.pdf" target="_blank" style="display:inline-block; padding:12px 22px; border-radius:999px; border:1px solid #d1d5db; background-color:#ffffff; color:#111827; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; font-weight:500; text-decoration:none;">
+                                Whitepaper direkt öffnen
                               </a>
                             </td>
                           </tr>
