@@ -45,14 +45,27 @@ function HeroSectionComponent(): JSX.Element {
             {/* Headline mit verbesserter Darstellung */}
             <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold tracking-tight leading-[1.05] mb-6 hero-headline">
               <span className="inline-block hero-line-1">
-                {['Review', 'sieht,', 'was', 'Menschen', 'übersehen.'].map((word, index) => (
+                {['Review', 'sieht,', 'was'].map((word, index) => (
                   <span
                     key={index}
                     className={`inline-block text-black font-semibold hero-word-reveal hero-word-visible hero-word-index-${index}`}
                     data-word-index={index}
                   >
                     {word}
-                    {index < 4 && <span className="inline-block w-2 md:w-3"></span>}
+                    {index < 2 && <span className="inline-block w-2 md:w-3"></span>}
+                  </span>
+                ))}
+              </span>
+              <br />
+              <span className="inline-block hero-line-2">
+                {['Menschen', 'übersehen.'].map((word, index) => (
+                  <span
+                    key={index + 3}
+                    className={`inline-block text-black font-semibold hero-word-reveal hero-word-visible hero-word-index-${index + 3}`}
+                    data-word-index={index + 3}
+                  >
+                    {word}
+                    {index < 1 && <span className="inline-block w-2 md:w-3"></span>}
                   </span>
                 ))}
               </span>
@@ -60,7 +73,8 @@ function HeroSectionComponent(): JSX.Element {
 
             {/* Description with fade-in */}
             <p className="text-lg md:text-xl lg:text-2xl text-grey-medium leading-relaxed max-w-2xl mx-auto font-light mb-10 hero-description">
-              Review identifiziert Fehler in Ihren Unterlagen, bevor sie bei Kunden, Partnern oder Gremien Vertrauen kosten. Wir sichern die Integrität Ihrer Unterlagen auf jeder Ebene ab – von der formalen Korrektheit über valide Daten bis hin zur Stimmigkeit jeder einzelnen Aussage. Verhindern Sie Reputationsschäden, bevor sie entstehen.
+              Review identifiziert Fehler, bevor sie Vertrauen kosten. Wir sichern Form, Daten und Inhalt lückenlos ab, damit jede Aussage in Ihren Unterlagen perfekt sitzt.
+              <span className="block mt-4 font-medium text-black">Verhindern Sie Reputationsschäden, bevor sie entstehen.</span>
             </p>
           </div>
 
