@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     siteName: 'Slaide',
     images: [
       {
-        url: '/favicon.png',
+        url: '/favicon.svg',
         width: 1200,
         height: 630,
         alt: 'Slaide - Audit-Grade Deck Integrity',
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Slaide | Audit-Grade Deck Integrity für Dokumente',
     description: 'Slaide prüft Decks auf Logik, Konsistenz, Sprache und Zahlenfehler – inkl. Cross-Slide-Verifikation. In Minuten statt Tagen.',
-    images: ['/favicon.png'],
+    images: ['/favicon.svg'],
     site: '@slaide',
     creator: '@slaide',
   },
@@ -117,7 +117,7 @@ export default function RootLayout({
               '@type': 'Organization',
               name: 'Slaide',
               url: 'https://www.slaide.de',
-              logo: 'https://www.slaide.de/favicon.png',
+              logo: 'https://www.slaide.de/favicon.svg',
               description: 'Slaide bietet Zero-Defect Reporting für High-Stakes Dokumente. Automatisierte KI-Validierung findet Fehler, die selbst den besten Experten entgehen.',
               address: {
                 '@type': 'PostalAddress',
