@@ -39,8 +39,8 @@ export function WhitepaperModal({ isOpen, onClose }: WhitepaperModalProps): JSX.
       e.preventDefault()
       setError(null)
 
-      if (!agbAccepted || !datenschutzAccepted) {
-        setError('Bitte akzeptieren Sie die AGB und Datenschutzerklärung')
+      if (!datenschutzAccepted) {
+        setError('Bitte akzeptieren Sie die Datenschutzerklärung')
         return
       }
 
@@ -218,44 +218,6 @@ export function WhitepaperModal({ isOpen, onClose }: WhitepaperModalProps): JSX.
                     <div className="relative mt-0.5 shrink-0">
                       <input
                         type="checkbox"
-                        checked={agbAccepted}
-                        onChange={(e) => {
-                          setAgbAccepted(e.target.checked)
-                          setError(null)
-                        }}
-                        required
-                        className="sr-only"
-                        disabled={isLoading}
-                      />
-                      <div
-                        className={`w-5 h-5 border-2 rounded flex items-center justify-center transition-all ${
-                          agbAccepted
-                            ? 'bg-black border-black'
-                            : 'border-gray-300 group-hover:border-gray-400'
-                        }`}
-                      >
-                        {agbAccepted && <CheckCircle2 className="w-4 h-4 text-white" />}
-                      </div>
-                    </div>
-                    <span className="text-xs sm:text-sm text-gray-700 leading-relaxed flex-1">
-                      Ich akzeptiere die{' '}
-                      <a
-                        href="/agb"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-black underline hover:text-gray-600 font-medium"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        AGB
-                      </a>{' '}
-                      <span className="text-red-500">*</span>
-                    </span>
-                  </label>
-
-                  <label className="flex items-start gap-3 cursor-pointer group py-1">
-                    <div className="relative mt-0.5 shrink-0">
-                      <input
-                        type="checkbox"
                         checked={datenschutzAccepted}
                         onChange={(e) => {
                           setDatenschutzAccepted(e.target.checked)
@@ -289,6 +251,63 @@ export function WhitepaperModal({ isOpen, onClose }: WhitepaperModalProps): JSX.
                       <span className="text-red-500">*</span>
                     </span>
                   </label>
+
+                  <label className="flex items-start gap-3 cursor-pointer group py-1">
+                    <div className="relative mt-0.5 shrink-0">
+                      <input
+                        type="checkbox"
+                        checked={agbAccepted}
+                        onChange={(e) => {
+                          setAgbAccepted(e.target.checked)
+                          setError(null)
+                        }}
+                        className="sr-only"
+                        disabled={isLoading}
+                      />
+                      <div
+                        className={`w-5 h-5 border-2 rounded flex items-center justify-center transition-all ${
+                          agbAccepted
+                            ? 'bg-black border-black'
+                            : 'border-gray-300 group-hover:border-gray-400'
+                        }`}
+                      >
+                        {agbAccepted && <CheckCircle2 className="w-4 h-4 text-white" />}
+                      </div>
+                    </div>
+                    <span className="text-xs sm:text-sm text-gray-700 leading-relaxed flex-1">
+                      Ich akzeptiere die{' '}
+                      <a
+                        href="/agb"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-black underline hover:text-gray-600 font-medium"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        AGB
+                      </a>{' '}
+                      (optional)
+                    </span>
+                  </label>
+
+                  <div className="bg-blue-50 border-l-4 border-blue-500 p-3 rounded-lg mt-2">
+                    <p className="text-xs text-blue-800 leading-relaxed">
+                      <strong>Hinweis:</strong> Die Einwilligung zur
+                      Datenverarbeitung ist freiwillig. Sie können Ihre
+                      Einwilligung jederzeit widerrufen, ohne dass Ihnen
+                      daraus Nachteile entstehen. Der Widerruf kann per E-Mail
+                      an{' '}
+                      <a
+                        href="mailto:info@slaide.de"
+                        className="underline font-medium"
+                      >
+                        info@slaide.de
+                      </a>{' '}
+                      oder schriftlich an unsere Adresse erfolgen. Durch den
+                      Widerruf wird die Rechtmäßigkeit der aufgrund der
+                      Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht
+                      berührt.
+                    </p>
+                  </div>
                 </div>
 
                 {error && (
@@ -301,7 +320,7 @@ export function WhitepaperModal({ isOpen, onClose }: WhitepaperModalProps): JSX.
                   <button
                     type="submit"
                     className="flex-1 px-6 py-3.5 sm:py-3.5 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:shadow-lg order-1 sm:order-2 min-h-[52px] sm:min-h-[44px]"
-                    disabled={isLoading || !name || !company || !email || !agbAccepted || !datenschutzAccepted}
+                    disabled={isLoading || !name || !company || !email || !datenschutzAccepted}
                   >
                     {isLoading ? (
                       <>

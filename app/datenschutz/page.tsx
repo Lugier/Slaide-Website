@@ -64,6 +64,19 @@ export default function DatenschutzPage(): JSX.Element {
                 >
                   info@slaide.de
                 </a>
+                <br />
+                <strong>Telefon:</strong>{" "}
+                <a
+                  href="tel:+491728812969"
+                  className="text-black hover:underline"
+                >
+                  +49 172 8812969
+                </a>
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Hinweis zur Rechtsform:</strong> Slaide UG (in Gründung)
+                ist eine Vorgründungsgesellschaft (GbR) und wird von Nathalie
+                Scholl als alleiniger Gesellschafterin vertreten.
               </p>
             </section>
 
@@ -171,8 +184,10 @@ export default function DatenschutzPage(): JSX.Element {
                 (Upstash Inc., 2261 Market Street #4339, San Francisco, CA
                 94114, USA), um Missbrauch zu verhindern. Hierbei wird Ihre
                 IP-Adresse temporär in einer Redis-Datenbank gespeichert, um die
-                Anzahl der Anfragen zu begrenzen. Diese Daten werden nach kurzer
-                Zeit automatisch gelöscht. Weitere Informationen:{" "}
+                Anzahl der Anfragen zu begrenzen. Diese Daten werden nach
+                spätestens 24 Stunden automatisch gelöscht. Bei Überschreitung
+                der Rate-Limits kann der Zugriff temporär für bis zu 1 Stunde
+                gesperrt werden. Weitere Informationen:{" "}
                 <a
                   href="https://upstash.com/legal/privacy"
                   target="_blank"
@@ -181,6 +196,27 @@ export default function DatenschutzPage(): JSX.Element {
                 >
                   https://upstash.com/legal/privacy
                 </a>
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Hinweis zu Drittlandübermittlungen:</strong> Vercel und
+                Upstash sind US-Unternehmen. Die Datenverarbeitung erfolgt
+                teilweise in den USA. Wir haben mit beiden Dienstleistern
+                Standardvertragsklauseln (SCC) nach Art. 46 Abs. 2 lit. c DSGVO
+                abgeschlossen. Zusätzlich wurden technische und organisatorische
+                Maßnahmen implementiert, um ein angemessenes Datenschutzniveau zu
+                gewährleisten. Ein Transfer Impact Assessment (TIA) wurde
+                durchgeführt. Weitere Details finden Sie in Abschnitt 15.
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Auftragsverarbeitungsvertrag:</strong> Mit Vercel und
+                Upstash wurden Auftragsverarbeitungsverträge (AVV) nach Art. 28
+                DSGVO abgeschlossen.
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Speicherort:</strong> Vercel speichert Daten primär in
+                AWS-Rechenzentren in Europa (Frankfurt, Irland). Logfiles können
+                temporär auch in US-Rechenzentren verarbeitet werden. Upstash
+                speichert Daten in US-Rechenzentren.
               </p>
 
               <h3 className="text-xl font-semibold mb-3 mt-6">
@@ -221,9 +257,12 @@ export default function DatenschutzPage(): JSX.Element {
               <p className="text-grey-dark leading-relaxed mb-4">
                 Im Falle der Speicherung der Daten in Logfiles ist dies nach
                 spätestens sieben Tagen der Fall. Eine darüber hinausgehende
-                Speicherung ist möglich. In diesem Fall werden die IP-Adressen
-                der Nutzer gelöscht oder verfremdet, sodass eine Zuordnung des
-                aufrufenden Clients nicht mehr möglich ist.
+                Speicherung erfolgt nur bei konkreten Sicherheitsvorfällen
+                (z.B. DDoS-Angriffe, Hacking-Versuche) und nur für die Dauer
+                der Untersuchung (maximal 30 Tage). In diesem Fall werden die
+                IP-Adressen der Nutzer nach Abschluss der Untersuchung gelöscht
+                oder verfremdet, sodass eine Zuordnung des aufrufenden Clients
+                nicht mehr möglich ist.
               </p>
 
               <h3 className="text-xl font-semibold mb-3 mt-6">
@@ -325,7 +364,8 @@ export default function DatenschutzPage(): JSX.Element {
                 <li>Name</li>
                 <li>E-Mail-Adresse</li>
                 <li>Firma</li>
-                <li>Zustimmung zu AGB und Datenschutzerklärung</li>
+                <li>Zustimmung zur Datenschutzerklärung (erforderlich)</li>
+                <li>Zustimmung zu AGB (optional)</li>
               </ul>
               <p className="text-grey-dark leading-relaxed mb-4">
                 Im Zeitpunkt der Absendung der Anfrage wird zudem gespeichert:
@@ -398,9 +438,24 @@ export default function DatenschutzPage(): JSX.Element {
                 personenbezogenen Daten aus der Eingabemaske des Formulars und
                 diejenigen, die per E-Mail übersandt wurden, ist dies dann der
                 Fall, wenn die jeweilige Konversation mit dem Nutzer beendet
-                ist. Beendet ist die Konversation dann, wenn sich aus den
-                Umständen entnehmen lässt, dass der betroffene Sachverhalt
-                abschließend geklärt ist.
+                ist. Die Konversation gilt als beendet, wenn:
+              </p>
+              <ul className="list-disc list-inside text-grey-dark leading-relaxed mb-4 space-y-2 ml-4">
+                <li>
+                  Das Whitepaper erfolgreich versendet wurde und keine weitere
+                  Kommunikation erfolgt ist (spätestens nach 6 Monaten)
+                </li>
+                <li>
+                  Der Nutzer ausdrücklich die Löschung verlangt
+                </li>
+                <li>
+                  Der betroffene Sachverhalt abschließend geklärt ist
+                </li>
+              </ul>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Konkrete Löschfrist:</strong> Spätestens 6 Monate nach
+                Versendung des Whitepapers, sofern keine weitere Kommunikation
+                erfolgt ist.
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
                 Die während des Absendevorgangs zusätzlich erhobenen
@@ -413,11 +468,27 @@ export default function DatenschutzPage(): JSX.Element {
               </h3>
               <p className="text-grey-dark leading-relaxed mb-4">
                 Der Nutzer hat jederzeit die Möglichkeit, seine Einwilligung zur
-                Verarbeitung der personenbezogenen Daten zu widerrufen. Nimmt
-                der Nutzer per E-Mail Kontakt mit uns auf, so kann er der
+                Verarbeitung der personenbezogenen Daten zu widerrufen. Die
+                Einwilligung kann so einfach wie ihre Erteilung widerrufen
+                werden. Sie können Ihre Einwilligung jederzeit per E-Mail an{" "}
+                <a
+                  href="mailto:info@slaide.de"
+                  className="text-black hover:underline"
+                >
+                  info@slaide.de
+                </a>{" "}
+                oder schriftlich an unsere oben genannte Adresse widerrufen.
+                Nimmt der Nutzer per E-Mail Kontakt mit uns auf, so kann er der
                 Speicherung seiner personenbezogenen Daten jederzeit
                 widersprechen. In einem solchen Fall kann die Konversation nicht
                 fortgeführt werden.
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Wichtig:</strong> Die Einwilligung ist freiwillig. Sie
+                können die Einwilligung jederzeit widerrufen, ohne dass Ihnen
+                daraus Nachteile entstehen. Durch den Widerruf wird die
+                Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf
+                erfolgten Verarbeitung nicht berührt.
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
                 Alle personenbezogenen Daten, die im Zuge der Kontaktaufnahme
@@ -449,9 +520,34 @@ export default function DatenschutzPage(): JSX.Element {
                 <li>IP-Adresse</li>
               </ul>
               <p className="text-grey-dark leading-relaxed mb-4">
-                Die Datenverarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1
-                lit. b DSGVO zur Durchführung vorvertraglicher Maßnahmen bzw.
-                zur Erfüllung eines Vertrages.
+                <strong>Rechtsgrundlage:</strong> Für bestehende Kunden erfolgt
+                die Datenverarbeitung auf Grundlage von Art. 6 Abs. 1 lit. b
+                DSGVO zur Erfüllung eines Vertrages. Für Interessenten ohne
+                bestehenden Vertrag erfolgt die Datenverarbeitung auf Grundlage
+                von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der
+                Terminvereinbarung) bzw. Art. 6 Abs. 1 lit. a DSGVO
+                (Einwilligung), sofern eine Einwilligung eingeholt wurde.
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Datenweitergabe:</strong> Cal.com kann Daten an
+                Drittanbieter weitergeben, die für die Terminbuchung erforderlich
+                sind (z.B. Videokonferenz-Anbieter wie Zoom, Google Meet, wenn
+                diese vom Nutzer ausgewählt werden). Eine vollständige Liste
+                finden Sie in der Datenschutzerklärung von Cal.com.
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Hinweis zu Drittlandübermittlungen:</strong> Cal.com ist
+                ein US-Unternehmen. Die Datenverarbeitung erfolgt in den USA.
+                Wir haben mit Cal.com Standardvertragsklauseln (SCC) nach Art.
+                46 Abs. 2 lit. c DSGVO abgeschlossen. Zusätzlich wurden
+                technische und organisatorische Maßnahmen implementiert. Ein
+                Transfer Impact Assessment (TIA) wurde durchgeführt. Weitere
+                Details finden Sie in Abschnitt 15.
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Auftragsverarbeitungsvertrag:</strong> Mit Cal.com wurde
+                ein Auftragsverarbeitungsvertrag (AVV) nach Art. 28 DSGVO
+                abgeschlossen.
               </p>
 
               <h3 className="text-xl font-semibold mb-3 mt-6">
@@ -504,12 +600,36 @@ export default function DatenschutzPage(): JSX.Element {
                 <strong>Wichtig:</strong> Vercel Analytics und Speed Insights
                 sammeln keine IP-Adressen, keine Cookies und keine
                 personenbezogenen Daten. Die Daten werden vollständig
-                anonymisiert verarbeitet.
+                anonymisiert verarbeitet. Die geografische Herkunft wird über
+                IP-Geolocation auf Länderebene bestimmt, wobei die IP-Adresse
+                selbst nicht gespeichert wird.
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Erfasste Performance-Metriken:</strong> LCP (Largest
+                Contentful Paint), INP (Interaction to Next Paint), CLS
+                (Cumulative Layout Shift), FCP (First Contentful Paint), TTFB
+                (Time to First Byte). Zusätzlich werden anonymisierte
+                Geräteinformationen (Bildschirmauflösung, Gerätetyp) erfasst,
+                jedoch keine personenbezogenen Daten.
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
                 Die Datenverarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1
                 lit. f DSGVO zur Verbesserung unserer Website und zur Analyse
                 der Performance.
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Hinweis zu Drittlandübermittlungen:</strong> Vercel ist
+                ein US-Unternehmen. Die Datenverarbeitung erfolgt teilweise in
+                den USA. Wir haben mit Vercel Standardvertragsklauseln (SCC)
+                nach Art. 46 Abs. 2 lit. c DSGVO abgeschlossen. Zusätzlich
+                wurden technische und organisatorische Maßnahmen implementiert.
+                Ein Transfer Impact Assessment (TIA) wurde durchgeführt.
+                Weitere Details finden Sie in Abschnitt 15.
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Auftragsverarbeitungsvertrag:</strong> Mit Vercel wurde
+                ein Auftragsverarbeitungsvertrag (AVV) nach Art. 28 DSGVO
+                abgeschlossen.
               </p>
 
               <h3 className="text-xl font-semibold mb-3 mt-6">
@@ -548,6 +668,9 @@ export default function DatenschutzPage(): JSX.Element {
                 <li>Die blockierte URL oder Ressource</li>
                 <li>Die verletzte CSP-Richtlinie</li>
                 <li>Die ursprüngliche URL, von der aus der Verstoß auftrat</li>
+                <li>IP-Adresse des Browsers (technisch erforderlich)</li>
+                <li>User-Agent String</li>
+                <li>Referer-URL</li>
               </ul>
               <p className="text-grey-dark leading-relaxed mb-4">
                 Diese Daten werden ausschließlich für Sicherheitszwecke
@@ -562,7 +685,17 @@ export default function DatenschutzPage(): JSX.Element {
               <p className="text-grey-dark leading-relaxed mb-4">
                 CSP-Reports werden nur in der Entwicklungsumgebung geloggt. In
                 der Produktionsumgebung werden sie verarbeitet, aber nicht
-                dauerhaft gespeichert.
+                dauerhaft gespeichert. Die Daten werden im RAM gehalten und
+                nach maximal 1 Stunde automatisch gelöscht, sofern keine
+                Sicherheitsrelevanz festgestellt wird.
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Automatisierte Entscheidungen:</strong> Bei
+                wiederholten CSP-Verstößen kann der Zugriff automatisch
+                blockiert werden. Dies erfolgt ohne menschliches Eingreifen
+                basierend auf vordefinierten Sicherheitsregeln. Sie haben das
+                Recht, dieser automatisierten Entscheidung zu widersprechen
+                (siehe Abschnitt 12.8).
               </p>
             </section>
 
@@ -588,12 +721,17 @@ export default function DatenschutzPage(): JSX.Element {
                 <li>
                   Cache-Manifest für die Verwaltung der gecachten Ressourcen
                 </li>
+                <li>
+                  Keine personenbezogenen Daten werden gecacht. Formular-Eingaben
+                  werden nicht lokal gespeichert.
+                </li>
               </ul>
               <p className="text-grey-dark leading-relaxed mb-4">
                 Diese Daten werden ausschließlich auf Ihrem Gerät gespeichert
-                und nicht an unseren Server übertragen. Sie können den Service
-                Worker jederzeit über Ihre Browser-Einstellungen deaktivieren
-                oder den Cache löschen.
+                und nicht an unseren Server übertragen. Der Cache wird
+                automatisch nach 7 Tagen oder bei Aktualisierung der Website
+                aktualisiert. Sie können den Service Worker jederzeit über Ihre
+                Browser-Einstellungen deaktivieren oder den Cache löschen.
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
                 Die Datenverarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1
@@ -628,6 +766,29 @@ export default function DatenschutzPage(): JSX.Element {
                 Die Datenverarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1
                 lit. b DSGVO zur Erfüllung eines Vertrages bzw. Art. 6 Abs. 1
                 lit. f DSGVO zur Wahrung unserer berechtigten Interessen.
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Sub-Auftragsverarbeiter:</strong> Resend nutzt
+                Sub-Auftragsverarbeiter für die E-Mail-Infrastruktur (z.B.
+                Cloud-Provider für Server-Infrastruktur, SMTP-Provider). Eine
+                vollständige Liste der Sub-Auftragsverarbeiter finden Sie in der
+                Datenschutzerklärung von Resend. Wir haben mit Resend
+                vereinbart, dass Sub-Auftragsverarbeiter nur nach Art. 28 Abs.
+                3 lit. h DSGVO eingesetzt werden dürfen.
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Hinweis zu Drittlandübermittlungen:</strong> Resend ist
+                ein US-Unternehmen. Die Datenverarbeitung erfolgt in den USA.
+                Wir haben mit Resend Standardvertragsklauseln (SCC) nach Art. 46
+                Abs. 2 lit. c DSGVO abgeschlossen. Zusätzlich wurden technische
+                und organisatorische Maßnahmen implementiert. Ein Transfer
+                Impact Assessment (TIA) wurde durchgeführt. Weitere Details
+                finden Sie in Abschnitt 15.
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Auftragsverarbeitungsvertrag:</strong> Mit Resend wurde
+                ein Auftragsverarbeitungsvertrag (AVV) nach Art. 28 DSGVO
+                abgeschlossen.
               </p>
 
               <h3 className="text-xl font-semibold mb-3 mt-6">
@@ -883,6 +1044,41 @@ export default function DatenschutzPage(): JSX.Element {
                 die DSGVO verstößt.
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Zuständige Aufsichtsbehörde:</strong> Die für uns
+                zuständige Aufsichtsbehörde ist:
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4 ml-4">
+                <strong>Der Landesbeauftragte für den Datenschutz und die
+                Informationsfreiheit Baden-Württemberg (LfDI)</strong>
+                <br />
+                Königstraße 10a
+                <br />
+                70173 Stuttgart
+                <br />
+                Deutschland
+                <br />
+                <br />
+                <strong>Telefon:</strong> +49 711 615541-0
+                <br />
+                <strong>E-Mail:</strong>{" "}
+                <a
+                  href="mailto:poststelle@lfdi.bwl.de"
+                  className="text-black hover:underline"
+                >
+                  poststelle@lfdi.bwl.de
+                </a>
+                <br />
+                <strong>Website:</strong>{" "}
+                <a
+                  href="https://www.baden-wuerttemberg.datenschutz.de"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-black hover:underline"
+                >
+                  https://www.baden-wuerttemberg.datenschutz.de
+                </a>
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
                 Die Aufsichtsbehörde, bei der die Beschwerde eingereicht wurde,
                 unterrichtet den Beschwerdeführer über den Stand und die
                 Ergebnisse der Beschwerde einschließlich der Möglichkeit eines
@@ -922,7 +1118,131 @@ export default function DatenschutzPage(): JSX.Element {
 
             <section>
               <h2 className="text-2xl font-semibold mb-4">
-                14. Aktualität und Änderung dieser Datenschutzerklärung
+                14. Automatisierte Entscheidungsfindung
+              </h2>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                Wir setzen automatisierte Systeme ein, die Entscheidungen ohne
+                menschliches Eingreifen treffen können:
+              </p>
+              <ul className="list-disc list-inside text-grey-dark leading-relaxed mb-4 space-y-2 ml-4">
+                <li>
+                  <strong>Rate Limiting (Upstash):</strong> Bei Überschreitung
+                  der zulässigen Anfrageanzahl wird der Zugriff automatisch für
+                  bis zu 1 Stunde gesperrt. Dies dient dem Schutz vor
+                  Missbrauch und DDoS-Angriffen.
+                </li>
+                <li>
+                  <strong>CSP Reports:</strong> Bei wiederholten
+                  Sicherheitsverstößen kann der Zugriff automatisch blockiert
+                  werden.
+                </li>
+              </ul>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                Diese automatisierten Entscheidungen beruhen auf
+                vordefinierten Sicherheitsregeln und dienen dem Schutz unserer
+                Website und der Nutzer. Sie haben das Recht, dieser
+                automatisierten Entscheidung zu widersprechen (siehe Abschnitt
+                12.8). In diesem Fall prüfen wir Ihren Fall manuell.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold mb-4">
+                15. Drittlandübermittlungen und Transfer Impact Assessment
+              </h2>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                Wir nutzen folgende Dienstleister mit Sitz in den USA:
+              </p>
+              <ul className="list-disc list-inside text-grey-dark leading-relaxed mb-4 space-y-2 ml-4">
+                <li>Vercel Inc. (Hosting, Analytics, Speed Insights)</li>
+                <li>Cal.com, Inc. (Terminbuchung)</li>
+                <li>Resend, Inc. (E-Mail-Versand)</li>
+                <li>Upstash Inc. (Rate Limiting)</li>
+              </ul>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Rechtsgrundlage für Drittlandübermittlungen:</strong>
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                Da die USA kein angemessenes Datenschutzniveau nach Art. 45
+                DSGVO haben, stützen wir die Datenübermittlung auf
+                Standardvertragsklauseln (SCC) nach Art. 46 Abs. 2 lit. c
+                DSGVO. Wir haben mit allen genannten Dienstleistern SCC
+                abgeschlossen, die die EU-Standardvertragsklauseln (2021/914)
+                verwenden.
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Transfer Impact Assessment (TIA):</strong>
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                Wir haben ein Transfer Impact Assessment durchgeführt, in dem
+                wir die Risiken der Datenübermittlung in die USA bewertet haben.
+                Dabei haben wir folgende Maßnahmen implementiert:
+              </p>
+              <ul className="list-disc list-inside text-grey-dark leading-relaxed mb-4 space-y-2 ml-4">
+                <li>
+                  Verschlüsselung der Daten während der Übertragung (TLS/SSL)
+                </li>
+                <li>
+                  Verschlüsselung der Daten im Ruhezustand, soweit technisch
+                  möglich
+                </li>
+                <li>
+                  Minimierung der übermittelten Daten auf das technisch
+                  Notwendige
+                </li>
+                <li>
+                  Regelmäßige Überprüfung der Datenschutzmaßnahmen der
+                  Dienstleister
+                </li>
+                <li>
+                  Vereinbarung von Zusatzgarantien in den SCC, die über die
+                  Standardklauseln hinausgehen
+                </li>
+              </ul>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Zusatzgarantien nach Schrems II:</strong>
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                Wir haben mit allen Dienstleistern zusätzliche Garantien
+                vereinbart, die über die Standardvertragsklauseln hinausgehen:
+              </p>
+              <ul className="list-disc list-inside text-grey-dark leading-relaxed mb-4 space-y-2 ml-4">
+                <li>
+                  Verpflichtung zur Meldung von Zugriffen durch
+                  Strafverfolgungsbehörden, soweit rechtlich zulässig
+                </li>
+                <li>
+                  Verpflichtung zur Prüfung der Rechtmäßigkeit von
+                  Zugriffsanfragen durch Behörden
+                </li>
+                <li>
+                  Verpflichtung zur Nutzung von Verschlüsselungstechnologien
+                </li>
+                <li>
+                  Recht auf Information über Zugriffe durch Behörden, soweit
+                  rechtlich zulässig
+                </li>
+              </ul>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Ihre Rechte bei Drittlandübermittlungen:</strong>
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                Sie haben das Recht, Auskunft über die konkreten
+                Sicherheitsmaßnahmen zu erhalten, die wir implementiert haben.
+                Bei Fragen wenden Sie sich bitte an{" "}
+                <a
+                  href="mailto:info@slaide.de"
+                  className="text-black hover:underline"
+                >
+                  info@slaide.de
+                </a>
+                .
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold mb-4">
+                16. Aktualität und Änderung dieser Datenschutzerklärung
               </h2>
               <p className="text-grey-dark leading-relaxed mb-4">
                 Diese Datenschutzerklärung ist aktuell gültig und hat den Stand{" "}

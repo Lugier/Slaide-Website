@@ -40,13 +40,26 @@ export default function ImpressumPage(): JSX.Element {
                 >
                   info@slaide.de
                 </a>
+                <br />
+                <strong>Telefon:</strong>{" "}
+                <a
+                  href="tel:+491728812969"
+                  className="text-black hover:underline"
+                >
+                  +49 172 8812969
+                </a>
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-semibold mb-4">Vertreten durch</h2>
               <p className="text-grey-dark leading-relaxed">
-                <strong>Nathalie Scholl</strong>
+                <strong>Nathalie Scholl</strong> (alleinige Gesellschafterin)
+              </p>
+              <p className="text-grey-dark leading-relaxed mt-2">
+                <strong>Hinweis zur Rechtsform:</strong> Slaide UG (in Gründung)
+                ist eine Vorgründungsgesellschaft (GbR) und wird von Nathalie
+                Scholl als alleiniger Gesellschafterin vertreten.
               </p>
             </section>
 
@@ -114,14 +127,11 @@ export default function ImpressumPage(): JSX.Element {
                 deren Inhalte wir keinen Einfluss haben. Deshalb können wir für
                 diese fremden Inhalte auch keine Gewähr übernehmen. Für die
                 Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter
-                oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten
-                wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße
-                überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der
-                Verlinkung nicht erkennbar. Eine permanente inhaltliche
-                Kontrolle der verlinkten Seiten ist jedoch ohne konkrete
-                Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei
-                Bekanntwerden von Rechtsverletzungen werden wir derartige Links
-                umgehend entfernen.
+                oder Betreiber der Seiten verantwortlich. Eine permanente
+                inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne
+                konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar.
+                Bei Bekanntwerden von Rechtsverletzungen werden wir derartige
+                Links umgehend entfernen.
               </p>
 
               <h3 className="text-xl font-semibold mb-3 mt-6">Urheberrecht</h3>
@@ -139,6 +149,27 @@ export default function ImpressumPage(): JSX.Element {
                 Urheberrechtsverletzung aufmerksam werden, bitten wir um einen
                 entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen
                 werden wir derartige Inhalte umgehend entfernen.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold mb-4">
+                Online-Streitbeilegung
+              </h2>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                Die Europäische Kommission stellt eine Plattform zur
+                Online-Streitbeilegung (OS) bereit. Diese finden Sie unter{" "}
+                <a
+                  href="https://ec.europa.eu/consumers/odr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-black hover:underline"
+                >
+                  https://ec.europa.eu/consumers/odr
+                </a>
+                . Wir sind nicht verpflichtet und nicht bereit, an einem
+                Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
+                teilzunehmen.
               </p>
             </section>
           </div>

@@ -266,7 +266,7 @@ export default function RootLayout({
                   name: 'Was kostet Slaide?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'Die Preise variieren je nach Volumen: Lite Audit (ab 0,90 € pro Seite), Pro Verification (ab 1,30 € pro Seite), Enterprise (individuelle Volumenverträge ab 10.000 Seiten). Kontaktieren Sie uns für ein maßgeschneidertes Angebot.',
+                    text: 'Die aktuellen Preise betragen: Lite Audit 2,19 € pro Seite, Standard Verification 2,99 € pro Seite. Für Organisationen mit mehr als 2.000 Seiten pro Monat bieten wir individuelle Enterprise-Verträge mit volumenbasierten Preisen zwischen 1,99 € und 2,99 € pro Seite. Kontaktieren Sie uns für ein maßgeschneidertes Angebot.',
                   },
                 },
                 {
@@ -306,7 +306,7 @@ export default function RootLayout({
                   name: 'Was ist der Unterschied zwischen Lite und Pro?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'Lite Audit bietet Basis-Konsistenzprüfung, Logikfehler-Erkennung und Zahlenfehler-Detection. Pro Verification umfasst alle Lite Features plus Deep Verification, Cross-Slide Checks, Prioritäts-Support, API Access, SLA-Garantie und Dedicated Account Manager.',
+                    text: 'Lite Audit bietet Rechtschreibung & Grammatik, Formatierungs-Checks und einfache Plausibilitätsprüfungen. Standard Verification umfasst alle Lite Features plus Cross-Document Consistency, Mathematische Neuberechnung und Argumentations-Logik.',
                   },
                 },
               ],

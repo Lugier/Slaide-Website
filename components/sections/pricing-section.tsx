@@ -111,6 +111,7 @@ function PricingSectionComponent(): JSX.Element {
                 <span className="text-lg text-grey-dark">€</span>
               </div>
               <p className="text-sm text-grey-dark mt-2">pro Seite verarbeitet</p>
+              <p className="text-xs text-grey-dark mt-1">inkl. MwSt. (B2C) / zzgl. MwSt. (B2B)</p>
             </div>
               <ul className="space-y-4 text-sm text-grey-dark mb-8 flex-grow text-left">
                 <li className="flex items-center gap-2">
@@ -126,8 +127,8 @@ function PricingSectionComponent(): JSX.Element {
                   <span>Einfache Plausibilität</span>
               </li>
                 <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-black flex-shrink-0" aria-hidden="true" />
-                  <span>Cross-Document Consistency</span>
+                  <X className="w-4 h-4 text-gray-400 flex-shrink-0" aria-hidden="true" />
+                  <span className="text-gray-400">Cross-Document Consistency</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <X className="w-4 h-4 text-gray-400 flex-shrink-0" aria-hidden="true" />
@@ -166,6 +167,7 @@ function PricingSectionComponent(): JSX.Element {
                 <span className="text-lg text-gray-300">€</span>
               </div>
               <p className="text-sm text-gray-300 mt-2">pro Seite verarbeitet</p>
+              <p className="text-xs text-gray-400 mt-1">inkl. MwSt. (B2C) / zzgl. MwSt. (B2B)</p>
             </div>
               <ul className="space-y-4 text-sm text-gray-300 mb-8 flex-grow text-left">
                 <li className="flex items-center gap-2">

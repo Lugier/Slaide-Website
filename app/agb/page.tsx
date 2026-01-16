@@ -63,6 +63,14 @@ export default function AGBPage(): JSX.Element {
                 >
                   info@slaide.de
                 </a>
+                <br />
+                <strong>Telefon:</strong>{" "}
+                <a
+                  href="tel:+491728812969"
+                  className="text-black hover:underline"
+                >
+                  +49 172 8812969
+                </a>
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
                 <strong>1.3</strong> Abweichende, entgegenstehende oder
@@ -133,8 +141,11 @@ export default function AGBPage(): JSX.Element {
                 4. Preise und Zahlungsbedingungen
               </h2>
               <p className="text-grey-dark leading-relaxed mb-4">
-                <strong>4.1</strong> Alle Preise verstehen sich in Euro (€) und
-                enthalten die gesetzliche Mehrwertsteuer.
+                <strong>4.1</strong> Alle Preise verstehen sich in Euro (€). Bei
+                Verbrauchern (B2C) sind die Preise inklusive der gesetzlichen
+                Mehrwertsteuer. Bei Unternehmern (B2B) werden die Preise zuzüglich
+                der gesetzlichen Mehrwertsteuer berechnet, sofern nicht
+                ausdrücklich anders vereinbart.
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
                 <strong>4.2</strong> Die Abrechnung erfolgt nutzungsbasiert pro
@@ -157,7 +168,13 @@ export default function AGBPage(): JSX.Element {
               <p className="text-grey-dark leading-relaxed mb-4">
                 <strong>4.4</strong> Für Organisationen mit mehr als 2.000
                 Seiten pro Monat werden individuelle Enterprise-Verträge mit
-                volumenbasierten Preisen angeboten.
+                volumenbasierten Preisen angeboten. Die Preise liegen in der
+                Regel zwischen 1,99 € und 2,99 € pro Seite, abhängig vom
+                Volumen und der gewählten Prüfungsstufe. Eine konkrete
+                Preisangabe erfolgt im Rahmen der individuellen
+                Vertragsverhandlung. Beispiel: Bei einem Volumen von 5.000
+                Seiten pro Monat beträgt der Preis für Lite Audit ca. 2,19 €
+                pro Seite.
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
                 <strong>4.5</strong> Die Zahlungsmodalitäten werden individuell
@@ -174,11 +191,16 @@ export default function AGBPage(): JSX.Element {
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
                 <strong>4.7</strong> Der Anbieter behält sich das Recht vor, die
-                Preise mit einer Frist von 4 Wochen zu ändern. Widerspricht der
-                Kunde der Preiserhöhung nicht innerhalb von 2 Wochen nach
+                Preise mit einer Frist von 4 Wochen zu ändern. Bei
+                Verbrauchern (B2C) ist eine Preiserhöhung nur mit ausdrücklicher
+                Zustimmung möglich. Bei Unternehmern (B2B) kann der Anbieter
+                die Preise mit einer Frist von 4 Wochen ändern. Widerspricht
+                der Kunde der Preiserhöhung nicht innerhalb von 2 Wochen nach
                 Bekanntgabe, gilt die Preiserhöhung als genehmigt. Der Kunde
                 wird in der Bekanntgabe der Preiserhöhung auf diese Rechtsfolge
-                hingewiesen.
+                und sein Kündigungsrecht bei Widerspruch hingewiesen. Bei
+                Widerspruch kann der Kunde den Vertrag zum Zeitpunkt des
+                Wirksamwerdens der Preiserhöhung kündigen.
               </p>
             </section>
 
@@ -346,11 +368,50 @@ export default function AGBPage(): JSX.Element {
               <p className="text-grey-dark leading-relaxed mb-4">
                 Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (Slaide UG (in
                 Gründung), Neckarstraße 10, 74257 Untereisesheim, Deutschland, E-Mail:
-                kontakt@slaide.de) mittels einer eindeutigen Erklärung (z.B. ein
-                mit der Post versandter Brief, Telefax oder E-Mail) über Ihren
-                Entschluss, diesen Vertrag zu widerrufen, informieren. Sie
-                können dafür das beigefügte Muster-Widerrufsformular verwenden,
-                das jedoch nicht vorgeschrieben ist.
+                info@slaide.de, Telefon: +49 172 8812969) mittels einer eindeutigen
+                Erklärung (z.B. ein mit der Post versandter Brief, Telefax oder
+                E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen,
+                informieren. Sie können dafür das folgende Muster-Widerrufsformular
+                verwenden, das jedoch nicht vorgeschrieben ist:
+              </p>
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mt-4 mb-4">
+                <p className="text-sm text-grey-dark leading-relaxed mb-2">
+                  <strong>Muster-Widerrufsformular</strong>
+                </p>
+                <p className="text-sm text-grey-dark leading-relaxed mb-2">
+                  Wenn Sie den Vertrag widerrufen möchten, füllen Sie bitte dieses
+                  Formular aus und senden Sie es zurück.
+                </p>
+                <p className="text-sm text-grey-dark leading-relaxed mb-2">
+                  An: Slaide UG (in Gründung), Neckarstraße 10, 74257 Untereisesheim,
+                  Deutschland, E-Mail: info@slaide.de
+                </p>
+                <p className="text-sm text-grey-dark leading-relaxed mb-2">
+                  Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen
+                  Vertrag über den Kauf der folgenden Waren (*)/die Erbringung der
+                  folgenden Dienstleistung (*)
+                </p>
+                <p className="text-sm text-grey-dark leading-relaxed mb-2">
+                  Bestellt am (*)/erhalten am (*): _____________________________
+                </p>
+                <p className="text-sm text-grey-dark leading-relaxed mb-2">
+                  Name des/der Verbraucher(s): _____________________________
+                </p>
+                <p className="text-sm text-grey-dark leading-relaxed mb-2">
+                  Anschrift des/der Verbraucher(s): _____________________________
+                </p>
+                <p className="text-sm text-grey-dark leading-relaxed mb-2">
+                  Unterschrift des/der Verbraucher(s) (nur bei Mitteilung auf Papier):
+                  _____________________________
+                </p>
+                <p className="text-sm text-grey-dark leading-relaxed mb-2">
+                  Datum: _____________________________
+                </p>
+                <p className="text-xs text-grey-dark leading-relaxed italic">
+                  (*) Unzutreffendes streichen.
+                </p>
+              </div>
+              <p className="text-grey-dark leading-relaxed mb-4">
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
                 <strong>Folgen des Widerrufs</strong>
@@ -422,12 +483,16 @@ export default function AGBPage(): JSX.Element {
                 <strong>11.2</strong> Widerspricht der Kunde der Änderung nicht
                 innerhalb von 6 Wochen nach Bekanntgabe, gilt die Änderung als
                 genehmigt. Der Kunde wird in der Bekanntgabe der Änderung auf
-                diese Rechtsfolge hingewiesen.
+                diese Rechtsfolge und sein Kündigungsrecht bei Widerspruch
+                hingewiesen. Bei Widerspruch kann der Kunde den Vertrag zum
+                Zeitpunkt des Wirksamwerdens der Änderung kündigen.
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
                 <strong>11.3</strong> Widerspricht der Kunde der Änderung, kann
                 der Anbieter den Vertrag zum Zeitpunkt des Wirksamwerdens der
-                Änderung kündigen.
+                Änderung kündigen. Der Kunde kann in diesem Fall den Vertrag
+                ebenfalls zum Zeitpunkt des Wirksamwerdens der Änderung
+                kündigen.
               </p>
             </section>
 
@@ -456,7 +521,18 @@ export default function AGBPage(): JSX.Element {
               <p className="text-grey-dark leading-relaxed mb-4">
                 <strong>12.4</strong> Der Anbieter ist nicht verpflichtet, an
                 Streitbeilegungsverfahren vor einer
-                Verbraucherschlichtungsstelle teilzunehmen.
+                Verbraucherschlichtungsstelle teilzunehmen. Die Europäische
+                Kommission stellt eine Plattform zur Online-Streitbeilegung
+                (OS) bereit. Diese finden Sie unter{" "}
+                <a
+                  href="https://ec.europa.eu/consumers/odr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-black hover:underline"
+                >
+                  https://ec.europa.eu/consumers/odr
+                </a>
+                .
               </p>
             </section>
           </div>
