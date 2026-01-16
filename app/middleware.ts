@@ -32,7 +32,7 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     }
   }
 
-  // Handle domain redirects
+  // Handle domain redirects (Security: Whitelist-only, prevents Open Redirect)
   const host = request.headers.get('host')
   const url = request.nextUrl.clone()
 
@@ -47,8 +47,13 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
     'www.slaide.online'
   ]
 
+  // Security: Nur bekannte Domains redirecten (verhindert Open Redirect)
   if (host && secondaryDomains.includes(host)) {
     url.hostname = primaryDomain
+    // Security: Behalte nur den Pfad, entferne Query-Parameter die Redirects enthalten könnten
+    url.searchParams.delete('redirect')
+    url.searchParams.delete('return')
+    url.searchParams.delete('next')
     return NextResponse.redirect(url, 301)
   }
 

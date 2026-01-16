@@ -215,9 +215,9 @@ export default function RootLayout({
               offers: {
                 '@type': 'AggregateOffer',
                 priceCurrency: 'EUR',
-                lowPrice: '0.90',
+                lowPrice: '2.19',
                 highPrice: '2.99',
-                offerCount: '3',
+                offerCount: '2',
               },
             }),
           }}
@@ -354,15 +354,11 @@ export default function RootLayout({
               description: 'Audit-Grade Deck Integrity für Dokumente. Automatisierte KI-Validierung findet logische Brüche und Zahlenfehler in Präsentationen, Berichten und Unterlagen.',
               url: 'https://www.slaide.de',
               offers: {
-                '@type': 'Offer',
+                '@type': 'AggregateOffer',
                 priceCurrency: 'EUR',
-                price: '0.90',
-                priceSpecification: {
-                  '@type': 'UnitPriceSpecification',
-                  price: '0.90',
-                  priceCurrency: 'EUR',
-                  unitText: 'pro Seite',
-                },
+                lowPrice: '2.19',
+                highPrice: '2.99',
+                offerCount: '2',
               },
               featureList: [
                 'Multimodales Parsing',

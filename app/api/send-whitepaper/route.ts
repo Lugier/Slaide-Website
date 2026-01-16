@@ -248,11 +248,12 @@ export async function POST(request: Request): Promise<NextResponse> {
     }
 
     // Type-Check für Booleans (verhindere Type Confusion)
-    const agbAccepted = body.agbAccepted === true
-    const datenschutzAccepted = body.datenschutzAccepted === true
+    const agbAccepted = body.agbAccepted === true // Optional (B2B-only Service)
+    const datenschutzAccepted = body.datenschutzAccepted === true // Erforderlich
 
-    if (!agbAccepted || !datenschutzAccepted) {
-      return NextResponse.json({ error: 'Bitte akzeptieren Sie die AGB und Datenschutzerklärung' }, { status: 400 })
+    // Nur Datenschutzerklärung ist erforderlich (AGB ist optional)
+    if (!datenschutzAccepted) {
+      return NextResponse.json({ error: 'Bitte akzeptieren Sie die Datenschutzerklärung' }, { status: 400 })
     }
 
     const leadData: WhitepaperRequest = { 
