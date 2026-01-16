@@ -214,7 +214,7 @@ function PricingSectionComponent(): JSX.Element {
               </div>
               <h3 className="text-2xl font-semibold mb-3">Volumenbasierte Preise</h3>
               <p className="text-base text-grey-dark leading-relaxed max-w-xl mx-auto md:mx-0">
-                Für Organisationen mit mehr als <span className="font-semibold text-black">5.000 Seiten pro Monat</span> bieten wir maßgeschneiderte Enterprise-Lösungen mit attraktiven volumenbasierten Preisen und individueller Betreuung.
+                Für Organisationen mit mehr als <span className="font-semibold text-black">2.000 Seiten pro Monat</span> bieten wir maßgeschneiderte Enterprise-Lösungen mit attraktiven volumenbasierten Preisen und individueller Betreuung an.
               </p>
             </div>
             <a

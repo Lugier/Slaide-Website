@@ -155,7 +155,7 @@ export default function AGBPage(): JSX.Element {
                 </li>
               </ul>
               <p className="text-grey-dark leading-relaxed mb-4">
-                <strong>4.4</strong> Für Organisationen mit mehr als 5.000
+                <strong>4.4</strong> Für Organisationen mit mehr als 2.000
                 Seiten pro Monat werden individuelle Enterprise-Verträge mit
                 volumenbasierten Preisen angeboten.
               </p>
