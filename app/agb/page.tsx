@@ -32,6 +32,12 @@ export default function AGBPage(): JSX.Element {
                 Folgenden "Service" oder "Dienstleistung") der Slaide UG (in
                 Gründung) (im Folgenden "Anbieter" oder "wir").
               </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Hinweis:</strong> Dieser Service richtet sich ausschließlich
+                an Unternehmen, Freiberufler und andere Unternehmer im Sinne des
+                § 14 BGB. Der Service wird nicht für Verbraucher im Sinne des § 13
+                BGB angeboten.
+              </p>
             </section>
 
             <section>
@@ -141,11 +147,9 @@ export default function AGBPage(): JSX.Element {
                 4. Preise und Zahlungsbedingungen
               </h2>
               <p className="text-grey-dark leading-relaxed mb-4">
-                <strong>4.1</strong> Alle Preise verstehen sich in Euro (€). Bei
-                Verbrauchern (B2C) sind die Preise inklusive der gesetzlichen
-                Mehrwertsteuer. Bei Unternehmern (B2B) werden die Preise zuzüglich
-                der gesetzlichen Mehrwertsteuer berechnet, sofern nicht
-                ausdrücklich anders vereinbart.
+                <strong>4.1</strong> Alle Preise verstehen sich in Euro (€) zuzüglich
+                der gesetzlichen Mehrwertsteuer, sofern nicht ausdrücklich anders
+                vereinbart.
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
                 <strong>4.2</strong> Die Abrechnung erfolgt nutzungsbasiert pro
@@ -191,16 +195,13 @@ export default function AGBPage(): JSX.Element {
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
                 <strong>4.7</strong> Der Anbieter behält sich das Recht vor, die
-                Preise mit einer Frist von 4 Wochen zu ändern. Bei
-                Verbrauchern (B2C) ist eine Preiserhöhung nur mit ausdrücklicher
-                Zustimmung möglich. Bei Unternehmern (B2B) kann der Anbieter
-                die Preise mit einer Frist von 4 Wochen ändern. Widerspricht
-                der Kunde der Preiserhöhung nicht innerhalb von 2 Wochen nach
-                Bekanntgabe, gilt die Preiserhöhung als genehmigt. Der Kunde
-                wird in der Bekanntgabe der Preiserhöhung auf diese Rechtsfolge
-                und sein Kündigungsrecht bei Widerspruch hingewiesen. Bei
-                Widerspruch kann der Kunde den Vertrag zum Zeitpunkt des
-                Wirksamwerdens der Preiserhöhung kündigen.
+                Preise mit einer Frist von 4 Wochen zu ändern. Widerspricht der
+                Kunde der Preiserhöhung nicht innerhalb von 2 Wochen nach
+                Bekanntgabe, gilt die Preiserhöhung als genehmigt. Der Kunde wird
+                in der Bekanntgabe der Preiserhöhung auf diese Rechtsfolge und sein
+                Kündigungsrecht bei Widerspruch hingewiesen. Bei Widerspruch kann
+                der Kunde den Vertrag zum Zeitpunkt des Wirksamwerdens der
+                Preiserhöhung kündigen.
               </p>
             </section>
 
@@ -344,11 +345,17 @@ export default function AGBPage(): JSX.Element {
             <section>
               <h2 className="text-2xl font-semibold mb-4">9. Widerrufsrecht</h2>
               <p className="text-grey-dark leading-relaxed mb-4">
-                <strong>9.1</strong> Verbraucher haben ein Widerrufsrecht nach
-                Maßgabe der folgenden Bestimmungen, wobei ein Verbraucher jede
-                natürliche Person ist, die ein Rechtsgeschäft zu Zwecken
-                abschließt, die überwiegend weder ihrer gewerblichen noch ihrer
-                selbständigen beruflichen Tätigkeit zugerechnet werden können:
+                <strong>9.1</strong> Da dieser Service ausschließlich für Unternehmen
+                und Unternehmer angeboten wird, besteht grundsätzlich kein
+                Widerrufsrecht nach § 312g BGB. Sollte dennoch wider Erwarten ein
+                Verbraucher im Sinne des § 13 BGB einen Vertrag abschließen, so
+                gelten die nachfolgenden Bestimmungen:
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>Hinweis:</strong> Ein Verbraucher ist jede natürliche Person,
+                die ein Rechtsgeschäft zu Zwecken abschließt, die überwiegend weder
+                ihrer gewerblichen noch ihrer selbständigen beruflichen Tätigkeit
+                zugerechnet werden können.
               </p>
 
               <h3 className="text-xl font-semibold mb-3 mt-6">

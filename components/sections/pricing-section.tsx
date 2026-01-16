@@ -111,7 +111,7 @@ function PricingSectionComponent(): JSX.Element {
                 <span className="text-lg text-grey-dark">€</span>
               </div>
               <p className="text-sm text-grey-dark mt-2">pro Seite verarbeitet</p>
-              <p className="text-xs text-grey-dark mt-1">inkl. MwSt. (B2C) / zzgl. MwSt. (B2B)</p>
+              <p className="text-xs text-grey-dark mt-1">zzgl. MwSt.</p>
             </div>
               <ul className="space-y-4 text-sm text-grey-dark mb-8 flex-grow text-left">
                 <li className="flex items-center gap-2">
@@ -167,7 +167,7 @@ function PricingSectionComponent(): JSX.Element {
                 <span className="text-lg text-gray-300">€</span>
               </div>
               <p className="text-sm text-gray-300 mt-2">pro Seite verarbeitet</p>
-              <p className="text-xs text-gray-400 mt-1">inkl. MwSt. (B2C) / zzgl. MwSt. (B2B)</p>
+              <p className="text-xs text-gray-400 mt-1">zzgl. MwSt.</p>
             </div>
               <ul className="space-y-4 text-sm text-gray-300 mb-8 flex-grow text-left">
                 <li className="flex items-center gap-2">
