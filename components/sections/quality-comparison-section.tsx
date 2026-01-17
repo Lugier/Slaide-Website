@@ -36,9 +36,9 @@ function QualityComparisonSectionComponent() {
   
   // Counter Hooks
   const humanErrors = useCounter(27, 2000, isVisible)
-  const aiErrors = useCounter(49, 2000, isVisible)
-  const humanTime = useCounter(60, 2000, isVisible)
-  const aiTime = useCounter(4, 1000, isVisible) // Schneller, weil AI schneller ist
+  const aiErrors = useCounter(51, 2000, isVisible) // AI findet fast alles
+  const humanTime = useCounter(224, 2500, isVisible) // 32 * 7min = 224 min
+  const aiTime = useCounter(4, 1000, isVisible) // AI bleibt schnell
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -135,7 +135,7 @@ function QualityComparisonSectionComponent() {
                   />
                 </div>
                  <div className="mt-3 text-xs text-gray-500">
-                  ~2 min pro Slide (Branchenstandard)
+                  ~3 Std 45 Min (bei 7 min/Slide)
                 </div>
               </div>
             </div>
@@ -201,7 +201,7 @@ function QualityComparisonSectionComponent() {
                   />
                 </div>
                 <div className="mt-3 text-xs text-gray-500">
-                  <span className="text-green-400 font-semibold">15x schneller</span> als menschliche Reviewer
+                  <span className="text-green-400 font-semibold">56x schneller</span> als manuelle Prüfung
                 </div>
               </div>
             </div>
@@ -216,12 +216,12 @@ function QualityComparisonSectionComponent() {
             
             <div className="flex items-center gap-8 md:gap-12">
                <div className="text-center">
-                  <div className="text-2xl font-bold text-green-400">+81%</div>
+                  <div className="text-2xl font-bold text-green-400">+89%</div>
                   <div className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Präzision</div>
                </div>
                <div className="w-px h-8 bg-gray-800 hidden md:block"></div>
                <div className="text-center">
-                  <div className="text-2xl font-bold text-white">-93%</div>
+                  <div className="text-2xl font-bold text-white">-98%</div>
                   <div className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Zeitaufwand</div>
                </div>
             </div>
