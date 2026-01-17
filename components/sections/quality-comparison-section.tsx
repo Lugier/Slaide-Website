@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef, memo } from 'react'
-import { Timer, CheckCircle2, XCircle, Search, BrainCircuit, ScanSearch, ArrowRight, X } from 'lucide-react'
+import { Timer, CheckCircle2, Search, Zap, Clock, AlertCircle, BarChart3 } from 'lucide-react'
 
 // Custom Hook für animierte Zahlen
 const useCounter = (end: number, duration: number = 2000, start: boolean = false) => {
@@ -14,8 +14,6 @@ const useCounter = (end: number, duration: number = 2000, start: boolean = false
     const animate = (currentTime: number) => {
       if (!startTime) startTime = currentTime
       const progress = Math.min((currentTime - startTime) / duration, 1)
-      
-      // Easing function für "natürliches" Hochzählen
       const easeOutQuart = (x: number): number => 1 - Math.pow(1 - x, 4)
       
       setCount(Math.floor(easeOutQuart(progress) * end))
@@ -34,11 +32,11 @@ function QualityComparisonSectionComponent() {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
   
-  // Counter Hooks
+  // Harmonized Data Points (32 Slides)
   const humanErrors = useCounter(27, 2000, isVisible)
-  const aiErrors = useCounter(51, 2000, isVisible) // AI findet fast alles
-  const humanTime = useCounter(224, 2500, isVisible) // 32 * 7min = 224 min
-  const aiTime = useCounter(4, 1000, isVisible) // AI bleibt schnell
+  const aiErrors = useCounter(51, 2000, isVisible)
+  const humanTime = useCounter(224, 2500, isVisible) // ~3.7h
+  const aiTime = useCounter(4, 1000, isVisible)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -48,7 +46,7 @@ function QualityComparisonSectionComponent() {
           observer.disconnect()
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.2 }
     )
     if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
@@ -58,176 +56,131 @@ function QualityComparisonSectionComponent() {
     <section 
       ref={sectionRef} 
       id="quality-comparison"
-      className="py-24 md:py-32 bg-white relative overflow-hidden"
+      className="py-24 md:py-32 bg-white border-t border-gray-100"
     >
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="max-w-5xl mx-auto px-6">
         
-        {/* Header - Sales Focused */}
+        {/* Header - Clean & Professional */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h2 className={`text-4xl md:text-5xl font-bold tracking-tight mb-6 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            Mensch vs. Maschine: <br className="hidden md:block" />
-            <span className="text-gray-400">Das 32-Seiten Experiment.</span>
+          <div className={`inline-flex items-center justify-center w-12 h-12 bg-gray-50 rounded-xl mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
+            <BarChart3 className="w-6 h-6 text-gray-900" strokeWidth={1.5} />
+          </div>
+          <h2 className={`text-3xl md:text-4xl font-semibold tracking-tight mb-4 text-gray-900 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            Benchmark: Qualität & Geschwindigkeit
           </h2>
-          <p className={`text-lg text-gray-600 leading-relaxed transition-all duration-700 delay-100 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            Wir haben ein Pitch Deck mit <span className="font-semibold text-black">54 versteckten Fehlern</span> präpariert. 
-            Dann haben wir einen erfahrenen Senior Associate gegen unsere Review Engine antreten lassen. 
-            Das Ergebnis ist kein Wettbewerb – es ist ein Klassenunterschied.
+          <p className={`text-lg text-gray-500 leading-relaxed transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            Wir haben ein Pitch Deck mit <span className="font-medium text-gray-900">32 Seiten</span> und <span className="font-medium text-gray-900">54 versteckten Fehlern</span> analysiert. 
+            Der direkte Vergleich zeigt den Unterschied.
           </p>
         </div>
 
-        {/* The Duel Arena - Split Card Design */}
-        <div className={`rounded-3xl overflow-hidden shadow-2xl border border-gray-200 transition-all duration-1000 transform ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-          <div className="grid md:grid-cols-2">
+        <div className="grid md:grid-cols-2 gap-8 items-start">
             
-            {/* LEFT SIDE: The Human (Traditional) */}
-            <div className="bg-gray-50 p-8 md:p-12 border-b md:border-b-0 md:border-r border-gray-200 relative group/human">
-              <div className="absolute top-6 right-6 opacity-0 group-hover/human:opacity-100 transition-opacity text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                Status Quo
-              </div>
-              
-              <div className="flex items-center gap-4 mb-10">
-                <div className="w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm">
-                  <span className="text-xl grayscale opacity-70">👨‍💻</span>
+            {/* Card 1: Human Review (Standard) */}
+            <div className={`p-8 rounded-2xl border border-gray-100 bg-gray-50/50 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                <div className="flex items-center gap-4 mb-8 pb-8 border-b border-gray-100">
+                    <div className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-400">
+                        <span className="text-lg">1</span>
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-semibold text-gray-900">Manuelle Prüfung</h3>
+                        <p className="text-sm text-gray-500">Senior Associate Level</p>
+                    </div>
                 </div>
+
+                {/* Metric: Time */}
+                <div className="mb-8">
+                    <div className="flex justify-between text-sm mb-2">
+                        <span className="text-gray-500 flex items-center gap-2">
+                            <Clock className="w-4 h-4" /> Zeitaufwand
+                        </span>
+                        <span className="text-gray-900 font-medium">{humanTime} min</span>
+                    </div>
+                    <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-gray-400 rounded-full transition-all duration-[2000ms] ease-out" style={{ width: isVisible ? '100%' : '0%' }} />
+                    </div>
+                    <div className="mt-2 text-xs text-gray-400">~7 min pro Seite</div>
+                </div>
+
+                {/* Metric: Errors */}
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900">Manuelle Prüfung</h3>
-                  <p className="text-sm text-gray-500">Erfahrener Senior Associate</p>
+                    <div className="flex justify-between text-sm mb-2">
+                        <span className="text-gray-500 flex items-center gap-2">
+                            <AlertCircle className="w-4 h-4" /> Fehler gefunden
+                        </span>
+                        <span className="text-gray-900 font-medium">{humanErrors} / 54</span>
+                    </div>
+                    <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-gray-400 rounded-full transition-all duration-[2000ms] ease-out" style={{ width: isVisible ? '50%' : '0%' }} />
+                    </div>
+                    <div className="mt-2 text-xs text-gray-400">50% Erfolgsquote</div>
                 </div>
-              </div>
-
-              {/* Metric 1: Fehler */}
-              <div className="mb-10">
-                <div className="flex justify-between items-end mb-3">
-                  <span className="text-sm font-medium text-gray-600 flex items-center gap-2">
-                    <Search className="w-4 h-4" /> Gefundene Fehler
-                  </span>
-                  <span className="text-3xl font-bold text-gray-900 leading-none">
-                    {humanErrors}<span className="text-lg text-gray-400 font-normal">/54</span>
-                  </span>
-                </div>
-                {/* Progress Bar Container */}
-                <div className="h-3 w-full bg-gray-200 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-gray-500 rounded-full transition-all duration-[2000ms] ease-out"
-                    style={{ width: isVisible ? '50%' : '0%' }}
-                  />
-                </div>
-                <div className="mt-3 flex gap-2 text-xs text-red-500 font-medium opacity-0 group-hover/human:opacity-100 transition-opacity transform translate-y-1 group-hover/human:translate-y-0">
-                  <XCircle className="w-3.5 h-3.5" />
-                  <span>Über 50% der Fehler übersehen (Müdigkeit)</span>
-                </div>
-              </div>
-
-              {/* Metric 2: Zeit */}
-              <div>
-                <div className="flex justify-between items-end mb-3">
-                  <span className="text-sm font-medium text-gray-600 flex items-center gap-2">
-                    <Timer className="w-4 h-4" /> Benötigte Zeit
-                  </span>
-                  <span className="text-3xl font-bold text-gray-900 leading-none">
-                    {humanTime}<span className="text-lg text-gray-400 font-normal"> min</span>
-                  </span>
-                </div>
-                <div className="h-3 w-full bg-gray-200 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-gray-400 rounded-full transition-all duration-[2000ms] ease-out"
-                    style={{ width: isVisible ? '100%' : '0%' }}
-                  />
-                </div>
-                 <div className="mt-3 text-xs text-gray-500">
-                  ~3 Std 45 Min (bei 7 min/Slide)
-                </div>
-              </div>
             </div>
 
-            {/* RIGHT SIDE: The Machine (Slaide) */}
-            <div className="bg-[#050505] p-8 md:p-12 relative text-white group/ai overflow-hidden">
-              {/* Background Decoration */}
-              <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-gradient-to-br from-blue-600/20 to-purple-600/20 blur-[100px] rounded-full pointer-events-none" />
-              
-              <div className="absolute top-6 right-6 text-xs font-bold text-green-400 uppercase tracking-wider border border-green-400/30 px-3 py-1 rounded-full animate-pulse-slow">
-                Winner
-              </div>
+            {/* Card 2: Slaide Engine (Excellence) */}
+            <div className={`p-8 rounded-2xl border border-gray-200 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                {/* Subtle Active Indicator */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-black rounded-t-2xl opacity-100"></div>
 
-              <div className="flex items-center gap-4 mb-10 relative z-10">
-                <div className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center backdrop-blur-md">
-                  <BrainCircuit className="w-6 h-6 text-white" />
+                <div className="flex items-center gap-4 mb-8 pb-8 border-b border-gray-100">
+                    <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white shadow-sm">
+                        <Zap className="w-5 h-5 fill-current" />
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-semibold text-gray-900">Slaide Engine</h3>
+                        <p className="text-sm text-gray-500">Automated Audit</p>
+                    </div>
                 </div>
+
+                {/* Metric: Time */}
+                <div className="mb-8">
+                    <div className="flex justify-between text-sm mb-2">
+                        <span className="text-gray-500 flex items-center gap-2">
+                            <Clock className="w-4 h-4" /> Zeitaufwand
+                        </span>
+                        <span className="text-black font-semibold">{aiTime} min</span>
+                    </div>
+                    <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
+                        <div className="h-full bg-black rounded-full transition-all duration-[1000ms] ease-out delay-300" style={{ width: isVisible ? '2%' : '0%' }} />
+                    </div>
+                    <div className="mt-2 text-xs text-green-600 font-medium">98% Zeitersparnis</div>
+                </div>
+
+                {/* Metric: Errors */}
                 <div>
-                  <h3 className="text-xl font-bold text-white">Review Engine</h3>
-                  <p className="text-sm text-gray-400">AI-Powered Audit</p>
+                    <div className="flex justify-between text-sm mb-2">
+                        <span className="text-gray-500 flex items-center gap-2">
+                            <Search className="w-4 h-4" /> Fehler gefunden
+                        </span>
+                        <span className="text-black font-semibold">{aiErrors} / 54</span>
+                    </div>
+                    <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
+                        <div className="h-full bg-black rounded-full transition-all duration-[1500ms] ease-out delay-200" style={{ width: isVisible ? '94%' : '0%' }} />
+                    </div>
+                    <div className="mt-2 text-xs text-green-600 font-medium">Findet auch konsistente Fehler</div>
                 </div>
-              </div>
-
-              {/* Metric 1: Fehler */}
-              <div className="mb-10 relative z-10">
-                <div className="flex justify-between items-end mb-3">
-                  <span className="text-sm font-medium text-gray-400 flex items-center gap-2">
-                    <ScanSearch className="w-4 h-4" /> Gefundene Fehler
-                  </span>
-                  <span className="text-3xl font-bold text-white leading-none text-shadow-glow">
-                    {aiErrors}<span className="text-lg text-gray-600 font-normal">/54</span>
-                  </span>
-                </div>
-                {/* Progress Bar Container */}
-                <div className="h-3 w-full bg-gray-800 rounded-full overflow-hidden relative">
-                   <div 
-                    className="h-full bg-gradient-to-r from-blue-500 to-green-400 rounded-full transition-all duration-[2000ms] ease-out relative shadow-[0_0_15px_rgba(34,197,94,0.5)]"
-                    style={{ width: isVisible ? '91%' : '0%' }}
-                  >
-                    <div className="absolute right-0 top-0 bottom-0 w-0.5 bg-white mix-blend-overlay animate-pulse"></div>
-                  </div>
-                </div>
-                <div className="mt-3 flex gap-2 text-xs text-green-400 font-medium opacity-0 group-hover/ai:opacity-100 transition-opacity transform translate-y-1 group-hover/ai:translate-y-0">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>Findet auch "unsichtbare" Inkonsistenzen</span>
-                </div>
-              </div>
-
-              {/* Metric 2: Zeit */}
-              <div className="relative z-10">
-                <div className="flex justify-between items-end mb-3">
-                  <span className="text-sm font-medium text-gray-400 flex items-center gap-2">
-                    <Timer className="w-4 h-4" /> Benötigte Zeit
-                  </span>
-                  <span className="text-3xl font-bold text-green-400 leading-none">
-                    {aiTime}<span className="text-lg text-gray-600 font-normal"> min</span>
-                  </span>
-                </div>
-                <div className="h-3 w-full bg-gray-800 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-gray-600 rounded-full transition-all duration-[1000ms] ease-out"
-                    style={{ width: isVisible ? '6.6%' : '0%' }}
-                  />
-                </div>
-                <div className="mt-3 text-xs text-gray-500">
-                  <span className="text-green-400 font-semibold">56x schneller</span> als manuelle Prüfung
-                </div>
-              </div>
             </div>
-          </div>
-          
-          {/* Bottom Bar: The Verdict */}
-          <div className="bg-black text-white p-6 md:p-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-center md:text-left">
-              <h4 className="text-lg font-semibold mb-1">Was bedeutet das für dich?</h4>
-              <p className="text-gray-400 text-sm">Weniger Korrekturschleifen. Mehr Zeit für die Story.</p>
-            </div>
-            
-            <div className="flex items-center gap-8 md:gap-12">
-               <div className="text-center">
-                  <div className="text-2xl font-bold text-green-400">+89%</div>
-                  <div className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Präzision</div>
-               </div>
-               <div className="w-px h-8 bg-gray-800 hidden md:block"></div>
-               <div className="text-center">
-                  <div className="text-2xl font-bold text-white">-98%</div>
-                  <div className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Zeitaufwand</div>
-               </div>
-            </div>
-          </div>
 
         </div>
+
+        {/* Footer Impact Stats */}
+        <div className={`mt-16 pt-12 border-t border-gray-100 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div className="px-4">
+                    <div className="text-3xl font-semibold text-gray-900 mb-1">56x</div>
+                    <div className="text-sm text-gray-500">Schnellere Verarbeitung</div>
+                </div>
+                <div className="px-4 md:border-l md:border-r border-gray-100">
+                    <div className="text-3xl font-semibold text-gray-900 mb-1">+89%</div>
+                    <div className="text-sm text-gray-500">Gefundene Fehler</div>
+                </div>
+                <div className="px-4">
+                    <div className="text-3xl font-semibold text-gray-900 mb-1">Zero</div>
+                    <div className="text-sm text-gray-500">Ermüdungserscheinungen</div>
+                </div>
+            </div>
+        </div>
+
       </div>
     </section>
   )
