@@ -96,7 +96,7 @@ function QualityComparisonSectionComponent() {
                     {/* Item 2: Slaide */}
                     <div>
                         <div className="flex justify-between items-end mb-3">
-                            <span className="text-sm font-medium text-black">Slaide Engine</span>
+                            <span className="text-sm font-medium text-black">Review Engine</span>
                             <div className="flex items-center gap-3">
                                 <span className="px-2 py-0.5 bg-black text-white text-[10px] font-bold uppercase tracking-wider rounded">56x Schneller</span>
                                 <span className="text-4xl font-mono font-bold text-black tracking-tight">{aiTime} min</span>
@@ -131,7 +131,7 @@ function QualityComparisonSectionComponent() {
                     {/* Item 2: Slaide */}
                     <div>
                         <div className="flex justify-between items-end mb-3">
-                            <span className="text-sm font-medium text-black">Slaide Engine</span>
+                            <span className="text-sm font-medium text-black">Review Engine</span>
                             <div className="flex items-center gap-3">
                                 <span className="px-2 py-0.5 bg-black text-white text-[10px] font-bold uppercase tracking-wider rounded">+76% Präzision</span>
                                 <span className="text-4xl font-mono font-bold text-black tracking-tight">{aiErrors} <span className="text-sm text-gray-400 font-medium">/ 54</span></span>
