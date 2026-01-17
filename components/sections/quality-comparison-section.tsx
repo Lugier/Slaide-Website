@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState, useRef, memo } from 'react'
-import { motion } from 'framer-motion' // Falls nicht vorhanden, nutzen wir CSS transitions, aber ich baue es nativ für Performance
 
 // Custom Hook für animierte Zahlen
 const useCounter = (end: number, duration: number = 2000, start: boolean = false) => {
