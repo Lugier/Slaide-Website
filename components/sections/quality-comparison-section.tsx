@@ -32,7 +32,7 @@ function QualityComparisonSectionComponent() {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
   
-  // Data Points - Updated: Human found 29 errors
+  // Data Points
   const humanErrors = useCounter(29, 2500, isVisible)
   const aiErrors = useCounter(51, 1500, isVisible)
   const humanTime = useCounter(224, 3000, isVisible) 
@@ -60,16 +60,21 @@ function QualityComparisonSectionComponent() {
     >
       <div className="max-w-6xl mx-auto px-6">
         
-        {/* Header - Simplified & High Impact */}
+        {/* Header - Minimalist */}
         <div className="mb-20">
-            <div className="flex items-center gap-3 mb-6">
-                 {/* Info Trigger with Hover Interaction */}
-                <div className="group relative cursor-help flex items-center gap-2 px-3 py-1 rounded-full bg-gray-50 border border-gray-100 hover:border-gray-300 transition-colors">
-                    <span className="text-xs font-medium text-gray-600">Test-Setup Details</span>
-                    <Info className="w-3.5 h-3.5 text-gray-400 group-hover:text-black transition-colors" />
+            <h2 className={`text-3xl md:text-5xl font-semibold tracking-tight text-black mb-6 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                Der direkte Performance-Vergleich.
+            </h2>
+             <div className={`text-lg md:text-xl text-gray-600 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                Wir haben die Slaide Engine gegen erfahrene Senior Associates antreten lassen. 
+                Die Ergebnisse definieren einen neuen Standard für Qualitätssicherung.
+                
+                {/* Inline Info Trigger */}
+                <span className="group relative inline-block ml-2 align-middle cursor-help">
+                    <Info className="w-5 h-5 text-gray-400 hover:text-black transition-colors" />
                     
                     {/* Tooltip Content */}
-                    <div className="absolute left-0 bottom-full mb-3 w-80 p-5 bg-black text-white text-xs leading-relaxed rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 shadow-xl pointer-events-none transform translate-y-2 group-hover:translate-y-0">
+                    <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-80 p-5 bg-black text-white text-xs leading-relaxed rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 shadow-xl pointer-events-none transform translate-y-2 group-hover:translate-y-0 text-left font-sans">
                         <p className="font-semibold mb-2 text-white">Methodik:</p>
                         <p className="text-gray-300 mb-2">
                             Wir haben ein komplexes Operational Due Diligence Deck mit 54 versteckten Fehlern (Logik, Formatierung, Datenkonsistenz) präpariert.
@@ -78,18 +83,10 @@ function QualityComparisonSectionComponent() {
                             Vergleichsbasis: Durchschnittswerte von mehreren Senior Associates (Big 4 & Strategy Consulting), die das Deck unter realistischen Zeitbedingungen geprüft haben.
                         </p>
                         {/* Arrow */}
-                        <div className="absolute left-8 top-full w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-black"></div>
+                        <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-black"></div>
                     </div>
-                </div>
+                </span>
             </div>
-
-            <h2 className={`text-3xl md:text-5xl font-semibold tracking-tight text-black mb-6 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                Der direkte Performance-Vergleich.
-            </h2>
-             <p className={`text-lg md:text-xl text-gray-600 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                Wir haben die Slaide Engine gegen erfahrene Senior Associates antreten lassen. 
-                Die Ergebnisse definieren einen neuen Standard für Qualitätssicherung.
-            </p>
         </div>
 
         {/* The Dashboard Interface */}
