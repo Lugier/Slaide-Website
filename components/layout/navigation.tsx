@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 import { openCalComOverlay } from '@/lib/utils/cal-com'
 
-type ActiveSection = 'platform' | 'how' | 'use-cases' | 'security' | 'pricing-tiers' | null
+type ActiveSection = 'platform' | 'how' | 'use-cases' | 'security' | 'pricing-tiers' | 'benchmark' | null
 
 export function Navigation(): JSX.Element {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -25,6 +25,7 @@ export function Navigation(): JSX.Element {
   useEffect(() => {
     const sectionIds: Array<{ id: ActiveSection; selector: string }> = [
       { id: 'platform', selector: '#platform' },
+      { id: 'benchmark', selector: '#benchmark' },
       { id: 'how', selector: '#how' },
       { id: 'use-cases', selector: '#use-cases' },
       { id: 'security', selector: '#security' },
@@ -223,6 +224,22 @@ export function Navigation(): JSX.Element {
             />
           </Link>
           <Link
+            href="/#benchmark"
+            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${
+              activeSection === 'benchmark'
+                ? 'text-black font-bold'
+                : 'text-grey-medium font-medium'
+            }`}
+          >
+            Benchmark
+            <span
+              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${
+                activeSection === 'benchmark' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
+              }`}
+              aria-hidden="true"
+            />
+          </Link>
+          <Link
             href="/#use-cases"
             className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${
               activeSection === 'use-cases'
@@ -349,6 +366,23 @@ export function Navigation(): JSX.Element {
             <span
               className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${
                 activeSection === 'platform' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
+              }`}
+              aria-hidden="true"
+            />
+          </Link>
+          <Link
+            href="/#benchmark"
+            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${
+              activeSection === 'benchmark'
+                ? 'text-black font-bold'
+                : 'text-grey-medium font-medium'
+            }`}
+            onClick={handleMobileLinkClick}
+          >
+            Benchmark
+            <span
+              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${
+                activeSection === 'benchmark' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
               }`}
               aria-hidden="true"
             />
