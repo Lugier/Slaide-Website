@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef, memo } from 'react'
-import { Timer, CheckCircle2, Search, Zap, Clock, AlertCircle, BarChart3 } from 'lucide-react'
+import { motion } from 'framer-motion' // Falls nicht vorhanden, nutzen wir CSS transitions, aber ich baue es nativ für Performance
 
 // Custom Hook für animierte Zahlen
 const useCounter = (end: number, duration: number = 2000, start: boolean = false) => {
@@ -14,9 +14,9 @@ const useCounter = (end: number, duration: number = 2000, start: boolean = false
     const animate = (currentTime: number) => {
       if (!startTime) startTime = currentTime
       const progress = Math.min((currentTime - startTime) / duration, 1)
-      const easeOutQuart = (x: number): number => 1 - Math.pow(1 - x, 4)
+      const easeOutExpo = (x: number): number => x === 1 ? 1 : 1 - Math.pow(2, -10 * x)
       
-      setCount(Math.floor(easeOutQuart(progress) * end))
+      setCount(Math.floor(easeOutExpo(progress) * end))
 
       if (progress < 1) {
         requestAnimationFrame(animate)
@@ -33,10 +33,10 @@ function QualityComparisonSectionComponent() {
   const sectionRef = useRef<HTMLDivElement>(null)
   
   // Harmonized Data Points (32 Slides)
-  const humanErrors = useCounter(27, 2000, isVisible)
-  const aiErrors = useCounter(51, 2000, isVisible)
-  const humanTime = useCounter(224, 2500, isVisible) // ~3.7h
-  const aiTime = useCounter(4, 1000, isVisible)
+  const humanErrors = useCounter(27, 2500, isVisible)
+  const aiErrors = useCounter(51, 1500, isVisible)
+  const humanTime = useCounter(224, 3000, isVisible) 
+  const aiTime = useCounter(4, 800, isVisible)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -55,128 +55,130 @@ function QualityComparisonSectionComponent() {
   return (
     <section 
       ref={sectionRef} 
-      id="quality-comparison"
-      className="py-24 md:py-32 bg-white border-t border-gray-100"
+      id="benchmark"
+      className="py-32 bg-white border-t border-gray-100"
     >
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6">
         
-        {/* Header - Clean & Professional */}
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <div className={`inline-flex items-center justify-center w-12 h-12 bg-gray-50 rounded-xl mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
-            <BarChart3 className="w-6 h-6 text-gray-900" strokeWidth={1.5} />
-          </div>
-          <h2 className={`text-3xl md:text-4xl font-semibold tracking-tight mb-4 text-gray-900 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            Benchmark: Qualität & Geschwindigkeit
+        {/* Header - Ultra Clean */}
+        <div className="mb-20 max-w-2xl">
+          <h2 className={`text-4xl font-semibold tracking-tight text-black mb-3 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            Performance Benchmark
           </h2>
-          <p className={`text-lg text-gray-500 leading-relaxed transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            Wir haben ein Pitch Deck mit <span className="font-medium text-gray-900">32 Seiten</span> und <span className="font-medium text-gray-900">54 versteckten Fehlern</span> analysiert. 
-            Der direkte Vergleich zeigt den Unterschied.
+          <p className={`text-lg text-gray-500 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            Vergleich basierend auf einem 32-seitigen Operational Due Diligence Deck.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 items-start">
+        {/* The Grid Interface */}
+        <div className="border-t border-black/5">
             
-            {/* Card 1: Human Review (Standard) */}
-            <div className={`p-8 rounded-2xl border border-gray-100 bg-gray-50/50 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                <div className="flex items-center gap-4 mb-8 pb-8 border-b border-gray-100">
-                    <div className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-400">
-                        <span className="text-lg">1</span>
-                    </div>
-                    <div>
-                        <h3 className="text-lg font-semibold text-gray-900">Manuelle Prüfung</h3>
-                        <p className="text-sm text-gray-500">Senior Associate Level</p>
-                    </div>
+            {/* ROW 1: Manual Workflow */}
+            <div className={`group relative grid md:grid-cols-12 gap-8 py-10 border-b border-black/5 items-center transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+                {/* Label */}
+                <div className="md:col-span-3">
+                    <div className="font-medium text-gray-900">Manuelle Prüfung</div>
+                    <div className="text-sm text-gray-400 mt-0.5">Senior Associate</div>
                 </div>
 
-                {/* Metric: Time */}
-                <div className="mb-8">
-                    <div className="flex justify-between text-sm mb-2">
-                        <span className="text-gray-500 flex items-center gap-2">
-                            <Clock className="w-4 h-4" /> Zeitaufwand
-                        </span>
-                        <span className="text-gray-900 font-medium">{humanTime} min</span>
+                {/* Visualization - Timeline */}
+                <div className="md:col-span-5 relative h-12 flex items-center">
+                    <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                         <div 
+                            className="h-full bg-gray-300 rounded-full transition-all duration-[3000ms] ease-out" 
+                            style={{ width: isVisible ? '100%' : '0%' }} 
+                        />
                     </div>
-                    <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-gray-400 rounded-full transition-all duration-[2000ms] ease-out" style={{ width: isVisible ? '100%' : '0%' }} />
-                    </div>
-                    <div className="mt-2 text-xs text-gray-400">~7 min pro Seite</div>
+                    {/* Marker for time */}
+                    <div className="absolute top-8 left-0 text-[10px] text-gray-400 font-mono tracking-wider uppercase">0m</div>
+                    <div className="absolute top-8 right-0 text-[10px] text-gray-400 font-mono tracking-wider uppercase">224m</div>
                 </div>
 
-                {/* Metric: Errors */}
-                <div>
-                    <div className="flex justify-between text-sm mb-2">
-                        <span className="text-gray-500 flex items-center gap-2">
-                            <AlertCircle className="w-4 h-4" /> Fehler gefunden
-                        </span>
-                        <span className="text-gray-900 font-medium">{humanErrors} / 54</span>
+                {/* Stats */}
+                <div className="md:col-span-2 text-right md:text-left md:pl-8">
+                    <div className="text-3xl font-mono text-gray-400 tracking-tighter tabular-nums leading-none">
+                        {humanTime}<span className="text-sm text-gray-400 ml-1 font-sans font-normal">min</span>
                     </div>
-                    <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-gray-400 rounded-full transition-all duration-[2000ms] ease-out" style={{ width: isVisible ? '50%' : '0%' }} />
+                </div>
+                <div className="md:col-span-2 text-right">
+                    <div className="text-3xl font-mono text-gray-400 tracking-tighter tabular-nums leading-none">
+                         {humanErrors}<span className="text-lg text-gray-300 font-sans font-normal">/54</span>
                     </div>
-                    <div className="mt-2 text-xs text-gray-400">50% Erfolgsquote</div>
                 </div>
             </div>
 
-            {/* Card 2: Slaide Engine (Excellence) */}
-            <div className={`p-8 rounded-2xl border border-gray-200 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                {/* Subtle Active Indicator */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-black rounded-t-2xl opacity-100"></div>
+            {/* ROW 2: Slaide Engine */}
+            <div className={`relative grid md:grid-cols-12 gap-8 py-10 border-b border-black/5 items-center transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+                {/* Active Indicator Line */}
+                <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-black scale-y-0 origin-top transition-transform duration-1000 delay-500" style={{ transform: isVisible ? 'scaleY(1)' : 'scaleY(0)' }}></div>
 
-                <div className="flex items-center gap-4 mb-8 pb-8 border-b border-gray-100">
-                    <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white shadow-sm">
-                        <Zap className="w-5 h-5 fill-current" />
+                {/* Label */}
+                <div className="md:col-span-3 pl-4 md:pl-0">
+                    <div className="font-semibold text-black">Slaide Engine</div>
+                    <div className="text-sm text-gray-500 mt-0.5">Automated Audit</div>
+                </div>
+
+                {/* Visualization - Timeline */}
+                <div className="md:col-span-5 relative h-12 flex items-center">
+                    <div className="w-full h-1.5 bg-gray-100/50 rounded-full overflow-hidden">
+                         <div 
+                            className="h-full bg-black rounded-full transition-all duration-[800ms] cubic-bezier(0.25, 1, 0.5, 1) delay-500" 
+                            style={{ width: isVisible ? '1.8%' : '0%' }} 
+                        />
                     </div>
-                    <div>
-                        <h3 className="text-lg font-semibold text-gray-900">Slaide Engine</h3>
-                        <p className="text-sm text-gray-500">Automated Audit</p>
+                    {/* Pulsing Dot at the end of the very short bar */}
+                    <div 
+                        className="absolute w-2 h-2 bg-black rounded-full top-1/2 -translate-y-1/2 transition-all duration-1000 delay-500"
+                        style={{ left: isVisible ? '1.8%' : '0%', opacity: isVisible ? 1 : 0 }}
+                    >
+                         <div className="absolute inset-0 bg-black rounded-full animate-ping opacity-20"></div>
                     </div>
                 </div>
 
-                {/* Metric: Time */}
-                <div className="mb-8">
-                    <div className="flex justify-between text-sm mb-2">
-                        <span className="text-gray-500 flex items-center gap-2">
-                            <Clock className="w-4 h-4" /> Zeitaufwand
-                        </span>
-                        <span className="text-black font-semibold">{aiTime} min</span>
+                {/* Stats */}
+                <div className="md:col-span-2 text-right md:text-left md:pl-8">
+                    <div className="text-3xl font-mono text-black tracking-tighter tabular-nums leading-none">
+                        0{aiTime}<span className="text-sm text-gray-500 ml-1 font-sans font-normal">min</span>
                     </div>
-                    <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                        <div className="h-full bg-black rounded-full transition-all duration-[1000ms] ease-out delay-300" style={{ width: isVisible ? '2%' : '0%' }} />
-                    </div>
-                    <div className="mt-2 text-xs text-green-600 font-medium">98% Zeitersparnis</div>
                 </div>
-
-                {/* Metric: Errors */}
-                <div>
-                    <div className="flex justify-between text-sm mb-2">
-                        <span className="text-gray-500 flex items-center gap-2">
-                            <Search className="w-4 h-4" /> Fehler gefunden
-                        </span>
-                        <span className="text-black font-semibold">{aiErrors} / 54</span>
+                <div className="md:col-span-2 text-right">
+                    <div className="text-3xl font-mono text-black tracking-tighter tabular-nums leading-none">
+                         {aiErrors}<span className="text-lg text-gray-400 font-sans font-normal">/54</span>
                     </div>
-                    <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                        <div className="h-full bg-black rounded-full transition-all duration-[1500ms] ease-out delay-200" style={{ width: isVisible ? '94%' : '0%' }} />
-                    </div>
-                    <div className="mt-2 text-xs text-green-600 font-medium">Findet auch konsistente Fehler</div>
                 </div>
+            </div>
+            
+            {/* Headers for Columns (visually placed below for cleaner look or just implied? Let's add them as footer legend style) */}
+            <div className="grid md:grid-cols-12 gap-8 pt-4">
+                 <div className="md:col-span-3"></div>
+                 <div className="md:col-span-5"></div>
+                 <div className="md:col-span-2 text-left md:pl-8 text-[10px] uppercase tracking-wider text-gray-400 font-medium">Zeitaufwand</div>
+                 <div className="md:col-span-2 text-right text-[10px] uppercase tracking-wider text-gray-400 font-medium">Fehler gefunden</div>
             </div>
 
         </div>
 
-        {/* Footer Impact Stats */}
-        <div className={`mt-16 pt-12 border-t border-gray-100 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div className="px-4">
-                    <div className="text-3xl font-semibold text-gray-900 mb-1">56x</div>
-                    <div className="text-sm text-gray-500">Schnellere Verarbeitung</div>
+        {/* Footer Impact Stats - The "Verdict" */}
+        <div className={`mt-24 grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-black/5 pt-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div>
+                <div className="text-sm text-gray-500 mb-2 font-medium">Verarbeitungszeit</div>
+                <div className="text-4xl font-semibold tracking-tight text-black">-98%</div>
+                <div className="mt-2 text-sm text-gray-400 leading-relaxed">
+                    Reduziert von Stunden auf Minuten. Sofortige Ergebnisse statt Warten über Nacht.
                 </div>
-                <div className="px-4 md:border-l md:border-r border-gray-100">
-                    <div className="text-3xl font-semibold text-gray-900 mb-1">+89%</div>
-                    <div className="text-sm text-gray-500">Gefundene Fehler</div>
+            </div>
+            <div>
+                <div className="text-sm text-gray-500 mb-2 font-medium">Gefundene Fehler</div>
+                <div className="text-4xl font-semibold tracking-tight text-black">+89%</div>
+                <div className="mt-2 text-sm text-gray-400 leading-relaxed">
+                    Erkennt selbst mikroskopische Inkonsistenzen in Schriftgrößen und Abständen.
                 </div>
-                <div className="px-4">
-                    <div className="text-3xl font-semibold text-gray-900 mb-1">Zero</div>
-                    <div className="text-sm text-gray-500">Ermüdungserscheinungen</div>
+            </div>
+            <div>
+                <div className="text-sm text-gray-500 mb-2 font-medium">Ermüdung</div>
+                <div className="text-4xl font-semibold tracking-tight text-black">Zero</div>
+                <div className="mt-2 text-sm text-gray-400 leading-relaxed">
+                    Konstante Leistung. Seite 1 wird genauso präzise geprüft wie Seite 100.
                 </div>
             </div>
         </div>
