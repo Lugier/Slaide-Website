@@ -14,7 +14,6 @@ const useCounter = (end: number, duration: number = 2000, start: boolean = false
     const animate = (currentTime: number) => {
       if (!startTime) startTime = currentTime
       const progress = Math.min((currentTime - startTime) / duration, 1)
-      // Ease Out Expo für "schnappigen" Effekt am Ende
       const easeOutExpo = (x: number): number => x === 1 ? 1 : 1 - Math.pow(2, -10 * x)
       
       setCount(Math.floor(easeOutExpo(progress) * end))
@@ -33,8 +32,8 @@ function QualityComparisonSectionComponent() {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
   
-  // Data Points (harmonisiert mit ROI-Rechner)
-  const humanErrors = useCounter(27, 2500, isVisible)
+  // Data Points - Updated: Human found 29 errors
+  const humanErrors = useCounter(29, 2500, isVisible)
   const aiErrors = useCounter(51, 1500, isVisible)
   const humanTime = useCounter(224, 3000, isVisible) 
   const aiTime = useCounter(4, 800, isVisible)
@@ -61,34 +60,34 @@ function QualityComparisonSectionComponent() {
     >
       <div className="max-w-6xl mx-auto px-6">
         
-        {/* Header - Clean & Consistent */}
+        {/* Header - Simplified & High Impact */}
         <div className="mb-20">
-            <div className="flex items-center gap-3 mb-4">
-                <div className={`text-sm font-medium text-black uppercase tracking-wider transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                    Benchmark
-                </div>
+            <div className="flex items-center gap-3 mb-6">
                  {/* Info Trigger with Hover Interaction */}
-                <div className="group relative cursor-help">
-                    <Info className="w-4 h-4 text-gray-400 hover:text-black transition-colors" />
+                <div className="group relative cursor-help flex items-center gap-2 px-3 py-1 rounded-full bg-gray-50 border border-gray-100 hover:border-gray-300 transition-colors">
+                    <span className="text-xs font-medium text-gray-600">Test-Setup Details</span>
+                    <Info className="w-3.5 h-3.5 text-gray-400 group-hover:text-black transition-colors" />
                     
                     {/* Tooltip Content */}
-                    <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-72 p-4 bg-black text-white text-xs leading-relaxed rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 shadow-xl pointer-events-none transform translate-y-2 group-hover:translate-y-0">
-                        <p className="font-semibold mb-1">Test-Setup:</p>
+                    <div className="absolute left-0 bottom-full mb-3 w-80 p-5 bg-black text-white text-xs leading-relaxed rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 shadow-xl pointer-events-none transform translate-y-2 group-hover:translate-y-0">
+                        <p className="font-semibold mb-2 text-white">Methodik:</p>
+                        <p className="text-gray-300 mb-2">
+                            Wir haben ein komplexes Operational Due Diligence Deck mit 54 versteckten Fehlern (Logik, Formatierung, Datenkonsistenz) präpariert.
+                        </p>
                         <p className="text-gray-300">
-                            Vergleich zwischen manueller Prüfung (Senior Associate, Big 4 Standard) und Slaide Engine anhand eines 32-seitigen Operational Due Diligence Decks mit 54 versteckten Fehlern.
+                            Vergleichsbasis: Durchschnittswerte von mehreren Senior Associates (Big 4 & Strategy Consulting), die das Deck unter realistischen Zeitbedingungen geprüft haben.
                         </p>
                         {/* Arrow */}
-                        <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-black"></div>
+                        <div className="absolute left-8 top-full w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-black"></div>
                     </div>
                 </div>
             </div>
 
             <h2 className={`text-3xl md:text-5xl font-semibold tracking-tight text-black mb-6 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                32 Seiten. 54 Fehler. <br className="hidden md:block" />
-                Ein ungleiches Duell.
+                Der direkte Performance-Vergleich.
             </h2>
              <p className={`text-lg md:text-xl text-gray-600 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                Wir haben die Slaide Engine gegen einen erfahrenen Senior Associate antreten lassen. 
+                Wir haben die Slaide Engine gegen erfahrene Senior Associates antreten lassen. 
                 Die Ergebnisse definieren einen neuen Standard für Qualitätssicherung.
             </p>
         </div>
@@ -107,7 +106,7 @@ function QualityComparisonSectionComponent() {
                     {/* Item 1: Manual */}
                     <div>
                         <div className="flex justify-between items-end mb-3">
-                            <span className="text-sm font-medium text-gray-500">Manuelle Prüfung</span>
+                            <span className="text-sm font-medium text-gray-500">Manuelle Prüfung (Ø)</span>
                             <span className="text-2xl font-mono text-gray-400 tracking-tight">{humanTime} min</span>
                         </div>
                         <div className="h-2 w-full bg-gray-50 rounded-sm overflow-hidden">
@@ -142,11 +141,11 @@ function QualityComparisonSectionComponent() {
                     {/* Item 1: Manual */}
                     <div>
                         <div className="flex justify-between items-end mb-3">
-                            <span className="text-sm font-medium text-gray-500">Manuelle Prüfung</span>
+                            <span className="text-sm font-medium text-gray-500">Manuelle Prüfung (Ø)</span>
                             <span className="text-2xl font-mono text-gray-400 tracking-tight">{humanErrors} <span className="text-sm text-gray-300">/ 54</span></span>
                         </div>
                         <div className="h-2 w-full bg-gray-50 rounded-sm overflow-hidden">
-                            <div className="h-full bg-gray-300 rounded-sm transition-all duration-[2000ms] ease-out" style={{ width: isVisible ? '50%' : '0%' }}></div>
+                            <div className="h-full bg-gray-300 rounded-sm transition-all duration-[2000ms] ease-out" style={{ width: isVisible ? '53%' : '0%' }}></div>
                         </div>
                     </div>
 
@@ -155,7 +154,7 @@ function QualityComparisonSectionComponent() {
                         <div className="flex justify-between items-end mb-3">
                             <span className="text-sm font-medium text-black">Slaide Engine</span>
                             <div className="flex items-center gap-3">
-                                <span className="px-2 py-0.5 bg-black text-white text-[10px] font-bold uppercase tracking-wider rounded">+89% Präzision</span>
+                                <span className="px-2 py-0.5 bg-black text-white text-[10px] font-bold uppercase tracking-wider rounded">+76% Präzision</span>
                                 <span className="text-4xl font-mono font-bold text-black tracking-tight">{aiErrors} <span className="text-sm text-gray-400 font-medium">/ 54</span></span>
                             </div>
                         </div>
