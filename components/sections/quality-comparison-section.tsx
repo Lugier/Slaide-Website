@@ -150,7 +150,7 @@ function QualityComparisonSectionComponent() {
         <div className={`mt-24 pt-10 border-t border-gray-100 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
             <div>
                  <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-2">Effizienz</div>
-                 <div className="text-xl font-medium text-black">-98% Review-Zyklen</div>
+                 <div className="text-xl font-medium text-black">-98% Zeitaufwand</div>
                  <p className="mt-2 text-sm text-gray-500 leading-relaxed">
                     Eliminiert den Flaschenhals manueller Korrekturschleifen. Sofortige Ergebnisse statt Warten über Nacht.
                  </p>
