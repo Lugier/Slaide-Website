@@ -103,7 +103,7 @@ export default function AGBPage(): JSX.Element {
                 <li>Rechtschreibung und Grammatik</li>
                 <li>Formatierungs-Checks</li>
                 <li>Einfache Plausibilitätsprüfungen</li>
-                <li>Cross-Document Consistency (bei Standard Verification)</li>
+                <li>Cross-Slide Consistency (bei Lite Audit), verbesserte Cross-Document Consistency (bei Standard Verification)</li>
                 <li>Mathematische Neuberechnung (bei Standard Verification)</li>
                 <li>Argumentations-Logik (bei Standard Verification)</li>
               </ul>

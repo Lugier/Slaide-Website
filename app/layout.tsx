@@ -306,7 +306,7 @@ export default function RootLayout({
                   name: 'Was ist der Unterschied zwischen Lite und Pro?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'Lite Audit bietet Rechtschreibung & Grammatik, Formatierungs-Checks und einfache Plausibilitätsprüfungen. Standard Verification umfasst alle Lite Features plus Cross-Document Consistency, Mathematische Neuberechnung und Argumentations-Logik.',
+                    text: 'Lite Audit bietet Rechtschreibung & Grammatik, Formatierungs-Checks, einfache Plausibilitätsprüfungen und Cross-Slide Consistency. Standard Verification umfasst alle Lite Features plus verbesserte Cross-Document Consistency, Mathematische Neuberechnung und Argumentations-Logik.',
                   },
                 },
               ],

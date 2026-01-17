@@ -127,8 +127,8 @@ function PricingSectionComponent(): JSX.Element {
                   <span>Einfache Plausibilität</span>
               </li>
                 <li className="flex items-center gap-2">
-                  <X className="w-4 h-4 text-gray-400 flex-shrink-0" aria-hidden="true" />
-                  <span className="text-gray-400">Cross-Document Consistency</span>
+                  <Check className="w-4 h-4 text-black flex-shrink-0" aria-hidden="true" />
+                  <span>Cross-Slide Consistency</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <X className="w-4 h-4 text-gray-400 flex-shrink-0" aria-hidden="true" />
