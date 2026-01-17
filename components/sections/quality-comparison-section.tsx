@@ -59,10 +59,10 @@ function QualityComparisonSectionComponent() {
     >
       <div className="max-w-6xl mx-auto px-6">
         
-        {/* Header - No Icons, Pure Typography */}
+        {/* Header */}
         <div className="mb-20">
             <h2 className={`text-3xl md:text-5xl font-semibold tracking-tight text-black mb-6 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                Der direkte Performance-Vergleich.
+                Benchmark: Manuell vs. AI
             </h2>
              <div className={`text-lg md:text-xl text-gray-600 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                 Wir haben die Review Engine gegen erfahrene Senior Associates antreten lassen. 
@@ -79,29 +79,33 @@ function QualityComparisonSectionComponent() {
                     <h3 className="text-lg font-medium text-gray-900 tracking-tight">Verarbeitungszeit</h3>
                 </div>
 
-                <div className="space-y-12">
+                <div className="space-y-12 group/speed">
                     {/* Item 1: Manual */}
-                    <div className="group cursor-default">
-                        <div className="flex justify-between items-end mb-3 transition-colors duration-300 group-hover:text-gray-900">
-                            <span className="text-sm font-medium text-gray-500 group-hover:text-gray-700 transition-colors">Manuelle Prüfung (Ø)</span>
-                            <span className="text-2xl font-mono text-gray-400 tracking-tight group-hover:text-gray-500 transition-colors">{humanTime} min</span>
+                    <div>
+                        <div className="flex justify-between items-end mb-3">
+                            <span className="text-sm font-medium text-gray-500">Manuelle Prüfung (Ø)</span>
+                            <span className="text-2xl font-mono text-gray-400 tracking-tight">{humanTime} min</span>
                         </div>
                         <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden">
-                            <div className="h-full bg-gray-200 rounded-full transition-all duration-[2000ms] ease-out group-hover:bg-gray-300" style={{ width: isVisible ? '100%' : '0%' }}></div>
+                            <div className="h-full bg-gray-200 rounded-full transition-all duration-[2000ms] ease-out" style={{ width: isVisible ? '100%' : '0%' }}></div>
                         </div>
                     </div>
 
                     {/* Item 2: Slaide */}
-                    <div className="group cursor-default">
+                    <div>
                         <div className="flex justify-between items-end mb-3">
-                            <span className="text-sm font-medium text-black group-hover:text-gray-700 transition-colors">Review Engine</span>
+                            <span className="text-sm font-medium text-black">Review Engine</span>
                             <div className="flex items-center gap-3">
-                                <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 px-2 py-0.5 bg-black/5 text-black text-[10px] font-bold uppercase tracking-wider rounded">56x Schneller</span>
-                                <span className="text-4xl font-mono font-bold text-black tracking-tight group-hover:scale-105 transition-transform duration-300 origin-right">{aiTime} min</span>
+                                <span className="px-2 py-0.5 bg-black/5 text-black text-[10px] font-bold uppercase tracking-wider rounded">56x Schneller</span>
+                                <span className="text-4xl font-mono font-bold text-black tracking-tight">{aiTime} min</span>
                             </div>
                         </div>
-                         <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden">
-                            <div className="h-full bg-black rounded-full transition-all duration-[800ms] cubic-bezier(0.25, 1, 0.5, 1) delay-300 group-hover:shadow-[0_0_10px_rgba(0,0,0,0.3)]" style={{ width: isVisible ? '2%' : '0%' }}></div>
+                         <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden relative">
+                            {/* Bar */}
+                            <div className="h-full bg-black rounded-full transition-all duration-[800ms] cubic-bezier(0.25, 1, 0.5, 1) delay-300 relative overflow-hidden" style={{ width: isVisible ? '2%' : '0%' }}>
+                                {/* Shimmer Effect on Hover */}
+                                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/speed:animate-[shimmer_1.5s_infinite]"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -113,29 +117,33 @@ function QualityComparisonSectionComponent() {
                     <h3 className="text-lg font-medium text-gray-900 tracking-tight">Fehlererkennung</h3>
                 </div>
 
-                 <div className="space-y-12">
+                 <div className="space-y-12 group/precision">
                     {/* Item 1: Manual */}
-                    <div className="group cursor-default">
-                        <div className="flex justify-between items-end mb-3 transition-colors duration-300 group-hover:text-gray-900">
-                            <span className="text-sm font-medium text-gray-500 group-hover:text-gray-700 transition-colors">Manuelle Prüfung (Ø)</span>
-                            <span className="text-2xl font-mono text-gray-400 tracking-tight group-hover:text-gray-500 transition-colors">{humanErrors} <span className="text-sm text-gray-300">/ 54</span></span>
+                    <div>
+                        <div className="flex justify-between items-end mb-3">
+                            <span className="text-sm font-medium text-gray-500">Manuelle Prüfung (Ø)</span>
+                            <span className="text-2xl font-mono text-gray-400 tracking-tight">{humanErrors} <span className="text-sm text-gray-300">/ 54</span></span>
                         </div>
                         <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden">
-                            <div className="h-full bg-gray-300 rounded-full transition-all duration-[2000ms] ease-out group-hover:bg-gray-400" style={{ width: isVisible ? '53%' : '0%' }}></div>
+                            <div className="h-full bg-gray-300 rounded-full transition-all duration-[2000ms] ease-out" style={{ width: isVisible ? '53%' : '0%' }}></div>
                         </div>
                     </div>
 
                     {/* Item 2: Slaide */}
-                    <div className="group cursor-default">
+                    <div>
                         <div className="flex justify-between items-end mb-3">
-                            <span className="text-sm font-medium text-black group-hover:text-gray-700 transition-colors">Review Engine</span>
+                            <span className="text-sm font-medium text-black">Review Engine</span>
                             <div className="flex items-center gap-3">
-                                <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 px-2 py-0.5 bg-black/5 text-black text-[10px] font-bold uppercase tracking-wider rounded">+76% Präzision</span>
-                                <span className="text-4xl font-mono font-bold text-black tracking-tight group-hover:scale-105 transition-transform duration-300 origin-right">{aiErrors} <span className="text-sm text-gray-400 font-medium">/ 54</span></span>
+                                <span className="px-2 py-0.5 bg-black/5 text-black text-[10px] font-bold uppercase tracking-wider rounded">+76% Präzision</span>
+                                <span className="text-4xl font-mono font-bold text-black tracking-tight">{aiErrors} <span className="text-sm text-gray-400 font-medium">/ 54</span></span>
                             </div>
                         </div>
                          <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden">
-                            <div className="h-full bg-black rounded-full transition-all duration-[1500ms] ease-out delay-300 group-hover:shadow-[0_0_10px_rgba(0,0,0,0.3)]" style={{ width: isVisible ? '94%' : '0%' }}></div>
+                            {/* Bar */}
+                            <div className="h-full bg-black rounded-full transition-all duration-[1500ms] ease-out delay-300 relative overflow-hidden" style={{ width: isVisible ? '94%' : '0%' }}>
+                                 {/* Shimmer Effect on Hover */}
+                                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/precision:animate-[shimmer_1.5s_infinite]"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -146,23 +154,23 @@ function QualityComparisonSectionComponent() {
         {/* Footer Metrics */}
         <div className={`mt-24 pt-10 border-t border-gray-100 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
             <div className="group cursor-default">
-                 <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-2 group-hover:text-gray-600 transition-colors">Effizienz</div>
-                 <div className="text-xl font-medium text-black group-hover:translate-x-1 transition-transform duration-300">-98% Zeitaufwand</div>
-                 <p className="mt-2 text-sm text-gray-500 leading-relaxed group-hover:text-gray-800 transition-colors">
+                 <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-2 group-hover:text-gray-900 transition-colors duration-500">Effizienz</div>
+                 <div className="text-xl font-medium text-black">-98% Zeitaufwand</div>
+                 <p className="mt-2 text-sm text-gray-500 leading-relaxed group-hover:text-gray-800 transition-colors duration-500">
                     Eliminiert den Flaschenhals manueller Korrekturschleifen. Sofortige Ergebnisse statt Warten über Nacht.
                  </p>
             </div>
             <div className="group cursor-default">
-                 <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-2 group-hover:text-gray-600 transition-colors">Konsistenz</div>
-                 <div className="text-xl font-medium text-black group-hover:translate-x-1 transition-transform duration-300">Konstante Präzision</div>
-                 <p className="mt-2 text-sm text-gray-500 leading-relaxed group-hover:text-gray-800 transition-colors">
+                 <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-2 group-hover:text-gray-900 transition-colors duration-500">Konsistenz</div>
+                 <div className="text-xl font-medium text-black">Konstante Präzision</div>
+                 <p className="mt-2 text-sm text-gray-500 leading-relaxed group-hover:text-gray-800 transition-colors duration-500">
                     Seite 1 wird genauso präzise und aufmerksam geprüft wie Seite 100 – ohne Ermüdungsfaktor.
                  </p>
             </div>
             <div className="group cursor-default">
-                 <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-2 group-hover:text-gray-600 transition-colors">Impact</div>
-                 <div className="text-xl font-medium text-black group-hover:translate-x-1 transition-transform duration-300">Board-Level Plausibilität</div>
-                 <p className="mt-2 text-sm text-gray-500 leading-relaxed group-hover:text-gray-800 transition-colors">
+                 <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-2 group-hover:text-gray-900 transition-colors duration-500">Impact</div>
+                 <div className="text-xl font-medium text-black">Board-Level Plausibilität</div>
+                 <p className="mt-2 text-sm text-gray-500 leading-relaxed group-hover:text-gray-800 transition-colors duration-500">
                     Stellt sicher, dass jedes Dokument nicht nur fehlerfrei, sondern in sich schlüssig und plausibel ist.
                  </p>
             </div>
