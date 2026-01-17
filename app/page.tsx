@@ -17,6 +17,11 @@ const PlatformDemoSection = dynamic(() => import('@/components/sections/platform
   loading: () => <div className="h-96 w-full" aria-label="Loading section" />,
 })
 
+const QualityComparisonSection = dynamic(() => import('@/components/sections/quality-comparison-section').then((mod) => ({ default: mod.QualityComparisonSection })), {
+  ssr: false,
+  loading: () => <div className="h-96 w-full" aria-label="Loading section" />,
+})
+
 const UseCasesSection = dynamic(() => import('@/components/sections/use-cases-section').then((mod) => ({ default: mod.UseCasesSection })), {
   ssr: false,
   loading: () => <div className="h-96 w-full" aria-label="Loading section" />,
@@ -230,6 +235,9 @@ export default function Home(): JSX.Element {
         </Suspense>
         <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
         <PlatformDemoSection />
+        </Suspense>
+        <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
+        <QualityComparisonSection />
         </Suspense>
         <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
         <UseCasesSection />
