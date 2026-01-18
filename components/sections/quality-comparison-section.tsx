@@ -32,10 +32,10 @@ function QualityComparisonSectionComponent() {
   const sectionRef = useRef<HTMLDivElement>(null)
   
   // Data Points
-  const humanErrors = useCounter(29, 2500, isVisible)
-  const aiErrors = useCounter(51, 1500, isVisible)
-  const humanTime = useCounter(224, 3000, isVisible) 
-  const aiTime = useCounter(4, 800, isVisible)
+  const humanErrors = useCounter(25, 2500, isVisible)
+  const aiErrors = useCounter(45, 1500, isVisible)
+  const humanTime = useCounter(140, 3000, isVisible) 
+  const aiTime = useCounter(3, 800, isVisible)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -62,11 +62,11 @@ function QualityComparisonSectionComponent() {
         {/* Header */}
         <div className="mb-20">
             <h2 className={`text-3xl md:text-5xl font-semibold tracking-tight text-black mb-6 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                Benchmark: Manuell vs. AI
+                Manuell vs. Review
             </h2>
              <div className={`text-lg md:text-xl text-gray-600 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                Wir haben die Review Engine gegen erfahrene Senior Associates antreten lassen. 
-                Die Ergebnisse definieren einen neuen Standard für Qualitätssicherung.
+                Wir haben Review gegen erfahrene Berater antreten lassen. 
+                Die Ergebnisse definieren einen neuen Standard für ihre Qualitätssicherung.
             </div>
         </div>
 
@@ -83,7 +83,7 @@ function QualityComparisonSectionComponent() {
                     {/* Item 1: Manual */}
                     <div>
                         <div className="flex justify-between items-end mb-3">
-                            <span className="text-sm font-medium text-gray-500">Manuelle Prüfung (Ø)</span>
+                            <span className="text-sm font-medium text-gray-500">Erfahrene Berater (Ø)</span>
                             <span className="text-2xl font-mono text-gray-400 tracking-tight">{humanTime} min</span>
                         </div>
                         <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden">
@@ -94,9 +94,9 @@ function QualityComparisonSectionComponent() {
                     {/* Item 2: Slaide */}
                     <div>
                         <div className="flex justify-between items-end mb-3">
-                            <span className="text-sm font-medium text-black">Review Engine</span>
+                            <span className="text-sm font-medium text-black">Review</span>
                             <div className="flex items-center gap-3">
-                                <span className="px-2 py-0.5 bg-black/5 text-black text-[10px] font-bold uppercase tracking-wider rounded">56x Schneller</span>
+                                <span className="px-2 py-0.5 bg-black/5 text-black text-[10px] font-bold uppercase tracking-wider rounded">46x Schneller</span>
                                 <span className="text-4xl font-mono font-bold text-black tracking-tight">{aiTime} min</span>
                             </div>
                         </div>
@@ -121,26 +121,26 @@ function QualityComparisonSectionComponent() {
                     {/* Item 1: Manual */}
                     <div>
                         <div className="flex justify-between items-end mb-3">
-                            <span className="text-sm font-medium text-gray-500">Manuelle Prüfung (Ø)</span>
-                            <span className="text-2xl font-mono text-gray-400 tracking-tight">{humanErrors} <span className="text-sm text-gray-300">/ 54</span></span>
+                            <span className="text-sm font-medium text-gray-500">Erfahrene Berater (Ø)</span>
+                            <span className="text-2xl font-mono text-gray-400 tracking-tight">{humanErrors} <span className="text-sm text-gray-300">/ 45 Fehler</span></span>
                         </div>
                         <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden">
-                            <div className="h-full bg-gray-300 rounded-full transition-all duration-[2000ms] ease-out" style={{ width: isVisible ? '53%' : '0%' }}></div>
+                            <div className="h-full bg-gray-300 rounded-full transition-all duration-[2000ms] ease-out" style={{ width: isVisible ? '55%' : '0%' }}></div>
                         </div>
                     </div>
 
                     {/* Item 2: Slaide */}
                     <div>
                         <div className="flex justify-between items-end mb-3">
-                            <span className="text-sm font-medium text-black">Review Engine</span>
+                            <span className="text-sm font-medium text-black">Review</span>
                             <div className="flex items-center gap-3">
-                                <span className="px-2 py-0.5 bg-black/5 text-black text-[10px] font-bold uppercase tracking-wider rounded">+76% Präzision</span>
-                                <span className="text-4xl font-mono font-bold text-black tracking-tight">{aiErrors} <span className="text-sm text-gray-400 font-medium">/ 54</span></span>
+                                <span className="px-2 py-0.5 bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded">+80% Präzision</span>
+                                <span className="text-4xl font-mono font-bold text-green-600 tracking-tight">{aiErrors} <span className="text-sm text-green-600/60 font-medium">/ 45 Fehler</span></span>
                             </div>
                         </div>
                          <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden">
                             {/* Bar */}
-                            <div className="h-full bg-black rounded-full transition-all duration-[1500ms] ease-out delay-300 relative overflow-hidden" style={{ width: isVisible ? '94%' : '0%' }}>
+                            <div className="h-full bg-green-600 rounded-full transition-all duration-[1500ms] ease-out delay-300 relative overflow-hidden" style={{ width: isVisible ? '100%' : '0%' }}>
                                  {/* Shimmer Effect on Hover */}
                                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/precision:animate-[shimmer_1.5s_infinite]"></div>
                             </div>
@@ -151,13 +151,18 @@ function QualityComparisonSectionComponent() {
 
         </div>
 
+        {/* Context Note */}
+        <div className={`mt-8 text-sm text-gray-400 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+            <p>Das Dokument war eine Präsentation mit 20 Seiten und 36 Fehlern. Zusätzlich zu den eingebauten Fehlern hat die KI 9 weitere gefunden, die nicht beabsichtigt eingebaut wurden.</p>
+        </div>
+
         {/* Footer Metrics */}
         <div className={`mt-24 pt-10 border-t border-gray-100 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
             <div className="group cursor-default">
                  <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-2 group-hover:text-gray-900 transition-colors duration-500">Effizienz</div>
                  <div className="text-xl font-medium text-black">-98% Zeitaufwand</div>
                  <p className="mt-2 text-sm text-gray-500 leading-relaxed group-hover:text-gray-800 transition-colors duration-500">
-                    Eliminiert den Flaschenhals manueller Korrekturschleifen. Sofortige Ergebnisse statt Warten über Nacht.
+                    Eliminiert den Flaschenhals manueller Korrekturschleifen. Sofortige Ergebnisse statt stundenlanges Warten.
                  </p>
             </div>
             <div className="group cursor-default">
