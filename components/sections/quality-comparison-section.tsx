@@ -33,7 +33,7 @@ function QualityComparisonSectionComponent() {
   
   // Data Points
   const humanErrors = useCounter(19, 2500, isVisible)
-  const aiErrors = useCounter(32, 1500, isVisible)
+  const aiErrors = useCounter(34, 1500, isVisible)
   const humanTime = useCounter(140, 3000, isVisible) 
   const aiTime = useCounter(3, 800, isVisible)
 
@@ -134,13 +134,13 @@ function QualityComparisonSectionComponent() {
                         <div className="flex justify-between items-end mb-3">
                             <span className="text-sm font-medium text-black">Review</span>
                             <div className="flex items-center gap-3">
-                                <span className="px-2 py-0.5 bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded">+88% Präzision</span>
+                                <span className="px-2 py-0.5 bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded">+94% Präzision</span>
                                 <span className="text-4xl font-mono font-bold text-green-600 tracking-tight">{aiErrors} <span className="text-sm text-green-600/60 font-medium">/ 36 Fehler</span></span>
                             </div>
                         </div>
                          <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden">
                             {/* Bar */}
-                            <div className="h-full bg-green-600 rounded-full transition-all duration-[1500ms] ease-out delay-300 relative overflow-hidden" style={{ width: isVisible ? '89%' : '0%' }}>
+                            <div className="h-full bg-green-600 rounded-full transition-all duration-[1500ms] ease-out delay-300 relative overflow-hidden" style={{ width: isVisible ? '94%' : '0%' }}>
                                  {/* Shimmer Effect on Hover */}
                                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/precision:animate-[shimmer_1.5s_infinite]"></div>
                             </div>
