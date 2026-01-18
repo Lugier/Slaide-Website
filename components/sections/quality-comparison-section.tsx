@@ -32,8 +32,8 @@ function QualityComparisonSectionComponent() {
   const sectionRef = useRef<HTMLDivElement>(null)
   
   // Data Points
-  const humanErrors = useCounter(25, 2500, isVisible)
-  const aiErrors = useCounter(45, 1500, isVisible)
+  const humanErrors = useCounter(19, 2500, isVisible)
+  const aiErrors = useCounter(32, 1500, isVisible)
   const humanTime = useCounter(140, 3000, isVisible) 
   const aiTime = useCounter(3, 800, isVisible)
 
@@ -96,13 +96,13 @@ function QualityComparisonSectionComponent() {
                         <div className="flex justify-between items-end mb-3">
                             <span className="text-sm font-medium text-black">Review</span>
                             <div className="flex items-center gap-3">
-                                <span className="px-2 py-0.5 bg-black/5 text-black text-[10px] font-bold uppercase tracking-wider rounded">46x Schneller</span>
-                                <span className="text-4xl font-mono font-bold text-black tracking-tight">{aiTime} min</span>
+                                <span className="px-2 py-0.5 bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded">46x Schneller</span>
+                                <span className="text-4xl font-mono font-bold text-green-600 tracking-tight">{aiTime} min</span>
                             </div>
                         </div>
                          <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden relative">
                             {/* Bar */}
-                            <div className="h-full bg-black rounded-full transition-all duration-[800ms] cubic-bezier(0.25, 1, 0.5, 1) delay-300 relative overflow-hidden" style={{ width: isVisible ? '2%' : '0%' }}>
+                            <div className="h-full bg-green-600 rounded-full transition-all duration-[800ms] cubic-bezier(0.25, 1, 0.5, 1) delay-300 relative overflow-hidden" style={{ width: isVisible ? '2%' : '0%' }}>
                                 {/* Shimmer Effect on Hover */}
                                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/speed:animate-[shimmer_1.5s_infinite]"></div>
                             </div>
@@ -122,10 +122,10 @@ function QualityComparisonSectionComponent() {
                     <div>
                         <div className="flex justify-between items-end mb-3">
                             <span className="text-sm font-medium text-gray-500">Erfahrene Berater (Ø)</span>
-                            <span className="text-2xl font-mono text-gray-400 tracking-tight">{humanErrors} <span className="text-sm text-gray-300">/ 45 Fehler</span></span>
+                            <span className="text-2xl font-mono text-gray-400 tracking-tight">{humanErrors} <span className="text-sm text-gray-300">/ 36 Fehler</span></span>
                         </div>
                         <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden">
-                            <div className="h-full bg-gray-300 rounded-full transition-all duration-[2000ms] ease-out" style={{ width: isVisible ? '55%' : '0%' }}></div>
+                            <div className="h-full bg-gray-300 rounded-full transition-all duration-[2000ms] ease-out" style={{ width: isVisible ? '53%' : '0%' }}></div>
                         </div>
                     </div>
 
@@ -134,13 +134,13 @@ function QualityComparisonSectionComponent() {
                         <div className="flex justify-between items-end mb-3">
                             <span className="text-sm font-medium text-black">Review</span>
                             <div className="flex items-center gap-3">
-                                <span className="px-2 py-0.5 bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded">+80% Präzision</span>
-                                <span className="text-4xl font-mono font-bold text-green-600 tracking-tight">{aiErrors} <span className="text-sm text-green-600/60 font-medium">/ 45 Fehler</span></span>
+                                <span className="px-2 py-0.5 bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded">+88% Präzision</span>
+                                <span className="text-4xl font-mono font-bold text-green-600 tracking-tight">{aiErrors} <span className="text-sm text-green-600/60 font-medium">/ 36 Fehler</span></span>
                             </div>
                         </div>
                          <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden">
                             {/* Bar */}
-                            <div className="h-full bg-green-600 rounded-full transition-all duration-[1500ms] ease-out delay-300 relative overflow-hidden" style={{ width: isVisible ? '100%' : '0%' }}>
+                            <div className="h-full bg-green-600 rounded-full transition-all duration-[1500ms] ease-out delay-300 relative overflow-hidden" style={{ width: isVisible ? '89%' : '0%' }}>
                                  {/* Shimmer Effect on Hover */}
                                  <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/precision:animate-[shimmer_1.5s_infinite]"></div>
                             </div>
@@ -153,7 +153,7 @@ function QualityComparisonSectionComponent() {
 
         {/* Context Note */}
         <div className={`mt-8 text-sm text-gray-400 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-            <p>Das Dokument war eine Präsentation mit 20 Seiten und 36 Fehlern. Zusätzlich zu den eingebauten Fehlern hat die KI 9 weitere gefunden, die nicht beabsichtigt eingebaut wurden.</p>
+            <p>Das Dokument war eine Präsentation mit 20 Seiten und 36 Fehlern.</p>
         </div>
 
         {/* Footer Metrics */}
