@@ -108,7 +108,7 @@ export function WhitepaperModal({ isOpen, onClose }: WhitepaperModalProps): JSX.
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white p-5 sm:p-6 rounded-t-3xl sm:rounded-t-2xl sticky top-0 z-10 sm:relative">
+        <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white p-4 sm:p-6 rounded-t-3xl sm:rounded-t-2xl sticky top-0 z-10 sm:relative">
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/10 rounded-lg flex items-center justify-center shrink-0">
@@ -130,7 +130,7 @@ export function WhitepaperModal({ isOpen, onClose }: WhitepaperModalProps): JSX.
           </div>
         </div>
 
-        <div className="p-6 sm:p-8">
+        <div className="p-5 sm:p-8">
 
           {success ? (
             <div className="text-center py-6 sm:py-8">
@@ -148,13 +148,13 @@ export function WhitepaperModal({ isOpen, onClose }: WhitepaperModalProps): JSX.
             </div>
           ) : (
             <>
-              <p className="text-sm sm:text-base text-gray-600 mb-6 text-center">
+              <p className="text-sm sm:text-base text-gray-600 mb-4 text-center">
                 Füllen Sie das Formular aus, um das Security Whitepaper kostenlos als PDF zu erhalten.
               </p>
 
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
                 <div>
-                  <label htmlFor="name" className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                  <label htmlFor="name" className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1 sm:mb-1.5">
                     <User className="w-4 h-4 text-gray-400" />
                     Name <span className="text-red-500">*</span>
                   </label>
@@ -168,13 +168,13 @@ export function WhitepaperModal({ isOpen, onClose }: WhitepaperModalProps): JSX.
                     }}
                     required
                     placeholder="Max Mustermann"
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-black focus:outline-none text-base transition-all text-black placeholder:text-gray-400 min-h-[48px]"
+                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-lg focus:border-black focus:outline-none text-base transition-all text-black placeholder:text-gray-400 min-h-[44px]"
                     disabled={isLoading}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="company" className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                  <label htmlFor="company" className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1 sm:mb-1.5">
                     <Building2 className="w-4 h-4 text-gray-400" />
                     Firma <span className="text-red-500">*</span>
                   </label>
@@ -188,13 +188,13 @@ export function WhitepaperModal({ isOpen, onClose }: WhitepaperModalProps): JSX.
                     }}
                     required
                     placeholder="Beispiel GmbH"
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-black focus:outline-none text-base transition-all text-black placeholder:text-gray-400 min-h-[48px]"
+                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-lg focus:border-black focus:outline-none text-base transition-all text-black placeholder:text-gray-400 min-h-[44px]"
                     disabled={isLoading}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                  <label htmlFor="email" className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1 sm:mb-1.5">
                     <Mail className="w-4 h-4 text-gray-400" />
                     E-Mail-Adresse <span className="text-red-500">*</span>
                   </label>
@@ -208,13 +208,13 @@ export function WhitepaperModal({ isOpen, onClose }: WhitepaperModalProps): JSX.
                     }}
                     required
                     placeholder="ihre.email@beispiel.de"
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-black focus:outline-none text-base transition-all text-black placeholder:text-gray-400 min-h-[48px]"
+                    className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-lg focus:border-black focus:outline-none text-base transition-all text-black placeholder:text-gray-400 min-h-[44px]"
                     disabled={isLoading}
                   />
                 </div>
 
-                <div className="space-y-3 pt-2 border-t border-gray-100">
-                  <label className="flex items-start gap-3 cursor-pointer group py-1">
+                <div className="space-y-2 pt-2 border-t border-gray-100">
+                  <label className="flex items-start gap-3 cursor-pointer group py-0.5">
                     <div className="relative mt-0.5 shrink-0">
                       <input
                         type="checkbox"
@@ -237,7 +237,7 @@ export function WhitepaperModal({ isOpen, onClose }: WhitepaperModalProps): JSX.
                         {datenschutzAccepted && <CheckCircle2 className="w-4 h-4 text-white" />}
                       </div>
                     </div>
-                    <span className="text-xs sm:text-sm text-gray-700 leading-relaxed flex-1">
+                    <span className="text-xs sm:text-sm text-gray-700 leading-snug flex-1">
                       Ich akzeptiere die{' '}
                       <a
                         href="/datenschutz"
@@ -252,7 +252,7 @@ export function WhitepaperModal({ isOpen, onClose }: WhitepaperModalProps): JSX.
                     </span>
                   </label>
 
-                  <label className="flex items-start gap-3 cursor-pointer group py-1">
+                  <label className="flex items-start gap-3 cursor-pointer group py-0.5">
                     <div className="relative mt-0.5 shrink-0">
                       <input
                         type="checkbox"
@@ -274,7 +274,7 @@ export function WhitepaperModal({ isOpen, onClose }: WhitepaperModalProps): JSX.
                         {agbAccepted && <CheckCircle2 className="w-4 h-4 text-white" />}
                       </div>
                     </div>
-                    <span className="text-xs sm:text-sm text-gray-700 leading-relaxed flex-1">
+                    <span className="text-xs sm:text-sm text-gray-700 leading-snug flex-1">
                       Ich akzeptiere die{' '}
                       <a
                         href="/agb"
@@ -289,47 +289,42 @@ export function WhitepaperModal({ isOpen, onClose }: WhitepaperModalProps): JSX.
                     </span>
                   </label>
 
-                  <div className="bg-blue-50 border-l-4 border-blue-500 p-3 rounded-lg mt-2">
-                    <p className="text-xs text-blue-800 leading-relaxed">
+                  <div className="bg-blue-50/50 border-l-2 border-blue-400 p-2.5 rounded-lg mt-1">
+                    <p className="text-[10px] sm:text-[11px] text-blue-800/80 leading-tight">
                       <strong>Hinweis:</strong> Die Einwilligung zur
                       Datenverarbeitung ist freiwillig. Sie können Ihre
-                      Einwilligung jederzeit widerrufen, ohne dass Ihnen
-                      daraus Nachteile entstehen. Der Widerruf kann per E-Mail
+                      Einwilligung jederzeit widerrufen (z.B. per E-Mail
                       an{' '}
                       <a
                         href="mailto:info@slaide.de"
                         className="underline font-medium"
                       >
                         info@slaide.de
-                      </a>{' '}
-                      oder schriftlich an unsere Adresse erfolgen. Durch den
-                      Widerruf wird die Rechtmäßigkeit der aufgrund der
-                      Einwilligung bis zum Widerruf erfolgten Verarbeitung nicht
-                      berührt.
+                      </a>). Die Rechtmäßigkeit der bisherigen Verarbeitung bleibt unberührt.
                     </p>
                   </div>
                 </div>
 
                 {error && (
-                  <div className="p-3 sm:p-4 bg-red-50 border-l-4 border-red-500 rounded-lg animate-in fade-in slide-in-from-left-2">
-                    <p className="text-xs sm:text-sm text-red-700 font-medium">{error}</p>
+                  <div className="p-2 sm:p-3 bg-red-50 border-l-4 border-red-500 rounded-lg animate-in fade-in slide-in-from-left-2">
+                    <p className="text-[11px] sm:text-xs text-red-700 font-medium">{error}</p>
                   </div>
                 )}
 
-                <div className="flex flex-col sm:flex-row gap-3 pt-4 pb-2 sm:pb-0">
+                <div className="flex flex-col sm:flex-row gap-2.5 pt-3 pb-1 sm:pb-0">
                   <button
                     type="submit"
-                    className="flex-1 px-6 py-3.5 sm:py-3.5 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:shadow-lg order-1 sm:order-2 min-h-[52px] sm:min-h-[44px]"
+                    className="flex-1 px-6 py-3 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:shadow-lg order-1 sm:order-2 min-h-[48px] sm:min-h-[40px]"
                     disabled={isLoading || !name || !company || !email || !datenschutzAccepted}
                   >
                     {isLoading ? (
                       <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
+                        <Loader2 className="w-4 h-4 animate-spin" />
                         <span>Wird gesendet...</span>
                       </>
                     ) : (
                       <>
-                        <Mail className="w-5 h-5" />
+                        <Mail className="w-4 h-4" />
                         <span>Whitepaper anfordern</span>
                       </>
                     )}
@@ -337,7 +332,7 @@ export function WhitepaperModal({ isOpen, onClose }: WhitepaperModalProps): JSX.
                   <button
                     type="button"
                     onClick={onClose}
-                    className="flex-1 px-6 py-3.5 sm:py-3.5 border-2 border-gray-300 rounded-lg font-semibold hover:border-gray-400 hover:bg-gray-100 transition-all disabled:opacity-50 text-gray-700 order-2 sm:order-1 min-h-[52px] sm:min-h-[44px]"
+                    className="flex-1 px-6 py-3 border-2 border-gray-200 rounded-lg font-semibold hover:border-gray-300 hover:bg-gray-50 transition-all disabled:opacity-50 text-gray-600 order-2 sm:order-1 min-h-[48px] sm:min-h-[40px]"
                     disabled={isLoading}
                   >
                     Abbrechen
