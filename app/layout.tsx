@@ -205,7 +205,7 @@ export default function RootLayout({
                 '@type': 'AggregateOffer',
                 priceCurrency: 'EUR',
                 lowPrice: PRICE_PER_SLIDE.toFixed(2),
-                highPrice: (PRICING_TIERS.find(tier => tier.tier === "Business")?.price || PRICE_PER_SLIDE).toFixed(2),
+                highPrice: Number(PRICING_TIERS.find(tier => tier.tier === "Business")?.numericPrice || PRICE_PER_SLIDE).toFixed(2),
                 offerCount: '1',
               },
             }),
@@ -338,7 +338,7 @@ export default function RootLayout({
                 '@type': 'AggregateOffer',
                 priceCurrency: 'EUR',
                 lowPrice: PRICE_PER_SLIDE.toFixed(2),
-                highPrice: (PRICING_TIERS.find(tier => tier.tier === "Business")?.price || PRICE_PER_SLIDE).toFixed(2),
+                highPrice: Number(PRICING_TIERS.find(tier => tier.tier === "Business")?.numericPrice || PRICE_PER_SLIDE).toFixed(2),
                 offerCount: '1',
               },
               featureList: [
