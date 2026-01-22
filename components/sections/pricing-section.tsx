@@ -32,6 +32,40 @@ function PricingSectionComponent(): JSX.Element {
                   </p>
                 </div>
 
+                {/* Wiederhergestellter Vergleichs-Banner: Manuell vs. Slaide */}
+                <div className="flex flex-col md:flex-row items-stretch gap-4 md:gap-0 rounded-xl md:rounded-2xl relative mb-6">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl md:rounded-r-none p-6 md:p-8 border border-white/20 md:border-r-0 text-center flex flex-col justify-center w-full md:w-auto md:flex-1 relative">
+                    <div className="text-xs md:text-sm text-gray-400 mb-2">Manuelle Erstellung</div>
+                    <div className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">3-5h</div>
+                    <div className="text-xs md:text-sm font-medium text-gray-300">Arbeitszeit pro Seite</div>
+                  </div>
+
+                  <div className="flex md:hidden items-center justify-center my-2 z-20 pointer-events-none">
+                    <ArrowRight className="w-6 h-6 text-green-400 rotate-90" aria-hidden="true" />
+                  </div>
+                  <div className="hidden md:flex items-center justify-center absolute left-[calc(50%-24px)] top-1/2 -translate-y-1/2 z-20 pointer-events-none">
+                    <ArrowRight className="w-8 h-8 text-green-400" aria-hidden="true" />
+                  </div>
+
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl md:rounded-none p-6 md:p-8 border border-white/20 md:border-x-0 text-center flex flex-col justify-center w-full md:w-auto md:flex-1 relative">
+                    <div className="text-xs md:text-sm text-gray-400 mb-2">Kosten</div>
+                    <div className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">{(PRICING_TIERS.find(t=>t.tier==='Pay-per-Use')?.numericPrice || PRICE_PER_SLIDE * 100).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</div>
+                    <div className="text-xs md:text-sm font-medium text-gray-300">Kosten pro Seite</div>
+                  </div>
+
+                  <div className="bg-green-500/30 backdrop-blur-sm rounded-xl md:rounded-l-none p-6 md:p-8 lg:p-10 border-2 border-green-400/50 md:border-l-0 text-center shadow-lg shadow-green-500/20 relative overflow-hidden flex flex-col justify-center w-full md:w-auto md:flex-1">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-green-400/20 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+                    <div className="relative z-10">
+                      <div className="text-xs md:text-sm text-green-200 mb-2 font-medium">Review</div>
+                      <div className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">&lt;1%</div>
+                      <div className="text-xs md:text-sm font-medium text-green-200 mb-1">der manuellen Kosten</div>
+                      <div className="text-xs text-gray-200 mt-2 leading-relaxed">
+                        Vollständige Absicherung gegen Fehler — deutlich günstiger als manuelle Reviews.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="grid md:grid-cols-2 gap-8 items-stretch">
                   <div className="p-8 bg-white/10 rounded-2xl md:rounded-r-none border border-white/10 text-left">
                     <div className="text-sm font-medium text-gray-200 mb-2">Pay‑per‑Use</div>
