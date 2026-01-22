@@ -217,6 +217,26 @@ function ROISectionComponent(): JSX.Element {
             <div className="space-y-4 mb-6">
               <div className="pb-4 border-b border-gray-200">
                 <div className="flex items-center gap-2 mb-2">
+                  <Clock className="w-4 h-4 text-gray-500" aria-hidden="true" />
+                  <span className="text-sm text-gray-700">Manuelle Prüfung</span>
+                </div>
+                <div className="text-2xl font-bold text-gray-900">{calculations.manualReviewCost.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })}</div>
+                <div className="flex items-center gap-1.5 text-xs text-gray-600 mt-1 group/calc relative">
+                  <span>{(pages * calculations.hoursPerPage).toFixed(1)} Stunden × {HOURLY_RATE.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/h</span>
+                  <div className="relative">
+                    <Info className="w-3 h-3 text-gray-500 opacity-40 hover:opacity-70 cursor-help transition-opacity" aria-hidden="true" />
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-xl opacity-0 invisible group-hover/calc:opacity-100 group-hover/calc:visible transition-all duration-200 z-10 border border-gray-700">
+                      <p className="leading-relaxed">
+                        Basierend auf Median-Werten aus Banking & Consulting. Der Stundensatz von {HOURLY_RATE.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/h basiert auf durchschnittlichen Review-Zeiten und berücksichtigt die Beteiligung von Managern und Partnern im Review-Prozess.
+                      </p>
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="pb-4 border-b border-gray-200">
+                <div className="flex items-center gap-2 mb-2">
                   <span className="text-sm font-medium text-gray-500">€</span>
                   <span className="text-sm text-gray-700">Review Kosten</span>
                 </div>
@@ -228,7 +248,7 @@ function ROISectionComponent(): JSX.Element {
                   Verarbeitungszeit: {calculations.totalProcessingTimeMinutes > 0 ? `${calculations.totalProcessingTimeMinutes} Min ` : ''}{calculations.totalProcessingTimeSecondsRemainder > 0 ? `${calculations.totalProcessingTimeSecondsRemainder}s` : ''}
                 </div>
               </div>
-
+              
               <div className="pt-4">
                 <div className="flex items-center gap-2 mb-5">
                   <TrendingUp className="w-4 h-4 text-green-600" aria-hidden="true" />
@@ -260,6 +280,11 @@ function ROISectionComponent(): JSX.Element {
                   <span className="text-sm text-green-700 font-semibold">
                     {calculations.roiPercentage}% ROI pro Cycle
                   </span>
+                </div>
+                <div className="mt-4 pt-4 border-t border-gray-200">
+                  <div className="text-xs text-gray-600">
+                    <span className="font-medium">Manuelles Review:</span> ~{MANUAL_REVIEW_ERROR_RATE}% Fehler werden übersehen
+                  </div>
                 </div>
               </div>
             </div>

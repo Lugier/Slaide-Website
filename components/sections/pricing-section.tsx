@@ -28,80 +28,52 @@ function PricingSectionComponent(): JSX.Element {
                     Ihre Arbeit für {PRICE_PER_SLIDE.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2 })}/Seite absichern
                   </h2>
                   <p className="text-gray-300 text-sm md:text-base max-w-2xl mx-auto px-2">
-                    Fehler in wichtigen Dokumenten kosten mehr als nur Geld – sie kosten Reputation, Zeit und Umsatz. Mit Review schützen Sie alles automatisiert und zuverlässig.
+                    Fehler in wichtigen Dokumenten kosten mehr als nur Geld – sie kosten Reputation, Zeit und Umsatz. Mit Review schützen Sie alles für weniger als 1%.
                   </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-8 items-stretch">
-                  <div className="p-8 bg-white/10 rounded-2xl md:rounded-r-none border border-white/10 text-left">
-                    <div className="text-sm font-medium text-gray-200 mb-2">Pay‑per‑Use</div>
-                    <div className="text-5xl font-bold text-white mb-2">{PRICE_PER_SLIDE.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2 })}</div>
-                    <div className="text-xs text-gray-300 mb-4">pro verarbeiteter Seite • zzgl. MwSt.</div>
-
-                    <ul className="space-y-3 text-sm text-gray-200">
-                      <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" aria-hidden="true" />
-                        <div>
-                          <div className="font-medium">Rechtschreibung & Grammatik</div>
-                          <div className="text-xs text-gray-300">Fehler in Texten zuverlässig erkennen und korrigieren</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" aria-hidden="true" />
-                        <div>
-                          <div className="font-medium">Formatierungs- & Struktur-Checks</div>
-                          <div className="text-xs text-gray-300">Konsistente Formatierung, Styles und Struktur über Dokumente hinweg</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" aria-hidden="true" />
-                        <div>
-                          <div className="font-medium">Cross‑Slide / Cross‑Document Consistency</div>
-                          <div className="text-xs text-gray-300">Querverweise, Begriffs- und Zahlenkonsistenz über Folien und Dokumente</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" aria-hidden="true" />
-                        <div>
-                          <div className="font-medium">Plausibilitäts‑ & Logik‑Checks</div>
-                          <div className="text-xs text-gray-300">Erkennung inhaltlicher Inkonsistenzen und Argumentationsbrüche</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" aria-hidden="true" />
-                        <div>
-                          <div className="font-medium">Mathematische Neuberechnung & Zahlenprüfung</div>
-                          <div className="text-xs text-gray-300">Tabellen- und Zahlenvalidierung inklusive Rechenprüfungen</div>
-                        </div>
-                      </li>
-                    </ul>
-                    <div className="mt-6">
-                      <a
-                        href="#"
-                        onClick={handleZugangClick}
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-lg text-sm font-semibold hover:bg-gray-100 transition-all shadow-sm"
-                      >
-                        Zugang anfragen
-                      </a>
-                    </div>
+                {/* Vergleich: Drei Boxen nebeneinander */}
+                <div className="flex flex-col md:flex-row items-stretch gap-4 md:gap-0 rounded-xl md:rounded-2xl relative">
+                  {/* Box 1: Arbeitszeit */}
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl md:rounded-r-none p-6 md:p-8 border border-white/20 md:border-r-0 text-center flex flex-col justify-center w-full md:w-auto md:flex-1 relative">
+                    <div className="text-xs md:text-sm text-gray-400 mb-2">Manuelle Erstellung</div>
+                    <div className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">3-5h</div>
+                    <div className="text-xs md:text-sm font-medium text-gray-300">Arbeitszeit pro Seite</div>
                   </div>
 
-                  <div className="p-8 rounded-2xl border border-white/10 bg-gradient-to-br from-white/6 to-white/3 text-left flex flex-col justify-center">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black text-white text-xs font-bold mb-4 self-start">
-                      ENTERPRISE
-                    </div>
-                    <h3 className="text-xl font-semibold mb-2 text-white">Volumenbasierte Preise</h3>
-                    <p className="text-sm text-gray-300 mb-4">
-                      Für Organisationen ab <span className="font-semibold">500 Seiten/Monat</span> bieten wir maßgeschneiderte Enterprise-Lösungen mit individuellen Volumenpreisen und dediziertem Onboarding.
-                    </p>
-                    <div className="mt-auto">
-                      <a
-                        href="#"
-                        onClick={handleZugangClick}
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 text-white rounded-lg text-sm font-semibold hover:bg-green-600 transition-all shadow-md"
-                      >
-                        Enterprise anfragen
-                      </a>
+                  {/* Pfeil 1 - Mobile: nach unten, Desktop: nach rechts */}
+                  <div className="flex md:hidden items-center justify-center my-2 z-20 pointer-events-none">
+                    <ArrowRight className="w-5 h-5 text-white/50 rotate-90" aria-hidden="true" />
+                  </div>
+                  <div className="hidden md:flex items-center justify-center absolute left-[calc(33.333%-12px)] top-1/2 -translate-y-1/2 z-20 pointer-events-none">
+                    <ArrowRight className="w-6 h-6 text-white/50" aria-hidden="true" />
+                  </div>
+
+                  {/* Box 2: Kosten */}
+                  <div className="bg-white/10 backdrop-blur-sm rounded-xl md:rounded-none p-6 md:p-8 border border-white/20 md:border-x-0 text-center flex flex-col justify-center w-full md:w-auto md:flex-1 relative">
+                    <div className="text-xs md:text-sm text-gray-400 mb-2">Manuelle Erstellung</div>
+                    <div className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">312€</div>
+                    <div className="text-xs md:text-sm font-medium text-gray-300">Kosten pro Seite</div>
+                  </div>
+
+                  {/* Pfeil 2 - Mobile: nach unten, Desktop: nach rechts */}
+                  <div className="flex md:hidden items-center justify-center my-2 z-20 pointer-events-none">
+                    <ArrowRight className="w-6 h-6 text-green-400 rotate-90" aria-hidden="true" />
+                  </div>
+                  <div className="hidden md:flex items-center justify-center absolute left-[calc(66.666%-12px)] top-1/2 -translate-y-1/2 z-20 pointer-events-none">
+                    <ArrowRight className="w-8 h-8 text-green-400" aria-hidden="true" />
+                  </div>
+
+                  {/* Box 3: Slaide Vorteil - Prominent hervorgehoben */}
+                  <div className="bg-green-500/30 backdrop-blur-sm rounded-xl md:rounded-l-none p-6 md:p-8 lg:p-10 border-2 border-green-400/50 md:border-l-0 text-center shadow-lg shadow-green-500/20 relative overflow-hidden flex flex-col justify-center w-full md:w-auto md:flex-1">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-green-400/20 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+                    <div className="relative z-10">
+                      <div className="text-xs md:text-sm text-green-200 mb-2 font-medium">Review</div>
+                      <div className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">&lt;1%</div>
+                      <div className="text-xs md:text-sm font-medium text-green-200 mb-1">der manuellen Kosten</div>
+                      <div className="text-xs text-gray-200 mt-2 leading-relaxed">
+                        für vollständige Absicherung gegen Fehler
+                      </div>
                     </div>
                   </div>
                 </div>
