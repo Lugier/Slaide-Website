@@ -67,48 +67,11 @@ function PricingSectionComponent(): JSX.Element {
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-8 items-stretch">
-                  <div className="p-8 bg-white/10 rounded-2xl md:rounded-r-none border border-white/10 text-left">
+                  {/* Black pricing block */}
+                  <div className="p-8 bg-black text-white rounded-2xl border border-white/10 text-left">
                     <div className="text-sm font-medium text-gray-200 mb-2">Pay‑per‑Use</div>
-                    <div className="text-5xl font-bold text-white mb-2">{PRICE_PER_SLIDE.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2 })}</div>
+                    <div className="text-5xl font-bold mb-2">{PRICE_PER_SLIDE.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2 })}</div>
                     <div className="text-xs text-gray-300 mb-4">pro verarbeiteter Seite • zzgl. MwSt.</div>
-
-                    <ul className="space-y-3 text-sm text-gray-200">
-                      <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" aria-hidden="true" />
-                        <div>
-                          <div className="font-medium">Rechtschreibung & Grammatik</div>
-                          <div className="text-xs text-gray-300">Fehler in Texten zuverlässig erkennen und korrigieren</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" aria-hidden="true" />
-                        <div>
-                          <div className="font-medium">Formatierungs- & Struktur-Checks</div>
-                          <div className="text-xs text-gray-300">Konsistente Formatierung, Styles und Struktur über Dokumente hinweg</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" aria-hidden="true" />
-                        <div>
-                          <div className="font-medium">Cross‑Slide / Cross‑Document Consistency</div>
-                          <div className="text-xs text-gray-300">Querverweise, Begriffs- und Zahlenkonsistenz über Folien und Dokumente</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" aria-hidden="true" />
-                        <div>
-                          <div className="font-medium">Plausibilitäts‑ & Logik‑Checks</div>
-                          <div className="text-xs text-gray-300">Erkennung inhaltlicher Inkonsistenzen und Argumentationsbrüche</div>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" aria-hidden="true" />
-                        <div>
-                          <div className="font-medium">Mathematische Neuberechnung & Zahlenprüfung</div>
-                          <div className="text-xs text-gray-300">Tabellen- und Zahlenvalidierung inklusive Rechenprüfungen</div>
-                        </div>
-                      </li>
-                    </ul>
                     <div className="mt-6">
                       <a
                         href="#"
@@ -118,26 +81,75 @@ function PricingSectionComponent(): JSX.Element {
                         Zugang anfragen
                       </a>
                     </div>
-                  </div>
+                    </div>
 
-                  <div className="p-8 rounded-2xl border border-white/10 bg-gradient-to-br from-white/6 to-white/3 text-left flex flex-col justify-center">
+                  {/* Enterprise callout (right) */}
+                  <div className="p-8 rounded-2xl border border-gray-200 bg-white text-left flex flex-col justify-center">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black text-white text-xs font-bold mb-4 self-start">
                       ENTERPRISE
                     </div>
-                    <h3 className="text-xl font-semibold mb-2 text-white">Volumenbasierte Preise</h3>
-                    <p className="text-sm text-gray-300 mb-4">
+                    <h3 className="text-xl font-semibold mb-2 text-gray-900">Volumenbasierte Preise</h3>
+                    <p className="text-sm text-gray-600 mb-4">
                       Für Organisationen ab <span className="font-semibold">500 Seiten/Monat</span> bieten wir maßgeschneiderte Enterprise-Lösungen mit individuellen Volumenpreisen und dediziertem Onboarding.
                     </p>
                     <div className="mt-auto">
                       <a
                         href="#"
                         onClick={handleZugangClick}
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 text-white rounded-lg text-sm font-semibold hover:bg-green-600 transition-all shadow-md"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-lg text-sm font-semibold hover:bg-gray-800 transition-all shadow-md"
                       >
                         Enterprise anfragen
                       </a>
                     </div>
                   </div>
+                </div>
+
+                {/* Features below the pricing block */}
+                <div className="mt-6 p-6 bg-white rounded-2xl border border-gray-100 text-left">
+                  <ul className="grid md:grid-cols-2 gap-4 text-sm text-gray-700">
+                    <li className="flex gap-3 items-start">
+                      <Check className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" aria-hidden="true" />
+                      <div>
+                        <div className="font-medium">Rechtschreibung & Grammatik</div>
+                        <div className="text-xs text-gray-500">Automatische Korrektur und Vorschläge</div>
+                      </div>
+                    </li>
+                    <li className="flex gap-3 items-start">
+                      <Check className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" aria-hidden="true" />
+                      <div>
+                        <div className="font-medium">Formatierungs- & Struktur-Checks</div>
+                        <div className="text-xs text-gray-500">Konsistente Formatierung über Dokumente</div>
+                      </div>
+                    </li>
+                    <li className="flex gap-3 items-start">
+                      <Check className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" aria-hidden="true" />
+                      <div>
+                        <div className="font-medium">Cross‑Slide / Cross‑Document Consistency</div>
+                        <div className="text-xs text-gray-500">Querverweise, Begriffs- und Zahlenkonsistenz</div>
+                      </div>
+                    </li>
+                    <li className="flex gap-3 items-start">
+                      <Check className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" aria-hidden="true" />
+                      <div>
+                        <div className="font-medium">Plausibilitäts‑ & Logik‑Checks</div>
+                        <div className="text-xs text-gray-500">Inhaltliche Inkonsistenzen & Argumentationsprüfungen</div>
+                      </div>
+                    </li>
+                    <li className="flex gap-3 items-start">
+                      <Check className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" aria-hidden="true" />
+                      <div>
+                        <div className="font-medium">Mathematische Neuberechnung & Zahlenprüfung</div>
+                        <div className="text-xs text-gray-500">Tabellenvalidierung und Rechenprüfungen</div>
+                      </div>
+                    </li>
+                    <li className="flex gap-3 items-start">
+                      <Check className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" aria-hidden="true" />
+                      <div>
+                        <div className="font-medium">Argumentations‑Logik</div>
+                        <div className="text-xs text-gray-500">Bewertung der logischen Konsistenz von Aussagen</div>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
