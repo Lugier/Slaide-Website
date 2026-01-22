@@ -3,7 +3,6 @@ import { Inter, JetBrains_Mono } from 'next/font/google'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/react'
 import { WebVitalsInit } from '@/components/web-vitals-init'
-import { PRICE_PER_SLIDE, PRICING_TIERS } from "@/lib/constants/pricing";
 import './globals.css'
 
 const inter = Inter({
@@ -175,14 +174,26 @@ export default function RootLayout({
                 {
                 '@type': 'Offer',
                 priceCurrency: 'EUR',
-                price: PRICE_PER_SLIDE.toFixed(2),
+                price: '2.19',
                 priceSpecification: {
                   '@type': 'UnitPriceSpecification',
-                  price: PRICE_PER_SLIDE.toFixed(2),
+                  price: '2.19',
                   priceCurrency: 'EUR',
                   unitText: 'pro Seite',
                 },
-                  name: 'Pay-per-Use',
+                  name: 'Lite Audit',
+                },
+                {
+                  '@type': 'Offer',
+                  priceCurrency: 'EUR',
+                  price: '2.99',
+                  priceSpecification: {
+                    '@type': 'UnitPriceSpecification',
+                    price: '2.99',
+                    priceCurrency: 'EUR',
+                    unitText: 'pro Seite',
+                  },
+                  name: 'Pro Verification',
                 },
               ],
               priceRange: '€€',
@@ -204,9 +215,9 @@ export default function RootLayout({
               offers: {
                 '@type': 'AggregateOffer',
                 priceCurrency: 'EUR',
-                lowPrice: PRICE_PER_SLIDE.toFixed(2),
-                highPrice: (PRICING_TIERS.find(tier => tier.tier === "Business")?.price || PRICE_PER_SLIDE).toFixed(2),
-                offerCount: '1',
+                lowPrice: '2.19',
+                highPrice: '2.99',
+                offerCount: '2',
               },
             }),
           }}
@@ -255,7 +266,7 @@ export default function RootLayout({
                   name: 'Was kostet Slaide?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: `Die aktuellen Preise starten bei ${PRICE_PER_SLIDE.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2 })} pro Seite. Für Organisationen mit mehr als 500 Seiten pro Monat bieten wir individuelle Enterprise-Verträge mit volumenbasierten Preisen. Kontaktieren Sie uns für ein maßgeschneidertes Angebot.`,
+                    text: 'Die aktuellen Preise betragen: Lite Audit 2,19 € pro Seite, Standard Verification 2,99 € pro Seite. Für Organisationen mit mehr als 2.000 Seiten pro Monat bieten wir individuelle Enterprise-Verträge mit volumenbasierten Preisen zwischen 1,99 € und 2,99 € pro Seite. Kontaktieren Sie uns für ein maßgeschneidertes Angebot.',
                   },
                 },
                 {
@@ -288,6 +299,14 @@ export default function RootLayout({
                   acceptedAnswer: {
                     '@type': 'Answer',
                     text: 'Alle Daten werden ausschließlich in ISO-zertifizierten Rechenzentren in Europa gespeichert – der Großteil auf Servern in Frankfurt, Deutschland. EU-Region möglich.',
+                  },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'Was ist der Unterschied zwischen Lite und Pro?',
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: 'Lite Audit bietet Rechtschreibung & Grammatik, Formatierungs-Checks, einfache Plausibilitätsprüfungen und Cross-Slide Consistency. Standard Verification umfasst alle Lite Features plus verbesserte Cross-Document Consistency, Mathematische Neuberechnung und Argumentations-Logik.',
                   },
                 },
               ],
@@ -337,9 +356,9 @@ export default function RootLayout({
               offers: {
                 '@type': 'AggregateOffer',
                 priceCurrency: 'EUR',
-                lowPrice: PRICE_PER_SLIDE.toFixed(2),
-                highPrice: (PRICING_TIERS.find(tier => tier.tier === "Business")?.price || PRICE_PER_SLIDE).toFixed(2),
-                offerCount: '1',
+                lowPrice: '2.19',
+                highPrice: '2.99',
+                offerCount: '2',
               },
               featureList: [
                 'Multimodales Parsing',

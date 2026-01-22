@@ -3,10 +3,14 @@
 import { memo, useCallback } from 'react'
 import { Check, Zap, ShieldCheck, ArrowRight, X } from 'lucide-react'
 import { openCalComOverlay } from '@/lib/utils/cal-com'
-import { PRICE_PER_SLIDE, PRICING_TIERS } from "@/lib/constants/pricing";
 
 function PricingSectionComponent(): JSX.Element {
   const handleZugangClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>): void => {
+    e.preventDefault()
+    openCalComOverlay()
+  }, [])
+
+  const handlePreiseClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault()
     openCalComOverlay()
   }, [])
@@ -25,7 +29,7 @@ function PricingSectionComponent(): JSX.Element {
               <div className="relative z-10">
                 <div className="text-center mb-8 md:mb-12">
                   <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 md:mb-4 px-2">
-                    Ihre Arbeit für {PRICE_PER_SLIDE.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2 })}/Seite absichern
+                    Ihre Arbeit für 2,99€ absichern
                   </h2>
                   <p className="text-gray-300 text-sm md:text-base max-w-2xl mx-auto px-2">
                     Fehler in wichtigen Dokumenten kosten mehr als nur Geld – sie kosten Reputation, Zeit und Umsatz. Mit Review schützen Sie alles für weniger als 1%.
@@ -82,56 +86,143 @@ function PricingSectionComponent(): JSX.Element {
           </div>
         </div>
 
+        {/* Pricing Tiers */}
         <div className="max-w-5xl mx-auto">
           <div id="pricing-tiers" className="text-center mb-12 reveal delay-200 scroll-mt-24">
-            <h2 className="text-3xl font-semibold tracking-tight mb-4">Transparente Preise & Flexible Pakete</h2>
+            <h2 className="text-3xl font-semibold tracking-tight mb-4">Wählen Sie Ihr Paket</h2>
             <p className="text-grey-dark text-lg max-w-2xl mx-auto">
-              Wählen Sie das passende Modell für Ihre Anforderungen: vom flexiblen Pay-per-Use bis zu volumenbasierten Enterprise-Lösungen.
+              Transparente Preise, nutzungsbasierte Abrechnung – Sie zahlen nur für verarbeitete Seiten, keine versteckten Kosten, keine Mindestlaufzeiten.
             </p>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 bg-white rounded-xl shadow-lg">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-xl">
-                    Tier
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Slides/Monat
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-xl">
-                    Preise
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {PRICING_TIERS.map((tierData) => (
-                  <tr key={tierData.tier} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {tierData.tier}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {tierData.slidesPerMonth}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                      {tierData.price}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="grid md:grid-cols-2 gap-8 reveal delay-300 items-stretch">
+            {/* Lite - Links */}
+            <div className="p-10 rounded-2xl border border-gray-200 hover:border-gray-300 transition-all hover:shadow-elevated-hover group flex flex-col h-full">
+              <div className="mb-6 min-h-[60px] flex flex-col items-center">
+                <div className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-gray-100 transition-colors mb-4">
+                  <Zap className="w-5 h-5 text-black" aria-hidden="true" />
+                </div>
+                <h3 className="text-xl font-semibold mb-1">Lite Audit</h3>
+                <p className="text-sm text-grey-dark">Hygienefaktor & Basics</p>
+            </div>
+            <div className="mb-6 pb-6 border-b border-gray-100">
+                <div className="flex items-baseline justify-center gap-2">
+                <span className="text-5xl font-bold">2,19</span>
+                <span className="text-lg text-grey-dark">€</span>
+              </div>
+              <p className="text-sm text-grey-dark mt-2">pro Seite verarbeitet</p>
+              <p className="text-xs text-grey-dark mt-1">zzgl. MwSt.</p>
+            </div>
+              <ul className="space-y-4 text-sm text-grey-dark mb-8 flex-grow text-left">
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-black flex-shrink-0" aria-hidden="true" />
+                  <span>Rechtschreibung & Grammatik</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-black flex-shrink-0" aria-hidden="true" />
+                  <span>Formatierungs-Check</span>
+              </li>
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-black flex-shrink-0" aria-hidden="true" />
+                  <span>Einfache Plausibilität</span>
+              </li>
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-black flex-shrink-0" aria-hidden="true" />
+                  <span>Cross-Slide Consistency</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <X className="w-4 h-4 text-gray-400 flex-shrink-0" aria-hidden="true" />
+                  <span className="text-gray-400">Mathematische Neuberechnung</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <X className="w-4 h-4 text-gray-400 flex-shrink-0" aria-hidden="true" />
+                  <span className="text-gray-400">Argumentations-Logik</span>
+              </li>
+            </ul>
+            <a
+              href="#"
+              onClick={handlePreiseClick}
+                className="block w-full py-3.5 text-center border-2 border-gray-200 rounded-lg text-sm font-semibold hover:border-black hover:bg-gray-50 transition-all focus:outline-none min-h-[48px] flex items-center justify-center mt-auto transform hover:scale-[1.02] active:scale-[0.98]"
+              aria-label="Zugang anfragen"
+            >
+              Zugang anfragen
+            </a>
           </div>
 
-          <div className="mt-16 text-center reveal delay-300">
-            <h3 className="text-2xl font-semibold mb-4">Für individuelle Anforderungen</h3>
-            <p className="text-base text-grey-dark leading-relaxed max-w-2xl mx-auto mb-8">
-              Benötigen Sie eine spezielle Lösung oder verarbeiten Sie mehr als 15.000 Seiten pro Monat? Kontaktieren Sie uns für ein maßgeschneidertes Enterprise-Angebot.
-            </p>
+            {/* Standard - Rechts */}
+            <div className="p-10 rounded-2xl bg-black text-white shadow-xl relative overflow-hidden group flex flex-col h-full transform transition-all hover:scale-[1.02]">
+              <div className="absolute top-0 right-0 bg-gradient-to-br from-green-400 to-green-600 text-white text-[10px] font-bold px-4 py-1.5 rounded-bl-lg font-mono shadow-lg">
+              RECOMMENDED
+            </div>
+              <div className="mb-6 min-h-[60px] flex flex-col items-center">
+                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors mb-4">
+                  <ShieldCheck className="w-5 h-5 text-white" aria-hidden="true" />
+                </div>
+                <h3 className="text-xl font-semibold mb-1">Standard Verification</h3>
+                <p className="text-sm text-gray-200">Forensische Tiefenprüfung</p>
+            </div>
+            <div className="mb-6 pb-6 border-b border-white/10">
+                <div className="flex items-baseline justify-center gap-2">
+                <span className="text-5xl font-bold">2,99</span>
+                <span className="text-lg text-gray-300">€</span>
+              </div>
+              <p className="text-sm text-gray-300 mt-2">pro Seite verarbeitet</p>
+              <p className="text-xs text-gray-400 mt-1">zzgl. MwSt.</p>
+            </div>
+              <ul className="space-y-4 text-sm text-gray-300 mb-8 flex-grow text-left">
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-white flex-shrink-0" aria-hidden="true" />
+                  <span><span className="font-semibold">Verbesserte</span> Rechtschreibung & Grammatik</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-white flex-shrink-0" aria-hidden="true" />
+                  <span><span className="font-semibold">Verbesserter</span> Formatierungs-Check</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-white flex-shrink-0" aria-hidden="true" />
+                  <span><span className="font-semibold">Verbesserte</span> Plausibilität</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-white flex-shrink-0" aria-hidden="true" />
+                  <span><span className="font-semibold">Verbesserte</span> Cross-Document Consistency</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-white flex-shrink-0" aria-hidden="true" />
+                  <span>Mathematische Neuberechnung</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-white flex-shrink-0" aria-hidden="true" />
+                  <span>Argumentations-Logik</span>
+                </li>
+            </ul>
             <a
               href="#"
               onClick={handleZugangClick}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-black text-white rounded-lg text-sm font-semibold hover:bg-gray-800 transition-all shadow-md hover:shadow-lg focus:outline-none min-h-[52px] whitespace-nowrap shrink-0"
+                className="block w-full py-3.5 text-center bg-white text-black rounded-lg text-sm font-bold hover:bg-gray-100 transition-all shadow-sm focus:outline-none min-h-[48px] flex items-center justify-center mt-auto transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl"
+              aria-label="Zugang anfragen"
+            >
+              Zugang anfragen
+            </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Enterprise Pricing */}
+        <div className="mt-16 p-10 rounded-2xl border-2 border-gray-300 bg-gradient-to-br from-gray-50 to-white shadow-lg reveal delay-300">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="text-left md:text-center md:flex-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black text-white text-xs font-bold mb-4">
+                ENTERPRISE
+              </div>
+              <h3 className="text-2xl font-semibold mb-3">Volumenbasierte Preise</h3>
+              <p className="text-base text-grey-dark leading-relaxed max-w-xl mx-auto md:mx-0">
+                Für Organisationen mit mehr als <span className="font-semibold text-black">2.000 Seiten pro Monat</span> bieten wir maßgeschneiderte Enterprise-Lösungen mit attraktiven volumenbasierten Preisen und individueller Betreuung an.
+              </p>
+            </div>
+            <a
+              href="#"
+              onClick={handleZugangClick}
+              className="flex items-center gap-2 px-8 py-4 bg-black text-white rounded-lg text-sm font-semibold hover:bg-gray-800 transition-all shadow-md hover:shadow-lg focus:outline-none min-h-[52px] whitespace-nowrap shrink-0"
               aria-label="Enterprise Pricing anfragen"
             >
               Enterprise anfragen

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Navigation } from "@/components/layout/navigation";
 import { Footer } from "@/components/layout/footer";
-import { PRICE_PER_SLIDE } from "@/lib/constants/pricing";
 
 export const metadata: Metadata = {
   title: "AGB | Slaide",
@@ -104,12 +103,16 @@ export default function AGBPage(): JSX.Element {
                 <li>Rechtschreibung und Grammatik</li>
                 <li>Formatierungs-Checks</li>
                 <li>Einfache Plausibilitätsprüfungen</li>
-                <li>Cross-Slide Consistency</li>
-                <li>Mathematische Neuberechnung</li>
-                <li>Argumentations-Logik</li>
+                <li>Cross-Slide Consistency (bei Lite Audit), verbesserte Cross-Document Consistency (bei Standard Verification)</li>
+                <li>Mathematische Neuberechnung (bei Standard Verification)</li>
+                <li>Argumentations-Logik (bei Standard Verification)</li>
               </ul>
               <p className="text-grey-dark leading-relaxed mb-4">
-                <strong>2.3</strong> Der Anbieter erbringt die Leistung mit der
+                <strong>2.3</strong> Der Umfang der Prüfungen richtet sich nach
+                dem gewählten Tarif (Lite Audit oder Standard Verification).
+              </p>
+              <p className="text-grey-dark leading-relaxed mb-4">
+                <strong>2.4</strong> Der Anbieter erbringt die Leistung mit der
                 gebotenen Sorgfalt. Eine Garantie für die Vollständigkeit oder
                 Fehlerfreiheit der Prüfung kann nicht übernommen werden. Der
                 Service dient als Unterstützungstool und ersetzt nicht die
@@ -155,16 +158,27 @@ export default function AGBPage(): JSX.Element {
                 Seite eines Word-Dokuments (DOCX).
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
-                <strong>4.3</strong> Der Preis für das Pay-per-Use Modell beträgt
-                {PRICE_PER_SLIDE.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2 })} pro verarbeiteter Seite.
+                <strong>4.3</strong> Die aktuellen Preise betragen:
               </p>
+              <ul className="list-disc list-inside text-grey-dark leading-relaxed mb-4 space-y-2 ml-4">
+                <li>
+                  <strong>Lite Audit:</strong> 2,19 € pro verarbeitete Seite
+                </li>
+                <li>
+                  <strong>Standard Verification:</strong> 2,99 € pro
+                  verarbeitete Seite
+                </li>
+              </ul>
               <p className="text-grey-dark leading-relaxed mb-4">
-                <strong>4.4</strong> Für Organisationen, die mehr als 500 Seiten pro Monat
-                verarbeiten, bieten wir individuelle Enterprise-Verträge mit
-                volumenbasierten Preisen an. Die Preise variieren je nach Volumen und können
-                unter Umständen niedriger sein als der Pay-per-Use Preis. Eine konkrete
-                Preisangabe erfolgt im Rahmen der individuellen Vertragsverhandlung. Bitte
-                kontaktieren Sie uns für ein maßgeschneidertes Angebot.
+                <strong>4.4</strong> Für Organisationen mit mehr als 2.000
+                Seiten pro Monat werden individuelle Enterprise-Verträge mit
+                volumenbasierten Preisen angeboten. Die Preise liegen in der
+                Regel zwischen 1,99 € und 2,99 € pro Seite, abhängig vom
+                Volumen und der gewählten Prüfungsstufe. Eine konkrete
+                Preisangabe erfolgt im Rahmen der individuellen
+                Vertragsverhandlung. Beispiel: Bei einem Volumen von 5.000
+                Seiten pro Monat beträgt der Preis für Lite Audit ca. 2,19 €
+                pro Seite.
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
                 <strong>4.5</strong> Die Zahlungsmodalitäten werden individuell
