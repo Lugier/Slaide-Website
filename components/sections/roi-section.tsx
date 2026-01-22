@@ -1,17 +1,14 @@
-'use client'
-
 import { useState, useMemo, useCallback, memo } from 'react'
 import { Calculator, FileText, Presentation, TrendingUp, Clock, DollarSign, Info } from 'lucide-react'
+import { PRICE_PER_SLIDE } from "@/lib/constants/pricing";
 
 type DocumentType = 'presentation' | 'document'
 
 // Konstante Werte
-const HOURLY_RATE = 98 // EUR pro Stunde (Blended Rate)
-const STANDARD_PRICE = 2.99 // EUR pro Seite
-const LITE_PRICE = 2.19 // EUR pro Seite
-const MANUAL_REVIEW_ERROR_RATE = 8 // Prozent der Fehler, die beim manuellen Review übersehen werden
-const BATCH_SIZE = 10 // Seiten pro Batch
-const BATCH_PROCESSING_TIME = 65 // Sekunden pro Batch
+const HOURLY_RATE = 98; // EUR pro Stunde (Blended Rate)
+const MANUAL_REVIEW_ERROR_RATE = 8; // Prozent der Fehler, die beim manuellen Review übersehen werden
+const BATCH_SIZE = 10; // Seiten pro Batch
+const BATCH_PROCESSING_TIME = 65; // Sekunden pro Batch
 
 // Zeit pro Seite basierend auf Dokumententyp
 const MINUTES_PER_PAGE: Record<DocumentType, number> = {
@@ -22,14 +19,13 @@ const MINUTES_PER_PAGE: Record<DocumentType, number> = {
 function ROISectionComponent(): JSX.Element {
   const [documentType, setDocumentType] = useState<DocumentType>('presentation')
   const [pages, setPages] = useState<number>(100)
-  const [pagesInput, setPagesInput] = useState<string>('100') // Separate state für Input-String
-  const [pricingTier, setPricingTier] = useState<'standard' | 'lite'>('standard')
-  
+  const [pagesInput, setPagesInput] = useState<string>('100'); // Separate state für Input-String
+
   // Memoized Berechnungen
   const calculations = useMemo(() => {
     const minutesPerPageValue = MINUTES_PER_PAGE[documentType]
     const hoursPerPage = minutesPerPageValue / 60
-    const pricePerPage = pricingTier === 'standard' ? STANDARD_PRICE : LITE_PRICE
+    const pricePerPage = PRICE_PER_SLIDE;
     
     // Batch-Verarbeitung: Pro 10 Seiten = 65 Sekunden
     const numberOfBatches = pages > 0 ? Math.ceil(pages / BATCH_SIZE) : 0
@@ -66,7 +62,7 @@ function ROISectionComponent(): JSX.Element {
       timeSavedHours,
       timeSavedMinutes,
     }
-  }, [documentType, pages, pricingTier])
+  }, [documentType, pages])
   
   // Event Handlers mit useCallback
   const handleDocumentTypeChange = useCallback((type: DocumentType) => {
@@ -114,9 +110,6 @@ function ROISectionComponent(): JSX.Element {
     }
   }, [pagesInput])
   
-  const handlePricingTierChange = useCallback((tier: 'standard' | 'lite') => {
-    setPricingTier(tier)
-  }, [])
   
   return (
     <section id="roi" className="pt-12 pb-24 md:pt-16 md:pb-32 px-6 bg-white border-t border-gray-100">
@@ -129,7 +122,7 @@ function ROISectionComponent(): JSX.Element {
             ROI-Rechner
           </h2>
           <p className="text-grey-dark max-w-2xl mx-auto">
-            Berechnen Sie Ihre Einsparungen über alle Review Cycles hinweg.
+            Berechnen Sie Ihre Einsparungen über alle Review Cycles hinweg, basierend auf unserem Pay-per-Use Modell von 2,69 €/Seite.
           </p>
         </div>
 
@@ -214,43 +207,6 @@ function ROISectionComponent(): JSX.Element {
                 pattern="[0-9]*"
               />
               <p id="pages-description" className="sr-only">Geben Sie die Anzahl der Seiten oder Dokumente ein</p>
-            </div>
-
-            {/* Pricing Tier */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">
-                Pricing Tier
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  onClick={() => handlePricingTierChange('lite')}
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    pricingTier === 'lite'
-                      ? 'border-black bg-black text-white'
-                      : 'border-gray-200 bg-white hover:border-gray-300'
-                  }`}
-                  type="button"
-                  aria-label="Lite Pricing Tier auswählen"
-                >
-                  <div className="text-sm font-medium">Lite</div>
-                  <div className="text-xs mt-1 opacity-75">2,19€/Seite</div>
-                  <div className="text-xs mt-0.5 opacity-60">65s/Batch (10 Seiten)</div>
-                </button>
-                <button
-                  onClick={() => handlePricingTierChange('standard')}
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    pricingTier === 'standard'
-                      ? 'border-black bg-black text-white'
-                      : 'border-gray-200 bg-white hover:border-gray-300'
-                  }`}
-                  type="button"
-                  aria-label="Standard Pricing Tier auswählen"
-                >
-                  <div className="text-sm font-medium">Standard</div>
-                  <div className="text-xs mt-1 opacity-75">2,99€/Seite</div>
-                  <div className="text-xs mt-0.5 opacity-60">65s/Batch (10 Seiten)</div>
-                </button>
-              </div>
             </div>
           </div>
 
