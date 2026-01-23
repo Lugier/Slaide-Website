@@ -153,9 +153,9 @@ export default function RootLayout({
               },
               areaServed: [
                 {
-                '@type': 'Country',
-                name: 'Deutschland',
-              },
+                  '@type': 'Country',
+                  name: 'Deutschland',
+                },
                 {
                   '@type': 'Country',
                   name: 'Österreich',
@@ -172,31 +172,19 @@ export default function RootLayout({
               description: 'Automatisierte KI-Validierung für kritische Dokumente. Findet logische Brüche und Zahlenfehler in Präsentationen, Berichten und Unterlagen.',
               offers: [
                 {
-                '@type': 'Offer',
-                priceCurrency: 'EUR',
-                price: '2.19',
-                priceSpecification: {
-                  '@type': 'UnitPriceSpecification',
-                  price: '2.19',
-                  priceCurrency: 'EUR',
-                  unitText: 'pro Seite',
-                },
-                  name: 'Lite Audit',
-                },
-                {
                   '@type': 'Offer',
                   priceCurrency: 'EUR',
-                  price: '2.99',
+                  price: '2.69',
                   priceSpecification: {
                     '@type': 'UnitPriceSpecification',
-                    price: '2.99',
+                    price: '2.69',
                     priceCurrency: 'EUR',
                     unitText: 'pro Seite',
                   },
-                  name: 'Pro Verification',
+                  name: 'Slaide Standard',
                 },
               ],
-              priceRange: '€€',
+              priceRange: '€',
             }),
           }}
         />
@@ -213,11 +201,9 @@ export default function RootLayout({
                 name: 'Slaide',
               },
               offers: {
-                '@type': 'AggregateOffer',
+                '@type': 'Offer',
                 priceCurrency: 'EUR',
-                lowPrice: '2.19',
-                highPrice: '2.99',
-                offerCount: '2',
+                price: '2.69',
               },
             }),
           }}
@@ -266,7 +252,7 @@ export default function RootLayout({
                   name: 'Was kostet Slaide?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'Die aktuellen Preise betragen: Lite Audit 2,19 € pro Seite, Standard Verification 2,99 € pro Seite. Für Organisationen mit mehr als 2.000 Seiten pro Monat bieten wir individuelle Enterprise-Verträge mit volumenbasierten Preisen zwischen 1,99 € und 2,99 € pro Seite. Kontaktieren Sie uns für ein maßgeschneidertes Angebot.',
+                    text: 'Der Preis für Slaide Standard beträgt 2,69 € pro verarbeiteter Seite. Für Organisationen mit mehr als 500 Seiten pro Monat bieten wir individuelle Enterprise-Verträge mit attraktiven volumenbasierten Preisen an. Kontaktieren Sie uns für ein maßgeschneidertes Angebot.',
                   },
                 },
                 {
@@ -301,14 +287,6 @@ export default function RootLayout({
                     text: 'Alle Daten werden ausschließlich in ISO-zertifizierten Rechenzentren in Europa gespeichert – der Großteil auf Servern in Frankfurt, Deutschland. EU-Region möglich.',
                   },
                 },
-                {
-                  '@type': 'Question',
-                  name: 'Was ist der Unterschied zwischen Lite und Pro?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Lite Audit bietet Rechtschreibung & Grammatik, Formatierungs-Checks, einfache Plausibilitätsprüfungen und Cross-Slide Consistency. Standard Verification umfasst alle Lite Features plus verbesserte Cross-Document Consistency, Mathematische Neuberechnung und Argumentations-Logik.',
-                  },
-                },
               ],
             }),
           }}
@@ -330,7 +308,7 @@ export default function RootLayout({
                 {
                   '@type': 'HowToStep',
                   name: 'Screening & Deep Verification',
-                  text: 'Ein Screening-Modell entfernt Low-Content-Seiten und markiert High-Stakes-Seiten für Deep Verification. Constraint-Propagation und Logical Inference Engines lösen inkonsistente Zustände deckübergreifend auf.',
+                  text: 'Ein screening-modell entfernt Low-Content-Seiten und markiert High-Stakes-Seiten für Deep Verification. Constraint-Propagation und Logical Inference Engines lösen inkonsistente Zustände deckübergreifend auf.',
                 },
                 {
                   '@type': 'HowToStep',
@@ -354,11 +332,9 @@ export default function RootLayout({
               description: 'Audit-Grade Deck Integrity für Dokumente. Automatisierte KI-Validierung findet logische Brüche und Zahlenfehler in Präsentationen, Berichten und Unterlagen.',
               url: 'https://www.slaide.de',
               offers: {
-                '@type': 'AggregateOffer',
+                '@type': 'Offer',
                 priceCurrency: 'EUR',
-                lowPrice: '2.19',
-                highPrice: '2.99',
-                offerCount: '2',
+                price: '2.69',
               },
               featureList: [
                 'Multimodales Parsing',
@@ -440,7 +416,7 @@ export default function RootLayout({
         <WebVitalsInit />
         {process.env.NODE_ENV === 'production' && (
           <>
-        <SpeedInsights />
+            <SpeedInsights />
             <Analytics />
           </>
         )}

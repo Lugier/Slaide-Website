@@ -2,13 +2,13 @@
 
 import { useState, useMemo, useCallback, memo } from 'react'
 import { Calculator, FileText, Presentation, TrendingUp, Clock, DollarSign, Info } from 'lucide-react'
+import { openCalComOverlay } from '@/lib/utils/cal-com'
 
 type DocumentType = 'presentation' | 'document'
 
 // Konstante Werte
 const HOURLY_RATE = 98 // EUR pro Stunde (Blended Rate)
-const STANDARD_PRICE = 2.99 // EUR pro Seite
-const LITE_PRICE = 2.19 // EUR pro Seite
+const STANDARD_PRICE = 2.69 // EUR pro Seite
 const MANUAL_REVIEW_ERROR_RATE = 8 // Prozent der Fehler, die beim manuellen Review übersehen werden
 const BATCH_SIZE = 10 // Seiten pro Batch
 const BATCH_PROCESSING_TIME = 65 // Sekunden pro Batch
@@ -23,33 +23,32 @@ function ROISectionComponent(): JSX.Element {
   const [documentType, setDocumentType] = useState<DocumentType>('presentation')
   const [pages, setPages] = useState<number>(100)
   const [pagesInput, setPagesInput] = useState<string>('100') // Separate state für Input-String
-  const [pricingTier, setPricingTier] = useState<'standard' | 'lite'>('standard')
-  
+
   // Memoized Berechnungen
   const calculations = useMemo(() => {
     const minutesPerPageValue = MINUTES_PER_PAGE[documentType]
     const hoursPerPage = minutesPerPageValue / 60
-    const pricePerPage = pricingTier === 'standard' ? STANDARD_PRICE : LITE_PRICE
-    
+    const pricePerPage = STANDARD_PRICE
+
     // Batch-Verarbeitung: Pro 10 Seiten = 65 Sekunden
     const numberOfBatches = pages > 0 ? Math.ceil(pages / BATCH_SIZE) : 0
     const totalProcessingTimeSeconds = numberOfBatches * BATCH_PROCESSING_TIME
     const totalProcessingTimeMinutes = Math.floor(totalProcessingTimeSeconds / 60)
     const totalProcessingTimeSecondsRemainder = totalProcessingTimeSeconds % 60
     const averageProcessingTimePerPage = pages > 0 ? totalProcessingTimeSeconds / pages : 0
-    
+
     // Pro Review Cycle
     const manualReviewCost = pages * hoursPerPage * HOURLY_RATE
     const reviewCost = pages * pricePerPage
     const savingsPerCycle = manualReviewCost - reviewCost
     const roiPercentage = ((savingsPerCycle / reviewCost) * 100).toFixed(1)
-    
+
     // Zeitersparnis berechnen
     const manualReviewTimeSeconds = pages * minutesPerPageValue * 60 // Manuelle Zeit in Sekunden
     const timeSavedSeconds = manualReviewTimeSeconds - totalProcessingTimeSeconds
     const timeSavedHours = Math.floor(timeSavedSeconds / 3600)
     const timeSavedMinutes = Math.floor((timeSavedSeconds % 3600) / 60)
-    
+
     return {
       minutesPerPageValue,
       hoursPerPage,
@@ -66,33 +65,33 @@ function ROISectionComponent(): JSX.Element {
       timeSavedHours,
       timeSavedMinutes,
     }
-  }, [documentType, pages, pricingTier])
-  
+  }, [documentType, pages])
+
   // Event Handlers mit useCallback
   const handleDocumentTypeChange = useCallback((type: DocumentType) => {
     setDocumentType(type)
   }, [])
-  
+
   const handlePagesChange = useCallback((value: number) => {
     setPages(value)
     setPagesInput(value.toString())
   }, [])
-  
+
   const handlePagesInputChange = useCallback((inputValue: string) => {
     // Erlaube leeres Feld während der Eingabe
     setPagesInput(inputValue)
-    
+
     // Wenn ein gültiger Wert eingegeben wird, aktualisiere auch pages
     if (inputValue === '') {
       return // Feld kann leer sein
     }
-    
+
     const numValue = parseInt(inputValue, 10)
     if (!isNaN(numValue) && numValue >= 0 && numValue <= 100000) {
       setPages(numValue)
     }
   }, [])
-  
+
   const handlePagesInputBlur = useCallback(() => {
     // Beim Verlassen des Feldes: Wenn leer oder ungültig, setze auf 0
     if (pagesInput === '' || isNaN(parseInt(pagesInput, 10))) {
@@ -113,11 +112,7 @@ function ROISectionComponent(): JSX.Element {
       }
     }
   }, [pagesInput])
-  
-  const handlePricingTierChange = useCallback((tier: 'standard' | 'lite') => {
-    setPricingTier(tier)
-  }, [])
-  
+
   return (
     <section id="roi" className="pt-12 pb-24 md:pt-16 md:pb-32 px-6 bg-white border-t border-gray-100">
       <div className="max-w-5xl mx-auto">
@@ -138,7 +133,7 @@ function ROISectionComponent(): JSX.Element {
           {/* Inputs */}
           <div className="p-8 rounded-2xl border border-gray-200 bg-gray-50 reveal">
             <h3 className="text-lg font-semibold mb-6">Ihre Parameter</h3>
-            
+
             {/* Dokumententyp */}
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-3">
@@ -147,11 +142,10 @@ function ROISectionComponent(): JSX.Element {
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={() => handleDocumentTypeChange('presentation')}
-                  className={`p-4 rounded-lg border-2 transition-all relative group/doc ${
-                    documentType === 'presentation'
-                      ? 'border-black bg-black text-white'
-                      : 'border-gray-200 bg-white hover:border-gray-300'
-                  }`}
+                  className={`p-4 rounded-lg border-2 transition-all relative group/doc ${documentType === 'presentation'
+                    ? 'border-black bg-black text-white'
+                    : 'border-gray-200 bg-white hover:border-gray-300'
+                    }`}
                   type="button"
                   aria-label="Präsentation auswählen"
                 >
@@ -163,11 +157,10 @@ function ROISectionComponent(): JSX.Element {
                 </button>
                 <button
                   onClick={() => handleDocumentTypeChange('document')}
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    documentType === 'document'
-                      ? 'border-black bg-black text-white'
-                      : 'border-gray-200 bg-white hover:border-gray-300'
-                  }`}
+                  className={`p-4 rounded-lg border-2 transition-all ${documentType === 'document'
+                    ? 'border-black bg-black text-white'
+                    : 'border-gray-200 bg-white hover:border-gray-300'
+                    }`}
                   type="button"
                   aria-label="Dokument auswählen"
                 >
@@ -181,7 +174,7 @@ function ROISectionComponent(): JSX.Element {
             </div>
 
             {/* Anzahl Seiten */}
-            <div className="mb-6">
+            <div>
               <label htmlFor="pages-input" className="block text-sm font-medium text-gray-700 mb-3">
                 Anzahl Seiten
               </label>
@@ -216,48 +209,25 @@ function ROISectionComponent(): JSX.Element {
               <p id="pages-description" className="sr-only">Geben Sie die Anzahl der Seiten oder Dokumente ein</p>
             </div>
 
-            {/* Pricing Tier */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">
-                Pricing Tier
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  onClick={() => handlePricingTierChange('lite')}
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    pricingTier === 'lite'
-                      ? 'border-black bg-black text-white'
-                      : 'border-gray-200 bg-white hover:border-gray-300'
-                  }`}
-                  type="button"
-                  aria-label="Lite Pricing Tier auswählen"
-                >
-                  <div className="text-sm font-medium">Lite</div>
-                  <div className="text-xs mt-1 opacity-75">2,19€/Seite</div>
-                  <div className="text-xs mt-0.5 opacity-60">65s/Batch (10 Seiten)</div>
-                </button>
-                <button
-                  onClick={() => handlePricingTierChange('standard')}
-                  className={`p-4 rounded-lg border-2 transition-all ${
-                    pricingTier === 'standard'
-                      ? 'border-black bg-black text-white'
-                      : 'border-gray-200 bg-white hover:border-gray-300'
-                  }`}
-                  type="button"
-                  aria-label="Standard Pricing Tier auswählen"
-                >
-                  <div className="text-sm font-medium">Standard</div>
-                  <div className="text-xs mt-1 opacity-75">2,99€/Seite</div>
-                  <div className="text-xs mt-0.5 opacity-60">65s/Batch (10 Seiten)</div>
-                </button>
-              </div>
+            {/* CTA in Left Column */}
+            <div className="mt-8 pt-6 border-t border-gray-200">
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault()
+                  openCalComOverlay()
+                }}
+                className="flex items-center justify-center w-full py-4 px-6 bg-black text-white rounded-xl text-base font-bold hover:bg-gray-800 transition-all shadow-md hover:shadow-lg active:scale-[0.98]"
+              >
+                <span>Strategiegespräch vereinbaren</span>
+              </a>
             </div>
           </div>
 
           {/* Ergebnisse pro Cycle */}
           <div className="p-8 rounded-2xl border border-gray-200 bg-gray-50 reveal delay-100">
             <h3 className="text-lg font-semibold mb-6 text-gray-800">Einsparung pro Review Cycle</h3>
-            
+
             <div className="space-y-4 mb-6">
               <div className="pb-4 border-b border-gray-200">
                 <div className="flex items-center gap-2 mb-2">
@@ -278,7 +248,7 @@ function ROISectionComponent(): JSX.Element {
                   </div>
                 </div>
               </div>
-              
+
               <div className="pb-4 border-b border-gray-200">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-sm font-medium text-gray-500">€</span>
@@ -292,7 +262,7 @@ function ROISectionComponent(): JSX.Element {
                   Verarbeitungszeit: {calculations.totalProcessingTimeMinutes > 0 ? `${calculations.totalProcessingTimeMinutes} Min ` : ''}{calculations.totalProcessingTimeSecondsRemainder > 0 ? `${calculations.totalProcessingTimeSecondsRemainder}s` : ''}
                 </div>
               </div>
-              
+
               <div className="pt-4">
                 <div className="flex items-center gap-2 mb-5">
                   <TrendingUp className="w-4 h-4 text-green-600" aria-hidden="true" />
@@ -324,11 +294,6 @@ function ROISectionComponent(): JSX.Element {
                   <span className="text-sm text-green-700 font-semibold">
                     {calculations.roiPercentage}% ROI pro Cycle
                   </span>
-                </div>
-                <div className="mt-4 pt-4 border-t border-gray-200">
-                  <div className="text-xs text-gray-600">
-                    <span className="font-medium">Manuelles Review:</span> ~{MANUAL_REVIEW_ERROR_RATE}% Fehler werden übersehen
-                  </div>
                 </div>
               </div>
             </div>
