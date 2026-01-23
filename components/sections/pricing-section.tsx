@@ -11,7 +11,7 @@ function PricingSectionComponent(): JSX.Element {
   }, [])
 
   return (
-    <section id="pricing" className="py-24 md:py-32 px-6 bg-white relative overflow-hidden">
+    <section id="pricing-tiers" className="py-24 md:py-32 px-6 bg-white relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gray-100 to-transparent" />
 
