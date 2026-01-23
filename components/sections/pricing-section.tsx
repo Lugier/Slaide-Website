@@ -139,7 +139,7 @@ function PricingSectionComponent(): JSX.Element {
                 <div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">Feste Volumenpreise für Organisationen</h3>
                   <p className="text-gray-500 max-w-xl leading-relaxed">
-                    Für Teams mit einem monatlichen Volumen ab 500 Seiten gelten transparente, feste Staffelpreise. Etablieren Sie Review als verlässlichen Qualitäts-Standard in Ihrer Organisation.
+                    Für Teams mit höheren monatlichen Volumen gelten transparente, feste Staffelpreise. Etablieren Sie Review als verlässlichen Qualitäts-Standard in Ihrer Organisation.
                   </p>
                 </div>
               </div>
