@@ -70,8 +70,7 @@ function PricingSectionComponent(): JSX.Element {
 
               {/* RIGHT: Review */}
               <div className="relative p-6 md:p-14 lg:p-16 bg-[#050505] text-white overflow-hidden group flex flex-col h-full">
-                {/* Premium Noise Texture & Gradient */}
-                <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
+                {/* Premium Gradient Overlay */}
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green-500/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
                 <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2 opacity-20" />
 
