@@ -129,7 +129,7 @@ function ROISectionComponent(): JSX.Element {
         </div>
 
         {/* Rechner */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-12">
           {/* Inputs */}
           <div className="p-8 rounded-2xl border border-gray-200 bg-gray-50 reveal">
             <h3 className="text-lg font-semibold mb-6">Ihre Parameter</h3>

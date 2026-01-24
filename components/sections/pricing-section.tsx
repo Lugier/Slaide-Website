@@ -33,7 +33,7 @@ function PricingSectionComponent(): JSX.Element {
             <div className="grid lg:grid-cols-2">
 
               {/* LEFT: Manual Creation */}
-              <div className="relative p-10 md:p-14 lg:p-16 bg-gray-50/30 flex flex-col h-full border-b lg:border-b-0 lg:border-r border-gray-100">
+              <div className="relative p-6 md:p-14 lg:p-16 bg-gray-50/30 flex flex-col h-full border-b lg:border-b-0 lg:border-r border-gray-100">
                 <div className="relative h-full flex flex-col">
                   {/* Header Row */}
                   <div className="flex items-center gap-4 mb-20 h-12">
@@ -49,7 +49,7 @@ function PricingSectionComponent(): JSX.Element {
                   {/* The Single Big Number */}
                   <div className="mb-2">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-7xl md:text-8xl font-medium text-gray-900 tracking-tighter">
+                      <span className="text-5xl md:text-8xl font-medium text-gray-900 tracking-tighter">
                         412
                       </span>
                       <span className="text-3xl text-gray-400 font-normal">€</span>
@@ -69,7 +69,7 @@ function PricingSectionComponent(): JSX.Element {
               </div>
 
               {/* RIGHT: Review */}
-              <div className="relative p-10 md:p-14 lg:p-16 bg-[#050505] text-white overflow-hidden group flex flex-col h-full">
+              <div className="relative p-6 md:p-14 lg:p-16 bg-[#050505] text-white overflow-hidden group flex flex-col h-full">
                 {/* Premium Noise Texture & Gradient */}
                 <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green-500/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
@@ -92,7 +92,7 @@ function PricingSectionComponent(): JSX.Element {
                   {/* Price - Aligned with Left */}
                   <div className="mb-12">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-7xl md:text-8xl font-medium text-white tracking-tighter">
+                      <span className="text-5xl md:text-8xl font-medium text-white tracking-tighter">
                         2,69
                       </span>
                       <span className="text-3xl text-gray-500 font-normal">€</span>

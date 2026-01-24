@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 import { openCalComOverlay } from '@/lib/utils/cal-com'
 
-type ActiveSection = 'platform' | 'how' | 'use-cases' | 'security' | 'pricing-tiers' | 'benchmark' | null
+type ActiveSection = 'loesung' | 'platform' | 'benchmark' | 'security' | 'pricing-tiers' | null
 
 export function Navigation(): JSX.Element {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -24,10 +24,9 @@ export function Navigation(): JSX.Element {
 
   useEffect(() => {
     const sectionIds: Array<{ id: ActiveSection; selector: string }> = [
+      { id: 'loesung', selector: '#loesung' },
       { id: 'platform', selector: '#platform' },
       { id: 'benchmark', selector: '#benchmark' },
-      { id: 'how', selector: '#how' },
-      { id: 'use-cases', selector: '#use-cases' },
       { id: 'security', selector: '#security' },
       { id: 'pricing-tiers', selector: '#pricing-tiers' },
     ]
@@ -165,9 +164,8 @@ export function Navigation(): JSX.Element {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 transition-all duration-300 ${
-        isScrolled ? 'shadow-sm' : ''
-      }`}
+      className={`fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 transition-all duration-300 ${isScrolled ? 'shadow-sm' : ''
+        }`}
       role="navigation"
       aria-label="Hauptnavigation"
     >
@@ -192,98 +190,72 @@ export function Navigation(): JSX.Element {
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-10 text-sm font-medium text-grey-medium">
           <Link
-            href="/#how"
-            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${
-              activeSection === 'how'
-                ? 'text-black font-bold'
-                : 'text-grey-medium font-medium'
-            }`}
-          >
-            Technologie
-            <span
-              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${
-                activeSection === 'how' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
+            href="/#loesung"
+            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${activeSection === 'loesung'
+              ? 'text-black font-bold'
+              : 'text-grey-medium font-medium'
               }`}
+          >
+            Lösung
+            <span
+              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${activeSection === 'loesung' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
+                }`}
               aria-hidden="true"
             />
           </Link>
           <Link
             href="/#platform"
-            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${
-              activeSection === 'platform'
-                ? 'text-black font-bold'
-                : 'text-grey-medium font-medium'
-            }`}
+            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${activeSection === 'platform'
+              ? 'text-black font-bold'
+              : 'text-grey-medium font-medium'
+              }`}
           >
             Plattform
             <span
-              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${
-                activeSection === 'platform' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
-              }`}
+              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${activeSection === 'platform' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
+                }`}
               aria-hidden="true"
             />
           </Link>
           <Link
             href="/#benchmark"
-            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${
-              activeSection === 'benchmark'
-                ? 'text-black font-bold'
-                : 'text-grey-medium font-medium'
-            }`}
+            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${activeSection === 'benchmark'
+              ? 'text-black font-bold'
+              : 'text-grey-medium font-medium'
+              }`}
           >
             Benchmark
             <span
-              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${
-                activeSection === 'benchmark' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
-              }`}
-              aria-hidden="true"
-            />
-          </Link>
-          <Link
-            href="/#use-cases"
-            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${
-              activeSection === 'use-cases'
-                ? 'text-black font-bold'
-                : 'text-grey-medium font-medium'
-            }`}
-          >
-            Use Cases
-            <span
-              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${
-                activeSection === 'use-cases' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
-              }`}
+              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${activeSection === 'benchmark' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
+                }`}
               aria-hidden="true"
             />
           </Link>
           <Link
             href="/#security"
-            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${
-              activeSection === 'security'
-                ? 'text-black font-bold'
-                : 'text-grey-medium font-medium'
-            }`}
-          >
-            Security
-            <span
-              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${
-                activeSection === 'security' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
+            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${activeSection === 'security'
+              ? 'text-black font-bold'
+              : 'text-grey-medium font-medium'
               }`}
+          >
+            Sicherheit
+            <span
+              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${activeSection === 'security' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
+                }`}
               aria-hidden="true"
             />
           </Link>
           <Link
             href="/#pricing-tiers"
-            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${
-              activeSection === 'pricing-tiers'
-                ? 'text-black font-bold'
-                : 'text-grey-medium font-medium'
-            }`}
+            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${activeSection === 'pricing-tiers'
+              ? 'text-black font-bold'
+              : 'text-grey-medium font-medium'
+              }`}
           >
             Pricing
             <span
-              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${
-                activeSection === 'pricing-tiers' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
-              }`}
+              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${activeSection === 'pricing-tiers' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
+                }`}
               aria-hidden="true"
             />
           </Link>
@@ -294,11 +266,10 @@ export function Navigation(): JSX.Element {
           <a
             href="#"
             onClick={handleDemoClick}
-            className={`text-sm font-medium px-5 py-2.5 rounded-lg transition-all focus:outline-none min-h-[44px] flex items-center shadow-sm ${
-              isScrolled
-                ? 'bg-black text-white hover:bg-gray-800'
-                : 'border border-gray-200 hover:border-gray-900 hover:bg-gray-50'
-            }`}
+            className={`text-sm font-medium px-5 py-2.5 rounded-lg transition-all focus:outline-none min-h-[44px] flex items-center shadow-sm ${isScrolled
+              ? 'bg-black text-white hover:bg-gray-800'
+              : 'border border-gray-200 hover:border-gray-900 hover:bg-gray-50'
+              }`}
             aria-label="Demo anfragen"
           >
             Demo anfragen
@@ -329,112 +300,84 @@ export function Navigation(): JSX.Element {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden fixed top-20 left-0 right-0 bg-white/98 backdrop-blur-lg border-b border-gray-100 z-40 transform transition-transform duration-300 ease-out ${
-          isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full opacity-0 pointer-events-none'
-        }`}
+        className={`md:hidden fixed top-20 left-0 right-0 bg-white/98 backdrop-blur-lg border-b border-gray-100 z-40 transform transition-transform duration-300 ease-out ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full opacity-0 pointer-events-none'
+          }`}
         role="navigation"
         aria-label="Mobile Navigation"
       >
         <nav className="max-w-[1400px] mx-auto px-6 py-6 flex flex-col gap-4">
           <Link
-            href="/#how"
-            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${
-              activeSection === 'how'
-                ? 'text-black font-bold'
-                : 'text-grey-medium font-medium'
-            }`}
+            href="/#loesung"
+            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${activeSection === 'loesung'
+              ? 'text-black font-bold'
+              : 'text-grey-medium font-medium'
+              }`}
             onClick={handleMobileLinkClick}
           >
-            Technologie
+            Lösung
             <span
-              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${
-                activeSection === 'how' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
-              }`}
+              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${activeSection === 'loesung' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
+                }`}
               aria-hidden="true"
             />
           </Link>
           <Link
             href="/#platform"
-            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${
-              activeSection === 'platform'
-                ? 'text-black font-bold'
-                : 'text-grey-medium font-medium'
-            }`}
+            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${activeSection === 'platform'
+              ? 'text-black font-bold'
+              : 'text-grey-medium font-medium'
+              }`}
             onClick={handleMobileLinkClick}
           >
             Plattform
             <span
-              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${
-                activeSection === 'platform' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
-              }`}
+              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${activeSection === 'platform' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
+                }`}
               aria-hidden="true"
             />
           </Link>
           <Link
             href="/#benchmark"
-            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${
-              activeSection === 'benchmark'
-                ? 'text-black font-bold'
-                : 'text-grey-medium font-medium'
-            }`}
+            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${activeSection === 'benchmark'
+              ? 'text-black font-bold'
+              : 'text-grey-medium font-medium'
+              }`}
             onClick={handleMobileLinkClick}
           >
             Benchmark
             <span
-              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${
-                activeSection === 'benchmark' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
-              }`}
-              aria-hidden="true"
-            />
-          </Link>
-          <Link
-            href="/#use-cases"
-            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${
-              activeSection === 'use-cases'
-                ? 'text-black font-bold'
-                : 'text-grey-medium font-medium'
-            }`}
-            onClick={handleMobileLinkClick}
-          >
-            Use Cases
-            <span
-              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${
-                activeSection === 'use-cases' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
-              }`}
+              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${activeSection === 'benchmark' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
+                }`}
               aria-hidden="true"
             />
           </Link>
           <Link
             href="/#security"
-            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${
-              activeSection === 'security'
-                ? 'text-black font-bold'
-                : 'text-grey-medium font-medium'
-            }`}
+            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${activeSection === 'security'
+              ? 'text-black font-bold'
+              : 'text-grey-medium font-medium'
+              }`}
             onClick={handleMobileLinkClick}
           >
-            Security
+            Sicherheit
             <span
-              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${
-                activeSection === 'security' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
-              }`}
+              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${activeSection === 'security' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
+                }`}
               aria-hidden="true"
             />
           </Link>
           <Link
             href="/#pricing-tiers"
-            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${
-              activeSection === 'pricing-tiers'
-                ? 'text-black font-bold'
-                : 'text-grey-medium font-medium'
-            }`}
+            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${activeSection === 'pricing-tiers'
+              ? 'text-black font-bold'
+              : 'text-grey-medium font-medium'
+              }`}
             onClick={handleMobileLinkClick}
           >
             Pricing
             <span
-              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${
-                activeSection === 'pricing-tiers' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
-              }`}
+              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${activeSection === 'pricing-tiers' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
+                }`}
               aria-hidden="true"
             />
           </Link>
