@@ -5,7 +5,7 @@ import { BrainCircuit, Calculator, X, Microscope, AlertTriangle, TrendingUp, Shi
 
 function CoreCapabilitiesSectionComponent(): JSX.Element {
     return (
-        <section className="py-24 md:py-32 bg-white border-t border-gray-100 relative overflow-hidden">
+        <section id="loesung" className="py-24 md:py-32 bg-white border-t border-gray-100 relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 relative z-10">
 
                 <div className="mb-20 reveal text-center max-w-3xl mx-auto">
