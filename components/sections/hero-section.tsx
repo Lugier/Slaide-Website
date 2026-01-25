@@ -99,7 +99,7 @@ function HeroSectionComponent(): JSX.Element {
               <div className="unix-badge text-gray-400 mb-1">ROI</div>
               <div className="flex gap-2 text-black items-start justify-center font-semibold">
                 <TrendingUp className="w-4 h-4 text-gray-400 mt-0.5" aria-hidden="true" />
-                <div className="flex flex-col items-start leading-tight">
+                <div className="flex flex-col items-center leading-tight">
                   <span>Ø 532€ Ersparnis</span>
                   <span className="text-[10px] text-gray-400 font-normal mt-0.5">pro Dokument</span>
                 </div>
