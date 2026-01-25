@@ -67,7 +67,7 @@ function CoreCapabilitiesSectionComponent(): JSX.Element {
                             </div>
                             <h3 className="text-xl md:text-2xl font-bold mb-3 text-black tracking-tight">Daten-Validierung</h3>
                             <p className="text-gray-500 leading-relaxed font-light">
-                                Zahlen sind das Fundament Ihrer Glaubwürdigkeit. Review validiert jeden Datenpunkt, jedes Ergebnis und jeden Querverweis zwischen Tabellen, Charts und Fließtext seitenübergreifend.
+                                Zahlen sind das Fundament Ihrer Glaubwürdigkeit. Review validiert jeden Datenpunkt, jedes Ergebnis und jeden Querverweis zwischen Tabellen, Charts und Fließtext seitenübergreifend. Damit Ihre Datenbasis über jeden Zweifel erhaben ist.
                             </p>
                         </div>
 
