@@ -13,7 +13,7 @@ function CoreCapabilitiesSectionComponent(): JSX.Element {
                         Fehler zerstören Vertrauen.
                     </h2>
                     <p className="text-lg md:text-xl text-gray-500 font-light leading-relaxed">
-                        Review versteht den Kontext und findet den Widerspruch. Es durchleuchtet Ihre Unterlagen lückenlos: Grammatik, Logik und Zahlen – für Ergebnisse, die klar und belastbar sind.
+                        Review versteht den Kontext und findet den Widerspruch. Es validiert die Substanz Ihrer Dokumente auf allen Ebenen und sorgt für stilistische Sicherheit, rechnerische Exaktheit und logische Stringenz.
                     </p>
                 </div>
 
@@ -27,7 +27,7 @@ function CoreCapabilitiesSectionComponent(): JSX.Element {
                             <div className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-black group-hover:text-white transition-all duration-300 border border-gray-100">
                                 <span className="font-serif text-2xl italic font-bold text-black group-hover:text-white">Aa</span>
                             </div>
-                            <h3 className="text-xl md:text-2xl font-bold mb-3 text-black tracking-tight">Formale Präzision</h3>
+                            <h3 className="text-xl md:text-2xl font-bold mb-3 text-black tracking-tight">Formale Korrektheit</h3>
                             <p className="text-gray-500 leading-relaxed font-light">
                                 Perfektionieren Sie Ihren Stil. Review prüft weit mehr als nur Syntax, Grammatik und Rechtschreibung. Es vereinfacht zudem komplexe Satzstrukturen und liefert klare Formulierungsvorschläge – für einen sprachlich makellosen Auftritt.
                             </p>
@@ -67,7 +67,7 @@ function CoreCapabilitiesSectionComponent(): JSX.Element {
                             </div>
                             <h3 className="text-xl md:text-2xl font-bold mb-3 text-black tracking-tight">Daten-Validierung</h3>
                             <p className="text-gray-500 leading-relaxed font-light">
-                                Zahlen sind das Fundament Ihrer Glaubwürdigkeit. Review validiert jeden Datenpunkt, jedes Ergebnis und jeden Querverweis zwischen Tabellen, Charts und Fließtext. Damit Ihre Datenbasis über jeden Zweifel erhaben ist.
+                                Zahlen sind das Fundament Ihrer Glaubwürdigkeit. Review validiert jeden Datenpunkt, jedes Ergebnis und jeden Querverweis zwischen Tabellen, Charts und Fließtext seitenübergreifend.
                             </p>
                         </div>
 
