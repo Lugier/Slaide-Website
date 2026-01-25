@@ -95,11 +95,11 @@ function HeroSectionComponent(): JSX.Element {
                 <span>DSGVO Konform</span>
               </div>
             </div>
-            <div className="space-y-1 group cursor-default">
+            <div className="space-y-1 group cursor-default flex flex-col items-center">
               <div className="unix-badge text-gray-400 mb-1">ROI</div>
-              <div className="flex gap-2 text-black items-start justify-center font-semibold">
-                <TrendingUp className="w-4 h-4 text-gray-400 mt-0.5" aria-hidden="true" />
-                <div className="flex flex-col items-center leading-tight">
+              <div className="relative">
+                <TrendingUp className="w-4 h-4 text-gray-400 absolute -left-6 top-0.5" aria-hidden="true" />
+                <div className="flex flex-col items-center leading-tight text-black font-semibold">
                   <span>Ø 532€ Ersparnis</span>
                   <span className="text-[10px] text-gray-400 font-normal mt-0.5">pro Dokument</span>
                 </div>
