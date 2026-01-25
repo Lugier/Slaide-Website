@@ -73,7 +73,7 @@ export default function ImpressumPage(): JSX.Element {
                 Umsatzsteuer-Identifikationsnummer gemäß § 27 a
                 Umsatzsteuergesetz:
                 <br />
-                <strong>(in Gründung)</strong>
+                <strong>Wird nachgereicht</strong>
               </p>
             </section>
 

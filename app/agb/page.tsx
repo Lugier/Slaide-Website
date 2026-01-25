@@ -29,8 +29,8 @@ export default function AGBPage(): JSX.Element {
               <p className="text-grey-dark leading-relaxed">
                 Die nachfolgenden Allgemeinen Geschäftsbedingungen (AGB) regeln
                 die Nutzung der Dokumentenprüfungs-Software "Slaide Review" (im
-                Folgenden "Service" oder "Dienstleistung") der Slaide UG (in
-                Gründung) (im Folgenden "Anbieter" oder "wir").
+                Folgenden "Service" oder "Dienstleistung") der Slaide UG
+                (haftungsbeschränkt) (im Folgenden "Anbieter" oder "wir").
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
                 <strong>Hinweis:</strong> Dieser Service richtet sich ausschließlich
@@ -53,7 +53,7 @@ export default function AGBPage(): JSX.Element {
                 <strong>1.2</strong> Vertragspartner ist:
               </p>
               <p className="text-grey-dark leading-relaxed mb-4 ml-4">
-                <strong>Slaide UG (in Gründung)</strong>
+                <strong>Slaide UG (haftungsbeschränkt)</strong>
                 <br />
                 <strong>Neckarstraße 10</strong>
                 <br />
@@ -367,8 +367,8 @@ export default function AGBPage(): JSX.Element {
                 Vertragsschlusses.
               </p>
               <p className="text-grey-dark leading-relaxed mb-4">
-                Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (Slaide UG (in
-                Gründung), Neckarstraße 10, 74257 Untereisesheim, Deutschland, E-Mail:
+                Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (Slaide UG
+                (haftungsbeschränkt), Neckarstraße 10, 74257 Untereisesheim, Deutschland, E-Mail:
                 info@slaide.de, Telefon: +49 172 8812969) mittels einer eindeutigen
                 Erklärung (z.B. ein mit der Post versandter Brief, Telefax oder
                 E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen,
@@ -384,7 +384,7 @@ export default function AGBPage(): JSX.Element {
                   Formular aus und senden Sie es zurück.
                 </p>
                 <p className="text-sm text-grey-dark leading-relaxed mb-2">
-                  An: Slaide UG (in Gründung), Neckarstraße 10, 74257 Untereisesheim,
+                  An: Slaide UG (haftungsbeschränkt), Neckarstraße 10, 74257 Untereisesheim,
                   Deutschland, E-Mail: info@slaide.de
                 </p>
                 <p className="text-sm text-grey-dark leading-relaxed mb-2">

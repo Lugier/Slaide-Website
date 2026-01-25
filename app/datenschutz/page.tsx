@@ -48,7 +48,7 @@ export default function DatenschutzPage(): JSX.Element {
                 <br />
                 <strong>Nathalie Scholl</strong>
                 <br />
-                <strong>Slaide UG (in Gründung)</strong>
+                <strong>Slaide UG (haftungsbeschränkt)</strong>
                 <br />
                 <strong>Neckarstraße 10</strong>
                 <br />
@@ -73,11 +73,7 @@ export default function DatenschutzPage(): JSX.Element {
                   +49 172 8812969
                 </a>
               </p>
-              <p className="text-grey-dark leading-relaxed mb-4">
-                <strong>Hinweis zur Rechtsform:</strong> Slaide UG (in Gründung)
-                ist eine Vorgründungsgesellschaft (GbR) und wird von Nathalie
-                Scholl als alleiniger Gesellschafterin vertreten.
-              </p>
+
             </section>
 
             <section>
@@ -1049,7 +1045,7 @@ export default function DatenschutzPage(): JSX.Element {
               </p>
               <p className="text-grey-dark leading-relaxed mb-4 ml-4">
                 <strong>Der Landesbeauftragte für den Datenschutz und die
-                Informationsfreiheit Baden-Württemberg (LfDI)</strong>
+                  Informationsfreiheit Baden-Württemberg (LfDI)</strong>
                 <br />
                 Königstraße 10a
                 <br />
