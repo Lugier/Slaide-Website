@@ -273,7 +273,7 @@ function ROISectionComponent(): JSX.Element {
                     <div className="text-4xl font-bold text-green-600 leading-tight">
                       {calculations.savingsPerCycle.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })}
                     </div>
-                    <div className="text-xs text-green-700 font-medium mt-1.5">Kosteneinsparung (pro Dokument)</div>
+                    <div className="text-xs text-green-700 font-medium mt-1.5">Kosteneinsparung pro Dokument</div>
                   </div>
                   {calculations.timeSavedHours > 0 || calculations.timeSavedMinutes > 0 ? (
                     <>
