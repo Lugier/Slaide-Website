@@ -12,11 +12,11 @@ function ProblemSolutionSectionComponent(): JSX.Element {
                 {/* Section Header */}
                 <div className="text-center mb-20 reveal">
                     <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-8 leading-[1.1] text-black mx-auto">
-                        Inkonsistenzen zerstören<br className="hidden md:block" />
+                        Fehler zerstören<br className="hidden md:block" />
                         Vertrauen & Reputation.
                     </h2>
                     <p className="text-xl text-gray-500 max-w-3xl mx-auto leading-relaxed font-light">
-                        Review erkennt komplexe Sachverhaltsfehler, semantische Widersprüche und Rechenfehler über hunderte von Seiten hinweg – mit einer Präzision, die manuell nicht erreichbar ist.
+                        Review erkennt komplexe Sachverhaltsfehler, semantische Widersprüche und Rechenfehler über alle Seiten Ihrer Unterlagen hinweg – schneller, präziser und konsistenter als manuelles Prüfen.
                     </p>
                 </div>
 

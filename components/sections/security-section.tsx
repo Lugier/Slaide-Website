@@ -17,12 +17,12 @@ function SecuritySectionComponent(): JSX.Element {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="reveal">
-            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-6">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-6">
               Ihre Daten gehören Ihnen.
               <br />
               Punkt.
             </h2>
-            <p className="text-gray-200 text-lg mb-8 leading-relaxed font-normal">
+            <p className="text-gray-200 text-lg md:text-xl mb-8 leading-relaxed font-light">
               Review wurde für Organisationen entwickelt, bei denen Vertraulichkeit nicht verhandelbar ist.
             </p>
 
@@ -65,7 +65,7 @@ function SecuritySectionComponent(): JSX.Element {
             <a
               href="#"
               onClick={handleWhitepaperClick}
-                aria-label="Security Whitepaper anfordern"
+              aria-label="Security Whitepaper anfordern"
               className="inline-flex items-center gap-2 mt-8 text-sm font-medium text-white border-b border-white pb-1 hover:text-gray-300 hover:border-gray-300 transition-colors focus:outline-none"
             >
               Security Whitepaper anfordern{' '}

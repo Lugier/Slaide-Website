@@ -232,22 +232,19 @@ export default function Home(): JSX.Element {
       <main id="main-content">
         <HeroSection />
         <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
-          <ProblemSolutionSection />
-        </Suspense>
-        <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
           <CoreCapabilitiesSection />
         </Suspense>
         <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
           <PlatformDemoSection />
         </Suspense>
         <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
+          <UseCasesSection />
+        </Suspense>
+        <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
           <HowItWorksSection />
         </Suspense>
         <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
           <QualityComparisonSection />
-        </Suspense>
-        <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
-          <UseCasesSection />
         </Suspense>
         <Suspense fallback={<div className="h-96 w-full" aria-label="Loading section" />}>
           <SecuritySection />

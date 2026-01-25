@@ -120,10 +120,10 @@ function ROISectionComponent(): JSX.Element {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-black rounded-2xl mb-6">
             <Calculator className="w-8 h-8 text-white" aria-hidden="true" />
           </div>
-          <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-4 text-black">
             ROI-Rechner
           </h2>
-          <p className="text-grey-dark max-w-2xl mx-auto">
+          <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
             Berechnen Sie Ihre Einsparungen über alle Review Cycles hinweg.
           </p>
         </div>

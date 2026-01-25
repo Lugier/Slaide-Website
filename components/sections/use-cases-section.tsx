@@ -60,12 +60,12 @@ function UseCasesSectionComponent(): JSX.Element {
   return (
     <section id="use-cases" className="py-24 px-6 bg-white border-b border-gray-100">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-16 text-center reveal">
-          <h2 className="text-3xl font-semibold tracking-tight mb-4">
-            Für Teams, die sich keine Fehler leisten können.
+        <div className="mb-16 md:mb-24 reveal text-center">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-6 text-black text-center">
+            Für Teams, die sich keine<br className="hidden md:block" /> Fehler leisten können.
           </h2>
-          <p className="text-grey-dark max-w-2xl mx-auto">
-            Review passt sich dynamisch an Ihren Dokumententyp an – egal ob Präsentationen, Reports oder Verträge. Schützen Sie Ihre Reputation, bevor Fehler nach außen gelangen.
+          <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto font-light leading-relaxed text-center">
+            Review ist Ihre finale Instanz für kompromisslose Qualität. Sie schützt Ihre Reputation dort, wo Präzision die Währung Ihres Erfolgs ist.
           </p>
         </div>
 
@@ -75,18 +75,17 @@ function UseCasesSectionComponent(): JSX.Element {
             return (
               <div
                 key={index}
-                className={`p-8 border border-gray-200 rounded-2xl hover:border-black hover:shadow-lg transition-all reveal ${
-                  index === 0
-                    ? ''
-                    : index === 1 || index === 3
+                className={`p-8 border border-gray-200 rounded-2xl hover:border-black hover:shadow-lg transition-all reveal ${index === 0
+                  ? ''
+                  : index === 1 || index === 3
                     ? 'delay-100'
                     : 'delay-200'
-                } group`}
+                  } group`}
               >
                 <div className="w-10 h-10 bg-gray-50 rounded-lg flex items-center justify-center mb-6 text-black group-hover:bg-black group-hover:text-white transition-colors">
                   <Icon className="w-5 h-5" aria-hidden="true" />
                 </div>
-                <h3 className="font-bold text-lg mb-2">{useCase.title}</h3>
+                <h3 className="text-xl font-bold tracking-tight text-black mb-2">{useCase.title}</h3>
                 <p className="text-sm text-grey-dark leading-relaxed mb-4">
                   {useCase.description}
                 </p>

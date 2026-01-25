@@ -188,9 +188,8 @@ function HowItWorksSectionComponent(): JSX.Element {
       <div className="max-w-[1600px] mx-auto relative z-10">
         {/* Header Section */}
         <div
-          className={`flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-20 md:mb-32 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
+          className={`flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-20 md:mb-32 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
         >
           <div className="max-w-2xl space-y-4 md:space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm">
@@ -199,7 +198,7 @@ function HowItWorksSectionComponent(): JSX.Element {
                 ARCHITECTURE v2.0
               </span>
             </div>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.1]">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.1] text-white">
               Analyse-
               <span
                 ref={depthWordRef}
@@ -210,7 +209,7 @@ function HowItWorksSectionComponent(): JSX.Element {
               </span>
               {' '}die selbst Experten entgeht.
             </h2>
-            <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed max-w-xl">
+            <p className="text-lg md:text-xl text-gray-400 font-light leading-relaxed max-w-xl">
               Review nutzt eine mehrstufige neuronale Architektur, um den Inhalt Ihrer Dokumente
               semantisch tiefgründig zu durchdringen.
             </p>
@@ -223,9 +222,8 @@ function HowItWorksSectionComponent(): JSX.Element {
           <div className="hidden lg:block absolute top-24 left-0 right-0 h-0.5 z-0">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-800 to-transparent"></div>
             <div
-              className={`absolute inset-0 bg-gradient-to-r from-transparent via-gray-600 to-transparent transition-all duration-2000 transform-origin-left ${
-                isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
-              }`}
+              className={`absolute inset-0 bg-gradient-to-r from-transparent via-gray-600 to-transparent transition-all duration-2000 transform-origin-left ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
+                }`}
             ></div>
 
             {/* Animated Flow Indicator */}
@@ -240,19 +238,18 @@ function HowItWorksSectionComponent(): JSX.Element {
 
           {/* Stage Cards Grid */}
           <div className="grid lg:grid-cols-3 gap-6 lg:gap-8 relative z-10">
-          {stages.map((stage, index) => {
-            const Icon = stage.icon
+            {stages.map((stage, index) => {
+              const Icon = stage.icon
               const isActive = activeStage === index
               const delay = index * 200
 
-            return (
-              <div
-                key={index}
-                  className={`group relative transition-all duration-1000 dynamic-transition-delay ${
-                    isVisible
+              return (
+                <div
+                  key={index}
+                  className={`group relative transition-all duration-1000 dynamic-transition-delay ${isVisible
                       ? 'opacity-100 translate-y-0'
                       : 'opacity-0 translate-y-12'
-                  }`}
+                    }`}
                   data-transition-delay={delay}
                   ref={(el) => {
                     if (el) {
@@ -264,21 +261,18 @@ function HowItWorksSectionComponent(): JSX.Element {
                 >
                   {/* Card Container */}
                   <div
-                    className={`relative h-full bg-gradient-to-br from-[#0a0a0a] to-[#050505] border rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-10 transition-all duration-500 ${
-                      stage.isHighlighted
+                    className={`relative h-full bg-gradient-to-br from-[#0a0a0a] to-[#050505] border rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-10 transition-all duration-500 ${stage.isHighlighted
                         ? 'border-white/20'
                         : 'border-gray-800/50 hover:border-gray-700/50'
-                    } ${
-                      isActive
+                      } ${isActive
                         ? 'transform scale-[1.02]'
                         : 'hover:scale-[1.01]'
-                    }`}
+                      }`}
                   >
                     {/* Subtle Background Overlay */}
                     <div
-                      className={`absolute inset-0 rounded-3xl bg-gradient-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-500 ${
-                        isActive || stage.isHighlighted ? 'opacity-100' : 'group-hover:opacity-30'
-                      }`}
+                      className={`absolute inset-0 rounded-3xl bg-gradient-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-500 ${isActive || stage.isHighlighted ? 'opacity-100' : 'group-hover:opacity-30'
+                        }`}
                     ></div>
 
                     {/* Glow Effect for Highlighted Card - auf dem Rahmen */}
@@ -290,19 +284,17 @@ function HowItWorksSectionComponent(): JSX.Element {
                     <div className="relative z-10">
                       {/* Icon Container */}
                       <div
-                        className={`relative mb-6 md:mb-8 transition-all duration-500 ${
-                          isActive || stage.isHighlighted
+                        className={`relative mb-6 md:mb-8 transition-all duration-500 ${isActive || stage.isHighlighted
                             ? 'transform scale-110'
                             : 'group-hover:scale-105'
-                        }`}
+                          }`}
                       >
                         <div
-                          className={`w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl flex items-center justify-center transition-all duration-500 ${
-                            stage.isHighlighted
+                          className={`w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl flex items-center justify-center transition-all duration-500 ${stage.isHighlighted
                               ? 'bg-white text-black shadow-lg shadow-white/20'
                               : 'bg-gradient-to-br from-gray-800 to-gray-900 text-gray-400 group-hover:text-white group-hover:from-gray-700 group-hover:to-gray-800'
-                    }`}
-                  >
+                            }`}
+                        >
                           <Icon className="w-7 h-7 md:w-8 md:h-8" aria-hidden="true" />
                         </div>
 
@@ -310,25 +302,23 @@ function HowItWorksSectionComponent(): JSX.Element {
                         {stage.isHighlighted && (
                           <div className="absolute inset-0 rounded-2xl bg-white/20 blur-xl -z-10 animate-pulse"></div>
                         )}
-                  </div>
+                      </div>
 
                       {/* Badge */}
                       <div
-                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 mb-6 transition-all duration-300 ${
-                          isActive ? 'border-white/20 bg-white/10' : ''
-                        }`}
+                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 mb-6 transition-all duration-300 ${isActive ? 'border-white/20 bg-white/10' : ''
+                          }`}
                       >
                         <div
-                          className={`w-1.5 h-1.5 rounded-full ${
-                            stage.isHighlighted ? 'bg-white' : 'bg-gray-500'
-                          } animate-pulse`}
+                          className={`w-1.5 h-1.5 rounded-full ${stage.isHighlighted ? 'bg-white' : 'bg-gray-500'
+                            } animate-pulse`}
                         ></div>
                         <span
                           className={`text-xs font-mono font-medium uppercase tracking-wider ${stage.badgeColor}`}
                         >
-                    {stage.badge}
+                          {stage.badge}
                         </span>
-                  </div>
+                      </div>
 
                       {/* Title */}
                       <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-3 md:mb-4 leading-tight">
@@ -336,43 +326,40 @@ function HowItWorksSectionComponent(): JSX.Element {
                       </h3>
 
                       {/* Description */}
-                  <p
-                        className={`text-base md:text-lg leading-relaxed mb-6 transition-colors duration-300 ${
-                          stage.isHighlighted ? 'text-gray-200' : 'text-gray-400 group-hover:text-gray-300'
-                    }`}
-                  >
-                    {stage.description}
-                  </p>
+                      <p
+                        className={`text-base md:text-lg leading-relaxed mb-6 transition-colors duration-300 ${stage.isHighlighted ? 'text-gray-200' : 'text-gray-400 group-hover:text-gray-300'
+                          }`}
+                      >
+                        {stage.description}
+                      </p>
 
                       {/* Features List */}
-                  {stage.features && (
+                      {stage.features && (
                         <ul className="space-y-3">
-                      {stage.features.map((feature, featureIndex) => (
+                          {stage.features.map((feature, featureIndex) => (
                             <li
                               key={featureIndex}
                               className="flex items-center gap-3 text-sm md:text-base text-gray-300"
                             >
                               <div className="flex-shrink-0">
                                 <div
-                                  className={`w-1.5 h-1.5 rounded-full ${
-                                    stage.isHighlighted ? 'bg-white' : 'bg-gray-500'
-                                  }`}
+                                  className={`w-1.5 h-1.5 rounded-full ${stage.isHighlighted ? 'bg-white' : 'bg-gray-500'
+                                    }`}
                                 ></div>
                               </div>
                               <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
 
                       {/* CTA Button (only visible on hover) */}
                       <button
                         onClick={openCalComOverlay}
-                        className={`mt-8 flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-white transition-all duration-300 cursor-pointer group/button ${
-                          isActive
+                        className={`mt-8 flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-white transition-all duration-300 cursor-pointer group/button ${isActive
                             ? 'opacity-100 translate-x-0'
                             : 'opacity-0 -translate-x-2 pointer-events-none'
-                        }`}
+                          }`}
                         type="button"
                         aria-label="Kostenlose Demo buchen"
                       >
@@ -387,19 +374,18 @@ function HowItWorksSectionComponent(): JSX.Element {
                   {index < stages.length - 1 && (
                     <div className="lg:hidden flex justify-center my-6">
                       <div className="w-0.5 h-12 bg-gradient-to-b from-gray-700 to-transparent"></div>
-                </div>
+                    </div>
                   )}
-              </div>
-            )
-          })}
+                </div>
+              )
+            })}
           </div>
         </div>
 
         {/* Bottom CTA Section */}
         <div
-          className={`mt-24 md:mt-32 text-center transition-all duration-1000 delay-700 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
+          className={`mt-24 md:mt-32 text-center transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
         >
           <p className="text-gray-400 text-sm md:text-base mb-6">
             Erleben Sie die neuronale Architektur in Aktion

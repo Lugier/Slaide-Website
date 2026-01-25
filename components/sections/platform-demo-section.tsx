@@ -176,10 +176,10 @@ function PlatformDemoSectionComponent(): JSX.Element {
     >
       <div className="max-w-[1400px] mx-auto">
         <div className="mb-6 md:mb-8 text-center reveal">
-          <h2 className="hidden lg:block text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-black mb-3">
+          <h2 className="hidden lg:block text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-black mb-3">
             Ein Cockpit für Qualität.
           </h2>
-          <p className="text-base md:text-lg text-grey-dark max-w-2xl mx-auto mb-6">
+          <p className="text-lg md:text-xl text-gray-500 font-light leading-relaxed max-w-2xl mx-auto mb-6">
             Die Findings werden direkt im Kontext angezeigt. Kein Suchen, sofortiges Verstehen.
           </p>
 

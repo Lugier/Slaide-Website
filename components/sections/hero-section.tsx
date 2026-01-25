@@ -80,7 +80,7 @@ function HeroSectionComponent(): JSX.Element {
           </div>
 
           {/* Enhanced Verified Badges - Grey Scale with Selective Blue Accent */}
-          <div className="pt-10 border-t border-gray-100 flex flex-wrap justify-center gap-8 md:gap-12 hero-badges">
+          <div className="pt-10 flex flex-wrap justify-center gap-8 md:gap-12 hero-badges">
             <div className="space-y-1 group cursor-default">
               <div className="unix-badge text-gray-400 mb-1">INPUT</div>
               <div className="flex gap-2 text-black items-center justify-center font-semibold">
@@ -91,7 +91,7 @@ function HeroSectionComponent(): JSX.Element {
             <div className="space-y-1 group cursor-default">
               <div className="unix-badge text-gray-400 mb-1">DATA SECURITY</div>
               <div className="flex gap-2 text-black items-center justify-center font-semibold">
-                <Shield className="w-4 h-4 text-blue-600" aria-hidden="true" />
+                <Shield className="w-4 h-4 text-black" aria-hidden="true" />
                 <span>DSGVO Konform</span>
               </div>
             </div>
