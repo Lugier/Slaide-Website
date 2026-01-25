@@ -153,7 +153,7 @@ function QualityComparisonSectionComponent() {
 
         {/* Context Note */}
         <div className={`mt-8 text-sm text-gray-400 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-          <p>Das Dokument war eine Präsentation mit 20 Seiten und 36 Fehlern.</p>
+          <p>Grundlage: Eine repräsentative Beispiel-Präsentation (20 Seiten, 36 Fehler).</p>
         </div>
 
         {/* Footer Metrics */}

@@ -20,7 +20,7 @@ export default function ImpressumPage(): JSX.Element {
                 Angaben gemäß § 5 TMG
               </h2>
               <p className="text-grey-dark leading-relaxed">
-                <strong>Slaide UG (in Gründung)</strong>
+                <strong>Slaide UG (haftungsbeschränkt)</strong>
                 <br />
                 <strong>Neckarstraße 10</strong>
                 <br />
@@ -54,21 +54,16 @@ export default function ImpressumPage(): JSX.Element {
             <section>
               <h2 className="text-2xl font-semibold mb-4">Vertreten durch</h2>
               <p className="text-grey-dark leading-relaxed">
-                <strong>Nathalie Scholl</strong> (alleinige Gesellschafterin)
-              </p>
-              <p className="text-grey-dark leading-relaxed mt-2">
-                <strong>Hinweis zur Rechtsform:</strong> Slaide UG (in Gründung)
-                ist eine Vorgründungsgesellschaft (GbR) und wird von Nathalie
-                Scholl als alleiniger Gesellschafterin vertreten.
+                <strong>Nathalie Scholl</strong> (Geschäftsführerin)
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-semibold mb-4">Registereintrag</h2>
               <p className="text-grey-dark leading-relaxed">
-                <strong>Registergericht:</strong> (in Gründung)
+                <strong>Registergericht:</strong> Stuttgart
                 <br />
-                <strong>Registernummer:</strong> (in Gründung)
+                <strong>Registernummer:</strong> HRB 793529
               </p>
             </section>
 
@@ -89,7 +84,7 @@ export default function ImpressumPage(): JSX.Element {
               <p className="text-grey-dark leading-relaxed">
                 <strong>Nathalie Scholl</strong>
                 <br />
-                <strong>Slaide UG (in Gründung)</strong>
+                <strong>Slaide UG (haftungsbeschränkt)</strong>
                 <br />
                 <strong>Neckarstraße 10</strong>
                 <br />

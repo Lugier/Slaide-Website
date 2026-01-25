@@ -19,11 +19,8 @@ function PricingSectionComponent(): JSX.Element {
         {/* Section Header */}
         <div className="text-center mb-16 reveal">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-4 text-black">
-            Warum 412€ riskieren, um 2,69€ zu sparen?
+            Review sichert Ihr wertvollstes Asset für <span className="text-black">weniger als 1 %</span> der Kosten ab.
           </h2>
-          <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
-            Review sichert Ihr wertvollstes Asset für <span className="font-bold text-black">weniger als 1 %</span> der Kosten ab.
-          </p>
         </div>
 
         {/* Main Comparison Card - Expert Design */}

@@ -13,7 +13,7 @@ function CoreCapabilitiesSectionComponent(): JSX.Element {
                         Fehler zerstören Vertrauen.
                     </h2>
                     <p className="text-lg md:text-xl text-gray-500 font-light leading-relaxed">
-                        Review versteht den Kontext und findet den Widerspruch. Es analysiert Ihre Unterlagen mit maschineller Präzision: Grammatik, Logik und Zahlen – für Ergebnisse, die klar und belastbar sind.
+                        Review versteht den Kontext und findet den Widerspruch. Es analysiert Ihre Unterlagen mit algorithmischer Präzision: Grammatik, Logik und Zahlen – für Ergebnisse, die klar und belastbar sind.
                     </p>
                 </div>
 

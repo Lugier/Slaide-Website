@@ -54,7 +54,9 @@ function HeroSectionComponent(): JSX.Element {
 
             {/* Description - Focused & Sharp */}
             <p className="text-xl md:text-2xl text-grey-medium leading-relaxed max-w-4xl mx-auto font-light mb-10 hero-description tracking-tight">
-              In Ihren Dokumenten gibt es keinen Spielraum für Fehler. Review analysiert Logik, Konsistenz und Zahlen mit maschineller Präzision – für Ergebnisse, die keine Fragen offen lassen.
+              <p className="text-xl md:text-2xl text-grey-medium leading-relaxed max-w-4xl mx-auto font-light mb-10 hero-description tracking-tight">
+                In Ihren Dokumenten gibt es keinen Spielraum für Fehler. Review analysiert Logik, Konsistenz und Zahlen mit algorithmischer Präzision – für Ergebnisse, die keine Fragen offen lassen.
+              </p>
             </p>
           </div>
 
