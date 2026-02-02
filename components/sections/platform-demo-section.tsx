@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, memo } from 'react'
-import { FileText, Search, Settings, Lock, BarChart3, FileCode } from 'lucide-react'
+import { FileText, Search, Settings, Lock, BarChart3, FileCode, MousePointer2 } from 'lucide-react'
 
 type MockupType = 'slide' | 'report' | 'contract'
 type ViewType = 'presentation' | 'report' | 'contract'
@@ -17,7 +17,9 @@ function PlatformDemoSectionComponent(): JSX.Element {
   const [isVisible, setIsVisible] = useState(false)
   const [findingStates, setFindingStates] = useState<FindingState>({})
   const [hoveredFinding, setHoveredFinding] = useState<string | null>(null)
+  const [demoActive, setDemoActive] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
+  const mainContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (viewType === 'presentation') {
@@ -159,6 +161,17 @@ function PlatformDemoSectionComponent(): JSX.Element {
     return activeCount
   }
 
+  // Demo Sequence Logic
+  useEffect(() => {
+    if (!isVisible || demoActive) return
+
+    const timer = setTimeout(() => {
+      setDemoActive(true)
+    }, 2000)
+
+    return () => clearTimeout(timer)
+  }, [isVisible, demoActive])
+
   const mockups = [
     {
       id: 'slide' as MockupType,
@@ -182,10 +195,13 @@ function PlatformDemoSectionComponent(): JSX.Element {
           <p className="text-lg md:text-xl text-gray-500 font-light leading-relaxed max-w-2xl mx-auto mb-6">
             Die Findings werden direkt im Kontext angezeigt. Kein Suchen, sofortiges Verstehen.
           </p>
+        </div>
 
+        <div ref={mainContainerRef} className="relative reveal delay-200">
           {/* View Type Tabs - Above Mockup */}
           <div className="flex items-center justify-center gap-2 mb-6">
             <button
+              id="tab-presentation"
               onClick={() => setViewType('presentation')}
               aria-label="Präsentationsansicht auswählen"
               className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${viewType === 'presentation'
@@ -196,6 +212,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
               Präsentation
             </button>
             <button
+              id="tab-report"
               onClick={() => setViewType('report')}
               aria-label="Berichtsansicht auswählen"
               type="button"
@@ -207,6 +224,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
               Report
             </button>
             <button
+              id="tab-contract"
               onClick={() => setViewType('contract')}
               aria-label="Vertragsansicht auswählen"
               type="button"
@@ -218,10 +236,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
               Vertrag
             </button>
           </div>
-        </div>
 
-        {/* Mockup Container */}
-        <div className="relative reveal delay-200">
           <div className="bg-white rounded-2xl shadow-[0_30px_100px_-20px_rgba(0,0,0,0.25)] border border-gray-200/60 overflow-hidden relative w-full transform transition-all duration-500">
             {/* Browser Top Bar */}
             <div className="h-10 bg-gray-100 border-b border-gray-200 flex items-center gap-1.5 px-4 shrink-0">
@@ -236,6 +251,14 @@ function PlatformDemoSectionComponent(): JSX.Element {
                   app.slaide.de/review/{viewType === 'presentation' ? 'Q3_Praesentation' : viewType === 'report' ? 'HPP_Alpen_Turbine_Revision' : 'Service_Vertrag_Nordstern_CloudSolutions'}
                 </span>
               </div>
+
+              {/* Live Preview Badge */}
+              {demoActive && (
+                <div className="hidden lg:flex items-center gap-1.5 px-2 py-1 bg-blue-50 border border-blue-100 rounded text-[10px] font-bold text-blue-600 animate-pulse shrink-0">
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+                  LIVE PREVIEW
+                </div>
+              )}
             </div>
 
             {/* App Content - Three Column Layout */}
@@ -297,7 +320,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
                     return (
                       <div
                         className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-red-500'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-red-50/30'} relative shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-red-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer ${isIgnored || isAccepted ? 'order-last' : 'order-first'} ${status === 'active' ? 'platform-finding-active-red' : ''} overflow-hidden group/card`}
-                        onMouseEnter={() => setHoveredFinding(findingKey)}
+                        onMouseEnter={() => { setHoveredFinding(findingKey); setDemoActive(false); }}
                         onMouseLeave={() => setHoveredFinding(null)}
                       >
                         <div>
@@ -320,12 +343,14 @@ function PlatformDemoSectionComponent(): JSX.Element {
                           {status === 'active' && (
                             <div className="flex gap-1.5 mt-2">
                               <button
+                                id={`accept-${activeMockup}-0`}
                                 onClick={() => handleAccept(activeMockup, 0)}
                                 className="flex-1 bg-gray-800 text-white text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-900 transition-colors"
                               >
                                 Akzeptieren
                               </button>
                               <button
+                                id={`ignore-${activeMockup}-0`}
                                 onClick={() => handleIgnore(activeMockup, 0)}
                                 aria-label="Fehler ignorieren"
                                 className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
@@ -349,7 +374,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
                     return (
                       <div
                         className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-red-500'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-red-50/30'} relative shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-red-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer ${isIgnored || isAccepted ? 'order-last' : 'order-first'} ${status === 'active' ? 'platform-finding-active-red' : ''} overflow-hidden group/card`}
-                        onMouseEnter={() => setHoveredFinding(findingKey)}
+                        onMouseEnter={() => { setHoveredFinding(findingKey); setDemoActive(false); }}
                         onMouseLeave={() => setHoveredFinding(null)}
                       >
                         <div>
@@ -367,6 +392,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
                           {status === 'active' && (
                             <div className="flex gap-1.5 mt-2">
                               <button
+                                id={`accept-${activeMockup}-4`}
                                 onClick={() => handleAccept(activeMockup, 4)}
                                 className="flex-1 bg-gray-800 text-white text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-900 transition-colors"
                                 aria-label="Fehler akzeptieren"
@@ -375,6 +401,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
                                 Akzeptieren
                               </button>
                               <button
+                                id={`ignore-${activeMockup}-4`}
                                 onClick={() => handleIgnore(activeMockup, 4)}
                                 className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
                                 aria-label="Fehler ignorieren"
@@ -399,7 +426,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
                     return (
                       <div
                         className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-yellow-400'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-yellow-50/30'} shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-yellow-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer ${isIgnored || isAccepted ? 'order-last' : 'order-first'} ${status === 'active' ? 'platform-finding-active-yellow' : ''} overflow-hidden group/card`}
-                        onMouseEnter={() => setHoveredFinding(findingKey)}
+                        onMouseEnter={() => { setHoveredFinding(findingKey); setDemoActive(false); }}
                         onMouseLeave={() => setHoveredFinding(null)}
                       >
 
@@ -422,12 +449,14 @@ function PlatformDemoSectionComponent(): JSX.Element {
                         {status === 'active' && (
                           <div className="flex gap-1.5 mt-2">
                             <button
+                              id={`accept-${activeMockup}-1`}
                               onClick={() => handleAccept(activeMockup, 1)}
                               className="flex-1 bg-gray-800 text-white text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-900 transition-colors"
                             >
                               Akzeptieren
                             </button>
                             <button
+                              id={`ignore-${activeMockup}-1`}
                               onClick={() => handleIgnore(activeMockup, 1)}
                               className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
                             >
@@ -449,7 +478,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
                     return (
                       <div
                         className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-yellow-400'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-yellow-50/30'} shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-yellow-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer ${isIgnored || isAccepted ? 'order-last' : 'order-first'} ${status === 'active' ? 'platform-finding-active-yellow' : ''} overflow-hidden group/card`}
-                        onMouseEnter={() => setHoveredFinding(findingKey)}
+                        onMouseEnter={() => { setHoveredFinding(findingKey); setDemoActive(false); }}
                         onMouseLeave={() => setHoveredFinding(null)}
                       >
 
@@ -472,12 +501,14 @@ function PlatformDemoSectionComponent(): JSX.Element {
                         {status === 'active' && (
                           <div className="flex gap-1.5 mt-2">
                             <button
+                              id={`accept-${activeMockup}-2`}
                               onClick={() => handleAccept(activeMockup, 2)}
                               className="flex-1 bg-gray-800 text-white text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-900 transition-colors"
                             >
                               Akzeptieren
                             </button>
                             <button
+                              id={`ignore-${activeMockup}-2`}
                               onClick={() => handleIgnore(activeMockup, 2)}
                               className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
                             >
@@ -499,7 +530,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
                     return (
                       <div
                         className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-blue-400'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-blue-50/30'} shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-blue-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer ${isIgnored || isAccepted ? 'order-last' : 'order-first'} ${status === 'active' ? 'platform-finding-active-blue' : ''} overflow-hidden group/card`}
-                        onMouseEnter={() => setHoveredFinding(findingKey)}
+                        onMouseEnter={() => { setHoveredFinding(findingKey); setDemoActive(false); }}
                         onMouseLeave={() => setHoveredFinding(null)}
                       >
 
@@ -517,12 +548,14 @@ function PlatformDemoSectionComponent(): JSX.Element {
                         {status === 'active' && (
                           <div className="flex gap-1.5 mt-2">
                             <button
+                              id={`accept-${activeMockup}-3`}
                               onClick={() => handleAccept(activeMockup, 3)}
                               className="flex-1 bg-gray-800 text-white text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-900 transition-colors"
                             >
                               Akzeptieren
                             </button>
                             <button
+                              id={`ignore-${activeMockup}-3`}
                               onClick={() => handleIgnore(activeMockup, 3)}
                               className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
                             >
@@ -544,7 +577,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
                     return (
                       <div
                         className={`border ${isIgnored || isAccepted ? 'border-gray-300' : 'border-blue-400'} rounded-lg p-2.5 ${isIgnored || isAccepted ? 'bg-gray-100' : 'bg-blue-50/30'} shadow-sm ${isAccepted ? 'ring-2 ring-green-400 ring-opacity-50' : ''} ${isHovered ? 'ring-2 ring-blue-500 ring-opacity-70 scale-[1.02]' : ''} transition-all cursor-pointer ${isIgnored || isAccepted ? 'order-last' : 'order-first'} ${status === 'active' ? 'platform-finding-active-blue' : ''} overflow-hidden group/card`}
-                        onMouseEnter={() => setHoveredFinding(findingKey)}
+                        onMouseEnter={() => { setHoveredFinding(findingKey); setDemoActive(false); }}
                         onMouseLeave={() => setHoveredFinding(null)}
                       >
 
@@ -565,12 +598,14 @@ function PlatformDemoSectionComponent(): JSX.Element {
                         {status === 'active' && (
                           <div className="flex gap-1.5 mt-2">
                             <button
+                              id={`accept-${activeMockup}-3`}
                               onClick={() => handleAccept(activeMockup, 3)}
                               className="flex-1 bg-gray-800 text-white text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-900 transition-colors"
                             >
                               Akzeptieren
                             </button>
                             <button
+                              id={`ignore-${activeMockup}-3`}
                               onClick={() => handleIgnore(activeMockup, 3)}
                               className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
                             >
@@ -585,6 +620,15 @@ function PlatformDemoSectionComponent(): JSX.Element {
                 </div>
               </div>
             </div>
+
+            {/* Demo Cursor */}
+            {demoActive && (
+              <DemoCursorComponent
+                containerRef={mainContainerRef}
+                onHover={setHoveredFinding}
+                activeMockup={activeMockup}
+              />
+            )}
           </div>
         </div>
         <style jsx global>{`
@@ -614,11 +658,132 @@ function PlatformDemoSectionComponent(): JSX.Element {
           }
         `}</style>
       </div>
-    </section>
+    </section >
   )
 }
 
 export const PlatformDemoSection = memo(PlatformDemoSectionComponent)
+
+// --- Demo Cursor Component ---
+interface DemoCursorProps {
+  containerRef: React.RefObject<HTMLDivElement>
+  onHover: (id: string | null) => void
+  activeMockup: MockupType
+}
+
+function DemoCursorComponent({ containerRef, activeMockup, onHover }: DemoCursorProps): JSX.Element {
+  const [position, setPosition] = useState({ x: 600, y: 400 })
+  const [isVisible, setIsVisible] = useState(false)
+  const [isHovering, setIsHovering] = useState(false)
+
+  // Start the demo sequence
+  useEffect(() => {
+    let mounted = true
+
+    const runDemo = async () => {
+      // Allow layout to stabilize
+      await new Promise(r => setTimeout(r, 1000))
+      if (!mounted) return
+
+      setIsVisible(true)
+
+      if (!containerRef.current) return
+
+      // Find finding cards
+      const cards = Array.from(containerRef.current.querySelectorAll('.group\\/card'))
+
+      // Determine logical order based on mockup type
+      const getKeys = (m: MockupType) => {
+        if (m === 'report') return [`${m}-0`, `${m}-4`, `${m}-1`, `${m}-2`, `${m}-3`]
+        return [`${m}-0`, `${m}-1`, `${m}-2`, `${m}-3`]
+      }
+
+      const keys = getKeys(activeMockup)
+
+      for (let i = 0; i < cards.length; i++) {
+        if (!mounted) return
+        const el = cards[i]
+        const key = keys[i]
+
+        if (!el || !key) continue
+
+        // Calculate precise center position
+        const updatePosition = () => {
+          if (!containerRef.current) return { x: 0, y: 0 }
+          const rect = el.getBoundingClientRect()
+          const containerRect = containerRef.current.getBoundingClientRect()
+
+          // Manual correction: Shift UP by 25% of height to hit conceptual center if visuals are off-center
+          // Also apply a rigid offset if needed
+          return {
+            x: rect.left - containerRect.left + rect.width / 2,
+            y: (rect.top - containerRect.top + rect.height / 2) - 40 // Force upward shift based on user feedback
+          }
+        }
+
+        const target = updatePosition()
+        setPosition(target)
+
+        // Travel time (smooth glide)
+        await new Promise(r => setTimeout(r, 1000))
+        if (!mounted) return
+
+        // Hover Effect
+        setIsHovering(true)
+        if (onHover) onHover(key)
+
+        // Read time
+        await new Promise(r => setTimeout(r, 1500))
+        if (!mounted) return
+
+        setIsHovering(false)
+        if (onHover) onHover(null)
+      }
+
+      // Exit
+      await new Promise(r => setTimeout(r, 500))
+      setIsVisible(false)
+    }
+
+    runDemo()
+
+    return () => { mounted = false }
+  }, [containerRef, activeMockup, onHover])
+
+  return (
+    <div className={`absolute inset-0 pointer-events-none z-[100] transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      <div
+        className="absolute transition-all duration-700 cubic-bezier(0.2, 0.8, 0.2, 1)"
+        style={{
+          left: position.x,
+          top: position.y,
+        }}
+      >
+        {/* Simple, Professional Cursor */}
+        <div className="relative -translate-x-[6px] -translate-y-[2px]">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            className={`transition-transform duration-300 ${isHovering ? 'scale-90' : 'scale-100'}`}
+          >
+            <path
+              d="M3 3L10.07 19.97L12.58 12.58L19.97 10.07L3 3Z"
+              fill="black"
+              stroke="white"
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+            />
+          </svg>
+
+          {/* Subtle Touch/Interaction Ring */}
+          <div className={`absolute top-0 left-0 w-8 h-8 -ml-3 -mt-3 border border-black/20 rounded-full transition-all duration-500 ${isHovering ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`} />
+        </div>
+      </div>
+    </div>
+  )
+}
 
 // Slide Mockup Component - Präsentation mit Charts (16:9)
 interface MockupProps {
