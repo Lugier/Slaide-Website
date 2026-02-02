@@ -678,6 +678,11 @@ function DemoCursorComponent({ containerRef, activeMockup, onHover }: DemoCursor
 
   // Start the demo sequence
   useEffect(() => {
+    // Performance optimization: Don't run logic on mobile
+    if (typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches) {
+      return
+    }
+
     let mounted = true
 
     const runDemo = async () => {
@@ -751,7 +756,7 @@ function DemoCursorComponent({ containerRef, activeMockup, onHover }: DemoCursor
   }, [containerRef, activeMockup, onHover])
 
   return (
-    <div className={`absolute inset-0 pointer-events-none z-[100] transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`absolute inset-0 pointer-events-none z-[100] transition-opacity duration-300 hidden md:block ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
       <div
         className="absolute transition-all duration-700 cubic-bezier(0.2, 0.8, 0.2, 1)"
         style={{
