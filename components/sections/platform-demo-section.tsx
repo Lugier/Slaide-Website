@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, memo } from 'react'
-import { FileText, Search, Settings, Lock, BarChart3, FileCode, MousePointer2 } from 'lucide-react'
+import { FileText, Search, Settings, Lock, BarChart3, FileCode, MousePointer2, Users } from 'lucide-react'
 
 type MockupType = 'slide' | 'report' | 'contract'
 type ViewType = 'presentation' | 'report' | 'contract'
@@ -239,26 +239,46 @@ function PlatformDemoSectionComponent(): JSX.Element {
 
           <div className="bg-white rounded-2xl shadow-[0_30px_100px_-20px_rgba(0,0,0,0.25)] border border-gray-200/60 overflow-hidden relative w-full transform transition-all duration-500">
             {/* Browser Top Bar */}
-            <div className="h-10 bg-gray-100 border-b border-gray-200 flex items-center gap-1.5 px-4 shrink-0">
-              <div className="flex gap-1">
-                <div className="w-2.5 h-2.5 rounded-full bg-red-400"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-green-400"></div>
-              </div>
-              <div className="flex-1 flex items-center gap-1.5 bg-white rounded-md px-3 py-1.5 text-xs text-gray-600 border border-gray-200">
-                <Lock className="w-3 h-3 text-gray-400" aria-hidden="true" />
-                <span className="font-mono truncate">
-                  app.slaide.de/review/{viewType === 'presentation' ? 'Q3_Praesentation' : viewType === 'report' ? 'HPP_Alpen_Turbine_Revision' : 'Service_Vertrag_Nordstern_CloudSolutions'}
-                </span>
+            <div className="h-10 bg-gray-100 border-b border-gray-200 flex items-center gap-1.5 px-4 shrink-0 justify-between">
+              <div className="flex items-center gap-4 flex-1 overflow-hidden">
+                <div className="flex gap-1 shrink-0">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-400"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-400"></div>
+                </div>
+
+                {/* URL Bar */}
+                <div className="flex-1 flex items-center gap-1.5 bg-white rounded-md px-3 py-1.5 text-xs text-gray-600 border border-gray-200 w-full">
+                  <Lock className="w-3 h-3 text-gray-400" aria-hidden="true" />
+                  <span className="font-mono truncate">
+                    app.slaide.de/review/{viewType === 'presentation' ? 'Q3_Praesentation' : viewType === 'report' ? 'HPP_Alpen_Turbine_Revision' : 'Service_Vertrag_Nordstern_CloudSolutions'}
+                  </span>
+                </div>
               </div>
 
-              {/* Live Preview Badge */}
-              {demoActive && (
-                <div className="hidden lg:flex items-center gap-1.5 px-2 py-1 bg-blue-50 border border-blue-100 rounded text-[10px] font-bold text-blue-600 animate-pulse shrink-0">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
-                  LIVE PREVIEW
+              {/* Right Side: Team & Actions */}
+              <div className="flex items-center gap-3 pl-4">
+                {/* Active Users Pile */}
+                <div className="flex -space-x-2">
+                  <div className="w-6 h-6 rounded-full bg-blue-100 border-2 border-white flex items-center justify-center text-[9px] font-bold text-blue-600" title="Sarah (Online)">
+                    SM
+                  </div>
+                  <div className="w-6 h-6 rounded-full bg-purple-100 border-2 border-white flex items-center justify-center text-[9px] font-bold text-purple-600" title="Tom (Online)">
+                    TK
+                  </div>
+                  <div className="w-6 h-6 rounded-full bg-gray-100 border-2 border-white flex items-center justify-center text-[9px] font-bold text-gray-500">
+                    +3
+                  </div>
                 </div>
-              )}
+
+                {/* Share Button */}
+                <button className="hidden sm:flex items-center gap-1.5 bg-black text-white text-[10px] font-bold px-2 py-1 rounded hover:bg-gray-800 transition-colors">
+                  <Users className="w-3 h-3" />
+                  <span>Share</span>
+                </button>
+
+                {/* Live Preview Badge removed as requested */}
+              </div>
             </div>
 
             {/* App Content - Three Column Layout */}
@@ -268,8 +288,15 @@ function PlatformDemoSectionComponent(): JSX.Element {
                 <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center shadow-md">
                   <FileText className="w-5 h-5 text-white" aria-hidden="true" />
                 </div>
-                <Search className="w-5 h-5 text-gray-400" aria-hidden="true" />
-                <Settings className="w-5 h-5 text-gray-400" aria-hidden="true" />
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-gray-200 cursor-pointer text-gray-400 hover:text-black transition-colors" title="Suche">
+                  <Search className="w-5 h-5" aria-hidden="true" />
+                </div>
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-gray-200 cursor-pointer text-gray-400 hover:text-black transition-colors" title="Team & Rollen">
+                  <Users className="w-5 h-5" aria-hidden="true" />
+                </div>
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-gray-200 cursor-pointer text-gray-400 hover:text-black transition-colors" title="Einstellungen">
+                  <Settings className="w-5 h-5" aria-hidden="true" />
+                </div>
               </div>
 
               {/* Central Document Area */}

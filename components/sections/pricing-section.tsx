@@ -1,169 +1,268 @@
 'use client'
 
-import { memo, useCallback } from 'react'
-import { Check, ArrowRight, Clock, Zap, Sparkles } from 'lucide-react'
+import { memo, useState, useCallback } from 'react'
+import { Check, ArrowRight, Zap, Users, Building, HelpCircle, Sparkles, ShieldCheck } from 'lucide-react'
 import { openCalComOverlay } from '@/lib/utils/cal-com'
+import { cn } from '@/lib/utils'
 
 function PricingSectionComponent(): JSX.Element {
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('yearly')
+
   const handleCtaClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault()
     openCalComOverlay()
   }, [])
 
   return (
-    <section id="pricing-tiers" className="py-24 md:py-32 px-6 bg-white relative overflow-hidden">
-      {/* Background Decor */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gray-100 to-transparent" />
+    <section id="pricing" className="py-24 md:py-32 px-6 bg-white relative overflow-hidden">
+      {/* Background Decor - Strict Monochrome Grid */}
+      <div className="absolute inset-0 tech-grid -z-10 opacity-[0.03]"></div>
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16 reveal">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-4 text-black">
-            Review sichert Ihr wertvollstes Asset für <span className="text-black">weniger als 1 %</span> der Kosten ab.
+        <div className="text-center mb-20 reveal flex flex-col items-center">
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter mb-6 text-black tracking-tight leading-[1.1]">
+            <span>Pricing für jede Teamgröße.</span>
           </h2>
-        </div>
+          <p className="text-black text-lg md:text-xl max-w-2xl mb-12 font-light leading-relaxed opacity-60">
+            Wählen Sie das Modell, das zu Ihrer Organisationsgröße passt. Jeder Plan beinhaltet unsere strengsten Qualitätsstandards.
+          </p>
 
-        {/* Main Comparison Card - Expert Design */}
-        <div className="reveal delay-100 relative">
-          <div className="relative rounded-[2.5rem] bg-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] border border-gray-200 overflow-hidden isolate max-w-5xl mx-auto">
+          {/* Toggle - Strict Monochrome Switch */}
+          <div className="flex items-center gap-1 p-1 rounded-full bg-white border border-black/10 relative shadow-sm">
+            <button
+              onClick={() => setBillingCycle('monthly')}
+              className={cn(
+                "px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 relative z-10",
+                billingCycle === 'monthly'
+                  ? "bg-black text-white shadow-lg"
+                  : "text-black opacity-40 hover:opacity-100"
+              )}
+            >
+              Monatlich
+            </button>
+            <button
+              onClick={() => setBillingCycle('yearly')}
+              className={cn(
+                "px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 relative z-10",
+                billingCycle === 'yearly'
+                  ? "bg-black text-white shadow-lg"
+                  : "text-black opacity-40 hover:opacity-100"
+              )}
+            >
+              Jährlich
+            </button>
 
-            <div className="grid lg:grid-cols-2">
-
-              {/* LEFT: Manual Creation */}
-              <div className="relative p-6 md:p-14 lg:p-16 bg-gray-50/30 flex flex-col h-full border-b lg:border-b-0 lg:border-r border-gray-100">
-                <div className="relative h-full flex flex-col">
-                  {/* Header Row */}
-                  <div className="flex items-center gap-4 mb-20 h-12">
-                    <div className="w-12 h-12 rounded-2xl bg-white shadow-sm border border-gray-200 flex items-center justify-center shrink-0">
-                      <Clock className="w-5 h-5 text-gray-500" />
-                    </div>
-                    <div>
-                      <h3 className="text-xs font-semibold text-gray-900 uppercase tracking-widest mb-1">Manuelle Erstellung</h3>
-                      <p className="text-xs text-gray-500 font-medium">Investition & Aufwand</p>
-                    </div>
-                  </div>
-
-                  {/* The Single Big Number */}
-                  <div className="mb-2">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-5xl md:text-8xl font-medium text-gray-900 tracking-tighter">
-                        412
-                      </span>
-                      <span className="text-3xl text-gray-400 font-normal">€</span>
-                    </div>
-                  </div>
-                  <p className="text-gray-500 text-sm font-medium mb-8">Wert Ihrer Arbeit (pro Seite)</p>
-
-                  <div className="mt-auto">
-                    <div className="h-px w-full bg-gray-200 mb-6"></div>
-                    <p className="text-base font-semibold text-gray-900 mb-2">Investierte Ressourcen</p>
-                    <p className="text-sm text-gray-600 leading-relaxed max-w-sm">
-                      Kalkuliert auf Basis von 4,2 Stunden Arbeitszeit (Konzeption, Erstellung & Reviewschleifen) bei einer Blended Rate von 98€/h.
-                    </p>
-                  </div>
-
-                </div>
-              </div>
-
-              {/* RIGHT: Review */}
-              <div className="relative p-6 md:p-14 lg:p-16 bg-[#050505] text-white overflow-hidden group flex flex-col h-full">
-                {/* Premium Gradient Overlay */}
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green-500/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2 opacity-20" />
-
-                <div className="relative z-10 h-full flex flex-col">
-                  {/* Header Row - Aligned with Left */}
-                  <div className="flex items-center justify-between mb-20 h-12">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-green-400/10 to-green-600/10 border border-green-500/20 flex items-center justify-center shrink-0">
-                        <Zap className="w-5 h-5 text-green-400" />
-                      </div>
-                      <div>
-                        <h3 className="text-xs font-semibold text-white uppercase tracking-widest mb-1">KI-Prüfung</h3>
-                        <p className="text-xs text-gray-400 font-medium">Absicherung & Review</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Price - Aligned with Left */}
-                  <div className="mb-12">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-5xl md:text-8xl font-medium text-white tracking-tighter">
-                        2,69
-                      </span>
-                      <span className="text-3xl text-gray-500 font-normal">€</span>
-                    </div>
-                    <div className="mt-4 flex flex-col gap-2 items-start">
-                      <p className="text-gray-400 text-sm font-medium">pro Seite absichern</p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4 mb-12 flex-1">
-                    <FeatureRow label="Rechtschreibung, Grammatik & Syntax" />
-                    <FeatureRow label="Querverweise" />
-                    <FeatureRow label="Plausibilität" />
-                    <FeatureRow label="Mathematische Neuberechnung" />
-                    <FeatureRow label="Argumentationslogik" />
-                  </div>
-
-                  <div className="pt-8 border-t border-white/10 mt-auto">
-                    <a
-                      href="#"
-                      onClick={handleCtaClick}
-                      className="group relative flex items-center justify-center gap-4 px-8 py-4 bg-white text-black rounded-xl font-bold text-sm hover:bg-gray-100 transition-all duration-300 hover:scale-[1.02] shadow-[0_0_30px_rgba(255,255,255,0.15)] w-full"
-                    >
-                      <span>Dokument für &lt; 1% perfektionieren</span>
-                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-                    </a>
-                  </div>
-                </div>
-              </div>
+            {/* Discount Badge - Strict Monochrome */}
+            <div className="absolute left-full ml-4 top-1/2 -translate-y-1/2 hidden md:flex items-center gap-1.5 bg-black text-white text-[10px] font-bold px-3 py-1.5 rounded-full border border-black ring-2 ring-white shadow-xl animate-in fade-in slide-in-from-left-2 duration-500 whitespace-nowrap">
+              <Sparkles className="w-3 h-3" />
+              <span>-25% SPAREN</span>
             </div>
-
           </div>
         </div>
 
-        {/* Enterprise Footer - Full Width & Expanded */}
-        <div className="mt-8 reveal delay-200">
-          <div className="max-w-5xl mx-auto p-1 rounded-3xl bg-gray-50/50 border border-gray-100">
-            <div className="bg-white rounded-2xl border border-gray-200 p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm hover:shadow-md transition-shadow">
+        {/* Pricing Cards Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch reveal delay-100">
 
-              <div className="flex items-start gap-6">
-                <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center shrink-0">
-                  <Sparkles className="w-6 h-6 text-gray-900" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Feste Volumenpreise für Organisationen</h3>
-                  <p className="text-gray-500 max-w-xl leading-relaxed">
-                    Für Teams mit höheren monatlichen Volumen gelten transparente, feste Staffelpreise. Etablieren Sie Review als verlässlichen Qualitäts-Standard in Ihrer Organisation.
-                  </p>
-                </div>
-              </div>
+          {/* Card 1: Pay-per-Use */}
+          <PricingCard
+            title="Pay-per-Use"
+            description="Für Ad-hoc Prüfungen ohne vertragliche Bindung."
+            price="2,69 €"
+            suffix="pro Seite"
+            icon={<Zap className="w-5 h-5" />}
+            features={[
+              "Rechtschreibung, Grammatik & Syntax",
+              "Querverweise",
+              "Plausibilität",
+              "Mathematische Neuberechnung",
+              "Argumentationslogik"
+            ]}
+            ctaText="Jetzt starten"
+            ctaAction={handleCtaClick}
+            variant="light"
+          />
 
-              <a
-                href="#"
-                onClick={handleCtaClick}
-                className="group flex items-center gap-3 py-4 px-8 rounded-xl bg-black text-white hover:bg-gray-800 transition-all font-semibold shrink-0 whitespace-nowrap"
-              >
-                <span>Sales kontaktieren</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
+          {/* Card 2: Teams (Ab 5 Usern) - The 'Black Card' */}
+          <PricingCard
+            title="Teams"
+            description={<span><strong>Ab 5 Usern.</strong> Ideal für Agenturen, Boutique-Beratungen und Consulting-Teams.</span>}
+            price={billingCycle === 'yearly' ? "59 €" : "79 €"}
+            suffix="pro Nutzer / Monat"
+            icon={<Users className="w-5 h-5" />}
+            features={[
+              "Alles aus Pay-per-Use",
+              "Zentraler Admin-Account",
+              "Live-Kollaboration im Team",
+              "Zentrales Team-Cockpit",
+              "Priority Support (24h)"
+            ]}
+            ctaText="Team upgraden"
+            ctaAction={handleCtaClick}
+            variant="dark"
+            badge="Empfohlen"
+            highlighted
+          />
 
+          {/* Card 3: Scale (Ab 50 Usern) */}
+          <PricingCard
+            title="Scale"
+            description={<span><strong>Ab 50 Usern.</strong> Für skalierbare Qualitätssicherung in Großorganisationen.</span>}
+            price={billingCycle === 'yearly' ? "49 €" : "69 €"}
+            suffix="pro Nutzer / Monat"
+            icon={<Building className="w-5 h-5" />}
+            features={[
+              "Alles aus Teams",
+              "Mehrere Admin-Accounts",
+              "Individuelle Schulung",
+              "Individuelle SLAs",
+              "High Priority Support (8h)"
+            ]}
+            ctaText="Sales kontaktieren"
+            ctaAction={handleCtaClick}
+            variant="light"
+          />
+
+        </div>
+
+        {/* Trust Footer */}
+        <div className="mt-20 flex flex-col items-center justify-center space-y-8 reveal delay-200">
+          <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] font-bold tracking-widest uppercase text-black">
+            <div className="flex items-center gap-2 bg-black/5 px-4 py-2 rounded-full border border-black/10">
+              <ShieldCheck className="w-4 h-4" />
+              <span>DSGVO KONFORM</span>
+            </div>
+            <div className="flex items-center gap-2 bg-black/5 px-4 py-2 rounded-full border border-black/10">
+              <Check className="w-4 h-4" />
+              <span>JEDERZEIT KÜNDBAR</span>
+            </div>
+            <div className="flex items-center gap-2 bg-black/5 px-4 py-2 rounded-full border border-black/10">
+              <Check className="w-4 h-4" />
+              <span>KEINE SETUP-GEBÜHR</span>
             </div>
           </div>
+
+          <p className="text-black opacity-40 text-sm flex items-center gap-1.5">
+            <HelpCircle className="w-4 h-4" />
+            <span>Unsicher welches Paket passt?</span>
+            <a href="#" onClick={handleCtaClick} className="text-black opacity-100 underline decoration-black/30 hover:decoration-black transition-all font-bold">
+              Beratungsgespräch vereinbaren
+            </a>
+          </p>
         </div>
       </div>
     </section>
   )
 }
 
-function FeatureRow({ label }: { label: string }) {
+interface PricingCardProps {
+  title: string
+  description: React.ReactNode
+  price: string
+  suffix: string
+  icon: React.ReactNode
+  features: string[]
+  ctaText: string
+  ctaAction: (e: React.MouseEvent<HTMLAnchorElement>) => void
+  variant: 'light' | 'dark'
+  badge?: string
+  highlighted?: boolean
+}
+
+function PricingCard({
+  title,
+  description,
+  price,
+  suffix,
+  icon,
+  features,
+  ctaText,
+  ctaAction,
+  variant,
+  badge,
+  highlighted
+}: PricingCardProps) {
+  const isDark = variant === 'dark'
+
   return (
-    <div className="flex items-center gap-3 group cursor-default py-1">
-      <div className="w-5 h-5 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:bg-green-500 group-hover:border-green-400 transition-all duration-300 shadow-[0_0_0_0_rgba(74,222,128,0)] group-hover:shadow-[0_0_15px_rgba(74,222,128,0.5)]">
-        <Check className="w-3 h-3 text-gray-400 group-hover:text-white transition-colors duration-300" />
+    <div className={cn(
+      "relative rounded-3xl p-10 flex flex-col h-full transition-all duration-500 group",
+      isDark
+        ? "bg-black text-white shadow-[0_40px_100px_-20px_rgba(0,0,0,0.4)] border border-black ring-1 ring-white/10"
+        : "bg-white text-black border border-black hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-1",
+      highlighted && !isDark && "lg:scale-105 z-10 border-2"
+    )}>
+
+      {/* Badge for Recommended Tier */}
+      {badge && (
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-black text-white text-[10px] font-bold tracking-[0.2em] uppercase px-5 py-2 rounded-full border border-white/20 shadow-2xl flex items-center gap-2 ring-4 ring-white z-20">
+          <Sparkles className="w-3 h-3" />
+          {badge}
+        </div>
+      )}
+
+      <div className="flex flex-col h-full relative z-10">
+        {/* Header */}
+        <div className="mb-10">
+          <div className={cn(
+            "w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300",
+            isDark ? "bg-white text-black" : "bg-black text-white shadow-xl"
+          )}>
+            {icon}
+          </div>
+          <h3 className="text-2xl font-bold mb-3 tracking-tighter">{title}</h3>
+          <p className={cn("text-sm leading-relaxed opacity-60 font-light", isDark ? "text-white" : "text-black")}>
+            {description}
+          </p>
+        </div>
+
+        {/* Price */}
+        <div className="mb-10">
+          <div className="flex items-baseline gap-1">
+            <span className="text-5xl lg:text-6xl font-black tracking-tighter leading-none">
+              {price}
+            </span>
+          </div>
+          <p className={cn("text-[10px] font-bold uppercase tracking-[0.15em] mt-4 opacity-40", isDark ? "text-white" : "text-black")}>
+            {suffix}
+          </p>
+        </div>
+
+        {/* Divider */}
+        <div className={cn("h-px w-full mb-10 opacity-10", isDark ? "bg-white" : "bg-black")} />
+
+        {/* Features */}
+        <ul className="space-y-4 mb-12 flex-1">
+          {features.map((feature, idx) => (
+            <li key={idx} className="flex items-start gap-4 text-sm group/item">
+              <div className={cn(
+                "w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 border transition-colors",
+                isDark ? "border-white/20 text-white group-hover/item:border-white" : "border-black/10 text-black group-hover/item:border-black"
+              )}>
+                <Check className="w-3 h-3" strokeWidth={4} />
+              </div>
+              <span className={cn("font-medium transition-opacity", isDark ? "text-white/80 group-hover/item:text-white" : "text-black/70 group-hover/item:text-black")}>
+                {feature}
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        {/* CTA */}
+        <a
+          href="#"
+          onClick={ctaAction}
+          className={cn(
+            "w-full py-5 px-8 rounded-2xl font-bold text-sm text-center flex items-center justify-center gap-3 transition-all duration-500 uppercase tracking-widest",
+            isDark
+              ? "bg-white text-black hover:bg-gray-100 shadow-[0_20px_40px_-10px_rgba(255,255,255,0.2)] hover:scale-[1.02]"
+              : "bg-black text-white hover:bg-[#1a1a1a] shadow-2xl hover:shadow-black/20 hover:-translate-y-1"
+          )}
+        >
+          <span>{ctaText}</span>
+          <ArrowRight className="w-4 h-4" />
+        </a>
       </div>
-      <span className="text-sm text-gray-300 group-hover:text-white transition-colors duration-300 font-medium tracking-wide group-hover:translate-x-1 transform">{label}</span>
     </div>
   )
 }
