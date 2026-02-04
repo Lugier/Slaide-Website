@@ -14,7 +14,7 @@ function PricingSectionComponent(): JSX.Element {
   }, [])
 
   return (
-    <section id="pricing" className="py-24 md:py-32 px-6 bg-white relative overflow-hidden">
+    <section id="pricing-tiers" className="py-24 md:py-32 px-6 bg-white relative overflow-hidden">
       {/* Background Decor - Strict Monochrome Grid */}
       <div className="absolute inset-0 tech-grid -z-10 opacity-[0.03]"></div>
 
