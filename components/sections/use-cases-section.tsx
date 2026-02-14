@@ -6,10 +6,10 @@ import {
   Leaf,
   Scale,
   TrendingUp,
-  Cpu,
   Check,
   Landmark,
-  GitMerge,
+  Handshake,
+  BarChart3,
 } from 'lucide-react'
 import { useLanguage } from '@/lib/context/language-context'
 
@@ -55,7 +55,7 @@ function UseCasesSectionComponent(): JSX.Element {
       ],
     },
     {
-      icon: TrendingUp, // PE usually associated with growth/money
+      icon: BarChart3, // PE: Results and Chart focus
       title: t('useCases.pe.title'),
       description: t('useCases.pe.desc'),
       features: [
@@ -64,7 +64,7 @@ function UseCasesSectionComponent(): JSX.Element {
       ],
     },
     {
-      icon: TrendingUp, // Banking - reused icon from original or generic? Original had TrendingUp. Let's use something else for PE maybe?
+      icon: Landmark, // Banking: Institutional focus
       // Original Banking used TrendingUp.
       // Let's use Briefcase for PE? No consulting has Briefcase.
       // Let's use PieChart or BarChart? Lucide has those.
@@ -90,7 +90,7 @@ function UseCasesSectionComponent(): JSX.Element {
       ],
     },
     {
-      icon: Cpu, // M&A - maybe Handshake? Or Merge?
+      icon: Handshake, // M&A: Deal making and handshake focus
       // Let's use Cpu for now (Technology was Cpu). M&A doesn't fit Cpu.
       // I should add 'Handshake' or similar from lucide-react if available, or 'GitMerge'.
       // Let's add 'GitMerge' or 'Users' or 'PieChart'.
