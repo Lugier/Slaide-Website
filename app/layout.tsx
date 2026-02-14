@@ -182,7 +182,7 @@ export default function RootLayout({
                     priceCurrency: 'EUR',
                     unitText: 'pro Seite',
                   },
-                  name: 'Slaide Standard',
+                  name: 'Slaide Pay-per-Use',
                 },
               ],
               priceRange: '€',
@@ -253,7 +253,7 @@ export default function RootLayout({
                   name: 'Was kostet Slaide?',
                   acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'Der Preis für Slaide Standard beträgt 2,69 € pro verarbeiteter Seite. Für Organisationen mit mehr als 500 Seiten pro Monat bieten wir individuelle Enterprise-Verträge mit attraktiven volumenbasierten Preisen an. Kontaktieren Sie uns für ein maßgeschneidertes Angebot.',
+                    text: 'Slaide bietet verschiedene Preismodelle: Pay-per-Use für 2,69 € pro Seite, sowie Teams- und Scale-Abonnements ab 49 € pro Nutzer/Monat. Für Organisationen mit hohem Volumen bieten wir individuelle Enterprise-Verträge an.',
                   },
                 },
                 {

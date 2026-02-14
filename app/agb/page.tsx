@@ -19,7 +19,7 @@ export default function AGBPage() {
             {t.title}
           </h1>
           <p className="text-gray-500 mb-12">
-            {t.stand} 01. Februar 2024
+            {t.stand}
           </p>
 
           <div className="prose prose-slate max-w-none">

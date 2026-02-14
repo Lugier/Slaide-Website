@@ -19,11 +19,7 @@ export default function DatenschutzPage() {
             {t.title}
           </h1>
           <p className="text-gray-500 mb-12">
-            {t.stand} {new Date().toLocaleDateString(language === 'de' ? 'de-DE' : 'en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
+            {t.stand}
           </p>
 
           <div className="prose prose-slate max-w-none">

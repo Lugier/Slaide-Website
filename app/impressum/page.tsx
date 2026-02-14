@@ -39,7 +39,7 @@ export default function ImpressumPage() {
                     info@slaide.de
                   </a>
                 </p>
-                <p>{t.section2.phone} +49 172 8812969</p>
+                <p>{t.section2.phone} {t.section2.phoneValue}</p>
               </div>
             </section>
 

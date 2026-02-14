@@ -9,7 +9,8 @@ export const legalTranslations = {
             section2: {
                 title: 'Kontakt',
                 email: 'E-Mail:',
-                phone: 'Telefon:'
+                phone: 'Telefon:',
+                phoneValue: '+49 172 8812969'
             },
             section3: {
                 title: 'Vertreten durch',
@@ -46,7 +47,7 @@ export const legalTranslations = {
         },
         agb: {
             title: 'Allgemeine Geschäftsbedingungen',
-            stand: 'Stand:',
+            stand: 'Stand: 14. Februar 2026',
             intro: 'Die nachfolgenden Allgemeinen Geschäftsbedingungen (AGB) regeln die Nutzung der Dokumentenprüfungs-Software "Slaide Review" (im Folgenden "Service" oder "Dienstleistung") der Slaide UG (haftungsbeschränkt) (im Folgenden "Anbieter" oder "wir").',
             note: 'Hinweis: Dieser Service richtet sich ausschließlich an Unternehmen, Freiberufler und andere Unternehmer im Sinne des § 14 BGB. Der Service wird nicht für Verbraucher im Sinne des § 13 BGB angeboten.',
             sections: [
@@ -73,9 +74,11 @@ export const legalTranslations = {
                 },
                 {
                     title: '4. Preise und Zahlungsbedingungen',
-                    content: '4.1 Alle Preise verstehen sich in Euro (€) zuzüglich der gesetzlichen Mehrwertsteuer, sofern nicht ausdrücklich anders vereinbart.\n4.2 Die Abrechnung erfolgt nutzungsbasiert pro verarbeiteter Seite. Eine Seite entspricht einer Seite eines PDF-Dokuments, einer Folie einer Präsentation (PPTX) oder einer Seite eines Word-Dokuments (DOCX).\n4.3 Der aktuelle Preis beträgt:',
+                    content: '4.1 Alle Preise verstehen sich in Euro (€) zuzüglich der gesetzlichen Mehrwertsteuer, sofern nicht ausdrücklich anders vereinbart.\n4.2 Die Abrechnung erfolgt entweder nutzungsbasiert pro verarbeiteter Seite oder auf Basis von Nutzer-Abonnements. Eine Seite entspricht einer Seite eines PDF-Dokuments, einer Folie einer Präsentation (PPTX) oder einer Seite eines Word-Dokuments (DOCX).\n4.3 Die aktuellen Preise sind:',
                     list: [
-                        'Slaide Standard: 2,69 € pro verarbeitete Seite'
+                        'Slaide Pay-per-Use: 2,69 € pro verarbeitete Seite',
+                        'Slaide Teams: 59 € (jährlich) / 69 € (monatlich) pro Nutzer / Monat',
+                        'Slaide Scale: 49 € (jährlich) / 59 € (monatlich) pro Nutzer / Monat'
                     ],
                     content2: '4.4 Für Organisationen mit mehr als 500 Seiten pro Monat werden individuelle Enterprise-Verträge mit volumenbasierten Preisen angeboten. Die Preise liegen in der Regel zwischen 1,99 € und 2,69 € pro Seite, abhängig vom Volumen. Eine konkrete Preisangabe erfolgt im Rahmen der individuellen Vertragsverhandlung.\n4.5 Die Zahlungsmodalitäten werden individuell vereinbart. Bei Enterprise-Verträgen erfolgt die Rechnungsstellung monatlich oder nach Erreichen eines bestimmten Verbrauchsvolumens. Die Zahlungsmethoden werden im Rahmen der Vertragsverhandlung festgelegt.\n4.6 Bei Zahlungsverzug werden Verzugszinsen in Höhe von 9 Prozentpunkten über dem Basiszinssatz berechnet. Der Anbieter behält sich vor, bei Zahlungsverzug die Leistung einzustellen.\n4.7 Der Anbieter behält sich das Recht vor, die Preise mit einer Frist von 4 Wochen zu ändern. Widerspricht der Kunde der Preiserhöhung nicht innerhalb von 2 Wochen nach Bekanntgabe, gilt die Preiserhöhung als genehmigt. Der Kunde wird in der Bekanntgabe der Preiserhöhung auf diese Rechtsfolge und sein Kündigungsrecht bei Widerspruch hingewiesen. Bei Widerspruch kann der Kunde den Vertrag zum Zeitpunkt des Wirksamwerdens der Preiserhöhung kündigen.'
                 },
@@ -131,13 +134,13 @@ export const legalTranslations = {
                 },
                 {
                     title: '10. Kündigung',
-                    content: '10.1 Beide Parteien können den Vertrag jederzeit mit einer Frist von 4 Wochen zum Monatsende kündigen.\n10.2 Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt unberührt. Ein wichtiger Grund liegt insbesondere vor, wenn:',
+                    content: '10.1 Bei nutzungsbasierter Abrechnung (Pay-per-Use) kann der Vertrag jederzeit ohne Einhaltung einer Frist gekündigt werden. Ein Anspruch auf Rückerstattung bereits verarbeiteter Seiten besteht nicht.\n10.2 Bei Nutzer-Abonnements (Teams, Scale) richtet sich die Kündigungsfrist nach der gewählten Laufzeit:\n    - Monatliche Laufzeit: Kündigung bis zu 14 Tage vor Ablauf des jeweiligen Monatszeitraums.\n    - Jährliche Laufzeit: Kündigung bis zu 4 Wochen vor Ablauf des jeweiligen Jahreszeitraums.\n10.3 Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt unberührt. Ein wichtiger Grund liegt insbesondere vor, wenn:',
                     list: [
                         'der Kunde gegen wesentliche Pflichten aus diesem Vertrag verstößt und trotz Abmahnung den Vertragsverstoß nicht beendet',
                         'der Kunde mit Zahlungen in Verzug ist und trotz Mahnung nicht zahlt',
                         'der Anbieter den Service aus betriebswirtschaftlichen Gründen einstellt'
                     ],
-                    content2: '10.3 Kündigungen müssen schriftlich erfolgen.'
+                    content2: '10.4 Kündigungen müssen in Textform (z.B. per E-Mail) erfolgen.'
                 },
                 {
                     title: '11. Änderungen der AGB',
@@ -152,7 +155,7 @@ export const legalTranslations = {
         },
         datenschutz: {
             title: 'Datenschutzerklärung',
-            stand: 'Stand:',
+            stand: 'Stand: 14. Februar 2026',
             intro: 'Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Diese Datenschutzerklärung informiert Sie über die Art, den Umfang und Zweck der Verarbeitung von personenbezogenen Daten auf unserer Website (www.slaide.de).',
             note: 'Hinweis: Für die Nutzung unserer Web-Anwendung (app.slaide.de) gilt eine separate Datenschutzerklärung, die Sie in der Web-Anwendung unter "Datenschutz" finden können.',
             sections: [
@@ -188,6 +191,34 @@ export const legalTranslations = {
                     content3: 'Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Sicherheit und Funktionsfähigkeit).',
                     sub3: '4.3 Dauer der Speicherung',
                     content4: 'Logfiles werden nach spätestens sieben Tagen gelöscht, sofern kein Sicherheitsvorfall vorliegt.'
+                },
+                {
+                    title: '5. Kontaktformular und E-Mail-Anfragen',
+                    content: 'Wenn Sie uns per Kontaktformular oder E-Mail Anfragen zukommen lassen, werden Ihre Angaben zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.\nRechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vertragliche/vorvertragliche Maßnahmen) oder Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Bearbeitung von Anfragen).'
+                },
+                {
+                    title: '6. Terminbuchung über Cal.com',
+                    content: 'Für die Online-Terminbuchung nutzen wir den Dienst Cal.com. Anbieter ist Cal.com, Inc., 152 San Francisco St, San Francisco, CA 94133, USA. Bei der Buchung werden Daten wie Name, E-Mail-Adresse und der gewünschte Termin verarbeitet.\nMit Cal.com wurde ein Auftragsverarbeitungsvertrag (AVV) auf Basis von Standardvertragsklauseln geschlossen.'
+                },
+                {
+                    title: '7. Vercel Analytics und Speed Insights',
+                    content: 'Wir nutzen Vercel Analytics und Speed Insights zur statistischen Auswertung der Besucherzahlen und zur Optimierung der Website-Performance. Diese Dienste werden von Vercel Inc. bereitgestellt. Die Daten werden in der Regel anonymisiert verarbeitet.'
+                },
+                {
+                    title: '8. Content Security Policy (CSP) Reports',
+                    content: 'Um die Sicherheit unserer Website zu gewährleisten, nutzen wir ein CSP-Reporting. Im Falle von Sicherheitsverletzungen (z.B. XSS) sendet Ihr Browser einen anonymisierten Bericht an unsere API, um uns über potenzielle Angriffe zu informieren.'
+                },
+                {
+                    title: '9. Rate Limiting (Upstash)',
+                    content: 'Zum Schutz vor Missbrauch und DDoS-Angriffen nutzen wir Upstash für das Rate Limiting. Dabei wird Ihre IP-Adresse kurzzeitig verarbeitet, um die Anzahl der Anfragen pro Zeitspanne zu begrenzen.'
+                },
+                {
+                    title: '10. E-Mail-Versand (Resend)',
+                    content: 'Für den Versand von Transaktions-E-Mails (z.B. Whitepaper-Download) nutzen wir den Dienst Resend. Anbieter ist Resend Labs Inc., 2261 Market St #4039, San Francisco, CA 94114, USA.'
+                },
+                {
+                    title: '11. Cookies',
+                    content: 'Wir verwenden überwiegend technisch notwendige Cookies, die für den Betrieb der Website erforderlich sind. Tracking-Cookies werden nur nach Ihrer ausdrücklichen Einwilligung (Opt-In) gesetzt.'
                 },
                 {
                     title: '12. Rechte der betroffenen Person',
@@ -232,7 +263,8 @@ export const legalTranslations = {
             section2: {
                 title: 'Contact',
                 email: 'Email:',
-                phone: 'Phone:'
+                phone: 'Phone:',
+                phoneValue: '+49 172 8812969'
             },
             section3: {
                 title: 'Represented by',
@@ -269,7 +301,7 @@ export const legalTranslations = {
         },
         datenschutz: {
             title: 'Privacy Policy',
-            stand: 'As of:',
+            stand: 'As of: February 14, 2026',
             intro: 'We take the protection of your personal data very seriously. This privacy policy informs you about the type, scope and purpose of the processing of personal data on our website (www.slaide.de).',
             note: 'Note: A separate privacy policy applies to the use of our web application (app.slaide.de), which you can find in the web application under "Data Protection".',
             sections: [
@@ -307,6 +339,34 @@ export const legalTranslations = {
                     content4: 'Log files are deleted after seven days at the latest, unless there is a security incident.'
                 },
                 {
+                    title: '5. Contact Form and Email Inquiries',
+                    content: 'If you send us inquiries via contact form or email, your details will be stored for the purpose of processing the inquiry and in case of follow-up questions. We do not pass on this data without your consent.\nThe legal basis is Art. 6 Para. 1 lit. b GDPR (contractual/pre-contractual measures) or Art. 6 Para. 1 lit. f GDPR (legitimate interest in processing inquiries).'
+                },
+                {
+                    title: '6. Appointment Booking via Cal.com',
+                    content: 'For online appointment booking, we use the service Cal.com. The provider is Cal.com, Inc., 152 San Francisco St, San Francisco, CA 94133, USA. When booking, data such as name, email address and the desired appointment are processed.\nA data processing agreement (DPA) based on standard contractual clauses has been concluded with Cal.com.'
+                },
+                {
+                    title: '7. Vercel Analytics and Speed Insights',
+                    content: 'We use Vercel Analytics and Speed Insights for statistical evaluation of visitor numbers and to optimize website performance. These services are provided by Vercel Inc. Data is generally processed anonymously.'
+                },
+                {
+                    title: '8. Content Security Policy (CSP) Reports',
+                    content: 'To ensure the security of our website, we use CSP reporting. In the event of security breaches (e.g. XSS), your browser sends an anonymized report to our API to inform us of potential attacks.'
+                },
+                {
+                    title: '9. Rate Limiting (Upstash)',
+                    content: 'To protect against abuse and DDoS attacks, we use Upstash for rate limiting. Your IP address is briefly processed to limit the number of requests per time period.'
+                },
+                {
+                    title: '10. Email Dispatch (Resend)',
+                    content: 'For the delivery of transactional emails (e.g. whitepaper download), we use the service Resend. The provider is Resend Labs Inc., 2261 Market St #4039, San Francisco, CA 94114, USA.'
+                },
+                {
+                    title: '11. Cookies',
+                    content: 'We predominantly use technically necessary cookies required for the operation of the website. Tracking cookies are only set after your explicit consent (opt-in).'
+                },
+                {
                     title: '12. Rights of the Data Subject',
                     content: 'If your personal data is processed, you are a data subject within the meaning of the GDPR and you have the following rights against the controller:',
                     list: [
@@ -340,7 +400,7 @@ export const legalTranslations = {
         },
         agb: {
             title: 'General Terms and Conditions',
-            stand: 'As of:',
+            stand: 'As of: February 14, 2026',
             intro: 'The following General Terms and Conditions (GTC) regulate the use of the document verification software "Slaide Review" (hereinafter "Service") of Slaide UG (haftungsbeschränkt) (hereinafter "Provider" or "we").',
             note: 'Note: This service is intended exclusively for companies, freelancers and other entrepreneurs within the meaning of § 14 BGB. The service is not offered for consumers within the meaning of § 13 BGB.',
             sections: [
@@ -367,9 +427,11 @@ export const legalTranslations = {
                 },
                 {
                     title: '4. Prices and Payment Terms',
-                    content: '4.1 All prices are in Euro (€) plus the statutory value added tax, unless explicitly agreed otherwise.\n4.2 Billing is usage-based per processed page. One page corresponds to one page of a PDF document, one slide of a presentation (PPTX) or one page of a Word document (DOCX).\n4.3 The current price is:',
+                    content: '4.1 All prices are in Euro (€) plus the statutory value added tax, unless explicitly agreed otherwise.\n4.2 Billing is either usage-based per processed page or based on user subscriptions. One page corresponds to one page of a PDF document, one slide of a presentation (PPTX) or one page of a Word document (DOCX).\n4.3 The current prices are:',
                     list: [
-                        'Slaide Standard: € 2.69 per processed page'
+                        'Slaide Pay-per-Use: € 2.69 per processed page',
+                        'Slaide Teams: € 59 (yearly) / € 69 (monthly) per user / month',
+                        'Slaide Scale: € 49 (yearly) / € 59 (monthly) per user / month'
                     ],
                     content2: '4.4 For organizations with more than 500 pages per month, individual enterprise contracts with volume-based prices are offered. Prices are generally between € 1.99 and € 2.69 per page, depending on the volume. A concrete price indication is provided in the context of individual contract negotiations.\n4.5 Payment terms are agreed individually. For enterprise contracts, invoicing takes place monthly or after reaching a certain consumption volume. Payment methods are determined in the context of contract negotiations.\n4.6 In case of payment default, default interest of 9 percentage points above the base interest rate will be charged. The Provider reserves the right to stop the service in case of payment default.\n4.7 The Provider reserves the right to change prices with a period of 4 weeks. If the customer does not object to the price increase within 2 weeks after notification, the price increase is considered approved. The customer will be informed of this legal consequence and their right of termination in case of objection in the notification of the price increase. In case of objection, the customer can terminate the contract at the time the price increase becomes effective.'
                 },
@@ -425,13 +487,13 @@ export const legalTranslations = {
                 },
                 {
                     title: '10. Termination',
-                    content: '10.1 Both parties can terminate the contract at any time with a period of 4 weeks to the end of the month.\n10.2 The right to extraordinary termination for good cause remains unaffected. A good cause exists in particular if:',
+                    content: '10.1 In the case of usage-based billing (Pay-per-Use), the contract can be terminated at any time without notice. There is no claim for reimbursement for already processed pages.\n10.2 In the case of user subscriptions (Teams, Scale), the notice period depends on the chosen term:\n    - Monthly term: Termination up to 14 days before the end of the respective monthly period.\n    - Yearly term: Termination up to 4 weeks before the end of the respective annual period.\n10.3 The right to extraordinary termination for good cause remains unaffected. A good cause exists in particular if:',
                     list: [
                         'the customer violates essential obligations from this contract and does not end the contract violation despite a warning',
                         'the customer is in default of payment and does not pay despite a warning',
                         'the Provider stops the Service for economic reasons'
                     ],
-                    content2: '10.3 Terminations must be made in writing.'
+                    content2: '10.4 Terminations must be made in text form (e.g. by email).'
                 },
                 {
                     title: '11. Changes to the GTC',
