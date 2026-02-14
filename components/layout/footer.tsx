@@ -1,3 +1,4 @@
+'use client'
 import { useLanguage } from '@/lib/context/language-context'
 import Link from 'next/link'
 import Image from 'next/image'

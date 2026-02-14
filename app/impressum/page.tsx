@@ -1,159 +1,114 @@
-import type { Metadata } from "next";
-import { Navigation } from "@/components/layout/navigation";
-import { Footer } from "@/components/layout/footer";
+'use client'
 
-export const metadata: Metadata = {
-  title: "Impressum | Slaide",
-  description: "Impressum von Slaide",
-};
+import React from 'react'
+import { Navigation } from '@/components/layout/navigation'
+import { Footer } from '@/components/layout/footer'
+import { useLanguage } from '@/lib/context/language-context'
+import { legalTranslations } from '@/lib/i18n/legal-translations'
 
-export default function ImpressumPage(): JSX.Element {
+export default function ImpressumPage() {
+  const { language } = useLanguage()
+  const t = legalTranslations[language as keyof typeof legalTranslations].impressum
+
   return (
     <>
       <Navigation />
-      <div className="min-h-screen bg-white pt-24 pb-24 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-semibold mb-8">Impressum</h1>
-          <div className="prose prose-gray max-w-none space-y-6">
+      <div className="min-h-screen bg-white pt-32 pb-20">
+        <div className="max-w-4xl mx-auto px-6">
+          <h1 className="text-4xl md:text-5xl font-bold mb-12 text-black">
+            {t.title}
+          </h1>
+
+          <div className="space-y-12">
             <section>
-              <h2 className="text-2xl font-semibold mb-4">
-                Angaben gemäß § 5 TMG
-              </h2>
+              <h2 className="text-2xl font-semibold mb-6">{t.section1.title}</h2>
+              <p className="text-grey-dark leading-relaxed whitespace-pre-line">
+                {t.section1.content}
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold mb-6">{t.section2.title}</h2>
+              <div className="text-grey-dark leading-relaxed">
+                <p>
+                  {t.section2.email}{' '}
+                  <a
+                    href="mailto:info@slaide.de"
+                    className="text-black hover:underline"
+                  >
+                    info@slaide.de
+                  </a>
+                </p>
+                <p>{t.section2.phone} +49 172 8812969</p>
+              </div>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold mb-6">{t.section3.title}</h2>
               <p className="text-grey-dark leading-relaxed">
-                <strong>Slaide UG (haftungsbeschränkt)</strong>
-                <br />
-                <strong>Neckarstraße 10</strong>
-                <br />
-                <strong>74257 Untereisesheim</strong>
-                <br />
-                <strong>Deutschland</strong>
+                {t.section3.content}
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">Kontakt</h2>
+              <h2 className="text-2xl font-semibold mb-6">{t.section4.title}</h2>
               <p className="text-grey-dark leading-relaxed">
-                <strong>E-Mail:</strong>{" "}
-                <a
-                  href="mailto:info@slaide.de"
-                  className="text-black hover:underline"
-                >
-                  info@slaide.de
-                </a>
+                {t.section4.court}
                 <br />
-                <strong>Telefon:</strong>{" "}
-                <a
-                  href="tel:+491728812969"
-                  className="text-black hover:underline"
-                >
-                  +49 172 8812969
-                </a>
+                {t.section4.number}
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">Vertreten durch</h2>
+              <h2 className="text-2xl font-semibold mb-6">{t.section5.title}</h2>
               <p className="text-grey-dark leading-relaxed">
-                <strong>Nathalie Scholl</strong> (Geschäftsführerin)
+                {t.section5.content}
+                <br />
+                {t.section5.suffix}
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold mb-4">Registereintrag</h2>
+              <h2 className="text-2xl font-semibold mb-6">{t.section6.title}</h2>
+              <p className="text-grey-dark leading-relaxed whitespace-pre-line">
+                {t.section6.content}
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold mb-6">{t.section7.title}</h2>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-xl font-medium mb-3">
+                    {t.section7.sub1}
+                  </h3>
+                  <p className="text-grey-dark leading-relaxed">
+                    {t.section7.content1}
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-xl font-medium mb-3">
+                    {t.section7.sub2}
+                  </h3>
+                  <p className="text-grey-dark leading-relaxed">
+                    {t.section7.content2}
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-xl font-medium mb-3">
+                    {t.section7.sub3}
+                  </h3>
+                  <p className="text-grey-dark leading-relaxed">
+                    {t.section7.content3}
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold mb-6">{t.section8.title}</h2>
               <p className="text-grey-dark leading-relaxed">
-                <strong>Registergericht:</strong> Stuttgart
-                <br />
-                <strong>Registernummer:</strong> HRB 793529
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold mb-4">Umsatzsteuer-ID</h2>
-              <p className="text-grey-dark leading-relaxed">
-                Umsatzsteuer-Identifikationsnummer gemäß § 27 a
-                Umsatzsteuergesetz:
-                <br />
-                <strong>Wird nachgereicht</strong>
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold mb-4">
-                Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV
-              </h2>
-              <p className="text-grey-dark leading-relaxed">
-                <strong>Nathalie Scholl</strong>
-                <br />
-                <strong>Slaide UG (haftungsbeschränkt)</strong>
-                <br />
-                <strong>Neckarstraße 10</strong>
-                <br />
-                <strong>74257 Untereisesheim</strong>
-                <br />
-                <strong>Deutschland</strong>
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold mb-4">
-                Haftungsausschluss
-              </h2>
-
-              <h3 className="text-xl font-semibold mb-3 mt-6">
-                Haftung für Inhalte
-              </h3>
-              <p className="text-grey-dark leading-relaxed mb-4">
-                Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt.
-                Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte
-                können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter
-                sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen
-                Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8
-                bis 10 TMG sind wir als Diensteanbieter jedoch nicht
-                verpflichtet, übermittelte oder gespeicherte fremde
-                Informationen zu überwachen oder nach Umständen zu forschen, die
-                auf eine rechtswidrige Tätigkeit hinweisen.
-              </p>
-
-              <h3 className="text-xl font-semibold mb-3 mt-6">
-                Haftung für Links
-              </h3>
-              <p className="text-grey-dark leading-relaxed mb-4">
-                Unser Angebot enthält Links zu externen Websites Dritter, auf
-                deren Inhalte wir keinen Einfluss haben. Deshalb können wir für
-                diese fremden Inhalte auch keine Gewähr übernehmen. Für die
-                Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter
-                oder Betreiber der Seiten verantwortlich. Eine permanente
-                inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne
-                konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar.
-                Bei Bekanntwerden von Rechtsverletzungen werden wir derartige
-                Links umgehend entfernen.
-              </p>
-
-              <h3 className="text-xl font-semibold mb-3 mt-6">Urheberrecht</h3>
-              <p className="text-grey-dark leading-relaxed mb-4">
-                Die durch die Seitenbetreiber erstellten Inhalte und Werke auf
-                diesen Seiten unterliegen dem deutschen Urheberrecht. Die
-                Vervielfältigung, Bearbeitung, Verbreitung und jede Art der
-                Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der
-                schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
-                Downloads und Kopien dieser Seite sind nur für den privaten,
-                nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf
-                dieser Seite nicht vom Betreiber erstellt wurden, werden die
-                Urheberrechte Dritter beachtet. Insbesondere werden Inhalte
-                Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine
-                Urheberrechtsverletzung aufmerksam werden, bitten wir um einen
-                entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen
-                werden wir derartige Inhalte umgehend entfernen.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold mb-4">
-                Online-Streitbeilegung
-              </h2>
-              <p className="text-grey-dark leading-relaxed mb-4">
-                Die Europäische Kommission stellt eine Plattform zur
-                Online-Streitbeilegung (OS) bereit. Diese finden Sie unter{" "}
+                {t.section8.content}
                 <a
                   href="https://ec.europa.eu/consumers/odr"
                   target="_blank"
@@ -162,9 +117,7 @@ export default function ImpressumPage(): JSX.Element {
                 >
                   https://ec.europa.eu/consumers/odr
                 </a>
-                . Wir sind nicht verpflichtet und nicht bereit, an einem
-                Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
-                teilzunehmen.
+                .{t.section8.suffix}
               </p>
             </section>
           </div>
@@ -172,5 +125,5 @@ export default function ImpressumPage(): JSX.Element {
       </div>
       <Footer />
     </>
-  );
+  )
 }
