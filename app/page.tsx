@@ -1,47 +1,21 @@
 'use client'
 
 import { useEffect, Suspense } from 'react'
-import dynamic from 'next/dynamic'
+
 import { Navigation } from '@/components/layout/navigation'
 import { Footer } from '@/components/layout/footer'
 import { HeroSection } from '@/components/sections/hero-section'
 
 // Dynamic imports for below-the-fold sections with optimized loading
-const HowItWorksSection = dynamic(() => import('@/components/sections/how-it-works-section').then((mod) => ({ default: mod.HowItWorksSection })), {
-  loading: () => <div className="h-96 w-full" aria-label="Loading section" />, // Prevent layout shift
-})
-
-const ProblemSolutionSection = dynamic(() => import('@/components/sections/problem-solution-section').then((mod) => ({ default: mod.ProblemSolutionSection })), {
-  loading: () => <div className="h-96 w-full" aria-label="Loading section" />,
-})
-
-const CoreCapabilitiesSection = dynamic(() => import('@/components/sections/core-capabilities-section').then((mod) => ({ default: mod.CoreCapabilitiesSection })), {
-  loading: () => <div className="h-96 w-full" aria-label="Loading section" />,
-})
-
-const PlatformDemoSection = dynamic(() => import('@/components/sections/platform-demo-section').then((mod) => ({ default: mod.PlatformDemoSection })), {
-  loading: () => <div className="h-96 w-full" aria-label="Loading section" />,
-})
-
-const QualityComparisonSection = dynamic(() => import('@/components/sections/quality-comparison-section').then((mod) => ({ default: mod.QualityComparisonSection })), {
-  loading: () => <div className="h-96 w-full" aria-label="Loading section" />,
-})
-
-const UseCasesSection = dynamic(() => import('@/components/sections/use-cases-section').then((mod) => ({ default: mod.UseCasesSection })), {
-  loading: () => <div className="h-96 w-full" aria-label="Loading section" />,
-})
-
-const SecuritySection = dynamic(() => import('@/components/sections/security-section').then((mod) => ({ default: mod.SecuritySection })), {
-  loading: () => <div className="h-96 w-full" aria-label="Loading section" />,
-})
-
-const PricingSection = dynamic(() => import('@/components/sections/pricing-section').then((mod) => ({ default: mod.PricingSection })), {
-  loading: () => <div className="h-96 w-full" aria-label="Loading section" />,
-})
-
-const ROISection = dynamic(() => import('@/components/sections/roi-section').then((mod) => ({ default: mod.ROISection })), {
-  loading: () => <div className="h-96 w-full" aria-label="Loading section" />,
-})
+import { HowItWorksSection } from '@/components/sections/how-it-works-section'
+import { ProblemSolutionSection } from '@/components/sections/problem-solution-section'
+import { CoreCapabilitiesSection } from '@/components/sections/core-capabilities-section'
+import { PlatformDemoSection } from '@/components/sections/platform-demo-section'
+import { QualityComparisonSection } from '@/components/sections/quality-comparison-section'
+import { UseCasesSection } from '@/components/sections/use-cases-section'
+import { SecuritySection } from '@/components/sections/security-section'
+import { PricingSection } from '@/components/sections/pricing-section'
+import { ROISection } from '@/components/sections/roi-section'
 
 export default function Home(): JSX.Element {
   useEffect(() => {

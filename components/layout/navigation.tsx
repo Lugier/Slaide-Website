@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Menu, X, Globe } from 'lucide-react'
+import { Globe } from 'lucide-react'
 import { openCalComOverlay } from '@/lib/utils/cal-com'
 import { useLanguage } from '@/lib/context/language-context'
 
@@ -169,271 +169,246 @@ export function Navigation(): JSX.Element {
   }
 
   return (
-    <nav
-      className={`fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 transition-all duration-300 ${isScrolled ? 'shadow-sm' : ''
-        }`}
-      role="navigation"
-      aria-label="Hauptnavigation"
-    >
-      <div className="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="text-lg font-semibold tracking-tight flex items-center gap-2.5 hover:opacity-80 transition-opacity focus:outline-none rounded-lg"
-          aria-label="Slaide Startseite"
-        >
-          <Image
-            src="/favicon.svg"
-            alt="Slaide Logo"
-            width={24}
-            height={24}
-            className="w-6 h-6"
-            priority
-          />
-          Slaide
-        </Link>
-
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-10 text-sm font-medium text-grey-medium">
-          <Link
-            href="/#loesung"
-            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${activeSection === 'loesung'
-              ? 'text-black font-bold'
-              : 'text-grey-medium font-medium'
-              }`}
-          >
-            {t('nav.solution')}
-            <span
-              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${activeSection === 'loesung' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
-                }`}
-              aria-hidden="true"
-            />
-          </Link>
-          <Link
-            href="/#platform"
-            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${activeSection === 'platform'
-              ? 'text-black font-bold'
-              : 'text-grey-medium font-medium'
-              }`}
-          >
-            {t('nav.platform')}
-            <span
-              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${activeSection === 'platform' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
-                }`}
-              aria-hidden="true"
-            />
-          </Link>
-          <Link
-            href="/#benchmark"
-            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${activeSection === 'benchmark'
-              ? 'text-black font-bold'
-              : 'text-grey-medium font-medium'
-              }`}
-          >
-            {t('nav.benchmark')}
-            <span
-              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${activeSection === 'benchmark' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
-                }`}
-              aria-hidden="true"
-            />
-          </Link>
-          <Link
-            href="/#security"
-            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${activeSection === 'security'
-              ? 'text-black font-bold'
-              : 'text-grey-medium font-medium'
-              }`}
-          >
-            {t('nav.security')}
-            <span
-              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${activeSection === 'security' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
-                }`}
-              aria-hidden="true"
-            />
-          </Link>
-          <Link
-            href="/#pricing-tiers"
-            className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${activeSection === 'pricing-tiers'
-              ? 'text-black font-bold'
-              : 'text-grey-medium font-medium'
-              }`}
-          >
-            {t('nav.pricing')}
-            <span
-              className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${activeSection === 'pricing-tiers' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
-                }`}
-              aria-hidden="true"
-            />
-          </Link>
-        </div>
-
-        {/* Right Actions */}
-        <div className="hidden md:flex items-center gap-4">
-          <button
-            onClick={toggleLanguage}
-            className="text-sm font-medium text-grey-medium hover:text-black transition-colors focus:outline-none px-2 py-1 flex items-center gap-1"
-            aria-label="Sprache wechseln"
-          >
-            <Globe className="w-4 h-4" />
-            <span className={language === 'de' ? 'font-bold' : ''}>DE</span>
-            <span>|</span>
-            <span className={language === 'en' ? 'font-bold' : ''}>EN</span>
-          </button>
-          <a
-            href="#"
-            onClick={handleDemoClick}
-            className={`text-sm font-medium px-5 py-2.5 rounded-lg transition-all focus:outline-none min-h-[44px] flex items-center shadow-sm ${isScrolled
-              ? 'bg-black text-white hover:bg-gray-800'
-              : 'border border-gray-200 hover:border-gray-900 hover:bg-gray-50'
-              }`}
-            aria-label="Demo anfragen"
-          >
-            {t('nav.requestDemo')}
-          </a>
-          <Link
-            href="https://app.slaide.de"
-            className="text-sm font-medium bg-black text-white px-5 py-2.5 rounded-lg hover:bg-gray-800 transition-all shadow-sm focus:outline-none min-h-[44px] flex items-center"
-            aria-label="Login"
-          >
-            {t('nav.login')}
-          </Link>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          onClick={handleMobileMenuToggle}
-          className="md:hidden p-2 w-11 h-11 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors focus:outline-none min-h-[44px] min-w-[44px]"
-          aria-label={isMobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
-          aria-expanded={isMobileMenuOpen}
-        >
-          {isMobileMenuOpen ? (
-            <X className="w-6 h-6" aria-hidden="true" />
-          ) : (
-            <Menu className="w-6 h-6" aria-hidden="true" />
-          )}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden fixed top-20 left-0 right-0 bg-white/98 backdrop-blur-lg border-b border-gray-100 z-40 transform transition-transform duration-300 ease-out ${isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full opacity-0 pointer-events-none'
+    <>
+      <nav
+        className={`fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100 transition-all duration-300 ${isScrolled ? 'shadow-sm' : ''
           }`}
         role="navigation"
-        aria-label="Mobile Navigation"
+        aria-label="Hauptnavigation"
       >
-        <nav className="max-w-[1400px] mx-auto px-6 py-6 flex flex-col gap-4">
+        <div className="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
+          {/* Logo */}
           <Link
-            href="/#loesung"
-            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${activeSection === 'loesung'
-              ? 'text-black font-bold'
-              : 'text-grey-medium font-medium'
-              }`}
-            onClick={handleMobileLinkClick}
+            href="/"
+            className="text-lg font-semibold tracking-tight flex items-center gap-2.5 hover:opacity-80 transition-opacity focus:outline-none rounded-lg"
+            aria-label="Slaide Startseite"
           >
-            {t('nav.solution')}
-            <span
-              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${activeSection === 'loesung' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
-                }`}
-              aria-hidden="true"
+            <Image
+              src="/favicon.svg"
+              alt="Slaide Logo"
+              width={24}
+              height={24}
+              className="w-6 h-6"
+              priority
             />
+            Slaide
           </Link>
-          <Link
-            href="/#platform"
-            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${activeSection === 'platform'
-              ? 'text-black font-bold'
-              : 'text-grey-medium font-medium'
-              }`}
-            onClick={handleMobileLinkClick}
-          >
-            {t('nav.platform')}
-            <span
-              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${activeSection === 'platform' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
+
+          {/* Desktop Links */}
+          <div className="hidden md:flex items-center gap-10 text-sm font-medium text-grey-medium">
+            <Link
+              href="/#loesung"
+              className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${activeSection === 'loesung'
+                ? 'text-black font-bold'
+                : 'text-grey-medium font-medium'
                 }`}
-              aria-hidden="true"
-            />
-          </Link>
-          <Link
-            href="/#benchmark"
-            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${activeSection === 'benchmark'
-              ? 'text-black font-bold'
-              : 'text-grey-medium font-medium'
-              }`}
-            onClick={handleMobileLinkClick}
-          >
-            {t('nav.benchmark')}
-            <span
-              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${activeSection === 'benchmark' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
+            >
+              {t('nav.solution')}
+              <span
+                className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${activeSection === 'loesung' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
+                  }`}
+                aria-hidden="true"
+              />
+            </Link>
+            <Link
+              href="/#platform"
+              className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${activeSection === 'platform'
+                ? 'text-black font-bold'
+                : 'text-grey-medium font-medium'
                 }`}
-              aria-hidden="true"
-            />
-          </Link>
-          <Link
-            href="/#security"
-            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${activeSection === 'security'
-              ? 'text-black font-bold'
-              : 'text-grey-medium font-medium'
-              }`}
-            onClick={handleMobileLinkClick}
-          >
-            {t('nav.security')}
-            <span
-              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${activeSection === 'security' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
+            >
+              {t('nav.platform')}
+              <span
+                className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${activeSection === 'platform' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
+                  }`}
+                aria-hidden="true"
+              />
+            </Link>
+            <Link
+              href="/#benchmark"
+              className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${activeSection === 'benchmark'
+                ? 'text-black font-bold'
+                : 'text-grey-medium font-medium'
                 }`}
-              aria-hidden="true"
-            />
-          </Link>
-          <Link
-            href="/#pricing-tiers"
-            className={`relative hover:text-black transition-all duration-300 font-medium py-2 focus:outline-none rounded px-2 min-h-[44px] flex items-center ${activeSection === 'pricing-tiers'
-              ? 'text-black font-bold'
-              : 'text-grey-medium font-medium'
-              }`}
-            onClick={handleMobileLinkClick}
-          >
-            {t('nav.pricing')}
-            <span
-              className={`absolute left-0 top-0 bottom-0 w-1 bg-black origin-top transition-all duration-300 ease-out rounded-r ${activeSection === 'pricing-tiers' ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0'
+            >
+              {t('nav.benchmark')}
+              <span
+                className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${activeSection === 'benchmark' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
+                  }`}
+                aria-hidden="true"
+              />
+            </Link>
+            <Link
+              href="/#security"
+              className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${activeSection === 'security'
+                ? 'text-black font-bold'
+                : 'text-grey-medium font-medium'
                 }`}
-              aria-hidden="true"
-            />
-          </Link>
-          <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
+            >
+              {t('nav.security')}
+              <span
+                className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${activeSection === 'security' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
+                  }`}
+                aria-hidden="true"
+              />
+            </Link>
+            <Link
+              href="/#pricing-tiers"
+              className={`relative hover:text-black transition-all duration-300 focus:outline-none rounded px-2 py-1 ${activeSection === 'pricing-tiers'
+                ? 'text-black font-bold'
+                : 'text-grey-medium font-medium'
+                }`}
+            >
+              {t('nav.pricing')}
+              <span
+                className={`absolute bottom-0 left-0 right-0 h-0.5 bg-black origin-left transition-all duration-300 ease-out ${activeSection === 'pricing-tiers' ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'
+                  }`}
+                aria-hidden="true"
+              />
+            </Link>
+          </div>
+
+          {/* Right Actions */}
+          <div className="hidden md:flex items-center gap-4">
             <button
               onClick={toggleLanguage}
-              className="text-sm font-medium text-grey-medium hover:text-black transition-colors focus:outline-none px-2 py-2 flex items-center justify-center gap-2 border border-gray-200 rounded-lg"
+              className="text-sm font-medium text-grey-medium hover:text-black transition-colors focus:outline-none px-2 py-1 flex items-center gap-1"
               aria-label="Sprache wechseln"
             >
               <Globe className="w-4 h-4" />
-              <span className={language === 'de' ? 'font-bold' : ''}>Deutsch</span>
-              <span>/</span>
-              <span className={language === 'en' ? 'font-bold' : ''}>English</span>
+              <span className={language === 'de' ? 'font-bold' : ''}>DE</span>
+              <span>|</span>
+              <span className={language === 'en' ? 'font-bold' : ''}>EN</span>
             </button>
+            <a
+              href="#"
+              onClick={handleDemoClick}
+              className={`text-sm font-medium px-5 py-2.5 rounded-lg transition-all focus:outline-none min-h-[44px] flex items-center shadow-sm ${isScrolled
+                ? 'bg-black text-white hover:bg-gray-800'
+                : 'border border-gray-200 hover:border-gray-900 hover:bg-gray-50'
+                }`}
+              aria-label="Demo anfragen"
+            >
+              {t('nav.requestDemo')}
+            </a>
             <Link
               href="https://app.slaide.de"
-              className="text-sm font-medium bg-black text-white px-5 py-2.5 rounded-lg hover:bg-gray-800 transition-all shadow-sm text-center focus:outline-none min-h-[44px] flex items-center justify-center"
-              onClick={handleMobileLinkClick}
+              className="text-sm font-medium bg-black text-white px-5 py-2.5 rounded-lg hover:bg-gray-800 transition-all shadow-sm focus:outline-none min-h-[44px] flex items-center"
               aria-label="Login"
             >
               {t('nav.login')}
             </Link>
           </div>
-        </nav>
-      </div>
 
-      {/* Mobile Sticky Bottom Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
-        <div className="max-w-[1400px] mx-auto px-6 py-3">
-          <a
-            href="#"
-            onClick={handleDemoClick}
-            className="w-full text-sm font-medium bg-black text-white px-5 py-3.5 rounded-lg hover:bg-gray-800 transition-all shadow-sm focus:outline-none min-h-[52px] flex items-center justify-center"
-            aria-label="Demo anfragen"
-          >
-            {t('nav.requestDemo')}
-          </a>
+          {/* Mobile Actions: Language + Burger */}
+          <div className="flex md:hidden items-center gap-2">
+            <button
+              onClick={toggleLanguage}
+              className="p-2 w-11 h-11 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors focus:outline-none min-h-[44px] min-w-[44px]"
+              aria-label="Sprache wechseln"
+            >
+              <span className="text-sm font-semibold">{language === 'de' ? 'DE' : 'EN'}</span>
+            </button>
+
+            <button
+              onClick={handleMobileMenuToggle}
+              className="relative z-50 p-2 w-11 h-11 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors focus:outline-none min-h-[44px] min-w-[44px]"
+              aria-label={isMobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
+              aria-expanded={isMobileMenuOpen}
+            >
+              <div className="flex flex-col gap-1.5 items-center justify-center w-6 h-6">
+                <span
+                  className={`w-6 h-0.5 bg-black rounded-full transition-all duration-300 ease-out origin-center transform ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''
+                    }`}
+                />
+                <span
+                  className={`w-6 h-0.5 bg-black rounded-full transition-all duration-300 ease-out ${isMobileMenuOpen ? 'opacity-0 scale-x-0' : 'opacity-100'
+                    }`}
+                />
+                <span
+                  className={`w-6 h-0.5 bg-black rounded-full transition-all duration-300 ease-out origin-center transform ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
+                    }`}
+                />
+              </div>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Menu - Moved outside of nav to avoid exposure to backdrop-filter clipping */}
+      <div
+        className={`md:hidden fixed inset-0 z-40 bg-white/95 backdrop-blur-2xl transform transition-all duration-500 cubic-bezier(0.32, 0.72, 0, 1) ${isMobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
+          }`}
+        role="navigation"
+        aria-label="Mobile Navigation"
+      >
+        <div className="flex flex-col h-full pt-28 px-6 pb-10 overflow-y-auto">
+          <nav className="flex flex-col items-center gap-6 text-center">
+            <Link
+              href="/#loesung"
+              className={`text-2xl font-medium transition-all duration-300 transform ${isMobileMenuOpen ? 'translate-y-0 opacity-100 delay-100' : '-translate-y-4 opacity-0'
+                } ${activeSection === 'loesung' ? 'text-black' : 'text-grey-medium'}`}
+              onClick={handleMobileLinkClick}
+            >
+              {t('nav.solution')}
+            </Link>
+            <Link
+              href="/#platform"
+              className={`text-2xl font-medium transition-all duration-300 transform ${isMobileMenuOpen ? 'translate-y-0 opacity-100 delay-150' : '-translate-y-4 opacity-0'
+                } ${activeSection === 'platform' ? 'text-black' : 'text-grey-medium'}`}
+              onClick={handleMobileLinkClick}
+            >
+              {t('nav.platform')}
+            </Link>
+            <Link
+              href="/#benchmark"
+              className={`text-2xl font-medium transition-all duration-300 transform ${isMobileMenuOpen ? 'translate-y-0 opacity-100 delay-200' : '-translate-y-4 opacity-0'
+                } ${activeSection === 'benchmark' ? 'text-black' : 'text-grey-medium'}`}
+              onClick={handleMobileLinkClick}
+            >
+              {t('nav.benchmark')}
+            </Link>
+            <Link
+              href="/#security"
+              className={`text-2xl font-medium transition-all duration-300 transform ${isMobileMenuOpen ? 'translate-y-0 opacity-100 delay-250' : '-translate-y-4 opacity-0'
+                } ${activeSection === 'security' ? 'text-black' : 'text-grey-medium'}`}
+              onClick={handleMobileLinkClick}
+            >
+              {t('nav.security')}
+            </Link>
+            <Link
+              href="/#pricing-tiers"
+              className={`text-2xl font-medium transition-all duration-300 transform ${isMobileMenuOpen ? 'translate-y-0 opacity-100 delay-300' : '-translate-y-4 opacity-0'
+                } ${activeSection === 'pricing-tiers' ? 'text-black' : 'text-grey-medium'}`}
+              onClick={handleMobileLinkClick}
+            >
+              {t('nav.pricing')}
+            </Link>
+
+            <div className={`w-full max-w-xs h-px bg-gray-100 my-4 transition-all duration-500 delay-300 ${isMobileMenuOpen ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'}`} />
+
+            <div className={`flex flex-col gap-6 w-full max-w-xs transition-all duration-500 delay-500 ${isMobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+              <button
+                onClick={toggleLanguage}
+                className="flex items-center justify-center gap-3 text-lg font-medium text-black hover:bg-gray-50 py-3 rounded-xl border border-gray-200 transition-colors w-full"
+              >
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs border ${language === 'de' ? 'bg-black text-white border-black' : 'border-gray-200 text-grey-medium'}`}>DE</div>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs border ${language === 'en' ? 'bg-black text-white border-black' : 'border-gray-200 text-grey-medium'}`}>EN</div>
+                <span className="ml-2">{language === 'de' ? 'Sprache wechseln' : 'Switch Language'}</span>
+              </button>
+
+              <Link
+                href="https://app.slaide.de"
+                className="w-full text-lg font-medium bg-black text-white px-6 py-4 rounded-xl hover:bg-gray-900 transition-all shadow-lg hover:shadow-xl active:scale-98 flex items-center justify-center"
+                onClick={handleMobileLinkClick}
+              >
+                {t('nav.login')}
+              </Link>
+            </div>
+          </nav>
         </div>
       </div>
-    </nav>
+    </>
   )
 }
 
