@@ -3,8 +3,11 @@
 import { memo, useCallback } from 'react'
 import { ArrowRight, FileText, Shield, ChevronDown, CheckCircle2, TrendingUp } from 'lucide-react'
 import { openCalComOverlay } from '@/lib/utils/cal-com'
+import { useLanguage } from '@/lib/context/language-context'
 
 function HeroSectionComponent(): JSX.Element {
+  const { t } = useLanguage()
+
   // Removed state-based visibility to avoid LCP delay
   // Animation is now handled purely by CSS
 
@@ -39,22 +42,22 @@ function HeroSectionComponent(): JSX.Element {
             {/* Status Badge - Subtle Monochrome */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-gray-200 mb-8 hero-status-badge shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-600 status-dot-pulse"></span>
-              <span className="unix-badge text-black tracking-widest font-bold">REVIEW BY SLAIDE</span>
+              <span className="unix-badge text-black tracking-widest font-bold">{t('hero.badge')}</span>
             </div>
 
             {/* Headline - Stark Black */}
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.05] md:leading-[1] mb-8 hero-headline text-black">
               <span className="block hero-line-1">
-                Perfektion.
+                {t('hero.headlinePart1')}
               </span>
               <span className="block hero-line-2 bg-gradient-to-r from-gray-900 via-gray-400 to-gray-900 bg-clip-text text-transparent">
-                Ohne Kompromisse.
+                {t('hero.headlinePart2')}
               </span>
             </h1>
 
             {/* Description - Focused & Sharp */}
             <p className="text-xl md:text-2xl text-grey-medium leading-relaxed max-w-4xl mx-auto font-light mb-10 hero-description tracking-tight">
-              In Ihren Dokumenten gibt es keinen Spielraum für Fehler. Review analysiert Ihre Unterlagen auf Logikbrüche, Inkonsistenzen und Zahlenfehler – für Resultate von absoluter Integrität.
+              {t('hero.subline')}
             </p>
           </div>
 
@@ -67,7 +70,7 @@ function HeroSectionComponent(): JSX.Element {
               aria-label="Demo buchen"
             >
               <span className="relative z-10 flex items-center gap-2">
-                Demo vereinbaren <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+                {t('hero.ctaSecondary')} <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </span>
             </a>
             <a
@@ -75,7 +78,7 @@ function HeroSectionComponent(): JSX.Element {
               className="border-2 border-black text-black px-8 py-4 rounded-xl font-semibold text-center hover:bg-black hover:text-white transition-all bg-white min-h-[48px] flex items-center justify-center focus:outline-none hero-cta-secondary text-lg"
               aria-label="ROI Rechner"
             >
-              ROI berechnen
+              {t('roi.cta')}
             </a>
           </div>
 
@@ -85,14 +88,14 @@ function HeroSectionComponent(): JSX.Element {
               <div className="unix-badge text-gray-400 mb-1">INPUT</div>
               <div className="flex gap-2 text-black items-center justify-center font-semibold">
                 <FileText className="w-4 h-4 text-gray-400" aria-hidden="true" />
-                <span>PDF, PPTX & Word</span>
+                <span>{t('hero.badges.input')}</span>
               </div>
             </div>
             <div className="space-y-1 group cursor-default">
               <div className="unix-badge text-gray-400 mb-1">DATA SECURITY</div>
               <div className="flex gap-2 text-black items-center justify-center font-semibold">
                 <Shield className="w-4 h-4 text-black" aria-hidden="true" />
-                <span>DSGVO Konform</span>
+                <span>{t('hero.badges.security')}</span>
               </div>
             </div>
             <div className="space-y-1 group cursor-default flex flex-col items-center">
@@ -100,8 +103,8 @@ function HeroSectionComponent(): JSX.Element {
               <div className="relative">
                 <TrendingUp className="w-4 h-4 text-gray-400 absolute -left-6 top-0.5" aria-hidden="true" />
                 <div className="flex flex-col items-center leading-tight text-black font-semibold">
-                  <span>Ø 532€ Ersparnis</span>
-                  <span className="text-[10px] text-gray-400 font-normal mt-0.5">pro Dokument</span>
+                  <span>{t('hero.badges.roiValue')}</span>
+                  <span className="text-[10px] text-gray-400 font-normal mt-0.5">{t('hero.badges.roiSuffix')}</span>
                 </div>
               </div>
             </div>

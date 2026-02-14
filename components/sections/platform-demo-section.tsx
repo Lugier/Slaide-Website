@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, memo } from 'react'
 import { FileText, Search, Settings, Lock, BarChart3, FileCode, MousePointer2, Users } from 'lucide-react'
+import { useLanguage } from '@/lib/context/language-context'
 
 type MockupType = 'slide' | 'report' | 'contract'
 type ViewType = 'presentation' | 'report' | 'contract'
@@ -12,6 +13,7 @@ interface FindingState {
 }
 
 function PlatformDemoSectionComponent(): JSX.Element {
+  const { t } = useLanguage()
   const [viewType, setViewType] = useState<ViewType>('presentation')
   const [activeMockup, setActiveMockup] = useState<MockupType>('slide')
   const [isVisible, setIsVisible] = useState(false)
@@ -175,7 +177,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
   const mockups = [
     {
       id: 'slide' as MockupType,
-      label: 'Präsentation',
+      label: t('platform.tabs.presentation'),
       icon: FileText,
       description: 'Seiten-basierte Dokumente',
     },
@@ -190,10 +192,10 @@ function PlatformDemoSectionComponent(): JSX.Element {
       <div className="max-w-[1400px] mx-auto">
         <div className="mb-6 md:mb-8 text-center reveal">
           <h2 className="hidden lg:block text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-black mb-3">
-            Ein Cockpit für Qualität.
+            {t('platform.headline')}
           </h2>
           <p className="text-lg md:text-xl text-gray-500 font-light leading-relaxed max-w-2xl mx-auto mb-6">
-            Die Findings werden direkt im Kontext angezeigt. Kein Suchen, sofortiges Verstehen.
+            {t('platform.subline')}
           </p>
         </div>
 
@@ -203,37 +205,37 @@ function PlatformDemoSectionComponent(): JSX.Element {
             <button
               id="tab-presentation"
               onClick={() => setViewType('presentation')}
-              aria-label="Präsentationsansicht auswählen"
+              aria-label={t('platform.tabs.presentation')}
               className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${viewType === 'presentation'
                 ? 'bg-black text-white shadow-sm'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 bg-white border border-gray-200'
                 }`}
             >
-              Präsentation
+              {t('platform.tabs.presentation')}
             </button>
             <button
               id="tab-report"
               onClick={() => setViewType('report')}
-              aria-label="Berichtsansicht auswählen"
+              aria-label={t('platform.tabs.report')}
               type="button"
               className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${viewType === 'report'
                 ? 'bg-black text-white shadow-sm'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 bg-white border border-gray-200'
                 }`}
             >
-              Report
+              {t('platform.tabs.report')}
             </button>
             <button
               id="tab-contract"
               onClick={() => setViewType('contract')}
-              aria-label="Vertragsansicht auswählen"
+              aria-label={t('platform.tabs.contract')}
               type="button"
               className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all ${viewType === 'contract'
                 ? 'bg-black text-white shadow-sm'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 bg-white border border-gray-200'
                 }`}
             >
-              Vertrag
+              {t('platform.tabs.contract')}
             </button>
           </div>
 
@@ -314,7 +316,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
               <div className="w-80 bg-white border-l border-gray-200 flex flex-col shrink-0">
                 <div className="h-12 border-b border-gray-200 flex items-center justify-between px-4 shrink-0">
                   <div className="flex items-center gap-1.5">
-                    <span className="text-sm font-bold text-black">FINDINGS</span>
+                    <span className="text-sm font-bold text-black">{t('platform.ui.findings')}</span>
                     <span className="text-xs text-gray-500">
                       ({getActiveFindingsCount(activeMockup)})
                     </span>
@@ -325,7 +327,7 @@ function PlatformDemoSectionComponent(): JSX.Element {
                 {/* Quality Score */}
                 <div className="px-4 py-3 border-b border-gray-200 bg-gradient-to-br from-gray-50 to-white">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-gray-600">Qualitätsscore</span>
+                    <span className="text-xs font-medium text-gray-600">{t('platform.ui.score')}</span>
                     <span className="text-2xl font-bold text-black">{calculateQualityScore(activeMockup)}%</span>
                   </div>
                   <div className="mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -353,18 +355,22 @@ function PlatformDemoSectionComponent(): JSX.Element {
                         <div>
                           <div className="flex items-center justify-between mb-1">
                             <span className={`text-[10px] font-bold uppercase tracking-wider ${isIgnored || isAccepted ? 'text-gray-500' : 'text-red-600'}`}>
-                              KRITISCH
+                              {t('platform.demo.ui.critical')}
                             </span>
                           </div>
                           <h4 className={`text-xs font-semibold mb-1 ${isIgnored || isAccepted ? 'text-gray-500' : 'text-black'}`}>
-                            {activeMockup === 'slide' ? 'Inkonsistenz (Zahl)' : activeMockup === 'report' ? 'Logik-Widerspruch: Text vs. Diagramm' : 'Widersprüchliche Vertragslaufzeit'}
+                            {activeMockup === 'slide'
+                              ? t('platform.demo.findings.slide.critical.title')
+                              : activeMockup === 'report'
+                                ? t('platform.demo.findings.report.critical1.title')
+                                : t('platform.demo.findings.contract.critical.title')}
                           </h4>
                           <p className={`text-[10px] leading-relaxed ${isIgnored || isAccepted ? 'text-gray-400' : 'text-gray-600'}`}>
                             {activeMockup === 'slide'
-                              ? 'Text nennt 14,2%, Tabelle zeigt 13,8% für Q2 (errechnet aus 15,9/114,8).'
+                              ? t('platform.demo.findings.slide.critical.desc')
                               : activeMockup === 'report'
-                                ? 'Text behauptet "konstant unterhalb des Alarmgrenzwertes von 2,5 mm/s", aber Abb. 14 zeigt bei 100% Last einen Wert von 3,2 mm/s (28% über Grenzwert).'
-                                : '§ 1.2 definiert Vertragslaufzeit von 36 Monaten, während § 2.2 eine Laufzeit von 24 Monaten angibt. Kritischer Widerspruch bei zentraler Vertragsbedingung.'
+                                ? t('platform.demo.findings.report.critical1.desc')
+                                : t('platform.demo.findings.contract.critical.desc')
                             }
                           </p>
                           {status === 'active' && (
@@ -374,15 +380,15 @@ function PlatformDemoSectionComponent(): JSX.Element {
                                 onClick={() => handleAccept(activeMockup, 0)}
                                 className="flex-1 bg-gray-800 text-white text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-900 transition-colors"
                               >
-                                Akzeptieren
+                                {t('platform.demo.ui.accept')}
                               </button>
                               <button
                                 id={`ignore-${activeMockup}-0`}
                                 onClick={() => handleIgnore(activeMockup, 0)}
-                                aria-label="Fehler ignorieren"
+                                aria-label={t('platform.demo.ui.ignore')}
                                 className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
                               >
-                                Ignorieren
+                                {t('platform.demo.ui.ignore')}
                               </button>
                             </div>
                           )}
@@ -407,14 +413,14 @@ function PlatformDemoSectionComponent(): JSX.Element {
                         <div>
                           <div className="flex items-center justify-between mb-1">
                             <span className={`text-[10px] font-bold uppercase tracking-wider ${isIgnored || isAccepted ? 'text-gray-500' : 'text-red-600'}`}>
-                              KRITISCH
+                              {t('platform.demo.ui.critical')}
                             </span>
                           </div>
                           <h4 className={`text-xs font-semibold mb-1 ${isIgnored || isAccepted ? 'text-gray-500' : 'text-black'}`}>
-                            Widersprüchliche Ursachenanalyse
+                            {t('platform.demo.findings.report.critical2.title')}
                           </h4>
                           <p className={`text-[10px] leading-relaxed ${isIgnored || isAccepted ? 'text-gray-400' : 'text-gray-600'}`}>
-                            Abschnitt 2.3 (Seite 45) führt erhöhte Schwingungen auf Rotorunwuchten zurück, während Abschnitt 4.2 (Seite 132) die Labyrinthdichtungen als Hauptursache identifiziert. Inkonsistente Ursachenanalyse.
+                            {t('platform.demo.findings.report.critical2.desc')}
                           </p>
                           {status === 'active' && (
                             <div className="flex gap-1.5 mt-2">
@@ -422,19 +428,19 @@ function PlatformDemoSectionComponent(): JSX.Element {
                                 id={`accept-${activeMockup}-4`}
                                 onClick={() => handleAccept(activeMockup, 4)}
                                 className="flex-1 bg-gray-800 text-white text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-900 transition-colors"
-                                aria-label="Fehler akzeptieren"
+                                aria-label={t('platform.demo.ui.accept')}
                                 type="button"
                               >
-                                Akzeptieren
+                                {t('platform.demo.ui.accept')}
                               </button>
                               <button
                                 id={`ignore-${activeMockup}-4`}
                                 onClick={() => handleIgnore(activeMockup, 4)}
                                 className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
-                                aria-label="Fehler ignorieren"
+                                aria-label={t('platform.demo.ui.ignore')}
                                 type="button"
                               >
-                                Ignorieren
+                                {t('platform.demo.ui.ignore')}
                               </button>
                             </div>
                           )}
@@ -459,18 +465,22 @@ function PlatformDemoSectionComponent(): JSX.Element {
 
                         <div className="flex items-center justify-between mb-1">
                           <span className={`text-[10px] font-bold uppercase tracking-wider ${isIgnored || isAccepted ? 'text-gray-500' : 'text-yellow-700'}`}>
-                            MITTEL
+                            {t('platform.demo.ui.medium')}
                           </span>
                         </div>
                         <h4 className={`text-xs font-semibold mb-1 ${isIgnored || isAccepted ? 'text-gray-500' : 'text-black'}`}>
-                          {activeMockup === 'slide' ? 'Formatierungsinkonsistenz' : activeMockup === 'report' ? 'Unvollständige Diagramm-Legende' : 'Begriffsinconsistenz: Vertragsgegenstand'}
+                          {activeMockup === 'slide'
+                            ? t('platform.demo.findings.slide.medium1.title')
+                            : activeMockup === 'report'
+                              ? t('platform.demo.findings.report.medium1.title')
+                              : t('platform.demo.findings.contract.medium1.title')}
                         </h4>
                         <p className={`text-[10px] leading-relaxed ${isIgnored || isAccepted ? 'text-gray-400' : 'text-gray-600'}`}>
                           {activeMockup === 'slide'
-                            ? 'Unterschiedliche Währungssymbole (€ vs. EUR) verwendet.'
+                            ? t('platform.demo.findings.slide.medium1.desc')
                             : activeMockup === 'report'
-                              ? 'Legende in Abb. 14 zeigt nur "Messwert", aber fehlt Angabe zu Messbedingungen (z.B. RMS-Glättung t=500ms) oder Messpunkten (L2 Radial).'
-                              : '§ 1.1 spricht von "IT-Serviceleistungen", während § 1.3 den Vertragsgegenstand als "Software-Lizenz" definiert. § 4.1 erwähnt "SaaS-Dienstleistungen". Inkonsistente Begriffsverwendung.'
+                              ? t('platform.demo.findings.report.medium1.desc')
+                              : t('platform.demo.findings.contract.medium1.desc')
                           }
                         </p>
                         {status === 'active' && (
@@ -480,14 +490,14 @@ function PlatformDemoSectionComponent(): JSX.Element {
                               onClick={() => handleAccept(activeMockup, 1)}
                               className="flex-1 bg-gray-800 text-white text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-900 transition-colors"
                             >
-                              Akzeptieren
+                              {t('platform.demo.ui.accept')}
                             </button>
                             <button
                               id={`ignore-${activeMockup}-1`}
                               onClick={() => handleIgnore(activeMockup, 1)}
                               className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
                             >
-                              Ignorieren
+                              {t('platform.demo.ui.ignore')}
                             </button>
                           </div>
                         )}
@@ -511,18 +521,22 @@ function PlatformDemoSectionComponent(): JSX.Element {
 
                         <div className="flex items-center justify-between mb-1">
                           <span className={`text-[10px] font-bold uppercase tracking-wider ${isIgnored || isAccepted ? 'text-gray-500' : 'text-yellow-700'}`}>
-                            MITTEL
+                            {t('platform.demo.ui.medium')}
                           </span>
                         </div>
                         <h4 className={`text-xs font-semibold mb-1 ${isIgnored || isAccepted ? 'text-gray-500' : 'text-black'}`}>
-                          {activeMockup === 'slide' ? 'Rundungsinkonsistenz' : activeMockup === 'report' ? 'Ungewöhnlicher Wertverlauf' : 'Fehlende Anlagenreferenz'}
+                          {activeMockup === 'slide'
+                            ? t('platform.demo.findings.slide.medium2.title')
+                            : activeMockup === 'report'
+                              ? t('platform.demo.findings.report.medium2.title')
+                              : t('platform.demo.findings.contract.medium2.title')}
                         </h4>
                         <p className={`text-[10px] leading-relaxed ${isIgnored || isAccepted ? 'text-gray-400' : 'text-gray-600'}`}>
                           {activeMockup === 'slide'
-                            ? 'Chart zeigt für Q2 den Wert 115,0, aber Tabelle zeigt 114,8 - Rundungsinkonsistenz.'
+                            ? t('platform.demo.findings.slide.medium2.desc')
                             : activeMockup === 'report'
-                              ? 'Bei 100% Last zeigt Diagramm 3,2 mm/s, bei 110% Last jedoch nur 2,2 mm/s. Ungewöhnlicher Rückgang ohne Erklärung im Text.'
-                              : '§ 5.4 verweist auf "Anlage B (Preismodell)", aber diese Anlage fehlt im Vertragsdokument. Unvollständige Dokumentation.'
+                              ? t('platform.demo.findings.report.medium2.desc')
+                              : t('platform.demo.findings.contract.medium2.desc')
                           }
                         </p>
                         {status === 'active' && (
@@ -532,14 +546,14 @@ function PlatformDemoSectionComponent(): JSX.Element {
                               onClick={() => handleAccept(activeMockup, 2)}
                               className="flex-1 bg-gray-800 text-white text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-900 transition-colors"
                             >
-                              Akzeptieren
+                              {t('platform.demo.ui.accept')}
                             </button>
                             <button
                               id={`ignore-${activeMockup}-2`}
                               onClick={() => handleIgnore(activeMockup, 2)}
                               className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
                             >
-                              Ignorieren
+                              {t('platform.demo.ui.ignore')}
                             </button>
                           </div>
                         )}
@@ -563,14 +577,14 @@ function PlatformDemoSectionComponent(): JSX.Element {
 
                         <div className="flex items-center justify-between mb-1">
                           <span className={`text-[10px] font-bold uppercase tracking-wider ${isIgnored || isAccepted ? 'text-gray-500' : 'text-blue-700'}`}>
-                            NIEDRIG
+                            {t('platform.demo.ui.low')}
                           </span>
                         </div>
                         <h4 className={`text-xs font-semibold mb-1 ${isIgnored || isAccepted ? 'text-gray-500' : 'text-black'}`}>
-                          Rechtschreibfehler: Straßenname
+                          {t('platform.demo.findings.contract.low.title')}
                         </h4>
                         <p className={`text-[10px] leading-relaxed ${isIgnored || isAccepted ? 'text-gray-400' : 'text-gray-600'}`}>
-                          Im Vertrag wird &quot;Maximillanstraße&quot; verwendet, korrekt wäre &quot;Maximilianstraße&quot;. Buchstabenfehler: doppeltes &quot;l&quot; statt &quot;i&quot; in &quot;Maximilian&quot;.
+                          {t('platform.demo.findings.contract.low.desc')}
                         </p>
                         {status === 'active' && (
                           <div className="flex gap-1.5 mt-2">
@@ -579,14 +593,14 @@ function PlatformDemoSectionComponent(): JSX.Element {
                               onClick={() => handleAccept(activeMockup, 3)}
                               className="flex-1 bg-gray-800 text-white text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-900 transition-colors"
                             >
-                              Akzeptieren
+                              {t('platform.demo.ui.accept')}
                             </button>
                             <button
                               id={`ignore-${activeMockup}-3`}
                               onClick={() => handleIgnore(activeMockup, 3)}
                               className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
                             >
-                              Ignorieren
+                              {t('platform.demo.ui.ignore')}
                             </button>
                           </div>
                         )}
@@ -610,16 +624,18 @@ function PlatformDemoSectionComponent(): JSX.Element {
 
                         <div className="flex items-center justify-between mb-1">
                           <span className={`text-[10px] font-bold uppercase tracking-wider ${isIgnored || isAccepted ? 'text-gray-500' : 'text-blue-700'}`}>
-                            NIEDRIG
+                            {t('platform.demo.ui.low')}
                           </span>
                         </div>
                         <h4 className={`text-xs font-semibold mb-1 ${isIgnored || isAccepted ? 'text-gray-500' : 'text-black'}`}>
-                          {activeMockup === 'slide' ? 'Formatierungsinkonsistenz' : 'Fehlende Referenz'}
+                          {activeMockup === 'slide'
+                            ? t('platform.demo.findings.slide.low.title')
+                            : t('platform.demo.findings.report.low.title')}
                         </h4>
                         <p className={`text-[10px] leading-relaxed ${isIgnored || isAccepted ? 'text-gray-400' : 'text-gray-600'}`}>
                           {activeMockup === 'slide'
-                            ? 'Die Schriftgröße schwankt zwischen Executive Summary (text-xs Überschrift, 9px Text) und Key Highlights (11px Überschrift, 9px Text) - Formatierungsinkonsistenz.'
-                            : 'Abschnitt 4.1 erwähnt DIN ISO 10816-5, aber keine vollständige Quellenangabe im Literaturverzeichnis.'
+                            ? t('platform.demo.findings.slide.low.desc')
+                            : t('platform.demo.findings.report.low.desc')
                           }
                         </p>
                         {status === 'active' && (
@@ -629,14 +645,14 @@ function PlatformDemoSectionComponent(): JSX.Element {
                               onClick={() => handleAccept(activeMockup, 3)}
                               className="flex-1 bg-gray-800 text-white text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-900 transition-colors"
                             >
-                              Akzeptieren
+                              {t('platform.demo.ui.accept')}
                             </button>
                             <button
                               id={`ignore-${activeMockup}-3`}
                               onClick={() => handleIgnore(activeMockup, 3)}
                               className="flex-1 bg-gray-200 text-gray-700 text-[10px] py-1.5 px-2 rounded-md font-medium hover:bg-gray-300 transition-colors"
                             >
-                              Ignorieren
+                              {t('platform.demo.ui.ignore')}
                             </button>
                           </div>
                         )}
@@ -823,6 +839,7 @@ interface MockupProps {
 }
 
 function SlideMockup({ hoveredFinding }: MockupProps): JSX.Element {
+  const { t } = useLanguage()
   const finding0Hovered = hoveredFinding === 'slide-0'
   const finding1Hovered = hoveredFinding === 'slide-1'
   const finding2Hovered = hoveredFinding === 'slide-2'
@@ -833,10 +850,10 @@ function SlideMockup({ hoveredFinding }: MockupProps): JSX.Element {
       {/* Slide Header */}
       <div className="mb-3 pb-2 border-b-2 border-gray-300 shrink-0">
         <div className="flex justify-between items-start">
-          <h2 className="text-base font-bold text-black">Finanzübersicht 2024</h2>
-          <div className="text-[9px] text-gray-500 font-mono">Folie 3 / 12</div>
+          <h2 className="text-base font-bold text-black">{t('platform.demo.mockups.slide.title')}</h2>
+          <div className="text-[9px] text-gray-500 font-mono">{t('platform.demo.mockups.slide.subtitle')}</div>
         </div>
-        <div className="text-[9px] text-gray-500 mt-0.5">Vertraulich</div>
+        <div className="text-[9px] text-gray-500 mt-0.5">{t('platform.demo.mockups.slide.confidential')}</div>
       </div>
 
       {/* Slide Content - Two Column Layout */}
@@ -844,40 +861,39 @@ function SlideMockup({ hoveredFinding }: MockupProps): JSX.Element {
         {/* Left Column - Text */}
         <div className="space-y-1.5 flex flex-col min-h-0">
           <div className="shrink-0">
-            <h3 className={`text-xs font-bold text-black transition-all ${finding3Hovered ? 'ring-2 ring-blue-400 bg-blue-50/30 rounded px-1 py-0.5' : ''}`}>Executive Summary</h3>
+            <h3 className={`text-xs font-bold text-black transition-all ${finding3Hovered ? 'ring-2 ring-blue-400 bg-blue-50/30 rounded px-1 py-0.5' : ''}`}>{t('platform.demo.mockups.slide.execSummary.title')}</h3>
             <ul className="space-y-0.5 text-[9px] text-gray-700 list-disc list-inside">
-              <li>Starkes Wachstum in Q3 trotz Marktvolatilität</li>
-              <li>EBITDA-Marge deutlich verbessert, sowie die operative Effizienz</li>
+              <li>{t('platform.demo.mockups.slide.execSummary.p1')}</li>
+              <li>{t('platform.demo.mockups.slide.execSummary.p2')}</li>
               <li>
-                Kosteneinsparungen von 8,5 Mio.{' '}
+                {t('platform.demo.mockups.slide.execSummary.p3Part1')}{' '}
                 <span
                   className={`px-0.5 rounded transition-all ${finding1Hovered ? 'bg-yellow-200 text-yellow-800 font-bold ring-2 ring-yellow-500' : ''}`}
                 >
                   EUR
                 </span>
-                {' '}realisiert, aufgrund unserer Maßnahmen
+                {' '}{t('platform.demo.mockups.slide.execSummary.p3Part2')}
               </li>
             </ul>
           </div>
 
           <div className="mt-1 shrink-0">
-            <h4 className={`text-[11px] font-semibold text-black mb-0.5 transition-all ${finding3Hovered ? 'ring-2 ring-blue-400 bg-blue-50/30 rounded px-1 py-0.5' : ''}`}>Key Highlights</h4>
+            <h4 className={`text-[11px] font-semibold text-black mb-0.5 transition-all ${finding3Hovered ? 'ring-2 ring-blue-400 bg-blue-50/30 rounded px-1 py-0.5' : ''}`}>{t('platform.demo.mockups.slide.highlights.title')}</h4>
             <p className="text-[9px] text-gray-700 leading-tight">
-              Trotz volatilen Marktumfelds konnten wir durch Kosteneinsparungen die EBIT-Marge von Q2 auf{' '}
+              {t('platform.demo.mockups.slide.highlights.textPart1')}{' '}
               <span
                 className={`px-0.5 rounded transition-all ${finding0Hovered ? 'bg-red-200 text-red-800 font-bold ring-2 ring-red-500' : ''}`}
               >
                 14,2%
               </span>
-              {' '}steigern und unsere operative Effizienz verbessern. Die strategischen
-              Initiativen zeigen positive Wirkung und übertreffen unsere Erwartungen.
+              {' '}{t('platform.demo.mockups.slide.highlights.textPart2')}
             </p>
           </div>
         </div>
 
         {/* Right Column - Chart */}
         <div className="space-y-1.5 flex flex-col min-h-0">
-          <h3 className="text-xs font-bold text-black shrink-0">Umsatzentwicklung</h3>
+          <h3 className="text-xs font-bold text-black shrink-0">{t('platform.demo.mockups.slide.chartTitle')}</h3>
           {/* Bar Chart */}
           <div className="bg-gray-50 p-2.5 rounded border border-gray-200 flex-1 flex items-end justify-between gap-1.5 min-h-0">
             <div className="flex flex-col items-center flex-1 h-full justify-end">
@@ -907,7 +923,7 @@ function SlideMockup({ hoveredFinding }: MockupProps): JSX.Element {
       {/* Financial Table at Bottom */}
       <div className="mt-1.5 relative shrink-0">
         <h3 className="text-[9px] font-semibold text-black mb-0.5">
-          Finanzkennzahlen (in Mio.{' '}
+          {t('platform.demo.mockups.slide.financials.title')}{' '}
           <span
             className={`px-0.5 rounded transition-all ${finding1Hovered ? 'bg-yellow-200 text-yellow-800 font-bold ring-2 ring-yellow-500' : ''}`}
           >
@@ -918,7 +934,7 @@ function SlideMockup({ hoveredFinding }: MockupProps): JSX.Element {
         <div className="border border-gray-200 rounded overflow-hidden relative">
           <div className="grid grid-cols-5 text-[9px]">
             <div className="p-1.5 bg-gray-50 font-semibold text-gray-700 border-b border-gray-200">
-              Position
+              {t('platform.demo.mockups.slide.financials.position')}
             </div>
             <div className="p-1.5 bg-gray-50 font-semibold text-gray-700 border-b border-gray-200 text-center">
               Q1
@@ -933,20 +949,20 @@ function SlideMockup({ hoveredFinding }: MockupProps): JSX.Element {
               Q4
             </div>
 
-            <div className="p-1.5 border-b border-gray-100 text-gray-800">Umsatzerlöse</div>
+            <div className="p-1.5 border-b border-gray-100 text-gray-800">{t('platform.demo.mockups.slide.financials.revenue')}</div>
             <div className="p-1.5 border-b border-gray-100 text-gray-900 text-center">120,5</div>
             <div className={`p-1.5 border-b border-gray-100 text-gray-900 text-center ${finding2Hovered ? 'bg-yellow-200 ring-2 ring-yellow-500' : ''} transition-all`}>114,8</div>
             <div className="p-1.5 border-b border-gray-100 text-gray-900 text-center">115,0</div>
             <div className="p-1.5 border-b border-gray-100 text-gray-900 text-center">125,8</div>
 
-            <div className="p-1.5 border-b border-gray-100 text-gray-800">EBIT</div>
+            <div className="p-1.5 border-b border-gray-100 text-gray-800">{t('platform.demo.mockups.slide.financials.ebit')}</div>
             <div className="p-1.5 border-b border-gray-100 text-gray-900 text-center">15,8</div>
             <div className="p-1.5 border-b border-gray-100 text-gray-900 text-center">15,9</div>
             <div className="p-1.5 border-b border-gray-100 text-gray-900 text-center">16,1</div>
             <div className="p-1.5 border-b border-gray-100 text-gray-900 text-center">16,3</div>
 
             {/* Error Row - Critical */}
-            <div className={`p-1.5 ${finding0Hovered ? 'bg-red-200' : ''} text-gray-900 font-semibold transition-all`}>EBIT-Marge</div>
+            <div className={`p-1.5 ${finding0Hovered ? 'bg-red-200' : ''} text-gray-900 font-semibold transition-all`}>{t('platform.demo.mockups.slide.financials.margin')}</div>
             <div className={`p-1.5 ${finding0Hovered ? 'bg-red-200' : ''} text-gray-900 text-center transition-all`}>13,1%</div>
             <div className={`p-1.5 border-b border-gray-100 text-center relative ${finding0Hovered ? 'bg-red-200 text-red-600' : 'text-gray-900'} transition-all`}>
               <span className="relative z-10">13,8%</span>
@@ -969,6 +985,7 @@ function SlideMockup({ hoveredFinding }: MockupProps): JSX.Element {
 
 // Report Mockup Component - DINA4 Format (210mm x 297mm)
 function ReportMockup({ hoveredFinding }: MockupProps): JSX.Element {
+  const { t } = useLanguage()
   const finding0Hovered = hoveredFinding === 'report-0'
   const finding1Hovered = hoveredFinding === 'report-1'
   const finding2Hovered = hoveredFinding === 'report-2'
@@ -987,8 +1004,8 @@ function ReportMockup({ hoveredFinding }: MockupProps): JSX.Element {
           {/* Report Header */}
           <div className="border-b border-gray-300 pb-1 mb-2 flex justify-between items-end shrink-0">
             <div>
-              <h1 className="text-[10px] font-bold text-black uppercase tracking-widest">Technische Revision T-402</h1>
-              <span className="text-[7px] text-gray-500 font-mono">Kapitel 4: Diagnostik</span>
+              <h1 className="text-[10px] font-bold text-black uppercase tracking-widest">{t('platform.demo.mockups.report.header.title')}</h1>
+              <span className="text-[7px] text-gray-500 font-mono">{t('platform.demo.mockups.report.header.chapter')}</span>
             </div>
             <div className="text-right text-[7px] text-gray-400 font-mono">
               Dokument-ID: ENG-2024-892-B
@@ -1000,38 +1017,38 @@ function ReportMockup({ hoveredFinding }: MockupProps): JSX.Element {
 
             {/* Section 4.1 */}
             <div>
-              <h3 className="font-bold text-[9px] text-black mb-0.5">4.1 Methodik der Schwingungsmessung</h3>
+              <h3 className="font-bold text-[9px] text-black mb-0.5">{t('platform.demo.mockups.report.sec41.title')}</h3>
               <p>
-                Die Erfassung der mechanischen Schwingungen erfolgte gemäß{' '}
+                {t('platform.demo.mockups.report.sec41.textPart1')}{' '}
                 <span className={`px-0.5 rounded transition-all ${finding3Hovered ? 'bg-blue-200 text-blue-800 font-bold ring-2 ring-blue-500' : ''}`}>
                   DIN ISO 10816-5
                 </span>
-                {' '}an den Lagergehäusen der Führungslager L1 (Turbine) und L2 (Generator). Die Signalabtastung (10 kHz, 48h) erfasste transiente Zustände vollständig. Rohdaten wurden durch einen Tiefpassfilter (Cut-off 1 kHz) bereinigt.
+                {' '}{t('platform.demo.mockups.report.sec41.textPart2')}
               </p>
             </div>
 
             {/* Section 4.2 (Problem Area) */}
             <div>
-              <h3 className="font-bold text-[9px] text-black mb-0.5">4.2 Analyseergebnisse Lager L2 (Radial)</h3>
+              <h3 className="font-bold text-[9px] text-black mb-0.5">{t('platform.demo.mockups.report.sec42.title')}</h3>
               <p className="mb-1">
-                Fokus der Analyse war das radiale Schwingungsverhalten des generatorseitigen Führungslagers (L2) bei 20% bis 110% Nennlast. Die Messreihen zeigen eine Stabilisierung nach{' '}
+                {t('platform.demo.mockups.report.sec42.p1Part1')}{' '}
                 <span className={`px-0.5 rounded transition-all ${finding4Hovered ? 'bg-red-200 text-red-800 font-bold ring-2 ring-red-500' : ''}`}>
                   Ertüchtigung der Labyrinthdichtungen
                 </span>
-                .
+                {t('platform.demo.mockups.report.sec42.p1Part2')}
               </p>
               <p className="mb-1">
-                Der verwendete Alarmgrenzwert von 2,5 mm/s basiert auf den Vorgaben in Abschnitt 3.2 dieser Revision. Weitere Details zur Grenzwertbestimmung finden sich im Anhang A.
+                {t('platform.demo.mockups.report.sec42.p2')}
               </p>
 
               {/* The Contradiction Text */}
               <div className={`p-1 border-l-2 pl-1.5 my-1 ${finding0Hovered ? 'border-red-500 bg-red-50/50' : 'border-gray-300'}`}>
                 <p>
-                  &quot;Zusammenfassend ist festzustellen, dass die gemessenen Schwinggeschwindigkeiten (v_rms) über das gesamte Lastband{' '}
+                  {t('platform.demo.mockups.report.sec42.quotePart1')}{' '}
                   <span className={`font-semibold ${finding0Hovered ? 'text-red-700 decoration-red-300 underline decoration-wavy' : ''}`}>
-                    konstant unterhalb des zulässigen Alarmgrenzwertes von 2,5 mm/s
+                    {t('platform.demo.mockups.report.sec42.quotePart2')}
                   </span>
-                  {' '}verblieben sind. Ein dauerhafter Betrieb ist uneingeschränkt zulässig.&quot;
+                  {' '}{t('platform.demo.mockups.report.sec42.quotePart3')}
                 </p>
               </div>
             </div>
@@ -1077,7 +1094,7 @@ function ReportMockup({ hoveredFinding }: MockupProps): JSX.Element {
               <div className="mt-2 space-y-0.5">
                 <div className="flex justify-between items-center">
                   <span className="text-[7px] font-bold text-gray-700">
-                    Abb. 14: Schwinggeschwindigkeit v_rms (mm/s) vs. Generatorlast P/Pn
+                    {t('platform.demo.mockups.report.chart.caption')}
                   </span>
                   <div className={`flex gap-1.5 items-center text-[6px] px-2 py-1 rounded transition-all ${finding1Hovered ? 'ring-2 ring-yellow-500 bg-yellow-50/30' : 'text-gray-500'}`}>
                     <span className={`flex items-center gap-0.5 ${finding1Hovered ? 'text-yellow-700 font-semibold' : ''}`}>
@@ -1085,7 +1102,7 @@ function ReportMockup({ hoveredFinding }: MockupProps): JSX.Element {
                     </span>
                   </div>
                 </div>
-                <div className="text-[6px] text-gray-400 text-center italic">Datenquelle: VIB-L2, RMS-Glättung (t=500ms)</div>
+                <div className="text-[6px] text-gray-400 text-center italic">{t('platform.demo.mockups.report.chart.source')}</div>
               </div>
             </div>
 
@@ -1125,6 +1142,7 @@ function ReportBar({ height, label, value }: { height: string, label: string, va
 
 // Contract Mockup Component - DINA4 Format (210mm x 297mm)
 function ContractMockup({ hoveredFinding }: MockupProps): JSX.Element {
+  const { t } = useLanguage()
   const finding0Hovered = hoveredFinding === 'contract-0'
   const finding1Hovered = hoveredFinding === 'contract-1'
   const finding2Hovered = hoveredFinding === 'contract-2'
@@ -1144,7 +1162,7 @@ function ContractMockup({ hoveredFinding }: MockupProps): JSX.Element {
             <div className="flex gap-4 mb-1.5">
               <div className="flex-1">
                 <p className="text-[7px] text-gray-700">
-                  <span className="font-semibold">Nordstern Industrie GmbH</span><br />
+                  <span className="font-semibold">{t('platform.demo.mockups.contract.parties.p1')}</span><br />
                   Friedrichstraße 187<br />
                   10117 Berlin<br />
                   Geschäftsführer: Dr. Thomas Weber
@@ -1152,7 +1170,7 @@ function ContractMockup({ hoveredFinding }: MockupProps): JSX.Element {
               </div>
               <div className="flex-1">
                 <p className="text-[7px] text-gray-700">
-                  <span className="font-semibold">CloudSolutions AG</span><br />
+                  <span className="font-semibold">{t('platform.demo.mockups.contract.parties.p2')}</span><br />
                   <span className={finding3Hovered ? 'ring-2 ring-blue-500 bg-blue-50/30 rounded px-0.5' : ''}>
                     Maximillanstraße 28
                   </span><br />
@@ -1163,11 +1181,11 @@ function ContractMockup({ hoveredFinding }: MockupProps): JSX.Element {
             </div>
             <div className="mb-1">
               <p className="text-[7.5px] text-black leading-tight">
-                Zwischen der <span className="font-semibold">Nordstern Industrie GmbH</span>, Friedrichstraße 187, 10117 Berlin, nachfolgend &quot;Auftraggeber&quot; genannt, und der <span className="font-semibold">CloudSolutions AG</span>, Maximilianstraße 28, 80539 München, nachfolgend &quot;Dienstleister&quot; genannt, wird nachstehender Vertrag geschlossen.
+                {t('platform.demo.mockups.contract.intro')}
               </p>
             </div>
             <div className="text-[7px] text-gray-500 italic">
-              Berlin, den 15. März 2024
+              {t('platform.demo.mockups.contract.date')}
             </div>
           </div>
 
@@ -1176,42 +1194,44 @@ function ContractMockup({ hoveredFinding }: MockupProps): JSX.Element {
 
             {/* Section 1 */}
             <div>
-              <h3 className="font-bold text-[8.5px] text-black mb-0.5">§ 1 Vertragsgegenstand</h3>
+              <h3 className="font-bold text-[8.5px] text-black mb-0.5">{t('platform.demo.mockups.contract.sec1.title')}</h3>
               <p className="mb-0.5">
-                <span className="font-semibold">1.1</span> Dieser Vertrag regelt die Erbringung von IT-Serviceleistungen durch den Dienstleister an den Auftraggeber. Die Leistungen umfassen Wartung, Support und kontinuierliche Weiterentwicklung der vereinbarten Systeme.
+                {t('platform.demo.mockups.contract.sec1.p1')}
               </p>
               <p className={`mb-0.5 ${finding0Hovered ? 'ring-2 ring-red-500 bg-red-50/30 rounded px-1 py-0.5' : ''} transition-all`}>
-                <span className="font-semibold">1.2</span> Der Vertrag gilt für die Laufzeit von{' '}
+                {t('platform.demo.mockups.contract.sec1.p2Part1')}{' '}
                 <span className={finding0Hovered ? 'text-red-700 bg-red-100' : ''}>
                   36 Monaten
                 </span>
-                {' '}ab Vertragsbeginn. Eine Verlängerung um weitere 12 Monate ist bei beidseitigem Einverständnis möglich.
+                {' '}{t('platform.demo.mockups.contract.sec1.p2Part2')}
               </p>
               <p className={`mb-0.5 ${finding1Hovered ? 'ring-2 ring-red-500 bg-red-50/30 rounded px-1 py-0.5' : ''} transition-all`}>
-                <span className="font-semibold">1.3</span> Der{' '}
+                {t('platform.demo.mockups.contract.sec1.p3Part1')}{' '}
                 <span className={finding1Hovered ? 'text-red-700 bg-red-100' : ''}>
-                  Vertragsgegenstand
+                  {t('platform.demo.mockups.contract.sec1.p3Part2')}
                 </span>
-                {' '}wird als{' '}
+                {' '}{t('platform.demo.mockups.contract.sec1.p3Part3')}{' '}
                 <span className={finding1Hovered ? 'text-red-700 bg-red-100' : ''}>
-                  &quot;Software-Lizenz&quot;
+                  {t('platform.demo.mockups.contract.sec1.p3Part4')}
                 </span>
-                {' '}definiert und umfasst die Nutzungsrechte gemäß den Bestimmungen in Anlage C.
+                {' '}{t('platform.demo.mockups.contract.sec1.p3Part5')}
               </p>
             </div>
 
             {/* Section 2 */}
             <div>
-              <h3 className="font-bold text-[8.5px] text-black mb-0.5">§ 2 Vertragsbeginn und Laufzeit</h3>
+              <h3 className="font-bold text-[8.5px] text-black mb-0.5">{t('platform.demo.mockups.contract.sec2.title')}</h3>
               <p className="mb-0.5">
-                <span className="font-semibold">2.1</span> Der Vertrag tritt mit Unterzeichnung durch beide Parteien in Kraft. Die Leistungserbringung beginnt spätestens 14 Werktage nach Vertragsbeginn.
+                {t('platform.demo.mockups.contract.sec2.p1')}
               </p>
               <p className={`mb-0.5 ${finding0Hovered ? 'ring-2 ring-red-500 bg-red-50/30 rounded px-1 py-0.5' : ''} transition-all`}>
-                <span className="font-semibold">2.2</span> Die Vertragslaufzeit beträgt{' '}
+                {t('platform.demo.mockups.contract.sec2.p1')}{' '}
+                <span className="font-semibold">2.2</span>{' '}
+                {t('platform.demo.mockups.contract.sec2.p2Part1')}{' '}
                 <span className={finding0Hovered ? 'text-red-700 bg-red-100' : ''}>
-                  24 Monate
+                  {t('platform.demo.mockups.contract.sec2.p2Part2')}
                 </span>
-                . Eine ordentliche Kündigung ist frühestens 6 Monate vor Ablauf der Laufzeit möglich.
+                {t('platform.demo.mockups.contract.sec2.p2Part3')}
               </p>
             </div>
 
@@ -1228,13 +1248,13 @@ function ContractMockup({ hoveredFinding }: MockupProps): JSX.Element {
 
             {/* Section 4 */}
             <div>
-              <h3 className="font-bold text-[8.5px] text-black mb-0.5">§ 4 Leistungsumfang</h3>
+              <h3 className="font-bold text-[8.5px] text-black mb-0.5">{t('platform.demo.mockups.contract.sec4.title')}</h3>
               <p className={`mb-0.5 ${finding1Hovered ? 'ring-2 ring-red-500 bg-red-50/30 rounded px-1 py-0.5' : ''} transition-all`}>
-                <span className="font-semibold">4.1</span> Der Dienstleister erbringt{' '}
+                {t('platform.demo.mockups.contract.sec4.p1Part1')}{' '}
                 <span className={finding1Hovered ? 'text-red-700 bg-red-100' : ''}>
-                  SaaS-Dienstleistungen
+                  {t('platform.demo.mockups.contract.sec4.p1Part2')}
                 </span>
-                {' '}gemäß den Spezifikationen in Anlage A. Dies umfasst Hosting, Datenbankverwaltung und regelmäßige Updates.
+                {' '}{t('platform.demo.mockups.contract.sec4.p1Part3')}
               </p>
               <p className="mb-0.5">
                 <span className="font-semibold">4.2</span> Der Leistungsumfang beinhaltet 24/7 Verfügbarkeit mit einer vereinbarten Uptime von mindestens 99,5% pro Monat. Ausfallzeiten für geplante Wartungen sind hiervon ausgenommen.
@@ -1246,13 +1266,13 @@ function ContractMockup({ hoveredFinding }: MockupProps): JSX.Element {
 
             {/* Section 5 */}
             <div>
-              <h3 className="font-bold text-[8.5px] text-black mb-0.5">§ 5 Vergütung</h3>
+              <h3 className="font-bold text-[8.5px] text-black mb-0.5">{t('platform.demo.mockups.contract.sec5.title')}</h3>
               <p className={`mb-0.5 ${finding2Hovered ? 'ring-2 ring-yellow-500 bg-yellow-50/30 rounded px-1 py-0.5' : ''} transition-all`}>
-                <span className="font-semibold">5.1</span> Die monatliche Grundvergütung beträgt 8.500,00 EUR zzgl. gesetzlicher Mehrwertsteuer. Die erste Rechnung wird zum Vertragsbeginn gestellt. Details zum Preismodell finden sich in{' '}
+                {t('platform.demo.mockups.contract.sec5.p1Part1')}{' '}
                 <span className={finding2Hovered ? 'text-yellow-700 bg-yellow-100 underline decoration-wavy' : ''}>
-                  Anlage B (Preismodell)
+                  {t('platform.demo.mockups.contract.sec5.p1Part2')}
                 </span>
-                .
+                {t('platform.demo.mockups.contract.sec5.p1Part3')}
               </p>
             </div>
 

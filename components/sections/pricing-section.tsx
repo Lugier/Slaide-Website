@@ -4,8 +4,10 @@ import { memo, useState, useCallback } from 'react'
 import { Check, ArrowRight, Zap, Users, Building, HelpCircle, Sparkles, ShieldCheck } from 'lucide-react'
 import { openCalComOverlay } from '@/lib/utils/cal-com'
 import { cn } from '@/lib/utils'
+import { useLanguage } from '@/lib/context/language-context'
 
 function PricingSectionComponent(): JSX.Element {
+  const { t } = useLanguage()
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('yearly')
 
   const handleCtaClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>): void => {
@@ -22,10 +24,10 @@ function PricingSectionComponent(): JSX.Element {
         {/* Section Header */}
         <div className="text-center mb-20 reveal flex flex-col items-center">
           <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tighter mb-6 text-black tracking-tight leading-[1.1]">
-            <span>Pricing für jede Teamgröße.</span>
+            <span>{t('pricing.headline')}</span>
           </h2>
           <p className="text-black text-lg md:text-xl max-w-2xl mb-12 font-light leading-relaxed opacity-60">
-            Wählen Sie das Modell, das zu Ihrer Organisationsgröße passt. Jeder Plan beinhaltet unsere strengsten Qualitätsstandards.
+            {t('pricing.subline')}
           </p>
 
           {/* Toggle - Strict Monochrome Switch */}
@@ -39,7 +41,7 @@ function PricingSectionComponent(): JSX.Element {
                   : "text-black opacity-40 hover:opacity-100"
               )}
             >
-              Monatlich
+              {t('pricing.billing.monthly')}
             </button>
             <button
               onClick={() => setBillingCycle('yearly')}
@@ -50,13 +52,13 @@ function PricingSectionComponent(): JSX.Element {
                   : "text-black opacity-40 hover:opacity-100"
               )}
             >
-              Jährlich
+              {t('pricing.billing.yearly')}
             </button>
 
             {/* Discount Badge - Strict Monochrome */}
             <div className="absolute left-full ml-4 top-1/2 -translate-y-1/2 hidden md:flex items-center gap-1.5 bg-black text-white text-[10px] font-bold px-3 py-1.5 rounded-full border border-black ring-2 ring-white shadow-xl animate-in fade-in slide-in-from-left-2 duration-500 whitespace-nowrap">
               <Sparkles className="w-3 h-3" />
-              <span>-25% SPAREN</span>
+              <span>{t('pricing.billing.save')}</span>
             </div>
           </div>
         </div>
@@ -66,59 +68,59 @@ function PricingSectionComponent(): JSX.Element {
 
           {/* Card 1: Pay-per-Use */}
           <PricingCard
-            title="Pay-per-Use"
-            description="Für Ad-hoc Prüfungen ohne vertragliche Bindung."
-            price="2,69 €"
-            suffix="pro Seite"
+            title={t('pricing.payPerUse.title')}
+            description={t('pricing.payPerUse.desc')}
+            price={t('pricing.payPerUse.price')}
+            suffix={t('pricing.payPerUse.suffix')}
             icon={<Zap className="w-5 h-5" />}
             features={[
-              "Rechtschreibung, Grammatik & Syntax",
-              "Querverweise",
-              "Plausibilität",
-              "Mathematische Neuberechnung",
-              "Argumentationslogik"
+              t('pricing.payPerUse.features.0'),
+              t('pricing.payPerUse.features.1'),
+              t('pricing.payPerUse.features.2'),
+              t('pricing.payPerUse.features.3'),
+              t('pricing.payPerUse.features.4')
             ]}
-            ctaText="Jetzt starten"
+            ctaText={t('pricing.payPerUse.cta')}
             ctaAction={handleCtaClick}
             variant="light"
           />
 
           {/* Card 2: Teams (Ab 5 Usern) - The 'Black Card' */}
           <PricingCard
-            title="Teams"
-            description={<span><strong>Ab 5 Usern.</strong> Ideal für Agenturen, Boutique-Beratungen und Consulting-Teams.</span>}
-            price={billingCycle === 'yearly' ? "59 €" : "79 €"}
-            suffix="pro Nutzer / Monat"
+            title={t('pricing.teams.title')}
+            description={<span><strong>{t('pricing.teams.desc.bold')}</strong> {t('pricing.teams.desc.text')}</span>}
+            price={billingCycle === 'yearly' ? t('pricing.teams.price.yearly') : t('pricing.teams.price.monthly')}
+            suffix={t('pricing.teams.suffix')}
             icon={<Users className="w-5 h-5" />}
             features={[
-              "Alles aus Pay-per-Use",
-              "Zentraler Admin-Account",
-              "Live-Kollaboration im Team",
-              "Zentrales Team-Cockpit",
-              "Priority Support (24h)"
+              t('pricing.teams.features.0'),
+              t('pricing.teams.features.1'),
+              t('pricing.teams.features.2'),
+              t('pricing.teams.features.3'),
+              t('pricing.teams.features.4')
             ]}
-            ctaText="Team upgraden"
+            ctaText={t('pricing.teams.cta')}
             ctaAction={handleCtaClick}
             variant="dark"
-            badge="Empfohlen"
+            badge={t('pricing.teams.badge')}
             highlighted
           />
 
           {/* Card 3: Scale (Ab 50 Usern) */}
           <PricingCard
-            title="Scale"
-            description={<span><strong>Ab 50 Usern.</strong> Für skalierbare Qualitätssicherung in Großorganisationen.</span>}
-            price={billingCycle === 'yearly' ? "49 €" : "69 €"}
-            suffix="pro Nutzer / Monat"
+            title={t('pricing.scale.title')}
+            description={<span><strong>{t('pricing.scale.desc.bold')}</strong> {t('pricing.scale.desc.text')}</span>}
+            price={billingCycle === 'yearly' ? t('pricing.scale.price.yearly') : t('pricing.scale.price.monthly')}
+            suffix={t('pricing.scale.suffix')}
             icon={<Building className="w-5 h-5" />}
             features={[
-              "Alles aus Teams",
-              "Mehrere Admin-Accounts",
-              "Individuelle Schulung",
-              "Individuelle SLAs",
-              "High Priority Support (8h)"
+              t('pricing.scale.features.0'),
+              t('pricing.scale.features.1'),
+              t('pricing.scale.features.2'),
+              t('pricing.scale.features.3'),
+              t('pricing.scale.features.4')
             ]}
-            ctaText="Sales kontaktieren"
+            ctaText={t('pricing.scale.cta')}
             ctaAction={handleCtaClick}
             variant="light"
           />
@@ -130,23 +132,23 @@ function PricingSectionComponent(): JSX.Element {
           <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] font-bold tracking-widest uppercase text-black">
             <div className="flex items-center gap-2 bg-black/5 px-4 py-2 rounded-full border border-black/10">
               <ShieldCheck className="w-4 h-4" />
-              <span>DSGVO KONFORM</span>
+              <span>{t('pricing.trust.gdpr')}</span>
             </div>
             <div className="flex items-center gap-2 bg-black/5 px-4 py-2 rounded-full border border-black/10">
               <Check className="w-4 h-4" />
-              <span>JEDERZEIT KÜNDBAR</span>
+              <span>{t('pricing.trust.cancel')}</span>
             </div>
             <div className="flex items-center gap-2 bg-black/5 px-4 py-2 rounded-full border border-black/10">
               <Check className="w-4 h-4" />
-              <span>KEINE SETUP-GEBÜHR</span>
+              <span>{t('pricing.trust.setup')}</span>
             </div>
           </div>
 
           <p className="text-black opacity-40 text-sm flex items-center gap-1.5">
             <HelpCircle className="w-4 h-4" />
-            <span>Unsicher welches Paket passt?</span>
+            <span>{t('pricing.contact.question')}</span>
             <a href="#" onClick={handleCtaClick} className="text-black opacity-100 underline decoration-black/30 hover:decoration-black transition-all font-bold">
-              Beratungsgespräch vereinbaren
+              {t('pricing.contact.cta')}
             </a>
           </p>
         </div>

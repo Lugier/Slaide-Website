@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, memo, useCallback } from 'react'
 import { Layers, Cpu, FileCheck, ArrowRight, Calendar } from 'lucide-react'
 import { openCalComOverlay } from '@/lib/utils/cal-com'
+import { useLanguage } from '@/lib/context/language-context'
 
 interface Stage {
   number: string
@@ -16,6 +17,7 @@ interface Stage {
 }
 
 function HowItWorksSectionComponent(): JSX.Element {
+  const { t } = useLanguage()
   const [activeStage, setActiveStage] = useState<number | null>(null)
   const [isVisible, setIsVisible] = useState<boolean>(false)
   const sectionRef = useRef<HTMLElement>(null)
@@ -136,37 +138,34 @@ function HowItWorksSectionComponent(): JSX.Element {
   const stages: Stage[] = [
     {
       number: '01',
-      title: 'Multimodale Erfassung',
-      description:
-        'Das System zerlegt PDFs in Text-, Vektor- und Bild-Layer. Ein vorgeschalteter KI-Screener filtert irrelevante Seiten (Deckblatt, Inhaltsverzeichnis, Abschnitt) sofort heraus, um effizient zu arbeiten.',
+      title: t('howItWorks.stages.ingest.title'),
+      description: t('howItWorks.stages.ingest.desc'),
       icon: Layers,
-      badge: 'STAGE 01 • INGEST & SCREEN',
+      badge: t('howItWorks.stages.ingest.badge'),
       badgeColor: 'text-gray-400',
     },
     {
       number: '02',
-      title: 'Semantische Verifikation',
-      description:
-        'Kern der Analyse. Eine hybride Architektur aus generativer KI und Deep-Learning-Modellen analysiert:',
+      title: t('howItWorks.stages.core.title'),
+      description: t('howItWorks.stages.core.desc'),
       features: [
-        'Rechtsschreibung, Grammatik & Syntax',
-        'Mathematische Neuberechnung',
-        'Argumentationslogik',
-        'Querverweise',
-        'Plausibilität',
+        t('howItWorks.stages.core.features.0'),
+        t('howItWorks.stages.core.features.1'),
+        t('howItWorks.stages.core.features.2'),
+        t('howItWorks.stages.core.features.3'),
+        t('howItWorks.stages.core.features.4'),
       ],
       icon: Cpu,
-      badge: 'STAGE 02 • NEURAL CORE',
+      badge: t('howItWorks.stages.core.badge'),
       badgeColor: 'text-white',
       isHighlighted: true,
     },
     {
       number: '03',
-      title: 'Strukturierter Report',
-      description:
-        'Ergebnisse werden nicht als loser Text, sondern als strukturierte Issue-Liste ausgegeben. Priorisiert nach Schweregrad von Kritisch bis Niedrig, bereit für den direkten Fix im Originaldokument. Mit direktem PDF-Export der Ergebnisse.',
+      title: t('howItWorks.stages.synthesis.title'),
+      description: t('howItWorks.stages.synthesis.desc'),
       icon: FileCheck,
-      badge: 'STAGE 03 • SYNTHESIS',
+      badge: t('howItWorks.stages.synthesis.badge'),
       badgeColor: 'text-gray-400',
     },
   ]
@@ -195,23 +194,14 @@ function HowItWorksSectionComponent(): JSX.Element {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm">
               <div className="w-2 h-2 rounded-full bg-white/40 animate-pulse"></div>
               <span className="text-xs font-mono text-gray-300 uppercase tracking-wider">
-                ARCHITECTURE v2.0
+                {t('howItWorks.badge')}
               </span>
             </div>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[1.1] text-white">
-              Analyse-
-              <span
-                ref={depthWordRef}
-                className="relative inline preserve-3d"
-              >
-                <span className="relative z-10">Tiefe,</span>
-                <span className="absolute bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-white/20 via-white/10 to-white/20 blur-xl -z-0"></span>
-              </span>
-              {' '}die selbst Experten entgeht.
+              {t('howItWorks.headline')}
             </h2>
             <p className="text-lg md:text-xl text-gray-400 font-light leading-relaxed max-w-xl">
-              Review nutzt eine mehrstufige neuronale Architektur, um den Inhalt Ihrer Dokumente
-              semantisch tiefgründig zu durchdringen.
+              {t('howItWorks.subline')}
             </p>
           </div>
         </div>
@@ -247,8 +237,8 @@ function HowItWorksSectionComponent(): JSX.Element {
                 <div
                   key={index}
                   className={`group relative transition-all duration-1000 dynamic-transition-delay ${isVisible
-                      ? 'opacity-100 translate-y-0'
-                      : 'opacity-0 translate-y-12'
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-12'
                     }`}
                   data-transition-delay={delay}
                   ref={(el) => {
@@ -262,8 +252,8 @@ function HowItWorksSectionComponent(): JSX.Element {
                   {/* Card Container */}
                   <div
                     className={`relative h-full bg-gradient-to-br from-[#0a0a0a] to-[#050505] border rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-10 transition-all duration-500 ${stage.isHighlighted
-                        ? 'border-white/20'
-                        : 'border-gray-800/50 hover:border-gray-700/50'
+                      ? 'border-white/20'
+                      : 'border-gray-800/50 hover:border-gray-700/50'
                       } ${isActive
                         ? 'transform scale-[1.02]'
                         : 'hover:scale-[1.01]'
@@ -285,14 +275,14 @@ function HowItWorksSectionComponent(): JSX.Element {
                       {/* Icon Container */}
                       <div
                         className={`relative mb-6 md:mb-8 transition-all duration-500 ${isActive || stage.isHighlighted
-                            ? 'transform scale-110'
-                            : 'group-hover:scale-105'
+                          ? 'transform scale-110'
+                          : 'group-hover:scale-105'
                           }`}
                       >
                         <div
                           className={`w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl flex items-center justify-center transition-all duration-500 ${stage.isHighlighted
-                              ? 'bg-white text-black shadow-lg shadow-white/20'
-                              : 'bg-gradient-to-br from-gray-800 to-gray-900 text-gray-400 group-hover:text-white group-hover:from-gray-700 group-hover:to-gray-800'
+                            ? 'bg-white text-black shadow-lg shadow-white/20'
+                            : 'bg-gradient-to-br from-gray-800 to-gray-900 text-gray-400 group-hover:text-white group-hover:from-gray-700 group-hover:to-gray-800'
                             }`}
                         >
                           <Icon className="w-7 h-7 md:w-8 md:h-8" aria-hidden="true" />
@@ -357,13 +347,13 @@ function HowItWorksSectionComponent(): JSX.Element {
                       <button
                         onClick={openCalComOverlay}
                         className={`mt-8 flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-white transition-all duration-300 cursor-pointer group/button ${isActive
-                            ? 'opacity-100 translate-x-0'
-                            : 'opacity-0 -translate-x-2 pointer-events-none'
+                          ? 'opacity-100 translate-x-0'
+                          : 'opacity-0 -translate-x-2 pointer-events-none'
                           }`}
                         type="button"
                         aria-label="Kostenlose Demo buchen"
                       >
-                        <span>Kostenlose Demo</span>
+                        <span>{t('howItWorks.cta.text')}</span>
                         <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/button:translate-x-1" aria-hidden="true" />
                       </button>
                     </div>
@@ -388,7 +378,7 @@ function HowItWorksSectionComponent(): JSX.Element {
             }`}
         >
           <p className="text-gray-400 text-sm md:text-base mb-6">
-            Erleben Sie die neuronale Architektur in Aktion
+            {t('howItWorks.cta.text')}
           </p>
           <button
             onClick={openCalComOverlay}
@@ -397,7 +387,7 @@ function HowItWorksSectionComponent(): JSX.Element {
             aria-label="Kostenlose Demo buchen"
           >
             <Calendar className="w-5 h-5" aria-hidden="true" />
-            <span>Kostenlose Demo buchen</span>
+            <span>{t('howItWorks.cta.button')}</span>
             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
           </button>
         </div>

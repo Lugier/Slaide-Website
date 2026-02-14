@@ -3,6 +3,7 @@
 import { useState, useMemo, useCallback, memo } from 'react'
 import { Calculator, FileText, Presentation, TrendingUp, Clock, DollarSign, Info } from 'lucide-react'
 import { openCalComOverlay } from '@/lib/utils/cal-com'
+import { useLanguage } from '@/lib/context/language-context'
 
 type DocumentType = 'presentation' | 'document'
 
@@ -20,6 +21,7 @@ const MINUTES_PER_PAGE: Record<DocumentType, number> = {
 }
 
 function ROISectionComponent(): JSX.Element {
+  const { t } = useLanguage()
   const [documentType, setDocumentType] = useState<DocumentType>('presentation')
   const [pages, setPages] = useState<number>(100)
   const [pagesInput, setPagesInput] = useState<string>('100') // Separate state für Input-String
@@ -121,10 +123,10 @@ function ROISectionComponent(): JSX.Element {
             <Calculator className="w-8 h-8 text-white" aria-hidden="true" />
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-4 text-black">
-            ROI-Rechner
+            {t('roi.headline')}
           </h2>
           <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
-            Berechnen Sie Ihre Einsparungen über alle Review Cycles hinweg.
+            {t('roi.subline')}
           </p>
         </div>
 
@@ -132,12 +134,12 @@ function ROISectionComponent(): JSX.Element {
         <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-12">
           {/* Inputs */}
           <div className="p-8 rounded-2xl border border-gray-200 bg-gray-50 reveal">
-            <h3 className="text-lg font-semibold mb-6">Ihre Parameter</h3>
+            <h3 className="text-lg font-semibold mb-6">{t('roi.inputs.title')}</h3>
 
             {/* Dokumententyp */}
             <div className="mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-3">
-                Dokumententyp
+                {t('roi.inputs.docType.label')}
               </label>
               <div className="grid grid-cols-2 gap-3">
                 <button
@@ -150,9 +152,9 @@ function ROISectionComponent(): JSX.Element {
                   aria-label="Präsentation auswählen"
                 >
                   <Presentation className={`w-5 h-5 mx-auto mb-2 ${documentType === 'presentation' ? 'text-white' : 'text-gray-400'}`} aria-hidden="true" />
-                  <div className="text-sm font-medium">Präsentation</div>
+                  <div className="text-sm font-medium">{t('roi.inputs.docType.presentation')}</div>
                   <div className="text-xs mt-1 opacity-75">
-                    7 Min/Seite
+                    {t('roi.inputs.docType.presentationTime')}
                   </div>
                 </button>
                 <button
@@ -165,9 +167,9 @@ function ROISectionComponent(): JSX.Element {
                   aria-label="Dokument auswählen"
                 >
                   <FileText className={`w-5 h-5 mx-auto mb-2 ${documentType === 'document' ? 'text-white' : 'text-gray-400'}`} aria-hidden="true" />
-                  <div className="text-sm font-medium">Dokument</div>
+                  <div className="text-sm font-medium">{t('roi.inputs.docType.document')}</div>
                   <div className="text-xs mt-1 opacity-75">
-                    12 Min/Seite
+                    {t('roi.inputs.docType.documentTime')}
                   </div>
                 </button>
               </div>
@@ -176,7 +178,7 @@ function ROISectionComponent(): JSX.Element {
             {/* Anzahl Seiten */}
             <div>
               <label htmlFor="pages-input" className="block text-sm font-medium text-gray-700 mb-3">
-                Anzahl Seiten
+                {t('roi.inputs.pages.label')}
               </label>
               <input
                 id="pages-input"
@@ -219,29 +221,29 @@ function ROISectionComponent(): JSX.Element {
                 }}
                 className="flex items-center justify-center w-full py-4 px-6 bg-black text-white rounded-xl text-base font-bold hover:bg-gray-800 transition-all shadow-md hover:shadow-lg active:scale-[0.98]"
               >
-                <span>Strategiegespräch vereinbaren</span>
+                <span>{t('roi.inputs.cta')}</span>
               </a>
             </div>
           </div>
 
           {/* Ergebnisse pro Cycle */}
           <div className="p-8 rounded-2xl border border-gray-200 bg-gray-50 reveal delay-100">
-            <h3 className="text-lg font-semibold mb-6 text-gray-800">Einsparung pro Review Cycle</h3>
+            <h3 className="text-lg font-semibold mb-6 text-gray-800">{t('roi.results.title')}</h3>
 
             <div className="space-y-4 mb-6">
               <div className="pb-4 border-b border-gray-200">
                 <div className="flex items-center gap-2 mb-2">
                   <Clock className="w-4 h-4 text-gray-500" aria-hidden="true" />
-                  <span className="text-sm text-gray-700">Manuelle Prüfung</span>
+                  <span className="text-sm text-gray-700">{t('roi.results.manual')}</span>
                 </div>
                 <div className="text-2xl font-bold text-gray-900">{calculations.manualReviewCost.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })}</div>
                 <div className="flex items-center gap-1.5 text-xs text-gray-600 mt-1 group/calc relative">
-                  <span>{(pages * calculations.hoursPerPage).toFixed(1)} Stunden × {HOURLY_RATE.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/h</span>
+                  <span>{(pages * calculations.hoursPerPage).toFixed(1)} {t('roi.results.hours')} × {HOURLY_RATE.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/h</span>
                   <div className="relative">
                     <Info className="w-3 h-3 text-gray-500 opacity-40 hover:opacity-70 cursor-help transition-opacity" aria-hidden="true" />
                     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-xl opacity-0 invisible group-hover/calc:opacity-100 group-hover/calc:visible transition-all duration-200 z-10 border border-gray-700">
                       <p className="leading-relaxed">
-                        Basierend auf Median-Werten aus Banking & Consulting. Der Stundensatz von {HOURLY_RATE.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/h basiert auf durchschnittlichen Review-Zeiten und berücksichtigt die Beteiligung von Managern und Partnern im Review-Prozess.
+                        {t('roi.results.description')} {HOURLY_RATE.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/h
                       </p>
                       <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
                     </div>
@@ -252,28 +254,28 @@ function ROISectionComponent(): JSX.Element {
               <div className="pb-4 border-b border-gray-200">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-sm font-medium text-gray-500">€</span>
-                  <span className="text-sm text-gray-700">Review Kosten</span>
+                  <span className="text-sm text-gray-700">{t('roi.results.review')}</span>
                 </div>
                 <div className="text-2xl font-bold text-gray-900">{calculations.reviewCost.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 })}</div>
                 <div className="text-xs text-gray-600 mt-1">
-                  {pages} Seiten × {calculations.pricePerPage.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/Seite
+                  {pages} {t('roi.results.pages')} × {calculations.pricePerPage.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/{t('roi.results.page')}
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
-                  Verarbeitungszeit: {calculations.totalProcessingTimeMinutes > 0 ? `${calculations.totalProcessingTimeMinutes} Min ` : ''}{calculations.totalProcessingTimeSecondsRemainder > 0 ? `${calculations.totalProcessingTimeSecondsRemainder}s` : ''}
+                  {t('roi.results.processingTime')}: {calculations.totalProcessingTimeMinutes > 0 ? `${calculations.totalProcessingTimeMinutes} Min ` : ''}{calculations.totalProcessingTimeSecondsRemainder > 0 ? `${calculations.totalProcessingTimeSecondsRemainder}s` : ''}
                 </div>
               </div>
 
               <div className="pt-4">
                 <div className="flex items-center gap-2 mb-5">
                   <TrendingUp className="w-4 h-4 text-green-600" aria-hidden="true" />
-                  <span className="text-sm font-semibold text-green-700">Ihre Einsparung</span>
+                  <span className="text-sm font-semibold text-green-700">{t('roi.results.savings')}</span>
                 </div>
                 <div className="flex items-start gap-6 mb-5">
                   <div className="flex-1">
                     <div className="text-4xl font-bold text-green-600 leading-tight">
                       {calculations.savingsPerCycle.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })}
                     </div>
-                    <div className="text-xs text-green-700 font-medium mt-1.5">Kosteneinsparung pro Dokument</div>
+                    <div className="text-xs text-green-700 font-medium mt-1.5">{t('roi.results.costSavings')}</div>
                   </div>
                   {calculations.timeSavedHours > 0 || calculations.timeSavedMinutes > 0 ? (
                     <>
@@ -284,7 +286,7 @@ function ROISectionComponent(): JSX.Element {
                           {calculations.timeSavedHours > 0 && calculations.timeSavedMinutes > 0 && ' '}
                           {calculations.timeSavedMinutes > 0 && `${calculations.timeSavedMinutes}${calculations.timeSavedMinutes === 1 ? 'min' : 'min'}`}
                         </div>
-                        <div className="text-xs text-green-700 font-medium mt-1.5">Zeitersparnis</div>
+                        <div className="text-xs text-green-700 font-medium mt-1.5">{t('roi.results.timeSavings')}</div>
                       </div>
                     </>
                   ) : null}

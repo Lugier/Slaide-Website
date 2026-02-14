@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef, memo } from 'react'
+import { useLanguage } from '@/lib/context/language-context'
 
 // Custom Hook für animierte Zahlen
 const useCounter = (end: number, duration: number = 2000, start: boolean = false) => {
@@ -28,6 +29,7 @@ const useCounter = (end: number, duration: number = 2000, start: boolean = false
 }
 
 function QualityComparisonSectionComponent() {
+  const { t } = useLanguage()
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
 
@@ -62,11 +64,10 @@ function QualityComparisonSectionComponent() {
         {/* Header */}
         <div className="mb-20">
           <h2 className={`text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-black mb-6 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            Manuell vs. Review
+            {t('comparison.headline')}
           </h2>
           <div className={`text-lg md:text-xl text-gray-500 max-w-2xl font-light leading-relaxed transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            Wir haben Review gegen erfahrene Berater antreten lassen.
-            Die Ergebnisse definieren einen neuen Standard für Ihre Qualitätssicherung.
+            {t('comparison.subline')}
           </div>
         </div>
 
@@ -76,14 +77,14 @@ function QualityComparisonSectionComponent() {
           {/* COLUMN 1: SPEED */}
           <div className={`transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="mb-8 pb-4 border-b border-gray-100">
-              <h3 className="text-lg font-medium text-gray-900 tracking-tight">Verarbeitungszeit</h3>
+              <h3 className="text-lg font-medium text-gray-900 tracking-tight">{t('comparison.speed.title')}</h3>
             </div>
 
             <div className="space-y-12 group/speed">
               {/* Item 1: Manual */}
               <div>
                 <div className="flex justify-between items-end mb-3">
-                  <span className="text-sm font-medium text-gray-500">Erfahrene Berater (Ø)</span>
+                  <span className="text-sm font-medium text-gray-500">{t('comparison.speed.consultant')}</span>
                   <span className="text-2xl font-mono text-gray-400 tracking-tight">{humanTime} min</span>
                 </div>
                 <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden">
@@ -96,7 +97,7 @@ function QualityComparisonSectionComponent() {
                 <div className="flex justify-between items-end mb-3">
                   <span className="text-sm font-medium text-black">Review</span>
                   <div className="flex items-center gap-3">
-                    <span className="px-2 py-0.5 bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded">46x Schneller</span>
+                    <span className="px-2 py-0.5 bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded">{t('comparison.speed.improvement')}</span>
                     <span className="text-4xl font-mono font-bold text-green-600 tracking-tight">{aiTime} min</span>
                   </div>
                 </div>
@@ -114,15 +115,15 @@ function QualityComparisonSectionComponent() {
           {/* COLUMN 2: PRECISION */}
           <div className={`transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div className="mb-8 pb-4 border-b border-gray-100">
-              <h3 className="text-lg font-medium text-gray-900 tracking-tight">Fehlererkennung</h3>
+              <h3 className="text-lg font-medium text-gray-900 tracking-tight">{t('comparison.precision.title')}</h3>
             </div>
 
             <div className="space-y-12 group/precision">
               {/* Item 1: Manual */}
               <div>
                 <div className="flex justify-between items-end mb-3">
-                  <span className="text-sm font-medium text-gray-500">Erfahrene Berater (Ø)</span>
-                  <span className="text-2xl font-mono text-gray-400 tracking-tight">{humanErrors} <span className="text-sm text-gray-300">/ 36 Fehler</span></span>
+                  <span className="text-sm font-medium text-gray-500">{t('comparison.precision.consultant')}</span>
+                  <span className="text-2xl font-mono text-gray-400 tracking-tight">{humanErrors} <span className="text-sm text-gray-300">/ 36 {t('comparison.precision.errors')}</span></span>
                 </div>
                 <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden">
                   <div className="h-full bg-gray-300 rounded-full transition-all duration-[2000ms] ease-out" style={{ width: isVisible ? '53%' : '0%' }}></div>
@@ -134,8 +135,8 @@ function QualityComparisonSectionComponent() {
                 <div className="flex justify-between items-end mb-3">
                   <span className="text-sm font-medium text-black">Review</span>
                   <div className="flex items-center gap-3">
-                    <span className="px-2 py-0.5 bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded">+94% Präzision</span>
-                    <span className="text-4xl font-mono font-bold text-green-600 tracking-tight">{aiErrors} <span className="text-sm text-green-600/60 font-medium">/ 36 Fehler</span></span>
+                    <span className="px-2 py-0.5 bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-wider rounded">{t('comparison.precision.improvement')}</span>
+                    <span className="text-4xl font-mono font-bold text-green-600 tracking-tight">{aiErrors} <span className="text-sm text-green-600/60 font-medium">/ 36 {t('comparison.precision.errors')}</span></span>
                   </div>
                 </div>
                 <div className="h-1.5 w-full bg-gray-50 rounded-full overflow-hidden">
@@ -153,30 +154,30 @@ function QualityComparisonSectionComponent() {
 
         {/* Context Note */}
         <div className={`mt-8 text-sm text-gray-400 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-          <p>Grundlage: Eine repräsentative Beispiel-Präsentation (20 Seiten, 36 Fehler).</p>
+          <p>{t('comparison.note')}</p>
         </div>
 
         {/* Footer Metrics */}
         <div className={`mt-24 pt-10 border-t border-gray-100 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
           <div className="group cursor-default">
-            <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-2 group-hover:text-gray-900 transition-colors duration-500">Effizienz</div>
-            <div className="text-xl font-medium text-black">-98% Zeitaufwand</div>
+            <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-2 group-hover:text-gray-900 transition-colors duration-500">{t('comparison.impact.efficiency.title')}</div>
+            <div className="text-xl font-medium text-black">{t('comparison.impact.efficiency.value')}</div>
             <p className="mt-2 text-sm text-gray-500 leading-relaxed group-hover:text-gray-800 transition-colors duration-500">
-              Eliminiert den Flaschenhals manueller Korrekturschleifen. Sofortige Ergebnisse statt stundenlanges Warten.
+              {t('comparison.impact.efficiency.desc')}
             </p>
           </div>
           <div className="group cursor-default">
-            <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-2 group-hover:text-gray-900 transition-colors duration-500">Konsistenz</div>
-            <div className="text-xl font-medium text-black">Konstante Präzision</div>
+            <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-2 group-hover:text-gray-900 transition-colors duration-500">{t('comparison.impact.consistency.title')}</div>
+            <div className="text-xl font-medium text-black">{t('comparison.impact.consistency.value')}</div>
             <p className="mt-2 text-sm text-gray-500 leading-relaxed group-hover:text-gray-800 transition-colors duration-500">
-              Seite 1 wird genauso präzise und aufmerksam geprüft wie Seite 100 – ohne Ermüdungsfaktor.
+              {t('comparison.impact.consistency.desc')}
             </p>
           </div>
           <div className="group cursor-default">
-            <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-2 group-hover:text-gray-900 transition-colors duration-500">Impact</div>
-            <div className="text-xl font-medium text-black">Board-Level Plausibilität</div>
+            <div className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-2 group-hover:text-gray-900 transition-colors duration-500">{t('comparison.impact.impact.title')}</div>
+            <div className="text-xl font-medium text-black">{t('comparison.impact.impact.value')}</div>
             <p className="mt-2 text-sm text-gray-500 leading-relaxed group-hover:text-gray-800 transition-colors duration-500">
-              Stellt sicher, dass jedes Dokument nicht nur fehlerfrei, sondern in sich schlüssig und plausibel ist.
+              {t('comparison.impact.impact.desc')}
             </p>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/react'
 import { WebVitalsInit } from '@/components/web-vitals-init'
 import './globals.css'
+import { LanguageProvider } from '@/lib/context/language-context'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,9 +27,9 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Slaide | Audit-Grade Deck Integrity für Dokumente',
-  description: 'Audit-Grade Integrity für Dokumente: Slaide prüft Decks auf Logik, Konsistenz, Sprache und Zahlenfehler – inkl. Cross-Slide-Verifikation. In Minuten statt Tagen.',
-  keywords: 'Dokumentenvalidierung, Präsentationsprüfung, KI-Fehlererkennung, kritische Dokumente, Zahlenfehler finden, logische Inkonsistenzen, Dokumentenprüfung, Fehlerprüfung, KI-Validierung, Berichtsprüfung, Unterlagenvalidierung, Audit-Grade, Deck Integrity, Cross-Slide Checks',
+  title: 'Slaide | Automatische Fehlerprüfung für PowerPoint & Berichte',
+  description: 'Finden Sie Zahlenfehler, Logikbrüche und Inkonsistenzen in Sekunden. Die KI-Lösung für fehlerfreie Pitch Decks und Dokumente. Jetzt kostenlos testen.',
+  keywords: 'Fehler in Präsentation finden, Powerpoint Korrekturlesen, Inkonsistenzen prüfen, Zahlenvalidierung, Pitch Deck Fehlercheck, Lektorat',
   authors: [{ name: 'Slaide' }],
   creator: 'Slaide',
   publisher: 'Slaide',
@@ -45,8 +46,8 @@ export const metadata: Metadata = {
   category: 'Business Software',
   openGraph: {
     type: 'website',
-    title: 'Slaide | Audit-Grade Deck Integrity für Dokumente',
-    description: 'Slaide prüft Decks auf Logik, Konsistenz, Sprache und Zahlenfehler – inkl. Cross-Slide-Verifikation. In Minuten statt Tagen.',
+    title: 'Slaide | Automatische Fehlerprüfung für PowerPoint & Berichte',
+    description: 'Finden Sie Zahlenfehler, Logikbrüche und Inkonsistenzen in Sekunden. Die KI-Lösung für fehlerfreie Pitch Decks und Dokumente. Jetzt kostenlos testen.',
     url: 'https://www.slaide.de/',
     siteName: 'Slaide',
     images: [
@@ -54,15 +55,15 @@ export const metadata: Metadata = {
         url: '/favicon.svg',
         width: 1200,
         height: 630,
-        alt: 'Slaide - Audit-Grade Deck Integrity',
+        alt: 'Slaide - Automatische Fehlerprüfung',
       },
     ],
     locale: 'de_DE',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Slaide | Audit-Grade Deck Integrity für Dokumente',
-    description: 'Slaide prüft Decks auf Logik, Konsistenz, Sprache und Zahlenfehler – inkl. Cross-Slide-Verifikation. In Minuten statt Tagen.',
+    title: 'Slaide | Automatische Fehlerprüfung für PowerPoint & Berichte',
+    description: 'Finden Sie Zahlenfehler, Logikbrüche und Inkonsistenzen in Sekunden. Die KI-Lösung für fehlerfreie Pitch Decks und Dokumente. Jetzt kostenlos testen.',
     images: ['/favicon.svg'],
     site: '@slaide',
     creator: '@slaide',
@@ -123,7 +124,7 @@ export default function RootLayout({
                 'https://slaide.online'
               ],
               logo: 'https://www.slaide.de/favicon.svg',
-              description: 'Slaide bietet Zero-Defect Reporting für High-Stakes Dokumente. Automatisierte KI-Validierung findet Fehler, die selbst den besten Experten entgehen.',
+              description: 'Finden Sie Zahlenfehler, Logikbrüche und Inkonsistenzen in Sekunden. Die KI-Lösung für fehlerfreie Pitch Decks und Dokumente.',
               address: {
                 '@type': 'PostalAddress',
                 streetAddress: 'Neckarstraße 10',
@@ -169,7 +170,7 @@ export default function RootLayout({
                   name: 'European Union',
                 },
               ],
-              description: 'Automatisierte KI-Validierung für kritische Dokumente. Findet logische Brüche und Zahlenfehler in Präsentationen, Berichten und Unterlagen.',
+              description: 'Automatische Fehlerprüfung für PowerPoint & Berichte. Findet Zahlenfehler, Logikbrüche und Inkonsistenzen in Sekunden.',
               offers: [
                 {
                   '@type': 'Offer',
@@ -195,7 +196,7 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'Product',
               name: 'Slaide Review',
-              description: 'Audit-Grade Deck Integrity für Dokumente. Automatisierte KI-Validierung findet logische Brüche und Zahlenfehler.',
+              description: 'Automatische Fehlerprüfung für PowerPoint & Berichte. Findet Zahlenfehler, Logikbrüche und Inkonsistenzen in Sekunden.',
               brand: {
                 '@type': 'Brand',
                 name: 'Slaide',
@@ -329,7 +330,7 @@ export default function RootLayout({
               name: 'Slaide',
               applicationCategory: 'BusinessApplication',
               operatingSystem: 'Web',
-              description: 'Audit-Grade Deck Integrity für Dokumente. Automatisierte KI-Validierung findet logische Brüche und Zahlenfehler in Präsentationen, Berichten und Unterlagen.',
+              description: 'Automatische Fehlerprüfung für PowerPoint & Berichte. Findet Zahlenfehler, Logikbrüche und Inkonsistenzen in Sekunden.',
               url: 'https://www.slaide.de',
               offers: {
                 '@type': 'Offer',
@@ -412,7 +413,9 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased bg-white">
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
         <WebVitalsInit />
         {process.env.NODE_ENV === 'production' && (
           <>
